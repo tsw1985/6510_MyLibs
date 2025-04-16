@@ -58,4 +58,25 @@ clean_location_screen:
     tax // transfer A to X
     pla // pull A from Stack
 
+    rts
+
+
+/*
+    Def   : print text
+    Input : load the pointer in ZERO_PAGE_PRINT_TEXT_LO 
+*/
+print_text:
+
+    ldy #0
+    continue_writing:
+
+        lda (ZERO_PAGE_PRINT_TEXT_LO),y
+        beq end_writing    //si A == 0 flag Z active
+        sta SCREEN_CHAR    //load char to show
+        jsr print_char
+        iny
+        inc SCREEN_COL_POS
+        jmp continue_writing
+
+    end_writing:
     rts    
