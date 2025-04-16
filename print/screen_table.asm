@@ -4,6 +4,10 @@
 .label ZERO_PAGE_ROW_LOW_BYTE    = ZERO_PAGE + 0 // $20
 .label ZERO_PAGE_ROW_HIGHT_BYTE  = ZERO_PAGE + 1 // $21
 
+.label ZERO_PAGE_PRINT_TEXT_LO  = ZERO_PAGE + 2 // $22
+.label ZERO_PAGE_PRINT_TEXT_HI  = ZERO_PAGE + 3 // $23
+
+
 .label SCREEN_RAM     = $0400
 .label SCREEN_WIDTH   = 40
 .label SCREEN_HEIGHT  = 25

@@ -23,6 +23,13 @@ main:
     sta SCREEN_ROW_POS
     lda #8 
     sta SCREEN_COL_POS
+
+    lda #<message
+    sta ZERO_PAGE_PRINT_TEXT_LO
+
+    lda #>message
+    sta ZERO_PAGE_PRINT_TEXT_HI
+
     jsr print_text    // show a long text
 
 rts
@@ -32,7 +39,8 @@ print_text:
     ldx #0
     continue_writing:
 
-        lda message,x
+        //lda message,x
+        lda (ZERO_PAGE_PRINT_TEXT_LO),x
         beq end_writing  //si A == 0 flag Z active
         sta SCREEN_CHAR //load char to show
         jsr print_char
