@@ -2,8 +2,8 @@ BasicUpstart2(main)
 
 #import "print/print_char.asm"
 
-message: .text @"hola amantes de la panera como estan\$00"
-message2: .text @"guarden este repo\$00"
+message: .text @"11hola amantes de la panera como estan\$00"
+message2: .text @"22guarden este repo\$00"
 
 main:
 
