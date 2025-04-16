@@ -4,6 +4,9 @@
     sta SCREEN_ROW_POS
     lda #y 
     sta SCREEN_COL_POS
+    lda #color
+    sta SCREEN_CHAR_COLOR
+
 }
 
 .macro load_text(string){

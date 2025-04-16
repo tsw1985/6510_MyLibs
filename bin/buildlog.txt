@@ -10,6 +10,6 @@ Memory Map
 ----------
 Default-segment:
   $0801-$080c Basic
-  $080e-$092b Basic End
+  $080e-$099b Basic End
 
 Writing Symbol file: main.sym
