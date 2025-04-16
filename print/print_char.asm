@@ -16,11 +16,8 @@ print_char:
     pha  // push A (Y) to stack
 
     ldx SCREEN_ROW_POS       // Row 22
-    
     lda Row_LO,x
     sta ZERO_PAGE_ROW_LOW_BYTE
-
-    
     lda Row_HI,x
     sta ZERO_PAGE_ROW_HIGHT_BYTE
 
@@ -50,6 +47,7 @@ clean_location_screen:
     pha  // push A (Y) to stack
 
     lda #0
+    sta SCREEN_CHAR_INDEX
     sta SCREEN_ROW_POS
     sta SCREEN_COL_POS             // col 15
 

@@ -17,26 +17,27 @@ main:
     sta SCREEN_COL_POS
 
     //jsr print_char  // print single char
+    
+    jsr clean_location_screen
+    lda #4
+    sta SCREEN_ROW_POS
+    lda #8 
+    sta SCREEN_COL_POS
     jsr print_text    // show a long text
 
 rts
 
 print_text:
 
-    jsr clean_location_screen
-    lda #4
-    sta SCREEN_ROW_POS
-    lda #5 
-    sta SCREEN_COL_POS
-    
+    ldx #0
     continue_writing:
 
         lda message,x
-        beq end_writing
+        beq end_writing  //si A == 0 flag Z active
         sta SCREEN_CHAR //load char to show
         jsr print_char
         inx
-        stx SCREEN_COL_POS
+        inc SCREEN_COL_POS
         jmp continue_writing
 
     end_writing:
