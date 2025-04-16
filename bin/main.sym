@@ -1,4 +1,4 @@
-.label continue_writing=$8b3
+.label continue_writing=$8b1
 .label ZERO_PAGE_ROW_LOW_BYTE=$20
 .label clean_location_screen=$863
 .label Row_HI=$82a
@@ -12,6 +12,7 @@
 .label SCREEN_RAM=$400
 .label print_char=$843
 .label SCREEN_WIDTH=$28
-.label show_main_message=$8a4
+.label end_writing=$8c3
+.label print_text=$8a4
 .label SCREEN_COL_POS=$80f
 .label ZERO_PAGE_ROW_HIGHT_BYTE=$21

@@ -3,6 +3,7 @@ BasicUpstart2(main)
 #import "print/print_char.asm"
 
 message: .text @"hola que tal como estan\$00"
+//message: .byte 'h'
 
 main:
 
@@ -15,12 +16,12 @@ main:
     lda #5
     sta SCREEN_COL_POS
 
-    //jsr print_char        // print single char
-    jsr show_main_message // show a long text
+    //jsr print_char  // print single char
+    jsr print_text    // show a long text
 
 rts
 
-show_main_message:
+print_text:
 
     jsr clean_location_screen
     lda #4
@@ -28,12 +29,17 @@ show_main_message:
     lda #5 
     sta SCREEN_COL_POS
     
-    ldx #0
     continue_writing:
+
         lda message,x
+        beq end_writing
+        sta SCREEN_CHAR //load char to show
         jsr print_char
         inx
         stx SCREEN_COL_POS
+        jmp continue_writing
+
+    end_writing:
 
 rts
 
