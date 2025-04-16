@@ -1,11 +1,11 @@
-.label continue_writing=$8bf
+.label continue_writing=$8c5
 .label ZERO_PAGE_ROW_LOW_BYTE=$20
 .label clean_location_screen=$864
 .label Row_HI=$82b
 .label ZERO_PAGE=$20
 .label ZERO_PAGE_PRINT_TEXT_HI=$23
 .label Row_LO=$812
-.label main=$892
+.label main=$895
 .label SCREEN_ROW_POS=$80e
 .label ZERO_PAGE_PRINT_TEXT_LO=$22
 .label message=$87a
@@ -14,8 +14,8 @@
 .label SCREEN_RAM=$400
 .label print_char=$844
 .label SCREEN_WIDTH=$28
-.label end_writing=$8d0
-.label print_text=$8bd
+.label end_writing=$8d6
+.label print_text=$8c3
 .label SCREEN_CHAR_INDEX=$811
 .label SCREEN_COL_POS=$80f
 .label ZERO_PAGE_ROW_HIGHT_BYTE=$21
