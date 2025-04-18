@@ -1,0 +1,16 @@
+Output dir: /home/lenovo1/DEVELOPER/C64/code/mylibs/includes/bin
+parsing
+Got 2 errors and 0 warnings while executing:
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/includes/main_code.asm 17:17) Error: Can't open file: /demos/print/print_single_char.asm
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/includes/main_code.asm 21:17) Error: Can't open file: /demos/math/division.asm
+
+    //but , we are showing the demos for each library
+
+    // PRINT LIB DEMOS
+        #import "/demos/print/print_single_char.asm"
+                ^
+
+Error: Can't open file: /demos/print/print_single_char.asm
+at line 17, column 17 in main_code.asm
+
+

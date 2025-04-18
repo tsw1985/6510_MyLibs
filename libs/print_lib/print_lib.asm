@@ -1,6 +1,6 @@
 #import "print_variables/print_variables.asm"
 #import "print_macros/print_macros.asm"
-#import "screen_table.asm"
+#import "tables/screen_table.asm"
 
 /*
     Def   : clean ROW - COL coords
