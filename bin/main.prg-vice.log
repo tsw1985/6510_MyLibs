@@ -1,0 +1,148 @@
+registered font '/usr/share/vice/common/C64_Pro_Mono-STYLE.ttf'.
+registered font '/usr/share/vice/common/PetMe1282Y.ttf'.
+registered font '/usr/share/vice/common/PetMe128.ttf'.
+registered font '/usr/share/vice/common/PetMe2X.ttf'.
+registered font '/usr/share/vice/common/PetMe2Y.ttf'.
+registered font '/usr/share/vice/common/PetMe642Y.ttf'.
+registered font '/usr/share/vice/common/PetMe64.ttf'.
+registered font '/usr/share/vice/common/PetMe.ttf'.
+ 
+*** VICE Version 3.9 ***
+ 
+Welcome to x64sc, the free portable C64 Emulator.
+ 
+Current VICE team members:
+Pottendo, Marco van den Heuvel, Fabrizio Gennari, Groepaz, Errol Smith, 
+Ingo Korb, Olaf Seibert, Marcus Sutton, Kajtar Zsolt, AreaScout, Bas Wassink, 
+Michael C. Martin, Christopher Phillips, David Hogan, Empathic Qubit, 
+Roberto Muscedere, June Tate-Gans, Pablo Roldan.
+ 
+This is free software with ABSOLUTELY NO WARRANTY.
+See the "About VICE" command for more info.
+ 
+Main: random seed was: 0x680271e5
+Main: command line was: x64 -logfile /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg
+Main: VICE system file directory: '/usr/share/vice'.
+Main: VICE system file search path: '/home/lenovo1/.local/share/vice:/usr/bin:/usr/share/vice'.
+Loading system file `/usr/share/vice/C64/kernal-901227-03.bin'.
+C64MEM: Kernal rev #3 ($03) Sum: 50954 ($C70A) SHA1: 1d503e56df85a62fee696e7618dc5b4e781df1bb.
+Loading system file `/usr/share/vice/C64/basic-901226-01.bin'.
+Loading system file `/usr/share/vice/C64/chargen-901225-01.bin'.
+Palette: Loading palette `/usr/share/vice/PRINTER/mps803.vpl'.
+Loading system file `/usr/share/vice/PRINTER/nl10.bin'.
+Palette: Loading palette `/usr/share/vice/PRINTER/nl10.vpl'.
+NL10: Printer driver initialized.
+Palette: Loading palette `/usr/share/vice/PRINTER/1520.vpl'.
+Loading system file `/usr/share/vice/DRIVES/dos1540-325302+3-01.bin'.
+Loading system file `/usr/share/vice/DRIVES/dos1541-325302-01+901229-05.bin'.
+Loading system file `/usr/share/vice/DRIVES/dos1541ii-251968-03.bin'.
+Loading system file `/usr/share/vice/DRIVES/dos1570-315090-01.bin'.
+Loading system file `/usr/share/vice/DRIVES/dos1571-310654-05.bin'.
+Loading system file `/usr/share/vice/DRIVES/dos1581-318045-02.bin'.
+DriveROM: Error - 2000 ROM image not found. Hardware-level 2000 emulation is not available.
+DriveROM: Error - 4000 ROM image not found. Hardware-level 4000 emulation is not available.
+DriveROM: Error - CMDHD ROM image not found. Hardware-level CMDHD emulation is not available.
+Loading system file `/usr/share/vice/DRIVES/dos2031-901484-03+05.bin'.
+Loading system file `/usr/share/vice/DRIVES/dos2040-901468-06+07.bin'.
+Loading system file `/usr/share/vice/DRIVES/dos3040-901468-11-13.bin'.
+Loading system file `/usr/share/vice/DRIVES/dos4040-901468-14-16.bin'.
+Loading system file `/usr/share/vice/DRIVES/dos1001-901887+8-01.bin'.
+Loading system file `/usr/share/vice/DRIVES/dos9000-300516+7-revC.bin'.
+Drive: Finished loading ROM images.
+VIC-II: Initializing chip model "MOS8565" (63 cycles per line, 312 raster lines).
+Window: using GTK3 backend: OpenGL
+Window: chip_name: VICII
+Window:  screen_size: 384 x 312
+Window:  gfx_size: 320 x 200
+Window:  gfx_position: 32 x 51
+Window:  first/last displayed line: 16 x 287
+Window:  extra offscreen border left/right: 0 x 0
+Window:  scalexy: 2 x 2 sizexy: 1 x 1
+Window:  rmode: 1
+Window:  aspect ratio: 0.936508
+Window:  hstretch: 0 vstretch: 0
+Window:  initializing with width, height: 704 x 507
+OpenGL: GLX version: 1.4
+OpenGL: Getting matching framebuffer configs
+OpenGL: Found 24 matching FB configs.
+OpenGL: Obtained OpenGL 4.2 context
+OpenGL: Direct GLX rendering context obtained
+OpenGL: Swap control support. glXSwapIntervalMESA: 1 glXSwapIntervalEXT: 1 glXSwapIntervalSGI: 1
+OpenGL: Loading vertex shader: /usr/share/vice/GLSL/viewport.vert
+OpenGL: Loading fragment shader: /usr/share/vice/GLSL/builtin.frag
+OpenGL: Loading vertex shader: /usr/share/vice/GLSL/viewport.vert
+OpenGL: Loading fragment shader: /usr/share/vice/GLSL/builtin-interlaced.frag
+OpenGL: Loading vertex shader: /usr/share/vice/GLSL/viewport.vert
+OpenGL: Loading fragment shader: /usr/share/vice/GLSL/bicubic.frag
+OpenGL: Loading vertex shader: /usr/share/vice/GLSL/viewport.vert
+OpenGL: Loading fragment shader: /usr/share/vice/GLSL/bicubic-interlaced.frag
+Render thread: Created render thread 0
+OpenGL: Render thread initialised
+Sound: Available sound devices: pulse alsa dummy fs dump wav voc iff aiff mp3 flac ogg soundmovie
+evdev Joystick: Initializing Linux evdev joystick driver.
+Keymap: Loading keymap `/usr/share/vice/C64/gtk3_sym.vkm'.
+Hotkeys: Initializing hotkeys.
+Hotkeys: parsing default file '/usr/share/vice/hotkeys/hotkeys.vhk' for machine C64
+Hotkeys: OK.
+Main CPU: 
+Main CPU: starting at ($FFFC).
+Main CPU: RESET.
+VIC-II: VSP Bug: safe channels are: 01467. Emulation of memory corruption is disabled.
+AUTOSTART: Autodetecting image type of `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg'.
+Filesystem Image Probe: Error - Import GCR: Unknown GCR image version 51.
+Filesystem Image: Unknown disk image `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg'.
+Tape: Error - Cannot open file `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg'
+Error - no CRT header found.
+CART: '/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' is not a valid CRT file.
+AUTOSTART: Loading PRG file `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' with autostart disk image.
+AUTOSTART: Resetting drive 8
+AUTOSTART: Resetting the machine to autostart 'MAIN'
+VIC-II: VSP Bug: safe channels are: 2345. Emulation of memory corruption is disabled.
+AUTOSTART: Turning Warp mode on.
+AUTOSTART: `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' recognized as program/p00 file.
+Main CPU: RESET.
+Sound: Opened device `pulse', speed 48000Hz, fragment size 2.67ms, buffer size 32.00ms
+Sound: reSID: MOS8580, filter on, sampling rate 48000Hz - resampling, pass to 21600Hz
+VSync: Sync reset
+Unit 8: RESET.
+AUTOSTART: Loading program 'MAIN'
+AUTOSTART: Entered ROM at $e5cd
+AUTOSTART: Searching for ...
+AUTOSTART: Loading
+AUTOSTART: Entered ROM at $ea21
+AUTOSTART: Ready
+AUTOSTART: Turning Warp mode off.
+AUTOSTART: Starting program.
+AUTOSTART: Restoring FileSystemDevice8 to 1.
+AUTOSTART: Restoring FSDevice8ConvertP00 to 1.
+AUTOSTART: Restoring FSDeviceLongNames to 0.
+AUTOSTART: Done.
+VSync: Sync reset
+Render thread: Initiating render thread 0 shutdown
+Render thread: Joining render thread 0 ...
+Render thread: Joined render thread 0.
+
+
+LogFileName="/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log"
+SaveResourcesOnExit=1
+ConfirmOnExit=0
+MonitorXPos=2305
+MonitorYPos=184
+MonitorWidth=1021
+MonitorHeight=710
+MonitorFont="DM Mono Medium 10"
+MonitorFG="rgb(55,218,29)"
+Window0Height=710
+Window0Width=1024
+Window0Xpos=0
+Window0Ypos=186
+
+-default -logfile "/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log" +confirmonexit -saveres -monitorfont "DM Mono Medium 10" -monitorfg "rgb(55,218,29)" -monitorxpos "2305" -monitorypos "184" -monitorwidth "1021" -monitorheight "710" -windowxpos "0" -windowypos "186" -windowwidth "1024" -windowheight "710"
+Mainlock: VICE thread initiating shutdown
+Mainlock: VICE thread is exiting
+Main: VICE thread has been joined.
+Writing configuration file `/home/lenovo1/.config/vice/vicerc'.
+VIC-II: VSP Bug: safe channels are: 123467. Emulation of memory corruption is disabled.
+Sound: Closing device `pulse'
+Hotkeys: shutting down.
+closed ALSA MIDI sequencer port 'VICE'
