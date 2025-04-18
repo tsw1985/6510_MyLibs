@@ -83,6 +83,12 @@ rts //return
 */
 multiplication:
 
+    pha  // save A on stack
+    txa  // transfer X to A
+    pha  // push A (X) on stack
+    tya  // transfer Y to A
+    pha  // push A (Y) to stack
+
 
     continue_multiplication:
         clc                   // clear carry
@@ -110,10 +116,12 @@ multiplication:
         // si no , pues sigue multiplicando
         bne continue_multiplication
 
-    lda multiplication_result_hi // ver el resultado hi
-    //.break
-    lda multiplication_result_lo // ver el resultado lo
-    //.break
+    pla // pull A from stack (Y)
+    tay // transfer A to Y
+    pla // pull A from stack (X)
+    tax // transfer A to X
+    pla // pull A from Stack
+    
     
     rts //return 
 

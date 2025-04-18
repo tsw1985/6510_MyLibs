@@ -5,13 +5,13 @@
     sta multiplication_result_lo
     sta multiplication_result_hi
 
-    lda #$E2
+    lda #$D2 // E2
     sta multiplication_number_lo
 
-    lda #$04
+    lda #$05 // 04
     sta multiplication_number_hi
 
-    lda #$0D
+    lda #$0E // 0D
     sta multiplication_multiplicator_lo
 
     lda #$00
@@ -19,6 +19,14 @@
 
 
 jsr multiplication    
+
+// show results
+lda multiplication_result_hi // ver el resultado hi
+.break
+lda multiplication_result_lo // ver el resultado lo
+.break
+
+
 
 jsr clean_location_screen
 locate_text(6,0,YELLOW)

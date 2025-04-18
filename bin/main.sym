@@ -4,7 +4,7 @@
 .label clean_location_screen=$8f3
 .label LIGHT_GREEN=$d
 .label division_result_lo=$95c
-.label main=$9da
+.label main=$9de
 .label SCREEN_COL_COLOR_POS=$889
 .label division_result_hi=$95d
 .label division_divisor_hi=$961
@@ -43,7 +43,7 @@
 .label end_writing=$921
 .label multiplication=$9a7
 .label SCREEN_COL_POS=$88b
-.label continue_multiplication=$9a7
+.label continue_multiplication=$9ac
 .label BROWN=$9
 .label ORANGE=$8
 .label multiplication_number_hi=$965
