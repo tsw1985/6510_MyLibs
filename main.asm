@@ -1,12 +1,11 @@
-//#import "/strings/strings.asm"
-
 BasicUpstart2(main)
 
-//Load strings
+//load strings
 #import "/strings/strings.asm"
+
+//load libraries
+#import "/libs/libs.asm"
 
 //load main code file
 #import "/includes/main_code.asm"
 
-//load libraries
-#import "/libs/libs.asm"
