@@ -1,5 +1,5 @@
-#import "variables/print_variables.asm"
-#import "macros/print_macros.asm"
+#import "print_variables/print_variables.asm"
+#import "print_macros/print_macros.asm"
 #import "screen_table.asm"
 
 /*

@@ -10,6 +10,14 @@ Memory Map
 ----------
 Default-segment:
   $0801-$080c Basic
-  $080e-$0980 Basic End
+  $080e-$0984 Basic End
+
+Got 0 errors and 6 warnings while executing:
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/libs/print_lib/print_macros/print_macros.asm 18:5) Warning: Using absolute mode for zeropage argument. Try defining involved labels before this statement.
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/libs/print_lib/print_macros/print_macros.asm 20:5) Warning: Using absolute mode for zeropage argument. Try defining involved labels before this statement.
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/libs/print_lib/print_macros/print_macros.asm 18:5) Warning: Using absolute mode for zeropage argument. Try defining involved labels before this statement.
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/libs/print_lib/print_macros/print_macros.asm 20:5) Warning: Using absolute mode for zeropage argument. Try defining involved labels before this statement.
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/libs/print_lib/print_macros/print_macros.asm 18:5) Warning: Using absolute mode for zeropage argument. Try defining involved labels before this statement.
+  ...
 
 Writing Symbol file: main.sym
