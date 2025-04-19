@@ -11,7 +11,7 @@ Memory Map
 Default-segment:
   $0801-$080c Basic
   $080e-$080d Basic End
-  $0810-$088d Main Code
+  $0810-$089e Main Code
   $2500-$2580 Variables
   $4000-$4063 Tables
   $5000-$506c Libraries

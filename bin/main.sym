@@ -15,7 +15,7 @@
 .label SCREEN_BACKGROUND_COLOR=$d021
 .label ZERO_PAGE_ROW_HIGHT_BYTE=$21
 .label ZERO_PAGE_ROW_COLOR_HIGHT_BYTE=$25
-.label init_code=$813
+.label init_code=$810
 .label PRINT_LIB=$5000 {
   .label continue_writing=$501d
   .label clean_location_screen=$5000
