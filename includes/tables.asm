@@ -1,0 +1,1 @@
+#import "/tables/screen_table.asm"

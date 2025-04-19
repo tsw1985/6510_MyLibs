@@ -18,5 +18,5 @@
     sta ZERO_PAGE_PRINT_TEXT_LO
     lda #>string
     sta ZERO_PAGE_PRINT_TEXT_HI
-    jsr print_text
+    jsr PRINT_LIB.print_text
 }

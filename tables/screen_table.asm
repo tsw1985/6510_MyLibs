@@ -1,43 +1,7 @@
-
-.label ZERO_PAGE                 = $0020     
-
-.label ZERO_PAGE_ROW_LOW_BYTE    = ZERO_PAGE + 0 // $20
-.label ZERO_PAGE_ROW_HIGHT_BYTE  = ZERO_PAGE + 1 // $21
-
-.label ZERO_PAGE_PRINT_TEXT_LO  = ZERO_PAGE + 2 // $22
-.label ZERO_PAGE_PRINT_TEXT_HI  = ZERO_PAGE + 3 // $23
-
-.label ZERO_PAGE_ROW_COLOR_LOW_BYTE   = ZERO_PAGE + 4 // $24
-.label ZERO_PAGE_ROW_COLOR_HIGHT_BYTE = ZERO_PAGE + 5 // $25
-
-
-
-
-.label SCREEN_RAM       = $0400
-.label SCREEN_COLOR_RAM = $d800
-.label SCREEN_WIDTH     = 40
-.label SCREEN_HEIGHT    = 25
-
-.label BLACK  = $00
-.label WHITE  = $01
-.label RED    = $02
-.label CYAN   = $03
-.label PURPLE = $04
-.label GREEN  = $05
-.label BLUE   = $06
-.label YELLOW = $07
-.label ORANGE = $08
-.label BROWN  = $09
-.label PINK   = $0A
-.label GREY   = $0C
-.label LIGHT_GREEN = $0D
-.label LIGHT_BLUE  = $0E
-.label LIGHT_GRAY  = $0F
-.label DARK_GRAY   = $0B
-
-
+// SCREEN MAP
 // ---------------------------- ROWS ---------------------------------------
 //LOW BYTE
+
 Row_LO:
 .byte <(SCREEN_RAM + (SCREEN_WIDTH * 0))
 .byte <(SCREEN_RAM + (SCREEN_WIDTH * 1))
