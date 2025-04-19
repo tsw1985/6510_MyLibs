@@ -4,11 +4,11 @@
 .label end_div_string=$255a
 .label div_result_16_lo=$2581
 .label LIGHT_GREEN=$d
-.label MATH_LIB=$506d {
-  .label division=$506d
-  .label multiplication=$50ac
-  .label continue_multiplication=$50b1
-  .label continue_substraction=$5072
+.label MATH_LIB=$5071 {
+  .label division=$5071
+  .label multiplication=$50b0
+  .label continue_multiplication=$50b5
+  .label continue_substraction=$5076
 }
 .label main=$810
 .label SCREEN_COL_COLOR_POS=$257b
@@ -25,13 +25,14 @@
 .label SCREEN_BACKGROUND_COLOR=$d021
 .label ZERO_PAGE_ROW_HIGHT_BYTE=$21
 .label ZERO_PAGE_ROW_COLOR_HIGHT_BYTE=$25
-.label init_code=$813
+.label init_code=$810
 .label PRINT_LIB=$5004 {
-  .label continue_writing=$5021
-  .label clean_location_screen=$5004
-  .label print_char=$5038
-  .label end_writing=$5032
-  .label print_text=$501a
+  .label continue_writing=$5025
+  .label clean_location_screen=$5008
+  .label print_char=$503c
+  .label end_writing=$5036
+  .label print_text=$501e
+  .label clean_screen=$5004
 }
 .label mul_number_16_lo=$2589
 .label SCREEN_ROW_POS=$257c

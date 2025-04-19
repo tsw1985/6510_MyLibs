@@ -3,6 +3,11 @@
 PRINT_LIB:
 {
 
+    clean_screen:
+        jsr $e544 //clear screen
+        rts
+
+
     /*
         Def   : clean ROW - COL coords
         Input : none

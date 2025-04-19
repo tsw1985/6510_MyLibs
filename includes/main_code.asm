@@ -5,13 +5,13 @@ main:
     //Important init stack !!
     //if you want see your current screen on exit program 
     //or go to basic, comment it
-    ldx #$ff
-	txs       // Initialize system stack
+    //ldx #$ff
+	//txs       // Initialize system stack
 
 init_code:
 
     //Your code here ...
-    jsr $e544 //clear screen
+    jsr PRINT_LIB.clean_screen
     
     /*
     //Here you can add you main loop on your game
