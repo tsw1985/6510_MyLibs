@@ -1,11 +1,8 @@
-BasicUpstart2(main)
-
 #import "/system/config.asm"
 #import "/system/memory_map.asm"
 #import "/includes/constants.asm"
 
-
-//BasicUpstart2(main)
+BasicUpstart2(main)
 
 *=MAIN_CODE_ADDRESS "Main Code"
 #import "/includes/main_code.asm"

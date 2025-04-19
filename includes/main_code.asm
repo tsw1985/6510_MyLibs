@@ -5,8 +5,8 @@ main:
     //Important init stack !!
     //if you want see your current screen on exit program 
     //or go to basic, comment it
-    //ldx #$ff
-	//txs       // Initialize system stack
+    ldx #$ff
+	txs       // Initialize system stack
 
 init_code:
 
@@ -29,7 +29,16 @@ init_code:
     // MATHS LIBS DEMOS
         #import "/demos/math_lib/multiplication.asm"
         //#import "/demos/math_lib/division.asm"
-        
+
+/*
+wait_key:
+    jsr $ffe4       // GETIN
+    cmp #0
+    beq wait_key    // si no se ha pulsado tecla, repetir
+    jmp init_code            
+    */
+
+
 
 //jmp init_code        
 rts // exit to basic

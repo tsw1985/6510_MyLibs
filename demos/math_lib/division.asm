@@ -4,31 +4,31 @@
 // Meter en macro !!!
 
 lda #$D8
-sta division_number_1_lo
+sta div_number_16_lo
 
 lda #$B2
-sta division_number_1_hi
+sta div_number_16_hi
 
 lda #$FD
-sta division_divisor_lo
+sta div_divisor_16_lo
 
 lda #$02
-sta division_divisor_hi
+sta div_divisor_16_hi
 
 //division result
 lda #$0
-sta division_result_lo
-sta division_result_hi
+sta div_result_16_lo
+sta div_result_16_hi
 
 jsr division
 
-lda division_result_hi // ver el cociente
-lda division_result_lo // ver el cociente
+lda div_result_16_hi // ver el cociente
+lda div_result_16_lo // ver el cociente
 
 //modulos
-//lda division_number_1_hi // ver el modulo 
+//lda div_number_16_hi // ver el modulo 
 //.break
-//lda division_number_1_lo // ver el modulo 
+//lda div_number_16_lo // ver el modulo 
 //.break
 //jsr clean_location_screen
 //locate_text(7,10,YELLOW)

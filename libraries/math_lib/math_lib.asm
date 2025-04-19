@@ -6,17 +6,17 @@ MATH_LIB:
         Division 16 bits:
         Input: 
 
-            division_number_1_lo
-            division_number_1_hi
-            division_divisor_lo
-            division_divisor_hi
-            division_result_lo
-            division_result_hi
+            div_number_16_lo
+            div_number_16_hi
+            div_divisor_16_lo
+            div_divisor_16_hi
+            div_result_16_lo
+            div_result_16_hi
 
         Output:
 
-            division_result_lo
-            division_result_hi
+            div_result_16_lo
+            div_result_16_hi
 
     */
     division:
@@ -30,29 +30,29 @@ MATH_LIB:
 
         continue_substraction:
             sec                    // sec carry to substraction to 0
-            lda division_number_lo  // Restamos partes LOW del numero
-            sbc division_divisor_lo
-            sta division_number_lo  // actualizamos number_1_lo con el resultado de la resta
+            lda div_number_16_lo  // Restamos partes LOW del numero
+            sbc div_divisor_16_lo
+            sta div_number_16_lo  // actualizamos number_1_lo con el resultado de la resta
 
-            lda division_number_hi  // Restamos partes HI del numero  
-            sbc division_divisor_hi  // actualizamos divisor_hi con el resultado de la resta
-            sta division_number_hi
+            lda div_number_16_hi  // Restamos partes HI del numero  
+            sbc div_divisor_16_hi  // actualizamos divisor_hi con el resultado de la resta
+            sta div_number_16_hi
 
             // incrementamos el cociente, de 1 en 1 , en 16 bits
             clc
-            lda division_result_lo
+            lda div_result_16_lo
             adc #1            // sumamos 1 a low
-            sta division_result_lo
-            lda division_result_hi     // sumamos hi con carry si es necesario
+            sta div_result_16_lo
+            lda div_result_16_hi     // sumamos hi con carry si es necesario
             adc #0
-            sta division_result_hi
+            sta div_result_16_hi
 
-            lda division_number_hi  // comparamos si la parte alta de number_1_hi todavía es mayor a la al de divisor_hi
-            cmp division_divisor_hi  // comparamos.
+            lda div_number_16_hi  // comparamos si la parte alta de number_1_hi todavía es mayor a la al de divisor_hi
+            cmp div_divisor_16_hi  // comparamos.
             bne continue_substraction  // ¿ no son iguales ? Quiere decir que aun es mayor , así que vuelve a restar
 
-            lda division_number_lo     // cargamos en A la parte LOW de number_1 .
-            cmp division_divisor_lo     // comparamos 
+            lda div_number_16_lo     // cargamos en A la parte LOW de number_1 .
+            cmp div_divisor_16_lo     // comparamos 
             bcs continue_substraction // ¿ number_1_lo es mayor a divisor_lo ( 10 ) ? pues sigue restando
         
         pla // pull A from stack (Y)
@@ -70,16 +70,16 @@ MATH_LIB:
 
         Input:
 
-            multiplication_number_1_lo
-            multiplication_number_1_hi
+            mul_number_16_lo
+            mul_number_16_hi
 
-            multiplication_multiplicator_lo
-            multiplication_multiplicator_hi
+            mul_multiplicator_16_lo
+            mul_multiplicator_16_hi
 
         Output:
 
-            multiplication_result_lo
-            multiplication_result_hi
+            mulresult_16_lo
+            mul_result_16_hi
     */
     multiplication:
 
@@ -92,27 +92,29 @@ MATH_LIB:
 
         continue_multiplication:
             clc                   // clear carry
-            lda multiplication_result_lo
-            adc multiplication_number_lo
-            sta multiplication_result_lo
+            lda mul_result_16_lo
+            adc mul_number_16_lo
+            sta mul_result_16_lo
 
-            lda multiplication_result_hi
-            adc multiplication_number_hi
-            sta multiplication_result_hi
+            lda mul_result_16_hi
+            adc mul_number_16_hi
+            sta mul_result_16_hi
 
             //restar multiplicador
             sec
-            lda multiplication_multiplicator_lo
+            lda mul_multiplicator_16_lo
             sbc #$1
-            sta multiplication_multiplicator_lo
+            sta mul_multiplicator_16_lo
 
-            lda multiplication_multiplicator_hi
+            lda mul_multiplicator_16_hi
             sbc #$0
-            sta multiplication_multiplicator_hi
+            sta mul_multiplicator_16_hi
 
-            lda multiplication_multiplicator_lo
+            lda mul_multiplicator_16_lo
+            
             // ¿ Los 2 bytes son ya 0 ? 
-            ora multiplication_multiplicator_hi // comprueba ambos bytes si son 0 , con ORA
+            ora mul_multiplicator_16_hi // comprueba ambos bytes si son 0 , con ORA
+            
             // si no , pues sigue multiplicando
             bne continue_multiplication
 
@@ -121,7 +123,6 @@ MATH_LIB:
         pla // pull A from stack (X)
         tax // transfer A to X
         pla // pull A from Stack
-        
         
         rts //return 
 
