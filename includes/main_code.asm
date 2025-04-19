@@ -23,12 +23,12 @@ init_code:
     //but , we are showing the demos for each library
 
     // PRINT LIB DEMOS
-        #import "/demos/print_lib/print_single_char.asm"
-        #import "/demos/print_lib/print_text.asm"
+        //#import "/demos/print_lib/print_single_char.asm"
+        //#import "/demos/print_lib/print_text.asm"
 
     // MATHS LIBS DEMOS
-        //#import "/demos/math/division.asm"
-        //#import "demos/math/multiplication.asm"
+        #import "/demos/math_lib/multiplication.asm"
+        //#import "/demos/math_lib/division.asm"
         
 
 //jmp init_code        

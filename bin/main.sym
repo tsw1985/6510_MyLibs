@@ -1,10 +1,22 @@
-.label SYSTEM=$5069 {
-  .label setup=$5069
+.label SYSTEM=$5000 {
+  .label setup=$5000
 }
 .label end_div_string=$255a
+.label division_number_lo=$2583
+.label division_number_hi=$2584
 .label LIGHT_GREEN=$d
+.label MATH_LIB=$506d {
+  .label division=$506d
+  .label multiplication=$50ac
+  .label continue_multiplication=$50b1
+  .label continue_substraction=$5072
+}
+.label division_result_lo=$2581
 .label main=$810
 .label SCREEN_COL_COLOR_POS=$257b
+.label division_result_hi=$2582
+.label division_divisor_hi=$2586
+.label division_divisor_lo=$2585
 .label stars_line=$2500
 .label SCREEN_BORDER_COLOR=$d020
 .label MAIN_CODE_ADDRESS=$810
@@ -15,13 +27,14 @@
 .label SCREEN_BACKGROUND_COLOR=$d021
 .label ZERO_PAGE_ROW_HIGHT_BYTE=$21
 .label ZERO_PAGE_ROW_COLOR_HIGHT_BYTE=$25
+.label multiplication_number_lo=$2589
 .label init_code=$810
-.label PRINT_LIB=$5000 {
-  .label continue_writing=$501d
-  .label clean_location_screen=$5000
-  .label print_char=$5034
-  .label end_writing=$502e
-  .label print_text=$5016
+.label PRINT_LIB=$5004 {
+  .label continue_writing=$5021
+  .label clean_location_screen=$5004
+  .label print_char=$5038
+  .label end_writing=$5032
+  .label print_text=$501a
 }
 .label SCREEN_ROW_POS=$257c
 .label end_mul_string=$2567
@@ -29,6 +42,8 @@
 .label SCREEN_CHAR=$257e
 .label LIGHT_BLUE=$e
 .label SCREEN_RAM=$400
+.label multiplication_multiplicator_lo=$258b
+.label multiplication_multiplicator_hi=$258c
 .label YELLOW=$7
 .label CYAN=$3
 .label SCREEN_CHAR_COLOR=$257f
@@ -43,6 +58,7 @@
 .label SCREEN_COL_POS=$257d
 .label BROWN=$9
 .label ORANGE=$8
+.label multiplication_number_hi=$258a
 .label ZERO_PAGE_ADDRESS=$20
 .label WHITE=$1
 .label Row_HI=$4019
@@ -57,7 +73,9 @@
 .label bye=$253b
 .label SCREEN_SIZE=$3e8
 .label RED=$2
+.label multiplication_result_hi=$2588
 .label SCREEN_CHAR_INDEX=$2580
 .label DARK_GRAY=$b
 .label LIBRARIES_ADDRESS=$5000
 .label GREY=$c
+.label multiplication_result_lo=$2587

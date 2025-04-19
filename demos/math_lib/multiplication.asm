@@ -18,7 +18,7 @@
     sta multiplication_multiplicator_hi
 
 
-jsr multiplication    
+jsr MATH_LIB.multiplication    
 
 // show results
 lda multiplication_result_hi // ver el resultado hi
@@ -28,6 +28,6 @@ lda multiplication_result_lo // ver el resultado lo
 
 
 
-jsr clean_location_screen
+jsr PRINT_LIB.clean_location_screen
 locate_text(6,0,YELLOW)
 print_text(end_mul_string)
