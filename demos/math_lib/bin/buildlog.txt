@@ -1,0 +1,20 @@
+Output dir: /home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/bin
+parsing
+Got 17 errors and 0 warnings while executing:
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/division_32_bits.asm 11:5) Error: Unknown symbol 'div_num1_0'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/division_32_bits.asm 13:5) Error: Unknown symbol 'div_num1_1'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/division_32_bits.asm 15:5) Error: Unknown symbol 'div_num1_2'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/division_32_bits.asm 17:5) Error: Unknown symbol 'div_num1_3'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/division_32_bits.asm 21:5) Error: Unknown symbol 'div_num2_0'
+  ...
+
+
+// dividendo = 89586 = $00015DF2
+lda #$f2
+sta div_num1_0
+    ^
+
+Error: Unknown symbol 'div_num1_0'
+at line 11, column 5 in division_32_bits.asm
+
+

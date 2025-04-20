@@ -18,7 +18,7 @@
     sta mul_multiplicator_16_hi
 
 
-jsr MATH_LIB.multiplication    
+jsr MATH_LIB.multiplication_16    
 
 // show results
 lda mul_result_16_hi // ver el resultado hi

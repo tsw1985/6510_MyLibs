@@ -1,5 +1,4 @@
 //call here the division rutine
-
 // 45784 / 765 = 59,84 ( $003B )
 // Meter en macro !!!
 
@@ -20,7 +19,7 @@ lda #$0
 sta div_result_16_lo
 sta div_result_16_hi
 
-jsr division
+jsr MATH_LIB.division_16
 
 lda div_result_16_hi // ver el cociente
 lda div_result_16_lo // ver el cociente

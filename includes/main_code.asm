@@ -27,8 +27,14 @@ init_code:
         //#import "/demos/print_lib/print_text.asm"
 
     // MATHS LIBS DEMOS
-        #import "/demos/math_lib/multiplication.asm"
-        //#import "/demos/math_lib/division.asm"
+        //#import "/demos/math_lib/division_16_bits.asm"
+        //#import "/demos/math_lib/multiplication_16_bits.asm"
+
+        #import "/demos/math_lib/division_32_bits.asm"
+
+
+
+
 
 /*
 wait_key:

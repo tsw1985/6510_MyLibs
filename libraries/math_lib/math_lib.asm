@@ -19,7 +19,8 @@ MATH_LIB:
             div_result_16_hi
 
     */
-    division:
+    //Start div 16 bits
+    division_16:
         
         pha  // save A on stack
         txa  // transfer X to A
@@ -28,7 +29,7 @@ MATH_LIB:
         pha  // push A (Y) to stack
         
 
-        continue_substraction:
+        continue_substraction_16:
             sec                    // sec carry to substraction to 0
             lda div_number_16_lo  // Restamos partes LOW del numero
             sbc div_divisor_16_lo
@@ -49,11 +50,11 @@ MATH_LIB:
 
             lda div_number_16_hi  // comparamos si la parte alta de number_1_hi todavía es mayor a la al de divisor_hi
             cmp div_divisor_16_hi  // comparamos.
-            bne continue_substraction  // ¿ no son iguales ? Quiere decir que aun es mayor , así que vuelve a restar
+            bne continue_substraction_16  // ¿ no son iguales ? Quiere decir que aun es mayor , así que vuelve a restar
 
             lda div_number_16_lo     // cargamos en A la parte LOW de number_1 .
             cmp div_divisor_16_lo     // comparamos 
-            bcs continue_substraction // ¿ number_1_lo es mayor a divisor_lo ( 10 ) ? pues sigue restando
+            bcs continue_substraction_16 // ¿ number_1_lo es mayor a divisor_lo ( 10 ) ? pues sigue restando
         
         pla // pull A from stack (Y)
         tay // transfer A to Y
@@ -63,6 +64,122 @@ MATH_LIB:
         
 
     rts //return
+//end DIV 16 bits
+
+/*************************************************************/
+/******************** DIVISION 32 bits ***********************/
+/*************************************************************/
+
+    division_32:
+
+    // guardar registros
+    pha
+    txa
+    pha
+    tya
+    pha
+
+continue_substraction_32:
+    // resta div_num1 = div_num1 - div_num2 (32 bits)
+    sec
+    lda div_num1_0
+    sbc div_num2_0
+    sta div_num1_0
+
+    lda div_num1_1
+    sbc div_num2_1
+    sta div_num1_1
+
+    lda div_num1_2
+    sbc div_num2_2
+    sta div_num1_2
+
+    lda div_num1_3
+    sbc div_num2_3
+    sta div_num1_3
+
+    // incrementar resultado (cociente)
+    clc
+    lda div_res_0
+    adc #1
+    sta div_res_0
+
+    lda div_res_1
+    adc #0
+    sta div_res_1
+
+    lda div_res_2
+    adc #0
+    sta div_res_2
+
+    lda div_res_3
+    adc #0
+    sta div_res_3
+
+    // comparar si div_num1 < div_num2 - si es así, terminar
+    lda div_num1_3
+    cmp div_num2_3
+    bcc fin_division
+    bne continue_substraction_32
+
+    lda div_num1_2
+    cmp div_num2_2
+    bcc fin_division
+    bne continue_substraction_32
+
+    lda div_num1_1
+    cmp div_num2_1
+    bcc fin_division
+    bne continue_substraction_32
+
+    lda div_num1_0
+    cmp div_num2_0
+    bcc fin_division
+    bcs continue_substraction_32
+
+fin_division:
+
+    // mostrar resultado (opcional)
+    lda div_res_3
+    .break
+
+    lda div_res_2
+    .break
+
+    lda div_res_1
+    .break
+
+    lda div_res_0
+    .break
+
+    // restaurar registros
+    pla
+    tay
+    pla
+    tax
+    pla
+
+rts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /*
@@ -81,7 +198,7 @@ MATH_LIB:
             mulresult_16_lo
             mul_result_16_hi
     */
-    multiplication:
+    multiplication_16:
 
         pha  // save A on stack
         txa  // transfer X to A
