@@ -31,6 +31,18 @@
 
 
 jsr MATH_LIB.multiplication_32    
+
+
+//show result
+lda mul_res_3
+.break
+lda mul_res_2
+lda mul_res_1
+lda mul_res_0
+
+
+
+
 jsr PRINT_LIB.clean_location_screen
 locate_text(6,0,WHITE)
 print_text(end_mul_32_str)
