@@ -29,11 +29,8 @@ init_code:
     // MATHS LIBS DEMOS
         //#import "/demos/math_lib/division_16_bits.asm"
         //#import "/demos/math_lib/multiplication_16_bits.asm"
-
-        #import "/demos/math_lib/division_32_bits.asm"
-
-
-
+        //#import "/demos/math_lib/division_32_bits.asm"
+        #import "/demos/math_lib/multiplication_32_bits.asm"
 
 
 /*
