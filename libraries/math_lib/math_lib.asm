@@ -98,7 +98,6 @@ division_32:
         lda div_num1_0
         cmp div_num2_0
         bcc end_loop
-        //bcs end_loop
 
 do_subtract:
         
