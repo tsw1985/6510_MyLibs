@@ -9,10 +9,12 @@
   .label division_16=$5071
   .label division_32=$50b0
   .label loop=$50b5
-  .label multiplication_16=$5136
-  .label continue_multiplication=$513b
+  .label multiplication_16=$512a
+  .label continue_multiplication=$512f
   .label do_subtract=$50db
   .label end_loop=$5124
+  .label continue_multiplication_32=$5166
+  .label multiplication_32=$5161
 }
 .label main=$810
 .label SCREEN_COL_COLOR_POS=$2590

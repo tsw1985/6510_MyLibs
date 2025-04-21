@@ -21,16 +21,14 @@ sta div_num2_3
 
 jsr MATH_LIB.division_32
 
-/*
+
+.break
 lda div_res_0
-.break
 lda div_res_1
-.break
 lda div_res_2
-.break
 lda div_res_3
-.break
-*/
+
+
 
 
 jsr PRINT_LIB.clean_location_screen
