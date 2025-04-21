@@ -51,3 +51,16 @@
     mul_res_3:  .byte 0
 
 //Variables for multiplication 32 bits
+
+
+//TODO
+// variables sum 16 bits
+//           sum 32 bits
+
+// variables sub 16 bits
+//           sub 16 bits
+
+
+
+
+
