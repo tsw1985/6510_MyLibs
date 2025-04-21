@@ -45,26 +45,7 @@ div_res_1: .byte 0
 div_res_2: .byte 0
 div_res_3: .byte 0
 
-// TEST
 
-//; A = 78564 = 
-A1:     .byte $E4
-A2:     .byte $32
-A3:     .byte $01
-A4:     .byte $00
-
-//; B = 2546 = $000009F2
-//; B = 3 = $0000 0003
-B1:     .byte $03
-B2:     .byte $00
-B3:     .byte $00
-B4:     .byte $00
-
-//; C = 0
-C1:     .byte 0
-C2:     .byte 0
-C3:     .byte 0
-C4:     .byte 0
 
 
 

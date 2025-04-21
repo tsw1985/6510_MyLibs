@@ -17,12 +17,8 @@
 .label main=$810
 .label SCREEN_COL_COLOR_POS=$2590
 .label div_result_16_hi=$2597
-.label A1=$25ae
 .label stars_line=$2500
-.label A2=$25af
 .label SCREEN_BORDER_COLOR=$d020
-.label A3=$25b0
-.label A4=$25b1
 .label MAIN_CODE_ADDRESS=$810
 .label SCREEN_HEIGHT=$19
 .label mul_multiplicator_16_hi=$25a1
@@ -50,11 +46,7 @@
 .label mul_number_16_lo=$259e
 .label SCREEN_ROW_POS=$2591
 .label mul_number_16_hi=$259f
-.label B1=$25b2
 .label end_mul_string=$257c
-.label B2=$25b3
-.label B3=$25b4
-.label B4=$25b5
 .label LIGHT_GRAY=$f
 .label SCREEN_CHAR=$2593
 .label LIGHT_BLUE=$e
@@ -72,11 +64,7 @@
 .label div_divisor_16_hi=$259b
 .label div_divisor_16_lo=$259a
 .label SCREEN_COLOR_RAM=$d800
-.label C1=$25b6
-.label C2=$25b7
 .label TABLES_ADDRESS=$4000
-.label C3=$25b8
-.label C4=$25b9
 .label PINK=$a
 .label ZERO_PAGE_ROW_COLOR_LOW_BYTE=$24
 .label SCREEN_WIDTH=$28

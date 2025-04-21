@@ -1,25 +1,23 @@
-/*lda #$fa
-sta div_num1_0  // Dividendo = $0006F8FA (456,954)
-lda #$f8
+
+
+
+lda #$E4
+sta div_num1_0 
+lda #$32
 sta div_num1_1
-lda #$06
+lda #$01
 sta div_num1_2
 lda #$00
 sta div_num1_3
 
-lda #$02
-sta div_num2_0  // Divisor = $00000002 (2)
+lda #$03
+sta div_num2_0
 lda #$00
 sta div_num2_1
+lda #$00
 sta div_num2_2
-sta div_num2_3*/
-
-
-
-
-
-
-
+lda #$00
+sta div_num2_3
 
 jsr MATH_LIB.division_32
 

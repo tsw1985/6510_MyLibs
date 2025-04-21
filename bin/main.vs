@@ -3,10 +3,6 @@ al C:5071 .MATH_LIB
 al C:2590 .SCREEN_COL_COLOR_POS
 al C:2597 .div_result_16_hi
 al C:5004 .clean_screen
-al C:25ae .A1
-al C:25af .A2
-al C:25b0 .A3
-al C:25b1 .A4
 al C:19 .SCREEN_HEIGHT
 al C:25a1 .mul_multiplicator_16_hi
 al C:0 .BLACK
@@ -15,12 +11,8 @@ al C:d021 .SCREEN_BACKGROUND_COLOR
 al C:810 .init_code
 al C:259e .mul_number_16_lo
 al C:2591 .SCREEN_ROW_POS
-al C:25b2 .B1
 al C:257c .end_mul_string
-al C:25b3 .B2
 al C:5076 .continue_substraction_16
-al C:25b4 .B3
-al C:25b5 .B4
 al C:f .LIGHT_GRAY
 al C:2593 .SCREEN_CHAR
 al C:e .LIGHT_BLUE
@@ -34,11 +26,7 @@ al C:20 .ZERO_PAGE_ROW_LOW_BYTE
 al C:6 .BLUE
 al C:259b .div_divisor_16_hi
 al C:80b .upstartEnd
-al C:25b6 .C1
-al C:25b7 .C2
 al C:4000 .TABLES_ADDRESS
-al C:25b8 .C3
-al C:25b9 .C4
 al C:a .PINK
 al C:24 .ZERO_PAGE_ROW_COLOR_LOW_BYTE
 al C:28 .SCREEN_WIDTH

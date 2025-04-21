@@ -81,73 +81,73 @@ division_32:
 
         loop:
         //; Comparar A >= B
-        lda A4
-        cmp B4
+        lda div_num1_3
+        cmp div_num2_3
         bcc end_loop
         bne do_subtract
 
-        lda A3
-        cmp B3
+        lda div_num1_2
+        cmp div_num2_2
         bcc end_loop
         bne do_subtract
 
-        lda A2
-        cmp B2
+        lda div_num1_1
+        cmp div_num2_1
         bcc end_loop
         bne do_subtract
 
-        lda A1
-        cmp B1
+        lda div_num1_0
+        cmp div_num2_0
         bcc end_loop
         //bcs end_loop
 
 do_subtract:
-        //; Resta A = A - B (32 bits)
+        
         sec
-        lda A1
-        sbc B1
-        sta A1
+        lda div_num1_0
+        sbc div_num2_0
+        sta div_num1_0
 
-        lda A2
-        sbc B2
-        sta A2
+        lda div_num1_1
+        sbc div_num2_1
+        sta div_num1_1
 
-        lda A3
-        sbc B3
-        sta A3
 
-        lda A4
-        sbc B4
-        sta A4
+        lda div_num1_2
+        sbc div_num2_2
+        sta div_num1_2
 
-        //; Incrementar C = C + 1
+        lda div_num1_3
+        sbc div_num2_3
+        sta div_num1_3
+        
+
         clc
-        lda C1
+        lda div_res_0
         adc #1
-        sta C1
+        sta div_res_0
 
-        lda C2
+        lda div_res_1
         adc #0
-        sta C2
+        sta div_res_1
 
-        lda C3
+        lda div_res_2
         adc #0
-        sta C3
+        sta div_res_2
 
-        lda C4
+        lda div_res_3
         adc #0
-        sta C4
+        sta div_res_3
 
         jmp loop
 
 end_loop:
 
-    
     .break
-    lda C4
-    lda C3
-    lda C2
-    lda C1
+    lda div_res_3
+    lda div_res_2
+    lda div_res_1
+    lda div_res_0
 
 
 
