@@ -3,9 +3,9 @@
 // 9547 x 13 = 122941
 
 
-    lda #$05 // $f1
+    lda #$f1
     sta mul_num1_0 
-    lda #$00 // $24
+    lda #$24
     sta mul_num1_1
     lda #$00
     sta mul_num1_2
