@@ -1,20 +1,19 @@
 Output dir: /home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/bin
 parsing
-Got 13 errors and 0 warnings while executing:
-  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/division_32_bits.asm 10:5) Error: Unknown symbol 'div_num1_0'
-  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/division_32_bits.asm 12:5) Error: Unknown symbol 'div_num1_1'
-  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/division_32_bits.asm 14:5) Error: Unknown symbol 'div_num1_2'
-  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/division_32_bits.asm 16:5) Error: Unknown symbol 'div_num1_3'
-  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/division_32_bits.asm 19:5) Error: Unknown symbol 'div_num2_0'
-  ...
+Got 5 errors and 0 warnings while executing:
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/division_32_bits.asm 24:5) Error: Unknown symbol 'MATH_LIB'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/division_32_bits.asm 38:5) Error: Unknown symbol 'PRINT_LIB'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/division_32_bits.asm 39:1) Error: Macro command 'locate_text' not defined
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/division_32_bits.asm 40:12) Error: Unknown symbol 'end_div_32_str'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/division_32_bits.asm 40:1) Error: Macro command 'print_text' not defined
 
-//89586:  $00015DF2 / 
 
-lda #$fa
-sta div_num1_0  // Dividendo = $0006F8FA (456,954)
+
+
+jsr MATH_LIB.division_32
     ^
 
-Error: Unknown symbol 'div_num1_0'
-at line 10, column 5 in division_32_bits.asm
+Error: Unknown symbol 'MATH_LIB'
+at line 24, column 5 in division_32_bits.asm
 
 

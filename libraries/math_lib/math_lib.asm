@@ -99,6 +99,7 @@ division_32:
         lda A1
         cmp B1
         bcc end_loop
+        //bcs end_loop
 
 do_subtract:
         //; Resta A = A - B (32 bits)
@@ -141,15 +142,12 @@ do_subtract:
 
 end_loop:
 
-
+    
+    .break
     lda C4
-    .break
     lda C3
-    .break
     lda C2
-    .break
     lda C1
-    .break
 
 
 
