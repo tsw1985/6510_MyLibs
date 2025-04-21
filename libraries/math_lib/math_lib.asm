@@ -261,31 +261,60 @@ MATH_LIB:
 
         continue_multiplication_32:
             clc                   // clear carry
-            lda mul_result_16_lo
-            adc mul_number_16_lo
-            sta mul_result_16_lo
+            lda mul_res_0
+            adc mul_num1_0
+            sta mul_res_0
 
-            lda mul_result_16_hi
-            adc mul_number_16_hi
-            sta mul_result_16_hi
+            lda mul_res_1
+            adc mul_num1_1
+            sta mul_res_1
+
+            lda mul_res_2
+            adc mul_num1_2
+            sta mul_res_2
+
+            lda mul_res_3
+            adc mul_num1_3
+            sta mul_res_3
+
 
             //restar multiplicador
             sec
-            lda mul_multiplicator_16_lo
-            sbc #$1
-            sta mul_multiplicator_16_lo
+            lda mul_num2_0
+            sbc #1
+            sta mul_num2_0
 
-            lda mul_multiplicator_16_hi
-            sbc #$0
-            sta mul_multiplicator_16_hi
+            lda mul_num2_1
+            sbc #0
+            sta mul_num2_1
 
-            lda mul_multiplicator_16_lo
+            lda mul_num2_2
+            sbc #0
+            sta mul_num2_2
+
+            lda mul_num2_3
+            sbc #0
+            sta mul_num2_3
+            //end restar multiplicador
+
+            lda mul_num2_0
             
             // ¿ Los 2 bytes son ya 0 ? 
-            ora mul_multiplicator_16_hi // comprueba ambos bytes si son 0 , con ORA
+            ora mul_num2_1 // comprueba ambos bytes si son 0 , con ORA
+            ora mul_num2_2 // comprueba ambos bytes si son 0 , con ORA
+            ora mul_num2_3 // comprueba ambos bytes si son 0 , con ORA
             
             // si no , pues sigue multiplicando
             bne continue_multiplication_32
+
+
+            //show result
+            lda mul_res_3
+            .break
+            lda mul_res_2
+            lda mul_res_1
+            lda mul_res_0
+
 
         pla // pull A from stack (Y)
         tay // transfer A to Y
