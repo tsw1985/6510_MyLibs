@@ -1,16 +1,16 @@
 
+//Low byte to hight byte
 
-
-lda #$E4
+lda #$40
 sta div_num1_0 
-lda #$32
+lda #$6A
 sta div_num1_1
-lda #$01
+lda #$02
 sta div_num1_2
 lda #$00
 sta div_num1_3
 
-lda #$03
+lda #$51
 sta div_num2_0
 lda #$00
 sta div_num2_1

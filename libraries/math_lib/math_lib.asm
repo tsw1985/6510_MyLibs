@@ -69,7 +69,6 @@ MATH_LIB:
 /*************************************************************/
 /******************** DIVISION 32 bits ***********************/
 /*************************************************************/
-
 division_32:
     // guardar registros
     pha
@@ -148,8 +147,6 @@ end_loop:
     lda div_res_2
     lda div_res_1
     lda div_res_0
-
-
 
 
     // Restaurar registros
