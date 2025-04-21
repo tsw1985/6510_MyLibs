@@ -70,8 +70,7 @@ MATH_LIB:
 /******************** DIVISION 32 bits ***********************/
 /*************************************************************/
 
-    division_32:
-
+division_32:
     // guardar registros
     pha
     txa
@@ -79,87 +78,89 @@ MATH_LIB:
     tya
     pha
 
-continue_substraction_32:
-    // resta div_num1 = div_num1 - div_num2 (32 bits)
-    sec
-    lda div_num1_0
-    sbc div_num2_0
-    sta div_num1_0
 
-    lda div_num1_1
-    sbc div_num2_1
-    sta div_num1_1
+        loop:
+        //; Comparar A >= B
+        lda A4
+        cmp B4
+        bcc end_loop
+        bne do_subtract
 
-    lda div_num1_2
-    sbc div_num2_2
-    sta div_num1_2
+        lda A3
+        cmp B3
+        bcc end_loop
+        bne do_subtract
 
-    lda div_num1_3
-    sbc div_num2_3
-    sta div_num1_3
+        lda A2
+        cmp B2
+        bcc end_loop
+        bne do_subtract
 
-    // incrementar resultado (cociente)
-    clc
-    lda div_res_0
-    adc #1
-    sta div_res_0
+        lda A1
+        cmp B1
+        bcc end_loop
 
-    lda div_res_1
-    adc #0
-    sta div_res_1
+do_subtract:
+        //; Resta A = A - B (32 bits)
+        sec
+        lda A1
+        sbc B1
+        sta A1
 
-    lda div_res_2
-    adc #0
-    sta div_res_2
+        lda A2
+        sbc B2
+        sta A2
 
-    lda div_res_3
-    adc #0
-    sta div_res_3
+        lda A3
+        sbc B3
+        sta A3
 
-    // comparar si div_num1 < div_num2 - si es así, terminar
-    lda div_num1_3
-    cmp div_num2_3
-    bcc fin_division
-    bne continue_substraction_32
+        lda A4
+        sbc B4
+        sta A4
 
-    lda div_num1_2
-    cmp div_num2_2
-    bcc fin_division
-    bne continue_substraction_32
+        //; Incrementar C = C + 1
+        clc
+        lda C1
+        adc #1
+        sta C1
 
-    lda div_num1_1
-    cmp div_num2_1
-    bcc fin_division
-    bne continue_substraction_32
+        lda C2
+        adc #0
+        sta C2
 
-    lda div_num1_0
-    cmp div_num2_0
-    bcc fin_division
-    bcs continue_substraction_32
+        lda C3
+        adc #0
+        sta C3
 
-fin_division:
+        lda C4
+        adc #0
+        sta C4
 
-    // mostrar resultado (opcional)
-    lda div_res_3
+        jmp loop
+
+end_loop:
+
+
+    lda C4
+    .break
+    lda C3
+    .break
+    lda C2
+    .break
+    lda C1
     .break
 
-    lda div_res_2
-    .break
 
-    lda div_res_1
-    .break
 
-    lda div_res_0
-    .break
 
-    // restaurar registros
+    // Restaurar registros
     pla
     tay
     pla
     tax
     pla
-
-rts
+    rts
 
 
 

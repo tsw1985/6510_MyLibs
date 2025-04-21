@@ -45,6 +45,34 @@ div_res_1: .byte 0
 div_res_2: .byte 0
 div_res_3: .byte 0
 
+// TEST
+
+//; A = 78564 = $0001338C
+A1:     .byte $8C
+A2:     .byte $33
+A3:     .byte $01
+A4:     .byte $00
+
+//; B = 2546 = $000009F2
+B1:     .byte $F2
+B2:     .byte $09
+B3:     .byte $00
+B4:     .byte $00
+
+//; C = 0
+C1:     .byte 0
+C2:     .byte 0
+C3:     .byte 0
+C4:     .byte 0
+
+
+
+
+
+
+
+
+
 
 
 //end Variables for division 32 bits

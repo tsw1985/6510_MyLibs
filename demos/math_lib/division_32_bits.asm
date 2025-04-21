@@ -1,38 +1,26 @@
-//call here the division rutine
-// 8734 / 3454 = 59,84 ( $003B )
-// Meter en macro !!!
-
-
-//divide 89586 / 42 = 2133 ( $00000855)
-//89586:  $00015DF2 / 
-
-// dividendo = 89586 = $00015DF2
-lda #$f2
-sta div_num1_0
-lda #$5d
+/*lda #$fa
+sta div_num1_0  // Dividendo = $0006F8FA (456,954)
+lda #$f8
 sta div_num1_1
-lda #$01
+lda #$06
 sta div_num1_2
 lda #$00
 sta div_num1_3
 
-// divisor = 42 = $0000002A
-lda #$2a
-sta div_num2_0
+lda #$02
+sta div_num2_0  // Divisor = $00000002 (2)
 lda #$00
 sta div_num2_1
 sta div_num2_2
-sta div_num2_3
-
-// limpiar resultado
-lda #$00
-sta div_res_0
-sta div_res_1
-sta div_res_2
-sta div_res_3
+sta div_num2_3*/
 
 
-//division result
+
+
+
+
+
+
 jsr MATH_LIB.division_32
 
 /*
