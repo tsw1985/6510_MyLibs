@@ -4,7 +4,7 @@
 .label sub_num1_0=$25d5
 .label MATH_LIB=$5071 {
   .label sum_32=$514a
-  .label sub_32=$517c
+  .label sub_32=$5170
   .label division_32=$5071
   .label loop=$5076
   .label do_subtract=$509c

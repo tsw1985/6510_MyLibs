@@ -35,5 +35,11 @@ sta sum_res_3
 
 jsr MATH_LIB.sum_32
 
+.break
+lda sum_res_0
+lda sum_res_1
+lda sum_res_2
+lda sum_res_3
+
 
 

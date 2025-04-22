@@ -247,12 +247,6 @@ MATH_LIB:
         adc sum_num2_3
         sta sum_res_3
 
-        .break
-        lda sum_res_0
-        lda sum_res_1
-        lda sum_res_2
-        lda sum_res_3
-
     rts
 //------------------------------------------------------    
 
@@ -299,6 +293,12 @@ MATH_LIB:
         lda sub_num1_3
         sbc sub_num2_3
         sta sub_res_3
+
+        .break
+        lda sub_res_0
+        lda sub_res_1
+        lda sub_res_2
+        lda sub_res_3
 
     rts
 

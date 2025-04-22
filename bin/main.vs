@@ -40,7 +40,7 @@ al C:28 .SCREEN_WIDTH
 al C:25ad .SCREEN_COL_POS
 al C:50e5 .end_loop
 al C:8 .ORANGE
-al C:517c .sub_32
+al C:5170 .sub_32
 al C:25bd .mul_num1_0
 al C:25c0 .mul_num1_3
 al C:2500 .VARIABLES_ADDRESS
@@ -120,4 +120,4 @@ al C:5000 .setup
 al C:b .DARK_GRAY
 al C:5000 .LIBRARIES_ADDRESS
 al C:c .GREY
-break 516f 
+break 5195 
