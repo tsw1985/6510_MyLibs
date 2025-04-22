@@ -115,4 +115,30 @@ PRINT_LIB:
 
         rts
 
+
+/*
+    Print a number from 
+    NUMBER_TO_PRINT_TABLE
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }    

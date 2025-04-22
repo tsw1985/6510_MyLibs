@@ -4,7 +4,7 @@
 
 stars_line:      .text @"****************************************\$00"
 message:         .text @"this is a message\$00"
-bye:             .text @"bye byeee\$00"
+bye:             .text @"bye byeee show sum\$00"
 math_lib_string: .text @"this is the math lib\$00"
 end_div_string:  .text @"end division\$00"
 end_div_32_str:  .text @"end 32 bits division\$00"
