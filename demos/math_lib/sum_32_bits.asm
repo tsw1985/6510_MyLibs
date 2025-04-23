@@ -1,10 +1,10 @@
 
 // 65765 + 89927 = 155692
 
-lda #$E5
+lda #$05
 sta sum_num1_0
 
-lda #$00
+lda #$0C
 sta sum_num1_1
 
 lda #$01
@@ -14,13 +14,13 @@ lda #$00
 sta sum_num1_3
 
 
-lda #$47
+lda #$02
 sta sum_num2_0
 
-lda #$5F
+lda #$00
 sta sum_num2_1
 
-lda #$01
+lda #$00
 sta sum_num2_2
 
 lda #$00
@@ -66,64 +66,41 @@ sta div_res_2
 sta div_res_3
 
 
-jsr MATH_LIB.division_32
-.break
-lda div_num1_0
+//ldx #0              // índice para guardar restos en la tabla
 
+loop_digits:
 
+    jsr MATH_LIB.division_32           //; divide: A / B
+                        //; cociente → div_res_0..3
+                        //; resto    → div_num1_0..3
 
-//iterations: .byte 0
-
-/*
-get_modules:
-
-    // Inicializar div_res a cero antes de cada división
-    lda #0
-    sta div_res_0
-    sta div_res_1
-    sta div_res_2
-    sta div_res_3
-
-    jsr MATH_LIB.division_32
-    .break
-    // Guardar resto (dígito actual)
-    ldx iterations
-    lda div_num1_0       // div_num1_0 contiene el resto (división por 10)
+    //; guardar el byte menos significativo del resto
+    lda div_num1_0
     sta NUMBER_TO_PRINT_TABLE,x
-    inc iterations
+    inx
 
-    // Copiar el cociente (div_res) a div_num1 para la siguiente iteración
+    //; A = C (A = cociente → div_num1 = div_res)
     lda div_res_0
-    .break
     sta div_num1_0
-
     lda div_res_1
     sta div_num1_1
-    
     lda div_res_2
     sta div_num1_2
-    
     lda div_res_3
     sta div_num1_3
 
+    //; comprobar si cociente es cero → parar
+    lda div_res_0
+    bcs loop_digits             //; si no es cero, repetir
 
+    //; termina aquí, tabla_resto tiene todos los restos en orden inverso
 
-
-    // Verificar si el cociente es cero (¿terminamos?)
-    lda div_res_0      // ← IMPORTANTE: cargar el primer byte antes del ORA
-    ora div_res_1
-    ora div_res_2
-    ora div_res_3
-    bne get_modules
-
-    // Aquí deberías invertir el orden de los dígitos en NUMBER_TO_PRINT_TABLE si es necesario
-    // ...
-
+    
     // Imprimir mensaje
     jsr PRINT_LIB.clean_location_screen
     locate_text(5,0,WHITE)
     print_text(bye)
-*/
+    
 
 /*
 
