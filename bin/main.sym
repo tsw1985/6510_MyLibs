@@ -48,7 +48,7 @@
 .label mul_num1_1=$25d5
 .label ZERO_PAGE_PRINT_TEXT_LO=$22
 .label mul_num1_2=$25d6
-.label loop_digits=$880
+.label loop_digits=$882
 .label SCREEN_ROW_COLOR_POS=$25b3
 .label SCREEN_SIZE=$3e8
 .label RED=$2

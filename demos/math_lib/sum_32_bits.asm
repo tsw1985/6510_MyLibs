@@ -66,7 +66,7 @@ sta div_res_2
 sta div_res_3
 
 
-//ldx #0              // índice para guardar restos en la tabla
+ldx #0              // índice para guardar restos en la tabla
 
 loop_digits:
 
