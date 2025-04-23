@@ -259,3 +259,33 @@ VSync: Sync reset
 VSync: Sync reset
 VSync: Sync reset
 VSync: Sync reset
+VSync: Sync reset
+Render thread: Initiating render thread 0 shutdown
+Render thread: Joining render thread 0 ...
+OpenGL: Render thread shutdown
+Render thread: Joined render thread 0.
+
+
+LogFileName="/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log"
+SaveResourcesOnExit=1
+ConfirmOnExit=0
+MonitorXPos=2305
+MonitorYPos=184
+MonitorWidth=1021
+MonitorHeight=710
+MonitorFont="DM Mono Medium 10"
+MonitorFG="rgb(55,218,29)"
+Window0Height=710
+Window0Width=1024
+Window0Xpos=0
+Window0Ypos=186
+
+-default -logfile "/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log" +confirmonexit -saveres -monitorfont "DM Mono Medium 10" -monitorfg "rgb(55,218,29)" -monitorxpos "2305" -monitorypos "184" -monitorwidth "1021" -monitorheight "710" -windowxpos "0" -windowypos "186" -windowwidth "1024" -windowheight "710"
+Mainlock: VICE thread initiating shutdown
+Mainlock: VICE thread is exiting
+Main: VICE thread has been joined.
+Writing configuration file `/home/lenovo1/.config/vice/vicerc'.
+VIC-II: VSP Bug: safe channels are: 35. Emulation of memory corruption is disabled.
+Sound: Closing device `pulse'
+Hotkeys: shutting down.
+closed ALSA MIDI sequencer port 'VICE'

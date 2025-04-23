@@ -11,16 +11,6 @@ SCREEN_CHAR_COLOR:    .byte 0
 SCREEN_CHAR_INDEX:    .byte 0
 
 
-
-//32 bits number
-print_number_0: .byte 0
-print_number_1: .byte 0
-print_number_2: .byte 0
-print_number_3: .byte 0
-
-
-
-
 //10 digits to print 32 bits
 NUMBER_TO_PRINT_TABLE: 
 .byte $0

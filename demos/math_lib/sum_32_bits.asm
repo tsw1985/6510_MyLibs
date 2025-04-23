@@ -60,8 +60,6 @@ lda div_num1_2
 lda div_num1_3
 
 
-
-
 //N2
 lda #10
 sta div_num2_0
@@ -80,15 +78,14 @@ ldx #0              // índice para guardar restos en la tabla
 
 loop_digits:
 
+    //clean result in each loop
     lda #0
     sta div_res_0
     sta div_res_1
     sta div_res_2
     sta div_res_3
 
-    jsr MATH_LIB.division_32           //; divide: A / B
-                        //; cociente → div_res_0..3
-                        //; resto    → div_num1_0..3
+    jsr MATH_LIB.division_32 
 
     //; guardar el byte menos significativo del resto
     lda div_num1_0
@@ -96,8 +93,6 @@ loop_digits:
     sta NUMBER_TO_PRINT_TABLE,x
     inx
 
-    //; A = C (A = cociente → div_num1 = div_res)
-    .break
     lda div_res_0
     sta div_num1_0
 
@@ -110,14 +105,10 @@ loop_digits:
     lda div_res_3
     sta div_num1_3
 
-    //; comprobar si cociente es cero → parar
     lda div_res_0
-    //lda div_num1_0
     bne loop_digits             //; si no es cero, repetir
 
-    .break
 
-    //; termina aquí, tabla_resto tiene todos los restos en orden inverso
     // Imprimir mensaje
     jsr PRINT_LIB.clean_location_screen
     locate_text(5,0,WHITE)
