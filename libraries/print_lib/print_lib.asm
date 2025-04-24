@@ -121,8 +121,8 @@ PRINT_LIB:
     NUMBER_TO_PRINT_TABLE
 */
 print_number:
+    //----------------------------------------------
     //copy digits save to "number_to_print_str"
-
     //todo clean number_to_print_str to all 00000000
 
     pha  // save A on stack
@@ -131,10 +131,6 @@ print_number:
     tya  // transfer Y to A
     pha  // push A (Y) to stack
 
-
- 
-    
-   
     read_tail:
         dec counter_table
         ldx counter_table
@@ -142,8 +138,6 @@ print_number:
         beq read_tail
         //when do not found a 0 ... the number started
     
-    
-    //.break
     lda #0
     sta counter_str
     ldy counter_str
@@ -160,14 +154,17 @@ print_number:
         dec counter_table
         ldx counter_table
 
-        lda counter_table
+        dec total_digits
+        //lda counter_ta
+        lda total_digits
         bne copy_number
 
-        .break
-
+        //reset total_digits for next print number
+        lda #0
+        sta total_digits
         // Print number
         jsr PRINT_LIB.clean_location_screen
-        locate_text(6,0,WHITE)
+        locate_text(8,0,WHITE)
         print_text(number_to_print_str)
 
         pla // pull A from stack (Y)

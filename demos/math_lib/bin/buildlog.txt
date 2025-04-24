@@ -1,0 +1,20 @@
+Output dir: /home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/bin
+parsing
+Got 51 errors and 0 warnings while executing:
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/sum_32_bits.asm 5:5) Error: Unknown symbol 'sum_num1_0'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/sum_32_bits.asm 8:5) Error: Unknown symbol 'sum_num1_1'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/sum_32_bits.asm 11:5) Error: Unknown symbol 'sum_num1_2'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/sum_32_bits.asm 14:5) Error: Unknown symbol 'sum_num1_3'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/math_lib/sum_32_bits.asm 18:5) Error: Unknown symbol 'sum_num2_0'
+  ...
+
+// 65765 + 89927 = 155692
+
+lda #$05
+sta sum_num1_0
+    ^
+
+Error: Unknown symbol 'sum_num1_0'
+at line 5, column 5 in sum_32_bits.asm
+
+

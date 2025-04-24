@@ -79,9 +79,11 @@ loop_digits:
 
     jsr MATH_LIB.division_32 
 
+    //save module
     lda div_num1_0
     sta NUMBER_TO_PRINT_TABLE,x
     inx
+    inc total_digits
 
     lda div_res_0
     sta div_num1_0
@@ -98,19 +100,12 @@ loop_digits:
     lda div_res_0
     bne loop_digits
 
-
-    //jsr PRINT_LIB.print_number
-
-
     // Imprimir mensaje
     jsr PRINT_LIB.clean_location_screen
     locate_text(5,0,WHITE)
-    print_text(bye)
-    
+    print_text(sum_result_str)
 
     jsr PRINT_LIB.print_number
-
-
 
     //.break
 

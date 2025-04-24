@@ -27,3 +27,4 @@ NUMBER_TO_PRINT_TABLE:
 //start table from tail
 counter_table: .byte 10
 counter_str:   .byte 0
+total_digits:  .byte 0
