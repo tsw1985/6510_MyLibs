@@ -2,15 +2,15 @@
 .label sub_num1_2=$25f6
 .label sub_num1_1=$25f5
 .label sub_num1_0=$25f4
-.label MATH_LIB=$50a6 {
-  .label sum_32=$517f
-  .label sub_32=$51a5
-  .label division_32=$50a6
-  .label loop=$50ab
-  .label do_subtract=$50d1
-  .label end_loop=$511a
-  .label continue_multiplication_32=$5125
-  .label multiplication_32=$5120
+.label MATH_LIB=$50c6 {
+  .label sum_32=$519f
+  .label sub_32=$51c5
+  .label division_32=$50c6
+  .label loop=$50cb
+  .label do_subtract=$50f1
+  .label end_loop=$513a
+  .label continue_multiplication_32=$5145
+  .label multiplication_32=$5140
 }
 .label SCREEN_COL_COLOR_POS=$25be
 .label SCREEN_HEIGHT=$19
