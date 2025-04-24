@@ -35,8 +35,20 @@ sta sum_res_3
 jsr MATH_LIB.sum_32
 
 
+//----------------------------------
+// Mete de aqui para abajo, todo esto
+// en la rutina print digit...
+// el resultado de cualquier operacion
+// es lo que ira en las variables div_nu...
+// que luego sacará los modulos y todo el
+// rollo así que hay que mover todo esto
+// a la librería print number ...
+//-----------------------------------
+
+
 //Prepare result to print in screen
 //We need save this value on a division by 10
+
 
 //.break
 //N1
@@ -66,8 +78,9 @@ sta div_res_2
 sta div_res_3
 
 
-ldx #0              // índice para guardar restos en la tabla
 
+
+ldx #0              // índice para guardar restos en la tabla
 loop_digits:
 
     //clean result in each loop
