@@ -1,0 +1,20 @@
+Output dir: /home/lenovo1/DEVELOPER/C64/code/mylibs/libraries/print_lib/bin
+parsing
+Got 38 errors and 0 warnings while executing:
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/libraries/print_lib/print_macros/print_lib_macros.asm 6:9) Error: Unknown symbol 'SCREEN_ROW_POS'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/libraries/print_lib/print_macros/print_lib_macros.asm 8:9) Error: Unknown symbol 'SCREEN_COL_POS'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/libraries/print_lib/print_macros/print_lib_macros.asm 10:9) Error: Unknown symbol 'SCREEN_CHAR_COLOR'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/libraries/print_lib/print_macros/print_lib_macros.asm 18:9) Error: Unknown symbol 'ZERO_PAGE_PRINT_TEXT_LO'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/libraries/print_lib/print_macros/print_lib_macros.asm 20:9) Error: Unknown symbol 'ZERO_PAGE_PRINT_TEXT_HI'
+  ...
+
+//later are used on print text functions
+.macro locate_text(x,y,color){
+    lda #x
+    sta SCREEN_ROW_POS
+        ^
+
+Error: Unknown symbol 'SCREEN_ROW_POS'
+at line 6, column 9 in print_macros/print_lib_macros.asm
+
+

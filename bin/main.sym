@@ -2,15 +2,15 @@
 .label sub_num1_2=$25f6
 .label sub_num1_1=$25f5
 .label sub_num1_0=$25f4
-.label MATH_LIB=$50bd {
-  .label sum_32=$5196
-  .label sub_32=$51bc
-  .label division_32=$50bd
-  .label loop=$50c2
-  .label do_subtract=$50e8
-  .label end_loop=$5131
-  .label continue_multiplication_32=$513c
-  .label multiplication_32=$5137
+.label MATH_LIB=$50a6 {
+  .label sum_32=$517f
+  .label sub_32=$51a5
+  .label division_32=$50a6
+  .label loop=$50ab
+  .label do_subtract=$50d1
+  .label end_loop=$511a
+  .label continue_multiplication_32=$5125
+  .label multiplication_32=$5120
 }
 .label SCREEN_COL_COLOR_POS=$25be
 .label SCREEN_HEIGHT=$19
@@ -79,7 +79,7 @@
 .label PRINT_LIB=$5004 {
   .label continue_writing=$5025
   .label print_number=$5071
-  .label copy_number=$5083
+  .label copy_number=$5089
   .label clean_location_screen=$5008
   .label print_char=$503c
   .label end_writing=$5036

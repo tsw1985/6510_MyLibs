@@ -143,25 +143,39 @@ print_number:
         //when do not found a 0 ... the number started
     
     
-    //.break
-    ldy #0
+    .break
+    lda #0
+    sta counter_str
+    ldy counter_str
     copy_number:
-        ldx counter_table
         lda NUMBER_TO_PRINT_TABLE,x
+        sta number_to_print_str,y
+        
+        inc counter_str
+        ldy counter_str
+
+        dec counter_table
+        ldx counter_table
+
+        lda counter_table
+        bne copy_number
+
+        /*
         clc
         adc $30
         dec counter_table
         sta number_to_print_str,y
         inc counter_str
+        dec counter_str
         ldy counter_table
-        bne copy_number
+        bne copy_number*/
 
-        .break
+        //.break
 
         // Print number
-        jsr PRINT_LIB.clean_location_screen
-        locate_text(6,0,WHITE)
-        print_text(number_to_print_str)
+        //jsr PRINT_LIB.clean_location_screen
+        //locate_text(6,0,WHITE)
+        //print_text(number_to_print_str)
 
         pla // pull A from stack (Y)
         tay // transfer A to Y
