@@ -1,4 +1,3 @@
-Opening monitor command playback file: /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.vs
 registered font '/usr/share/vice/common/C64_Pro_Mono-STYLE.ttf'.
 registered font '/usr/share/vice/common/PetMe1282Y.ttf'.
 registered font '/usr/share/vice/common/PetMe128.ttf'.
@@ -21,8 +20,8 @@ Roberto Muscedere, June Tate-Gans, Pablo Roldan.
 This is free software with ABSOLUTELY NO WARRANTY.
 See the "About VICE" command for more info.
  
-Main: random seed was: 0x6809575e
-Main: command line was: x64 -logfile /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log -moncommands /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.vs /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg
+Main: random seed was: 0x6809fb6b
+Main: command line was: x64 -logfile /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg
 Main: VICE system file directory: '/usr/share/vice'.
 Main: VICE system file search path: '/home/lenovo1/.local/share/vice:/usr/bin:/usr/share/vice'.
 Loading system file `/usr/share/vice/C64/kernal-901227-03.bin'.
@@ -88,7 +87,7 @@ Hotkeys: OK.
 Main CPU: 
 Main CPU: starting at ($FFFC).
 Main CPU: RESET.
-VIC-II: VSP Bug: safe channels are: 0236. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 01356. Emulation of memory corruption is disabled.
 AUTOSTART: Autodetecting image type of `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg'.
 Filesystem Image Probe: Error - Import GCR: Unknown GCR image version 48.
 Filesystem Image: Unknown disk image `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg'.
@@ -98,145 +97,11 @@ CART: '/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' is not a valid CRT 
 AUTOSTART: Loading PRG file `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' with autostart disk image.
 AUTOSTART: Resetting drive 8
 AUTOSTART: Resetting the machine to autostart 'MAIN'
-VIC-II: VSP Bug: safe channels are: 02347. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 03567. Emulation of memory corruption is disabled.
 AUTOSTART: Turning Warp mode on.
 AUTOSTART: `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' recognized as program/p00 file.
-Monitor playback command: al C:25ef .sub_num1_3
-Monitor playback command: al C:25ee .sub_num1_2
-Monitor playback command: al C:25ed .sub_num1_1
-Monitor playback command: al C:25ec .sub_num1_0
-Monitor playback command: al C:5008 .clean_location_screen
-Monitor playback command: al C:5071 .MATH_LIB
-Monitor playback command: al C:25b4 .SCREEN_COL_COLOR_POS
-Monitor playback command: al C:5004 .clean_screen
-Monitor playback command: al C:50eb .multiplication_32
-Monitor playback command: al C:19 .SCREEN_HEIGHT
-Monitor playback command: al C:0 .BLACK
-Monitor playback command: al C:25e8 .sum_res_0
-Monitor playback command: al C:4032 .Row_Color_LO
-Monitor playback command: al C:d021 .SCREEN_BACKGROUND_COLOR
-Monitor playback command: al C:25ea .sum_res_2
-Monitor playback command: al C:25e9 .sum_res_1
-Monitor playback command: al C:810 .init_code
-Monitor playback command: al C:25eb .sum_res_3
-Monitor playback command: al C:25b5 .SCREEN_ROW_POS
-Monitor playback command: al C:2585 .end_mul_string
-Monitor playback command: al C:514a .sum_32
-Monitor playback command: al C:f .LIGHT_GRAY
-Monitor playback command: al C:25b7 .SCREEN_CHAR
-Monitor playback command: al C:e .LIGHT_BLUE
-Monitor playback command: al C:501e .print_text
-Monitor playback command: al C:3 .CYAN
-Monitor playback command: al C:25e0 .sum_num1_0
-Monitor playback command: al C:25e1 .sum_num1_1
-Monitor playback command: al C:25b8 .SCREEN_CHAR_COLOR
-Monitor playback command: al C:25e2 .sum_num1_2
-Monitor playback command: al C:25e3 .sum_num1_3
-Monitor playback command: al C:5025 .continue_writing
-Monitor playback command: al C:20 .ZERO_PAGE_ROW_LOW_BYTE
-Monitor playback command: al C:6 .BLUE
-Monitor playback command: al C:80b .upstartEnd
-Monitor playback command: al C:4000 .TABLES_ADDRESS
-Monitor playback command: al C:a .PINK
-Monitor playback command: al C:24 .ZERO_PAGE_ROW_COLOR_LOW_BYTE
-Monitor playback command: al C:28 .SCREEN_WIDTH
-Monitor playback command: al C:25b6 .SCREEN_COL_POS
-Monitor playback command: al C:50e5 .end_loop
-Monitor playback command: al C:8 .ORANGE
-Monitor playback command: al C:5170 .sub_32
-Monitor playback command: al C:25d4 .mul_num1_0
-Monitor playback command: al C:25d7 .mul_num1_3
-Monitor playback command: al C:2500 .VARIABLES_ADDRESS
-Monitor playback command: al C:4000 .Row_LO
-Monitor playback command: al C:25d5 .mul_num1_1
-Monitor playback command: al C:22 .ZERO_PAGE_PRINT_TEXT_LO
-Monitor playback command: al C:25d6 .mul_num1_2
-Monitor playback command: al C:88e .loop_digits
-Monitor playback command: al C:25b3 .SCREEN_ROW_COLOR_POS
-Monitor playback command: al C:3e8 .SCREEN_SIZE
-Monitor playback command: al C:2 .RED
-Monitor playback command: al C:5071 .division_32
-Monitor playback command: al C:25e7 .sum_num2_3
-Monitor playback command: al C:25b9 .SCREEN_CHAR_INDEX
-Monitor playback command: al C:25e4 .sum_num2_0
-Monitor playback command: al C:25e5 .sum_num2_1
-Monitor playback command: al C:25e6 .sum_num2_2
-Monitor playback command: al C:5000 .SYSTEM
-Monitor playback command: al C:2563 .end_div_string
-Monitor playback command: al C:d .LIGHT_GREEN
-Monitor playback command: al C:810 .main
-Monitor playback command: al C:509c .do_subtract
-Monitor playback command: al C:2500 .stars_line
-Monitor playback command: al C:d020 .SCREEN_BORDER_COLOR
-Monitor playback command: al C:810 .MAIN_CODE_ADDRESS
-Monitor playback command: al C:5076 .loop
-Monitor playback command: al C:503c .print_char
-Monitor playback command: al C:25ca .div_num1_2
-Monitor playback command: al C:25cb .div_num1_3
-Monitor playback command: al C:404b .Row_Color_HI
-Monitor playback command: al C:21 .ZERO_PAGE_ROW_HIGHT_BYTE
-Monitor playback command: al C:25c8 .div_num1_0
-Monitor playback command: al C:50f0 .continue_multiplication_32
-Monitor playback command: al C:25 .ZERO_PAGE_ROW_COLOR_HIGHT_BYTE
-Monitor playback command: al C:25c9 .div_num1_1
-Monitor playback command: al C:2570 .end_div_32_str
-Monitor playback command: al C:5004 .PRINT_LIB
-Monitor playback command: al C:25be .NUMBER_TO_PRINT_TABLE
-Monitor playback command: al C:25da .mul_num2_2
-Monitor playback command: al C:25db .mul_num2_3
-Monitor playback command: al C:25d8 .mul_num2_0
-Monitor playback command: al C:25d9 .mul_num2_1
-Monitor playback command: al C:25bc .print_number_2
-Monitor playback command: al C:25bd .print_number_3
-Monitor playback command: al C:25ba .print_number_0
-Monitor playback command: al C:25bb .print_number_1
-Monitor playback command: al C:400 .SCREEN_RAM
-Monitor playback command: al C:7 .YELLOW
-Monitor playback command: al C:25f3 .sub_num2_3
-Monitor playback command: al C:254e .math_lib_string
-Monitor playback command: al C:25f2 .sub_num2_2
-Monitor playback command: al C:25f1 .sub_num2_1
-Monitor playback command: al C:25f0 .sub_num2_0
-Monitor playback command: al C:25f6 .sub_res_2
-Monitor playback command: al C:25f7 .sub_res_3
-Monitor playback command: al C:d800 .SCREEN_COLOR_RAM
-Monitor playback command: al C:25f4 .sub_res_0
-Monitor playback command: al C:25f5 .sub_res_1
-Monitor playback command: al C:25dc .mul_res_0
-Monitor playback command: al C:25dd .mul_res_1
-Monitor playback command: al C:25cd .div_num2_1
-Monitor playback command: al C:25de .mul_res_2
-Monitor playback command: al C:5036 .end_writing
-Monitor playback command: al C:25ce .div_num2_2
-Monitor playback command: al C:25df .mul_res_3
-Monitor playback command: al C:25cf .div_num2_3
-Monitor playback command: al C:9 .BROWN
-Monitor playback command: al C:25cc .div_num2_0
-Monitor playback command: al C:20 .ZERO_PAGE_ADDRESS
-Monitor playback command: al C:1 .WHITE
-Monitor playback command: al C:4019 .Row_HI
-Monitor playback command: al C:23 .ZERO_PAGE_PRINT_TEXT_HI
-Monitor playback command: al C:4 .PURPLE
-Monitor playback command: al C:25d0 .div_res_0
-Monitor playback command: al C:2529 .message
-Monitor playback command: al C:25d1 .div_res_1
-Monitor playback command: al C:5 .GREEN
-Monitor playback command: al C:25d2 .div_res_2
-Monitor playback command: al C:25d3 .div_res_3
-Monitor playback command: al C:253b .bye
-Monitor playback command: al C:2598 .end_mul_32_str
-Monitor playback command: al C:5000 .setup
-Monitor playback command: al C:b .DARK_GRAY
-Monitor playback command: al C:5000 .LIBRARIES_ADDRESS
-Monitor playback command: al C:c .GREY
-Monitor playback command: break 864
-Monitor playback command: break 8a6
-Monitor playback command: break 8c3
-Monitor playback command: break 5195
-Closed monitor command playback file: /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.vs
 Main CPU: RESET.
 Sound: Opened device `pulse', speed 48000Hz, fragment size 2.67ms, buffer size 32.00ms
-Monitor UI: using font 'DM Mono Medium 10' (Family:DM Mono, Size:10, Variations:-) PETSCII:no Terminal Scale:1.000000
 Sound: reSID: MOS8580, filter on, sampling rate 48000Hz - resampling, pass to 21600Hz
 VSync: Sync reset
 Unit 8: RESET.
@@ -253,16 +118,8 @@ AUTOSTART: Restoring FSDevice8ConvertP00 to 1.
 AUTOSTART: Restoring FSDeviceLongNames to 0.
 AUTOSTART: Done.
 VSync: Sync reset
-VSync: Sync reset
-VSync: Sync reset
-VSync: Sync reset
-VSync: Sync reset
-VSync: Sync reset
-VSync: Sync reset
-VSync: Sync reset
 Render thread: Initiating render thread 0 shutdown
 Render thread: Joining render thread 0 ...
-OpenGL: Render thread shutdown
 Render thread: Joined render thread 0.
 
 
@@ -285,7 +142,7 @@ Mainlock: VICE thread initiating shutdown
 Mainlock: VICE thread is exiting
 Main: VICE thread has been joined.
 Writing configuration file `/home/lenovo1/.config/vice/vicerc'.
-VIC-II: VSP Bug: safe channels are: 35. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 357. Emulation of memory corruption is disabled.
 Sound: Closing device `pulse'
 Hotkeys: shutting down.
 closed ALSA MIDI sequencer port 'VICE'

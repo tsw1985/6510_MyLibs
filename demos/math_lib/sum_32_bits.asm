@@ -52,14 +52,6 @@ sta div_num1_2
 lda sum_res_3
 sta div_num1_3
 
-
-.break
-lda div_num1_0
-lda div_num1_1
-lda div_num1_2
-lda div_num1_3
-
-
 //N2
 lda #10
 sta div_num2_0
@@ -87,9 +79,7 @@ loop_digits:
 
     jsr MATH_LIB.division_32 
 
-    //; guardar el byte menos significativo del resto
     lda div_num1_0
-    //.break
     sta NUMBER_TO_PRINT_TABLE,x
     inx
 
@@ -106,7 +96,10 @@ loop_digits:
     sta div_num1_3
 
     lda div_res_0
-    bne loop_digits             //; si no es cero, repetir
+    bne loop_digits
+
+
+    //jsr PRINT_LIB.print_number
 
 
     // Imprimir mensaje
@@ -114,6 +107,13 @@ loop_digits:
     locate_text(5,0,WHITE)
     print_text(bye)
     
+
+    jsr PRINT_LIB.print_number
+
+
+
+    //.break
+
 
 /*
 

@@ -120,26 +120,55 @@ PRINT_LIB:
     Print a number from 
     NUMBER_TO_PRINT_TABLE
 */
+print_number:
+    //copy digits save to "number_to_print_str"
+
+    //todo clean number_to_print_str to all 00000000
+
+    pha  // save A on stack
+    txa  // transfer X to A
+    pha  // push A (X) on stack
+    tya  // transfer Y to A
+    pha  // push A (Y) to stack
 
 
+ 
+    
+   
+    read_tail:
+        dec counter_table
+        ldx counter_table
+        lda NUMBER_TO_PRINT_TABLE,x
+        beq read_tail
+        //when do not found a 0 ... the number started
+    
+    
+    //.break
+    ldy #0
+    copy_number:
+        ldx counter_table
+        lda NUMBER_TO_PRINT_TABLE,x
+        clc
+        adc $30
+        dec counter_table
+        sta number_to_print_str,y
+        inc counter_str
+        ldy counter_table
+        bne copy_number
 
+        .break
 
+        // Print number
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(6,0,WHITE)
+        print_text(number_to_print_str)
 
+        pla // pull A from stack (Y)
+        tay // transfer A to Y
+        pla // pull A from stack (X)
+        tax // transfer A to X
+        pla // pull A from Stack
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    rts
 
 }    

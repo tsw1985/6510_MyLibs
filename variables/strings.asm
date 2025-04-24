@@ -10,3 +10,14 @@ end_div_string:  .text @"end division\$00"
 end_div_32_str:  .text @"end 32 bits division\$00"
 end_mul_string:  .text @"end multiplication\$00"
 end_mul_32_str:  .text @"end multiplication 32 bits\$00"
+number_to_print_str: 
+.byte 0 
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0

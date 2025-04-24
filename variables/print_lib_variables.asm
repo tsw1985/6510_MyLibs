@@ -23,3 +23,7 @@ NUMBER_TO_PRINT_TABLE:
 .byte $0
 .byte $0
 .byte $0
+
+//start table from tail
+counter_table: .byte 10
+counter_str:   .byte 0
