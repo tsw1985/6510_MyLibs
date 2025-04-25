@@ -23,7 +23,6 @@ jsr MATH_LIB.division_32
 
 
 lda div_res_3
-.break
 lda div_res_2
 lda div_res_1
 lda div_res_0

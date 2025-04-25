@@ -16,4 +16,5 @@ Default-segment:
   $4000-$4063 Tables
   $5000-$5232 Libraries
 
+Writing Vice symbol file: main.vs
 Writing Symbol file: main.sym

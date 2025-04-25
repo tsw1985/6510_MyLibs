@@ -24,36 +24,38 @@
 
 .macro clear_get_digits(){
 
-// reset all for next print digit
-        //reset total_digits for next print number
-        lda #0
-        sta total_digits
-        sta counter_str
+    // reset all for next print digit
+    //reset total_digits for next print number
 
-        lda #10
-        sta counter_table
+    .break
+    lda #0
+    sta total_digits
+    sta counter_str
 
-        lda #0
-        ldx #0
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
+    lda #10
+    sta counter_table
+
+    lda #0
+    ldx #0
+    sta NUMBER_TO_PRINT_TABLE,x
+    inx
+    sta NUMBER_TO_PRINT_TABLE,x
+    inx
+    sta NUMBER_TO_PRINT_TABLE,x
+    inx
+    sta NUMBER_TO_PRINT_TABLE,x
+    inx
+    sta NUMBER_TO_PRINT_TABLE,x
+    inx
+    sta NUMBER_TO_PRINT_TABLE,x
+    inx
+    sta NUMBER_TO_PRINT_TABLE,x
+    inx
+    sta NUMBER_TO_PRINT_TABLE,x
+    inx
+    sta NUMBER_TO_PRINT_TABLE,x
+    inx
+    sta NUMBER_TO_PRINT_TABLE,x
 }
 
 
