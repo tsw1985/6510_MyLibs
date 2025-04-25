@@ -120,7 +120,7 @@ PRINT_LIB:
     Print a number from 
     NUMBER_TO_PRINT_TABLE
 */
-print_number:
+print_get_string_digits:
     //----------------------------------------------
     //copy digits save to "number_to_print_str"
     //todo clean number_to_print_str to all 00000000
@@ -237,11 +237,12 @@ print_number:
         bne copy_number   // if not is 0 , continue
 
         // Print number
-        jsr PRINT_LIB.clean_location_screen
-        locate_text(8,0,WHITE)
-        print_text(number_to_print_str)
+        //jsr PRINT_LIB.clean_location_screen
+        //locate_text(8,0,WHITE)
+        //print_text(number_to_print_str)
 
 
+        /*
         // reset all for next print digit
         //reset total_digits for next print number
         lda #0
@@ -272,6 +273,7 @@ print_number:
         sta NUMBER_TO_PRINT_TABLE,x
         inx
         sta NUMBER_TO_PRINT_TABLE,x
+        */
 
 
         pla // pull A from stack (Y)
