@@ -20,7 +20,7 @@ Roberto Muscedere, June Tate-Gans, Pablo Roldan.
 This is free software with ABSOLUTELY NO WARRANTY.
 See the "About VICE" command for more info.
  
-Main: random seed was: 0x680aa91b
+Main: random seed was: 0x680bff1c
 Main: command line was: x64 -logfile /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg
 Main: VICE system file directory: '/usr/share/vice'.
 Main: VICE system file search path: '/home/lenovo1/.local/share/vice:/usr/bin:/usr/share/vice'.
@@ -87,7 +87,7 @@ Hotkeys: OK.
 Main CPU: 
 Main CPU: starting at ($FFFC).
 Main CPU: RESET.
-VIC-II: VSP Bug: safe channels are: 02567. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 167. Emulation of memory corruption is disabled.
 AUTOSTART: Autodetecting image type of `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg'.
 Filesystem Image Probe: Error - Import GCR: Unknown GCR image version 48.
 Filesystem Image: Unknown disk image `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg'.
@@ -97,16 +97,14 @@ CART: '/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' is not a valid CRT 
 AUTOSTART: Loading PRG file `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' with autostart disk image.
 AUTOSTART: Resetting drive 8
 AUTOSTART: Resetting the machine to autostart 'MAIN'
-VIC-II: VSP Bug: safe channels are: 02456. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 125. Emulation of memory corruption is disabled.
 AUTOSTART: Turning Warp mode on.
 AUTOSTART: `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' recognized as program/p00 file.
 Main CPU: RESET.
-Sound: Opened device `pulse', speed 48000Hz, fragment size 2.67ms, buffer size 32.00ms
-Sound: reSID: MOS8580, filter on, sampling rate 48000Hz - resampling, pass to 21600Hz
 VSync: Sync reset
 Unit 8: RESET.
 AUTOSTART: Loading program 'MAIN'
-AUTOSTART: Entered ROM at $e5cf
+AUTOSTART: Entered ROM at $e5cd
 AUTOSTART: Searching for ...
 AUTOSTART: Loading
 AUTOSTART: Entered ROM at $ea21
@@ -134,15 +132,15 @@ MonitorFont="DM Mono Medium 10"
 MonitorFG="rgb(55,218,29)"
 Window0Height=710
 Window0Width=1024
-Window0Xpos=2048
+Window0Xpos=0
 Window0Ypos=58
+Sound=0
 
--default -logfile "/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log" +confirmonexit -saveres -monitorfont "DM Mono Medium 10" -monitorfg "rgb(55,218,29)" -monitorxpos "2049" -monitorypos "58" -monitorwidth "1021" -monitorheight "710" -windowxpos "2048" -windowypos "58" -windowwidth "1024" -windowheight "710"
+-default -logfile "/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log" +confirmonexit -saveres -monitorfont "DM Mono Medium 10" -monitorfg "rgb(55,218,29)" -monitorxpos "2049" -monitorypos "58" -monitorwidth "1021" -monitorheight "710" -windowxpos "0" -windowypos "58" -windowwidth "1024" -windowheight "710" +sound
 Mainlock: VICE thread initiating shutdown
 Mainlock: VICE thread is exiting
 Main: VICE thread has been joined.
 Writing configuration file `/home/lenovo1/.config/vice/vicerc'.
-VIC-II: VSP Bug: safe channels are: 01347. Emulation of memory corruption is disabled.
-Sound: Closing device `pulse'
+VIC-II: VSP Bug: safe channels are: 257. Emulation of memory corruption is disabled.
 Hotkeys: shutting down.
 closed ALSA MIDI sequencer port 'VICE'
