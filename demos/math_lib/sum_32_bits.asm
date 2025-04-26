@@ -1,5 +1,9 @@
 // 65765 + 89927 = 155692
 
+// -----------------------------------------
+// Steps to print a number:
+//
+
 //load N1
 lda #$0C
 sta sum_num1_0
@@ -35,19 +39,7 @@ sta sum_res_3
 
 //calculate sum
 jsr MATH_LIB.sum_32
-
-//----------- PRINT A NUMBER -----------
-// load the result of SUM
-// to process the printing number
-load_sum_result_to_print()
-jsr PRINT_LIB.print_get_string_digits
-// Print number
-jsr PRINT_LIB.clean_location_screen
-locate_text(8,0,YELLOW)
-print_text(number_to_print_str)
-//reset all
-clear_get_digits()
-//----------- END PRINT A NUMBER -----------
+print_calculation_result(19,5,YELLOW,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
 
 //load N1
@@ -85,22 +77,32 @@ sta sum_res_3
 
 //calculate sum
 jsr MATH_LIB.sum_32
+print_calculation_result(10,3,PINK,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
 
-//----------- PRINT A NUMBER -----------
-// load the result of SUM
-// to process the printing number
-load_sum_result_to_print()
-jsr PRINT_LIB.print_get_string_digits
-// Print number
-jsr PRINT_LIB.clean_location_screen
-locate_text(9,0,GREEN)
-print_text(number_to_print_str)
-//reset all
-clear_get_digits()
-//----------- END PRINT A NUMBER -----------
+/*
+// Print a simple number without calculation :
+// Example: 32786 ($00 $00 $80 $12)
+// set to 0 result
+lda #$12
+sta sum_res_0
+lda #$80
+sta sum_res_1
+lda #$00
+sta sum_res_2
+lda #$00
+sta sum_res_3
+jsr MATH_LIB.sum_32
+print_calculation_result(15,5,YELLOW,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+*/
 
-// Imprimir end mensaje
+
+
+
+
+
+
+// Print end message testing
 jsr PRINT_LIB.clean_location_screen
 locate_text(3,0,YELLOW)
 print_text(sum_result_str)
