@@ -27,3 +27,4 @@ number_to_print_str:
 division_n1_str:  .text @"la division de:\$00"
 division_n2_str:  .text @"entre:\$00"
 multipli_n1_str:  .text @"la multiplicacion de:\$00"
+mult_times_str:   .text @"por:\$00"

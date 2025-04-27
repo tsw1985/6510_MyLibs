@@ -1,6 +1,7 @@
 // ------------------ MACROS FOR PRINT FUNCTIONS ----------------
-//set the variables x,y,color
-//later are used on print text functions
+
+// set the variables x,y,color
+// later are used on print text functions
 .macro locate_text(x,y,color){
     lda #x
     sta SCREEN_ROW_POS
@@ -87,7 +88,11 @@
 // Print result of SUM. This macro load the result
 // of a SUM in the variables related to show the
 // digits.
+// Each byte of result is saved in div_num1_0 to 1_3
+// because this will be the N1 to do the division by 10
+// to save the digits ( modules ).
 .macro load_result_of_calculation_to_print(res_0,res_1,res_2,res_3){
+
     //N1
     //Load the result of operation ... + - / *
     //to the DIV_num1_result
@@ -102,6 +107,7 @@
 
     lda res_3
     sta div_num1_3
+    
 }
 
 //This macro print the result of a calculation by:

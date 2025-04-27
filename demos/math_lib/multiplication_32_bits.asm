@@ -9,7 +9,7 @@ print_text(multipli_n1_str) //La division de  ...
 //print first string
 jsr PRINT_LIB.clean_location_screen
 locate_text(10,0,YELLOW)
-print_text(division_n2_str) // ENTRE
+print_text(mult_times_str) // POR
 
 //print result string
 jsr PRINT_LIB.clean_location_screen
@@ -63,4 +63,3 @@ print_calculation_result(17,5,PINK,mul_res_0,
 jsr PRINT_LIB.clean_location_screen
 locate_text(20,10,GREEN)
 print_text(end_mul_32_str) //end div
-
