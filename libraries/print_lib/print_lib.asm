@@ -236,45 +236,6 @@ print_get_string_digits:
         lda total_digits  // load the current value of total digits
         bne copy_number   // if not is 0 , continue
 
-        // Print number
-        //jsr PRINT_LIB.clean_location_screen
-        //locate_text(8,0,WHITE)
-        //print_text(number_to_print_str)
-
-
-        /*
-        // reset all for next print digit
-        //reset total_digits for next print number
-        lda #0
-        sta total_digits
-        sta counter_str
-
-        lda #10
-        sta counter_table
-
-        lda #0
-        ldx #0
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        inx
-        sta NUMBER_TO_PRINT_TABLE,x
-        */
-
 
         pla // pull A from stack (Y)
         tay // transfer A to Y

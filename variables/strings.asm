@@ -11,6 +11,8 @@ end_div_32_str:  .text @"end 32 bits division\$00"
 end_mul_string:  .text @"end multiplication\$00"
 end_mul_32_str:  .text @"end multiplication 32 bits\$00"
 sum_result_str:  .text @"resultado de la suma es:\$00"
+sub_result_str:  .text @"resultado de la resta es:\$00"
+result_str:      .text @"resultado:\$00"
 number_to_print_str: 
 .byte 0 
 .byte 0
@@ -22,3 +24,5 @@ number_to_print_str:
 .byte 0
 .byte 0
 .byte 0
+division_n1_str:  .text @"la division de:\$00"
+division_n2_str:  .text @"entre:\$00"

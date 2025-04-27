@@ -27,9 +27,9 @@ init_code:
         //#import "/demos/print_lib/print_text.asm"
 
     // MATHS LIBS DEMOS
-        //#import "/demos/math_lib/division_32_bits.asm"
+        #import "/demos/math_lib/division_32_bits.asm"
         //#import "/demos/math_lib/multiplication_32_bits.asm"
-        #import "/demos/math_lib/sum_32_bits.asm"
+        //#import "/demos/math_lib/sum_32_bits.asm"
         //#import "/demos/math_lib/sub_32_bits.asm"
         
 

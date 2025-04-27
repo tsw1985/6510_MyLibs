@@ -23,7 +23,7 @@
 
 // This macro clean all variables related
 // to show the digits numbers
-.macro clear_get_digits(){
+.macro clear_NUMBER_TO_PRINT_TABLE(){
 
     // reset all for next print digit
     //reset total_digits for next print number
@@ -38,24 +38,50 @@
     lda #0
     ldx #0
     sta NUMBER_TO_PRINT_TABLE,x
-    inx
+    sta number_to_print_str,x
+
+    ldx #1
     sta NUMBER_TO_PRINT_TABLE,x
-    inx
+    sta number_to_print_str,x
+    
+    ldx #2
     sta NUMBER_TO_PRINT_TABLE,x
-    inx
+    sta number_to_print_str,x
+
+    ldx #3
     sta NUMBER_TO_PRINT_TABLE,x
-    inx
+    sta number_to_print_str,x
+
+    ldx #4
     sta NUMBER_TO_PRINT_TABLE,x
-    inx
+    sta number_to_print_str,x
+    
+    ldx #5
     sta NUMBER_TO_PRINT_TABLE,x
-    inx
+    sta number_to_print_str,x
+    
+    ldx #6
     sta NUMBER_TO_PRINT_TABLE,x
-    inx
+    sta number_to_print_str,x
+    
+    ldx #7
     sta NUMBER_TO_PRINT_TABLE,x
-    inx
+    sta number_to_print_str,x
+    
+    ldx #8
     sta NUMBER_TO_PRINT_TABLE,x
-    inx
+    sta number_to_print_str,x
+    
+    ldx #9
     sta NUMBER_TO_PRINT_TABLE,x
+    sta number_to_print_str,x
+
+
+    sta div_res_0
+    sta div_res_1
+    sta div_res_2
+    sta div_res_3
+
 }
 
 
@@ -98,7 +124,7 @@
     print_text(number_to_print_str)
 
     //reset all
-    clear_get_digits()
+    clear_NUMBER_TO_PRINT_TABLE()
     //----------- END PRINT A NUMBER -----------
 
 
