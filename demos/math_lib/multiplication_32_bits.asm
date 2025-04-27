@@ -1,5 +1,31 @@
 //call multiplication function
+
+//print first string
+jsr PRINT_LIB.clean_location_screen
+locate_text(4,0,YELLOW)
+print_text(multipli_n1_str) //La division de  ...
+
+
+//print first string
+jsr PRINT_LIB.clean_location_screen
+locate_text(10,0,YELLOW)
+print_text(division_n2_str) // ENTRE
+
+//print result string
+jsr PRINT_LIB.clean_location_screen
+locate_text(15,0,YELLOW)
+print_text(result_str) //resultado
+
+
+//Print N1
+print_digits_str(6,5,WHITE,$f1,$24,$00,$00)
+
+//Print N2
+print_digits_str(12,5,WHITE,$0D,$00,$00,$00)
+
+// do the multiplication
 // 9547 x 13 = 122941
+
 lda #$f1
 sta mul_num1_0 
 lda #$24
@@ -27,7 +53,14 @@ sta mul_res_3
 
 jsr MATH_LIB.multiplication_32    
 
-print_calculation_result(10,3,PINK,mul_res_0,mul_res_1,mul_res_2,mul_res_3)
+// Print the result of calculation on screen
+print_calculation_result(17,5,PINK,mul_res_0,
+                                   mul_res_1,
+                                   mul_res_2,
+                                   mul_res_3)
+
+//Print end text
 jsr PRINT_LIB.clean_location_screen
-locate_text(6,0,WHITE)
-print_text(end_mul_32_str)
+locate_text(20,10,GREEN)
+print_text(end_mul_32_str) //end div
+

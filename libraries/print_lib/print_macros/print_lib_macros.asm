@@ -76,7 +76,6 @@
     sta NUMBER_TO_PRINT_TABLE,x
     sta number_to_print_str,x
 
-
     sta div_res_0
     sta div_res_1
     sta div_res_2
@@ -116,7 +115,7 @@
     // load the result of SUM
     // to process the printing number
     load_result_of_calculation_to_print(res_0,res_1,res_2,res_3)
-    jsr PRINT_LIB.print_get_string_digits
+    jsr PRINT_LIB.print_move_modules_in_table_to_number_to_print_str
 
     // Print number
     jsr PRINT_LIB.clean_location_screen
@@ -126,6 +125,18 @@
     //reset all
     clear_NUMBER_TO_PRINT_TABLE()
     //----------- END PRINT A NUMBER -----------
+}
 
+.macro print_digits_str(y,x,color,n_0,n_1,n_2,n_3){
+
+    lda #n_0
+    sta sum_res_0
+    lda #n_1
+    sta sum_res_1
+    lda #n_2
+    sta sum_res_2
+    lda #n_3
+    sta sum_res_3
+    print_calculation_result(y,x,color,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
 }

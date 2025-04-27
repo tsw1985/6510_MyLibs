@@ -12,7 +12,7 @@ Default-segment:
   $0801-$080c Basic
   $080e-$080d Basic End
   $0810-$0ad1 Main Code
-  $2500-$2655 Variables
+  $2500-$266b Variables
   $4000-$4063 Tables
   $5000-$5232 Libraries
 

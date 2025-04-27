@@ -18,31 +18,12 @@ locate_text(15,0,YELLOW)
 print_text(result_str) //resultado
 
 //Print N1
-lda #$40
-sta sum_res_0
-lda #$6A
-sta sum_res_1
-lda #$02
-sta sum_res_2
-lda #$00
-sta sum_res_3
-print_calculation_result(8,5,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
-
+print_digits_str(8,5,WHITE,$40,$6A,$02,$00)
 
 //Print N2
 //81
-lda #$51   //51 = 81
-sta sum_res_0
-lda #$00
-sta sum_res_1
-lda #$00
-sta sum_res_2
-lda #$00
-sta sum_res_3
-print_calculation_result(12,5,WHITE,sum_res_0,
-                                    sum_res_1,
-                                    sum_res_2,
-                                    sum_res_3)
+print_digits_str(12,5,WHITE,$51,$00,$00,$00)
+
 
 
 // Now do division
@@ -82,12 +63,7 @@ jsr MATH_LIB.division_32
 // Print the result of calculation on screen
 print_calculation_result(17,5,PINK,div_res_0,div_res_1,div_res_2,div_res_3)
 
-
-
-
 //Print end text
 jsr PRINT_LIB.clean_location_screen
 locate_text(20,10,GREEN)
 print_text(end_div_32_str) //end div
-
-

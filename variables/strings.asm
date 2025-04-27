@@ -26,3 +26,4 @@ number_to_print_str:
 .byte 0
 division_n1_str:  .text @"la division de:\$00"
 division_n2_str:  .text @"entre:\$00"
+multipli_n1_str:  .text @"la multiplicacion de:\$00"

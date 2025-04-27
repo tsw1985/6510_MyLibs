@@ -120,10 +120,10 @@ PRINT_LIB:
     Print a number from 
     NUMBER_TO_PRINT_TABLE
 */
-print_get_string_digits:
+print_move_modules_in_table_to_number_to_print_str:
+
     //----------------------------------------------
     //copy digits save to "number_to_print_str"
-    //todo clean number_to_print_str to all 00000000
 
     pha  // save A on stack
     txa  // transfer X to A
