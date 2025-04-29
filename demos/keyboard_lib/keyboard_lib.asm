@@ -63,17 +63,37 @@ reset_key_row_index:
 
 key_pressed:
 
-    .break
     //lda TABLE_KEY_ROW_INDEX
     //lda TABLE_KEY_COL_INDEX
     jsr PRINT_LIB.clean_location_screen
-    locate_text(8,0,WHITE)
-    print_text(end_keyboard_str)
-
-    /*jsr PRINT_LIB.clean_location_screen
     locate_text(5,0,WHITE)
-    print_text(end_keyboard_str)*/
+    print_text(coor_y_str)
 
-    //.break
-    //jmp read_key
-    rts
+    lda TABLE_KEY_COL_INDEX
+    sta div_res_0
+    lda #0
+    sta div_res_1
+    sta div_res_2
+    sta div_res_3
+    // Print the result of calculation on screen
+    print_calculation_result(5,6,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+
+
+
+    jsr PRINT_LIB.clean_location_screen
+    locate_text(6,0,WHITE)
+    print_text(coor_x_str)
+
+
+    lda TABLE_KEY_ROW_INDEX
+    sta div_res_0
+    lda #0
+    sta div_res_1
+    sta div_res_2
+    sta div_res_3
+    // Print the result of calculation on screen
+    print_calculation_result(6,6,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+
+
+    jmp read_key
+    //rts

@@ -30,3 +30,6 @@ multipli_n1_str:  .text @"la multiplicacion de:\$00"
 mult_times_str:   .text @"por:\$00"
 end_keyboard_str: .text @"end keyboard testing:\$00"
 hello_keyb_str:   .text @"hello keyboard. press a key\$00"
+coor_y_str:       .text @"row y:\$00"
+coor_x_str:       .text @"row x:\$00"
+
