@@ -1,6 +1,7 @@
 // ------------------------- Keyboard Variables -------------------------------
 TABLE_KEY_COL_INDEX: .byte 0
 TABLE_KEY_ROW_INDEX: .byte 0
+KEY_PRESSED:         .byte 0
 
 TABLE_KEY_BOARD_ROW:
     .byte %11111110  // 0
@@ -12,7 +13,7 @@ TABLE_KEY_BOARD_ROW:
     .byte %10111111  // 6
     .byte %01111111  // 7
 
-TABLE_KEY_BOARD_COL:
+TABLE_KEY_BOARD_COL:  //keys pressed
     .byte %00000001  // 0
     .byte %00000010  // 1
     .byte %00000100  // 2

@@ -1,7 +1,7 @@
 .label sub_num1_3=$267e
 .label sub_num1_2=$267d
 .label sub_num1_1=$267c
-.label TABLE_KEY_BOARD_ROW=$2689
+.label TABLE_KEY_BOARD_ROW=$268a
 .label sub_num1_0=$267b
 .label MATH_LIB=$5102 {
   .label sum_32=$51db
@@ -28,7 +28,7 @@
 .label sum_res_3=$267a
 .label SCREEN_ROW_POS=$2645
 .label end_mul_string=$2585
-.label reset_key_row_index=$829
+.label reset_key_row_index=$855
 .label end_keyboard_str=$262d
 .label LIGHT_GRAY=$f
 .label SCREEN_CHAR=$2647
@@ -48,7 +48,7 @@
 .label SCREEN_WIDTH=$28
 .label SCREEN_COL_POS=$2646
 .label ORANGE=$8
-.label TABLE_KEY_BOARD_COL=$2691
+.label TABLE_KEY_BOARD_COL=$2692
 .label mul_num1_0=$2663
 .label mul_num1_3=$2666
 .label VARIABLES_ADDRESS=$2500
@@ -62,7 +62,7 @@
 .label RED=$2
 .label sum_result_str=$25b3
 .label sum_num2_3=$2676
-.label read_key=$813
+.label read_key=$81d
 .label division_n1_str=$25fb
 .label SCREEN_CHAR_INDEX=$2649
 .label sum_num2_0=$2673
@@ -110,6 +110,7 @@
 .label sub_num2_3=$2682
 .label math_lib_string=$254e
 .label sub_num2_2=$2681
+.label key_pressed=$85d
 .label number_to_print_str=$25f1
 .label sub_num2_1=$2680
 .label sub_num2_0=$267f
@@ -123,6 +124,7 @@
 .label mul_res_1=$266c
 .label div_num2_1=$265c
 .label mul_res_2=$266d
+.label check_cols=$833
 .label div_num2_2=$265d
 .label mul_res_3=$266e
 .label div_num2_3=$265e
@@ -142,6 +144,7 @@
 .label div_res_3=$2662
 .label bye=$253b
 .label end_mul_32_str=$2598
+.label KEY_PRESSED=$2689
 .label DARK_GRAY=$b
 .label LIBRARIES_ADDRESS=$5000
 .label GREY=$c
