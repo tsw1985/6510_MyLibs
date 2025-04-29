@@ -1,10 +1,12 @@
 // Puerto A de salida
-lda #$ff
-sta $DC02
+lda #$ff   
+sta $DC02 // ---> $DC00
 
 // Puerto B de entrada
 lda #$00
-sta $DC03
+sta $DC03 // ---> $DC01
+
+
 
 read_key:
 
@@ -30,18 +32,23 @@ read_key:
             ldy TABLE_KEY_COL_INDEX   // now check cols, load Y index
             lda KEY_PRESSED           // load the key_pressed
             and TABLE_KEY_BOARD_COL,y // and know wich key was pressed
+                                      // if the ANd result is diferent to
+                                      // 00000000 , the flag Z is set to 0
 
+                                      // then use BNE ( Branch Not Equals )
+                                      // because this jump is Z=0  
             bne key_pressed           //if a key was pressed , save it
 
+            //increment COL_INDEX to check next value
             inc TABLE_KEY_COL_INDEX
             lda TABLE_KEY_COL_INDEX
-            cmp #8
-            bne check_cols           // if col index is 7, 
-                                    // go to read next row
+            cmp #8    
+            bne check_cols           // if col index is 8, 
+                                     // go to read next col row
         
 
 
-                            // read again 
+                            // read a next row again 
     inc TABLE_KEY_ROW_INDEX // next row on table ...
     lda TABLE_KEY_ROW_INDEX //
     cmp #8                  // if ROW index is 7 
@@ -56,10 +63,17 @@ reset_key_row_index:
 
 key_pressed:
 
+    .break
+    //lda TABLE_KEY_ROW_INDEX
+    //lda TABLE_KEY_COL_INDEX
     jsr PRINT_LIB.clean_location_screen
-    locate_text(5,0,WHITE)
+    locate_text(8,0,WHITE)
     print_text(end_keyboard_str)
 
-    .break
+    /*jsr PRINT_LIB.clean_location_screen
+    locate_text(5,0,WHITE)
+    print_text(end_keyboard_str)*/
+
+    //.break
     //jmp read_key
     rts

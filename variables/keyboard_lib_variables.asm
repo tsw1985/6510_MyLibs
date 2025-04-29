@@ -21,4 +21,6 @@ TABLE_KEY_BOARD_COL:  //keys pressed
     .byte %00010000  // 4
     .byte %00100000  // 5
     .byte %01000000  // 6
-    .byte %10000000  // 7  
+    .byte %10000000  // 7
+    
+      
