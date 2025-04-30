@@ -8,6 +8,9 @@ main:
     //ldx #$ff
 	//txs       // Initialize system stack
 
+    //start setup
+    jsr SYSTEM.setup
+
 init_code:
 
     //Your code here ...

@@ -1,11 +1,10 @@
-// Puerto A de salida
-lda #$ff   
+// Puerto A de entrada
+lda #$00   
 sta $DC02 // ---> $DC00
 
-// Puerto B de entrada
-lda #$00
+// Puerto B de salida
+lda #$ff
 sta $DC03 // ---> $DC01
-
 
 
 read_key:
@@ -17,11 +16,11 @@ read_key:
     //Count rows
     ldx TABLE_KEY_ROW_INDEX    // 0 to 7 count rows
     lda TABLE_KEY_BOARD_ROW,x  // get a row from table
-    sta $DC00                  // and save it on port
+    sta $DC01                  // and save it on port
 
     
         //get now KEY PRESSED . Reading COLS
-        lda $DC01
+        lda $DC00
         eor #%11111111           // get bit key pressed and reverse it
         sta KEY_PRESSED          // save this reversed value ( key pressed )
                                  // and now we need to know wich key was pressed
