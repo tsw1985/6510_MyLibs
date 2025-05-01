@@ -1,13 +1,26 @@
 // Puerto A de entrada
+/*
 lda #$00   
 sta $DC02 // ---> $DC00
 
 // Puerto B de salida
 lda #$ff
 sta $DC03 // ---> $DC01
-
+*/
 
 read_key:
+
+    
+
+
+    // Puerto A de entrada
+    lda #$00   
+    sta $DC02 // ---> $DC00
+
+    // Puerto B de salida
+    lda #$ff
+    sta $DC03 // ---> $DC01
+
 
     //reset Y col Counter
     ldy #0
@@ -62,10 +75,25 @@ reset_key_row_index:
 
 key_pressed:
 
-    //lda TABLE_KEY_ROW_INDEX
-    //lda TABLE_KEY_COL_INDEX
+    jsr PRINT_LIB.clean_screen
+
+
+    // show ROW INDEX
     jsr PRINT_LIB.clean_location_screen
     locate_text(5,0,WHITE)
+    print_text(coor_x_str)
+    lda TABLE_KEY_ROW_INDEX
+    sta div_res_0
+    lda #0
+    sta div_res_1
+    sta div_res_2
+    sta div_res_3
+    // Print the result of calculation on screen
+    print_calculation_result(5,3,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+
+    // show COL INDEX
+    jsr PRINT_LIB.clean_location_screen
+    locate_text(6,0,WHITE)
     print_text(coor_y_str)
 
     lda TABLE_KEY_COL_INDEX
@@ -75,24 +103,44 @@ key_pressed:
     sta div_res_2
     sta div_res_3
     // Print the result of calculation on screen
-    print_calculation_result(5,6,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+    print_calculation_result(6,3,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
 
 
-
+    //char = row * 8 + col
+    // show table offset
     jsr PRINT_LIB.clean_location_screen
-    locate_text(6,0,WHITE)
-    print_text(coor_x_str)
+    locate_text(7,0,WHITE)
+    print_text(table_offset_str)
 
-
+    //calculate offset for table
     lda TABLE_KEY_ROW_INDEX
+    asl
+    asl
+    asl  
+    clc
+    adc TABLE_KEY_COL_INDEX
+    sta TABLE_KEY_ASCII_X //save offset value
+
+    //show offset result
+    //in A is the last calculation
     sta div_res_0
     lda #0
     sta div_res_1
     sta div_res_2
     sta div_res_3
+    jsr PRINT_LIB.clean_location_screen
     // Print the result of calculation on screen
-    print_calculation_result(6,6,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+    print_calculation_result(7,8,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
 
-
+    
+    //print char
+    //lda contains the char to show
+    .break
+    ldx TABLE_KEY_ASCII_X
+    lda TABLE_KEY_ASCII,x
+    sta SCREEN_CHAR
+    locate_text(9,4,PINK)
+    jsr PRINT_LIB.print_char  // print single char
+    
     jmp read_key
     //rts

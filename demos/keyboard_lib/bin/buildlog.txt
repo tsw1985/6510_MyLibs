@@ -1,0 +1,20 @@
+Output dir: /home/lenovo1/DEVELOPER/C64/code/mylibs/demos/keyboard_lib/bin
+parsing
+Got 71 errors and 0 warnings while executing:
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/keyboard_lib/keyboard_lib.asm 27:9) Error: Unknown symbol 'TABLE_KEY_COL_INDEX'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/keyboard_lib/keyboard_lib.asm 30:9) Error: Unknown symbol 'TABLE_KEY_ROW_INDEX'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/keyboard_lib/keyboard_lib.asm 31:9) Error: Unknown symbol 'TABLE_KEY_BOARD_ROW'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/keyboard_lib/keyboard_lib.asm 38:13) Error: Unknown symbol 'KEY_PRESSED'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/keyboard_lib/keyboard_lib.asm 44:17) Error: Unknown symbol 'TABLE_KEY_COL_INDEX'
+  ...
+
+
+    //reset Y col Counter
+    ldy #0
+    sty TABLE_KEY_COL_INDEX
+        ^
+
+Error: Unknown symbol 'TABLE_KEY_COL_INDEX'
+at line 27, column 9 in keyboard_lib.asm
+
+

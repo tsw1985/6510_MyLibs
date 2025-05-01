@@ -77,6 +77,7 @@
     sta NUMBER_TO_PRINT_TABLE,x
     sta number_to_print_str,x
 
+    lda #0
     sta div_res_0
     sta div_res_1
     sta div_res_2
