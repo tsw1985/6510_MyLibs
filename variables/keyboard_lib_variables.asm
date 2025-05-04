@@ -15,6 +15,7 @@ KEYS_BUFFER: .byte 0
              .byte 0
              .byte 0
 
+KEYS_BUFFER_COUNTER: .byte 0
 
 TABLE_KEY_BOARD_ROW:
     .byte %11111110  // 0
@@ -46,11 +47,3 @@ TABLE_KEY_ASCII:
     .byte $00,$13,$06,$08,$0B,$00,$00,$00
     .byte $00,$05,$14,$15,$0F,$00,$00,$11
     .byte $00,$00,$18,$16,$0E,$2C,$00,$00
-
-/*
-m
-,
-.
--
-space
-*/

@@ -11,6 +11,7 @@ sta $DC03 // ---> $DC01
 read_key:
 
     //empty buffer
+    /*
     lda #0
     ldx #0
     sta KEYS_BUFFER,x
@@ -22,6 +23,7 @@ read_key:
     sta KEYS_BUFFER,x
     ldx #4
     sta KEYS_BUFFER,x
+    */
 
 
     // Puerto A de entrada
@@ -79,10 +81,16 @@ read_key:
     cmp #8                  // if ROW index is 7 
     beq reset_key_row_index // reset to 0
 
+
+    process_buffer:
     //When All ROWS are readed ...
     //if all rows are readed , now we need check the buffer
 
 
+    //print current buffer
+    jsr PRINT_LIB.clean_location_screen
+    locate_text(19,0,YELLOW)
+    print_text(keys_buffer_to_str)
 
 
 
@@ -92,17 +100,14 @@ read_key:
     print_text(end_print_row_str)
 
 
-
-
-
-
     jmp read_key            // and go to read all again
 
 reset_key_row_index:
 
     lda #0
     sta TABLE_KEY_ROW_INDEX
-    jmp read_key
+    //jmp read_key
+    jmp process_buffer
 
 key_pressed:
 
@@ -172,21 +177,35 @@ key_pressed:
     locate_text(9,4,YELLOW)
     jsr PRINT_LIB.print_char  // print single char
 
-/*
-    //save the key pressed on buffer. The buffer are 8 bytes , 8 positions.
-    //the positions will be selected by TABLE_KEY_COL_INDEX
-    ldx TABLE_KEY_ASCII_X_OFFSET
-    lda TABLE_KEY_ASCII,x
+    // get SCREEN_CHAR
+    lda SCREEN_CHAR
+    ldy KEYS_BUFFER_COUNTER
+    sta keys_buffer_to_str,y
 
-    ldx TABLE_KEY_COL_INDEX
-    sta KEYS_BUFFER,x
-    //print keybuffer
-    jsr PRINT_LIB.clean_location_screen
-    locate_text(19,0,PINK)
-    print_text(KEYS_BUFFER)
-    */
+    cpy #4  //if KEYS_BUFFER_COUNTER == 4 (5) , reset to 0
+    beq reset_key_buffer_counter
 
-
-
+    increment_buffer_counter:
+    inc KEYS_BUFFER_COUNTER
     //jmp read_key  
     jmp continue_reading // continue reading all rows
+
+reset_key_buffer_counter:
+
+    // reset counter
+    lda #0
+    sta KEYS_BUFFER_COUNTER
+
+    lda #0
+    ldx #0
+    sta KEYS_BUFFER,x
+    ldx #1
+    sta KEYS_BUFFER,x
+    ldx #2
+    sta KEYS_BUFFER,x
+    ldx #3
+    sta KEYS_BUFFER,x
+    ldx #4
+    sta KEYS_BUFFER,x
+
+    jmp increment_buffer_counter

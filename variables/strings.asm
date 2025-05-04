@@ -12,6 +12,13 @@ number_to_print_str:
 .byte 0
 .byte 0
 .byte 0
+
+keys_buffer_to_str:
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
 stars_line:       .text @"****************************************\$00"
 message:          .text @"this is a message\$00"
 bye:              .text @"bye byeee show sum\$00"
