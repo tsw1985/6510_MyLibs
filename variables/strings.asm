@@ -18,7 +18,7 @@ keys_buffer_to_str:
 .byte 0
 .byte 0
 .byte 0
-.byte 0
+.byte 0 // do not override , this is the end of string
 stars_line:       .text @"****************************************\$00"
 message:          .text @"this is a message\$00"
 bye:              .text @"bye byeee show sum\$00"

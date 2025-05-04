@@ -182,7 +182,7 @@ key_pressed:
     ldy KEYS_BUFFER_COUNTER
     sta keys_buffer_to_str,y
 
-    cpy #4  //if KEYS_BUFFER_COUNTER == 4 (5) , reset to 0
+    cpy #3  //if KEYS_BUFFER_COUNTER == 4 , reset to 0
     beq reset_key_buffer_counter
 
     increment_buffer_counter:
