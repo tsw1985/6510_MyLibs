@@ -1,20 +1,4 @@
-// Puerto A de entrada
-/*
-lda #$00   
-sta $DC02 // ---> $DC00
-
-// Puerto B de salida
-lda #$ff
-sta $DC03 // ---> $DC01
-*/
-
 read_key:
-
-    
-        
-
-
-
 
 
     // Puerto A de entrada
@@ -106,38 +90,8 @@ reset_key_row_index:
 
 key_pressed:
 
-    //wait a microsencods between keys press
-    lda #0
-    sta KEY_WAIT
-    wait_key:
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        nop
-        inc KEY_WAIT
-        lda KEY_WAIT
-        cmp #200
-        bne wait_key
-    //end wait a microsencods between keys press
-    
-
+    //wait a little bit
+    jsr sleep_key    
     jsr PRINT_LIB.clean_screen
 
     // show ROW INDEX
@@ -207,6 +161,7 @@ key_pressed:
     ldy KEYS_BUFFER_COUNTER
     sta keys_buffer_to_str,y
 
+    //here we can use this like a LIMIT , like text length !!
     cpy #3  //if KEYS_BUFFER_COUNTER == 4 , reset to 0
     beq reset_key_buffer_counter
 
@@ -234,3 +189,19 @@ reset_key_buffer_counter:
     sta KEYS_BUFFER,x
 
     jmp increment_buffer_counter
+
+sleep_key:
+
+    //wait a microsencods between keys press
+    ldx #120         // 255
+    outer_loop:
+        ldy #120          // 255
+        inner_loop:
+            nop               // 1 ciclo
+            dey               // 2 ciclos
+            bne inner_loop    // 2 o 3 ciclos (promedio 2)
+            dex               // 2 ciclos
+    bne outer_loop    // 2 o 3 ciclos
+    //end wait a microsencods between keys press
+
+    rts
