@@ -1,7 +1,7 @@
 .label sub_num1_3=$26c0
 .label sub_num1_2=$26bf
 .label sub_num1_1=$26be
-.label TABLE_KEY_BOARD_ROW=$26d5
+.label TABLE_KEY_BOARD_ROW=$26d6
 .label sub_num1_0=$26bd
 .label MATH_LIB=$5105 {
   .label sum_32=$51de
@@ -28,11 +28,12 @@
 .label sum_res_1=$26ba
 .label init_code=$813
 .label sum_res_3=$26bc
-.label TABLE_KEY_ASCII_X_OFFSET=$26e5
+.label TABLE_KEY_ASCII_X_OFFSET=$26e6
 .label KEY_BUFFER_INDEX=$26ce
 .label continue_reading=$846
 .label SCREEN_ROW_POS=$2687
 .label end_mul_string=$2594
+.label wait_key=$8a4
 .label reset_key_row_index=$897
 .label end_keyboard_str=$2632
 .label LIGHT_GRAY=$f
@@ -43,6 +44,7 @@
 .label sub_result_str=$25db
 .label sum_num1_0=$26b1
 .label sum_num1_1=$26b2
+.label KEY_WAIT=$26cf
 .label SCREEN_CHAR_COLOR=$268a
 .label sum_num1_2=$26b3
 .label sum_num1_3=$26b4
@@ -55,7 +57,7 @@
 .label SCREEN_WIDTH=$28
 .label SCREEN_COL_POS=$2688
 .label ORANGE=$8
-.label TABLE_KEY_BOARD_COL=$26dd
+.label TABLE_KEY_BOARD_COL=$26de
 .label mul_num1_0=$26a5
 .label mul_num1_3=$26a8
 .label VARIABLES_ADDRESS=$2500
@@ -74,7 +76,7 @@
 .label SCREEN_CHAR_INDEX=$268b
 .label sum_num2_0=$26b5
 .label sum_num2_1=$26b6
-.label KEYS_BUFFER_COUNTER=$26d4
+.label KEYS_BUFFER_COUNTER=$26d5
 .label sum_num2_2=$26b7
 .label SYSTEM=$5000 {
   .label setup=$5000
@@ -91,7 +93,7 @@
 .label div_num1_2=$269b
 .label div_num1_3=$269c
 .label Row_Color_HI=$404b
-.label KEYS_BUFFER=$26cf
+.label KEYS_BUFFER=$26d0
 .label ZERO_PAGE_ROW_HIGHT_BYTE=$21
 .label div_num1_0=$2699
 .label ZERO_PAGE_ROW_COLOR_HIGHT_BYTE=$25
@@ -112,13 +114,13 @@
 .label NUMBER_TO_PRINT_TABLE=$268c
 .label total_digits=$2698
 .label mul_num2_2=$26ab
-.label reset_key_buffer_counter=$b56
+.label reset_key_buffer_counter=$b7a
 .label mul_num2_3=$26ac
 .label mul_num2_0=$26a9
 .label mul_num2_1=$26aa
 .label SCREEN_RAM=$400
 .label cmb_pressed_str=$2671
-.label TABLE_KEY_ASCII=$26e6
+.label TABLE_KEY_ASCII=$26e7
 .label YELLOW=$7
 .label multipli_n1_str=$2617
 .label sub_num2_3=$26c4
@@ -128,7 +130,7 @@
 .label number_to_print_str=$2500
 .label sub_num2_1=$26c2
 .label sub_num2_0=$26c1
-.label increment_buffer_counter=$b50
+.label increment_buffer_counter=$b74
 .label sub_res_2=$26c7
 .label sub_res_3=$26c8
 .label TABLE_KEY_COL_INDEX=$26c9

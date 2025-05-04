@@ -10,20 +10,11 @@ sta $DC03 // ---> $DC01
 
 read_key:
 
-    //empty buffer
-    /*
-    lda #0
-    ldx #0
-    sta KEYS_BUFFER,x
-    ldx #1
-    sta KEYS_BUFFER,x
-    ldx #2
-    sta KEYS_BUFFER,x
-    ldx #3
-    sta KEYS_BUFFER,x
-    ldx #4
-    sta KEYS_BUFFER,x
-    */
+    
+        
+
+
+
 
 
     // Puerto A de entrada
@@ -41,6 +32,16 @@ read_key:
     //reset Y col Counter
     ldy #0
     sty TABLE_KEY_COL_INDEX
+
+
+
+
+
+
+
+
+
+
 
     //Count rows
     ldx TABLE_KEY_ROW_INDEX    // 0 to 7 count rows
@@ -104,6 +105,38 @@ reset_key_row_index:
     jmp process_buffer
 
 key_pressed:
+
+    //wait a microsencods between keys press
+    lda #0
+    sta KEY_WAIT
+    wait_key:
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        inc KEY_WAIT
+        lda KEY_WAIT
+        cmp #200
+        bne wait_key
+    //end wait a microsencods between keys press
+    
 
     jsr PRINT_LIB.clean_screen
 
@@ -185,7 +218,7 @@ key_pressed:
 reset_key_buffer_counter:
 
     // reset counter
-    lda #-1
+    lda #-1 
     sta KEYS_BUFFER_COUNTER
 
     lda #0

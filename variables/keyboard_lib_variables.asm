@@ -5,6 +5,7 @@ KEY_PRESSED:         .byte 0
 CHAR_KEY_PRESSED:    .byte 0
 KEY_FLAGS:           .byte 0
 KEY_BUFFER_INDEX:    .byte 0
+KEY_WAIT:            .byte 0
 
 // Save CMB KEY and
 // future others special
