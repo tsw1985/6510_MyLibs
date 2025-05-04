@@ -83,16 +83,10 @@ read_key:
 
 
     process_buffer:
-    //When All ROWS are readed ...
-    //if all rows are readed , now we need check the buffer
-
-
-    //print current buffer
-    jsr PRINT_LIB.clean_location_screen
-    locate_text(19,0,YELLOW)
-    print_text(keys_buffer_to_str)
-
-
+        //print current buffer
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(19,0,YELLOW)
+        print_text(keys_buffer_to_str)
 
     //end row message for testing
     jsr PRINT_LIB.clean_location_screen
@@ -111,8 +105,6 @@ reset_key_row_index:
 
 key_pressed:
 
-    //TODO : in rutine PRINT number, before print the real number
-    //       count the total chars and print empty spaces before.
     jsr PRINT_LIB.clean_screen
 
     // show ROW INDEX
@@ -193,7 +185,7 @@ key_pressed:
 reset_key_buffer_counter:
 
     // reset counter
-    lda #0
+    lda #-1
     sta KEYS_BUFFER_COUNTER
 
     lda #0
