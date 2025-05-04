@@ -3,6 +3,18 @@ TABLE_KEY_COL_INDEX: .byte 0
 TABLE_KEY_ROW_INDEX: .byte 0
 KEY_PRESSED:         .byte 0
 CHAR_KEY_PRESSED:    .byte 0
+KEY_FLAGS:           .byte 0
+KEY_BUFFER_INDEX:    .byte 0
+
+// Save CMB KEY and
+// future others special
+// keys
+KEYS_BUFFER: .byte 0
+             .byte 0
+             .byte 0
+             .byte 0
+             .byte 0
+
 
 TABLE_KEY_BOARD_ROW:
     .byte %11111110  // 0
@@ -24,16 +36,16 @@ TABLE_KEY_BOARD_COL:  //keys pressed
     .byte %01000000  // 6
     .byte %10000000  // 7
 
-TABLE_KEY_ASCII_X: .byte 1    
+TABLE_KEY_ASCII_X_OFFSET: .byte 1    
 TABLE_KEY_ASCII:
-    .byte 0,51,53,55,57,0,0,49       
-    .byte 0,23,18,25,9,16,0,0       
-    .byte 0,1,4,7,10,12,0,0       
-    .byte 0,52,54,56,48,45,0,50       
-    .byte 0,26,3,2,13,46,0,0       
-    .byte 0,19,6,8,11,0,0,0       
-    .byte 0,5,20,21,15,0,0,17       
-    .byte 0,0,24,22,14,44,0,0
+    .byte $00,$33,$35,$37,$39,$00,$00,$31
+    .byte $00,$17,$12,$19,$09,$10,$00,$00
+    .byte $00,$01,$04,$07,$0A,$0C,$00,$00
+    .byte $00,$34,$36,$38,$30,$2D,$00,$32
+    .byte $00,$1A,$03,$02,$0D,$2E,$00,$00
+    .byte $00,$13,$06,$08,$0B,$00,$00,$00
+    .byte $00,$05,$14,$15,$0F,$00,$00,$11
+    .byte $00,$00,$18,$16,$0E,$2C,$00,$00
 
 /*
 m

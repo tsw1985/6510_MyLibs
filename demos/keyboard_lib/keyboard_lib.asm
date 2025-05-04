@@ -10,7 +10,18 @@ sta $DC03 // ---> $DC01
 
 read_key:
 
-    
+    //empty buffer
+    lda #0
+    ldx #0
+    sta KEYS_BUFFER,x
+    ldx #1
+    sta KEYS_BUFFER,x
+    ldx #2
+    sta KEYS_BUFFER,x
+    ldx #3
+    sta KEYS_BUFFER,x
+    ldx #4
+    sta KEYS_BUFFER,x
 
 
     // Puerto A de entrada
@@ -21,6 +32,9 @@ read_key:
     lda #$ff
     sta $DC03 // ---> $DC01
 
+    //key flags to 0
+    lda #0
+    sta KEY_FLAGS
 
     //reset Y col Counter
     ldy #0
@@ -38,7 +52,6 @@ read_key:
         sta KEY_PRESSED          // save this reversed value ( key pressed )
                                  // and now we need to know wich key was pressed
 
-                                 
         check_cols:
         
             ldy TABLE_KEY_COL_INDEX   // now check cols, load Y index
@@ -51,20 +64,38 @@ read_key:
                                       // because this jump is Z=0  
             bne key_pressed           //if a key was pressed , save it
 
-            //increment COL_INDEX to check next value
-            inc TABLE_KEY_COL_INDEX
-            lda TABLE_KEY_COL_INDEX
-            cmp #8    
-            bne check_cols           // if col index is 8, 
-                                     // go to read next col row
-        
+            continue_reading:
 
+                //increment COL_INDEX to check next value
+                inc TABLE_KEY_COL_INDEX
+                lda TABLE_KEY_COL_INDEX
+                cmp #8    
+                bne check_cols       // if col index is 8, 
+                                     // go to read next col row
 
                             // read a next row again 
     inc TABLE_KEY_ROW_INDEX // next row on table ...
     lda TABLE_KEY_ROW_INDEX //
     cmp #8                  // if ROW index is 7 
     beq reset_key_row_index // reset to 0
+
+    //When All ROWS are readed ...
+    //if all rows are readed , now we need check the buffer
+
+
+
+
+
+    //end row message for testing
+    jsr PRINT_LIB.clean_location_screen
+    locate_text(20,20,YELLOW)
+    print_text(end_print_row_str)
+
+
+
+
+
+
     jmp read_key            // and go to read all again
 
 reset_key_row_index:
@@ -75,8 +106,9 @@ reset_key_row_index:
 
 key_pressed:
 
+    //TODO : in rutine PRINT number, before print the real number
+    //       count the total chars and print empty spaces before.
     jsr PRINT_LIB.clean_screen
-
 
     // show ROW INDEX
     jsr PRINT_LIB.clean_location_screen
@@ -88,6 +120,7 @@ key_pressed:
     sta div_res_1
     sta div_res_2
     sta div_res_3
+
     // Print the result of calculation on screen
     print_calculation_result(5,3,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
 
@@ -119,7 +152,7 @@ key_pressed:
     asl  
     clc
     adc TABLE_KEY_COL_INDEX
-    sta TABLE_KEY_ASCII_X //save offset value
+    sta TABLE_KEY_ASCII_X_OFFSET //save offset value
 
     //show offset result
     //in A is the last calculation
@@ -132,15 +165,28 @@ key_pressed:
     // Print the result of calculation on screen
     print_calculation_result(7,8,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
 
-    
-    //print char
-    //lda contains the char to show
-    .break
-    ldx TABLE_KEY_ASCII_X
+    //get char from table to print it on screen
+    ldx TABLE_KEY_ASCII_X_OFFSET
     lda TABLE_KEY_ASCII,x
     sta SCREEN_CHAR
-    locate_text(9,4,PINK)
+    locate_text(9,4,YELLOW)
     jsr PRINT_LIB.print_char  // print single char
-    
-    jmp read_key
-    //rts
+
+/*
+    //save the key pressed on buffer. The buffer are 8 bytes , 8 positions.
+    //the positions will be selected by TABLE_KEY_COL_INDEX
+    ldx TABLE_KEY_ASCII_X_OFFSET
+    lda TABLE_KEY_ASCII,x
+
+    ldx TABLE_KEY_COL_INDEX
+    sta KEYS_BUFFER,x
+    //print keybuffer
+    jsr PRINT_LIB.clean_location_screen
+    locate_text(19,0,PINK)
+    print_text(KEYS_BUFFER)
+    */
+
+
+
+    //jmp read_key  
+    jmp continue_reading // continue reading all rows
