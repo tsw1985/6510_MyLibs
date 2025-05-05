@@ -40,7 +40,7 @@
     ldx #0
     sta NUMBER_TO_PRINT_TABLE,x
     sta number_to_print_str,x
-
+    
     ldx #1
     sta NUMBER_TO_PRINT_TABLE,x
     sta number_to_print_str,x

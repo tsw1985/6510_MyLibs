@@ -2,11 +2,35 @@ SYSTEM:
 {
 	setup:
     
+		//kernel_status
+		
 		sei // Disable system interrupts
+		lda $0001
+		sta system_status // backup of MAPS_ADDRESS
+		                   // $0001
+
 		lda #%00110110 // Disable BASIC
 		sta $0001 // Processor port
         cli // Enable system interrupts
 		rts
+
+	//go back to the status before change
+	//the address 0001 . Without this, when
+	//the program finish, the C64 is died
+	restore_system:
+
+		sei
+		lda system_status
+    	sta $0001		
+		cli
+		rts
+		
+		/*sei // Disable system interrupts
+		lda #%00110110 // Disable BASIC
+		sta $0001 // Processor port
+        cli // Enable system interrupts
+		rts*/
+
 
 		/*
 		lda #%00011110 // Screen RAM: $0400   Charset: $3800

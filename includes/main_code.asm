@@ -1,5 +1,5 @@
 // This is the entry point file . Execute kick assambler on main.asm
-
+system_status: .byte 0
 main:
 
     //Important init stack !!
@@ -36,18 +36,17 @@ init_code:
         //#import "/demos/math_lib/sub_32_bits.asm"
         #import "/demos/keyboard_lib/keyboard_lib.asm"
         
+    // NOT REMOVEEE !!!
+    //restore setup
+    jsr SYSTEM.restore_system
 
-
-
-/*
-wait_key:
-    jsr $ffe4       // GETIN
-    cmp #0
-    beq wait_key    // si no se ha pulsado tecla, repetir
-    jmp init_code            
+    /*
+    wait_key:
+        jsr $ffe4       // GETIN
+        cmp #0
+        beq wait_key    // si no se ha pulsado tecla, repetir
+        jmp init_code            
     */
-
-
 
 //jmp init_code        
 rts // exit to basic
