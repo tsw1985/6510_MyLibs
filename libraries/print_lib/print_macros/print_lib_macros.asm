@@ -124,6 +124,12 @@
     load_result_of_calculation_to_print(res_0,res_1,res_2,res_3)
     jsr PRINT_LIB.print_move_modules_in_table_to_number_to_print_str
 
+
+    // Before print the number, print empty values
+    jsr PRINT_LIB.clean_location_screen
+    locate_text(y,x,color)
+    print_text(number_to_print_clean_str)
+
     // Print number
     jsr PRINT_LIB.clean_location_screen
     locate_text(y,x,color)

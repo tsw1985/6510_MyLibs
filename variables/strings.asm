@@ -13,6 +13,18 @@ number_to_print_str:
 .byte 0
 .byte 0
 
+number_to_print_clean_str: 
+.byte 0 
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+
 keys_buffer_to_str:
 .byte 0
 .byte 0

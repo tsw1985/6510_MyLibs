@@ -3,6 +3,7 @@
 .label SCREEN_RAM              = $0400
 .label SCREEN_COLOR_RAM        = $d800
 .label MAIN_CODE_ADDRESS       = $0810
+.label MUSIC_ADDRESS		   = $1000
 .label VARIABLES_ADDRESS       = $2500
 .label TABLES_ADDRESS		   = $4000
 .label LIBRARIES_ADDRESS	   = $5000

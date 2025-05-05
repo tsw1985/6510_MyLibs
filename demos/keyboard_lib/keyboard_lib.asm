@@ -17,16 +17,6 @@ read_key:
     ldy #0
     sty TABLE_KEY_COL_INDEX
 
-
-
-
-
-
-
-
-
-
-
     //Count rows
     ldx TABLE_KEY_ROW_INDEX    // 0 to 7 count rows
     lda TABLE_KEY_BOARD_ROW,x  // get a row from table
@@ -85,14 +75,14 @@ reset_key_row_index:
 
     lda #0
     sta TABLE_KEY_ROW_INDEX
-    //jmp read_key
     jmp process_buffer
 
 key_pressed:
 
     //wait a little bit
-    jsr sleep_key    
-    jsr PRINT_LIB.clean_screen
+    jsr sleep_key
+        
+    //jsr PRINT_LIB.clean_screen
 
     // show ROW INDEX
     jsr PRINT_LIB.clean_location_screen
@@ -123,13 +113,14 @@ key_pressed:
     print_calculation_result(6,3,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
 
 
-    //char = row * 8 + col
+
     // show table offset
     jsr PRINT_LIB.clean_location_screen
     locate_text(7,0,WHITE)
     print_text(table_offset_str)
 
     //calculate offset for table
+    //char = row * 8 + col
     lda TABLE_KEY_ROW_INDEX
     asl
     asl
@@ -204,4 +195,4 @@ sleep_key:
     bne outer_loop    // 2 o 3 ciclos
     //end wait a microsencods between keys press
 
-    rts
+rts
