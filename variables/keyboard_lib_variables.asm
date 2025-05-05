@@ -10,12 +10,7 @@ KEY_WAIT:            .byte 0
 // Save CMB KEY and
 // future others special
 // keys
-KEYS_BUFFER: .byte 0
-             .byte 0
-             .byte 0
-             .byte 0
-             .byte 0
-
+KEYS_BUFFER:         .fill 6,0
 KEYS_BUFFER_COUNTER: .byte 0
 
 TABLE_KEY_BOARD_ROW:
@@ -48,3 +43,7 @@ TABLE_KEY_ASCII:
     .byte $00,$13,$06,$08,$0B,$00,$00,$00
     .byte $00,$05,$14,$15,$0F,$00,$00,$11
     .byte $00,$00,$18,$16,$0E,$2C,$00,$00
+
+//for input control
+string_limit:    .byte 0
+INPUT_INDEX_COUNTER: .byte 0 // control string index

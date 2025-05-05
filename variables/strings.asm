@@ -1,24 +1,11 @@
 // -------------- ALL STRINGS TEXT TO SHOW ---------------------
 // string text must be wrotten in lowercase
 // DO NOT FORGET ADD \$00 at the end of the string
-number_to_print_str: 
-.byte 0 
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
 
-keys_buffer_to_str:
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0 // do not override , this is the end of string
+number_to_print_str:   .fill 10,0 
+keys_buffer:           .fill 5, 0 // do not override , this is the end of string
+
+
 stars_line:       .text @"****************************************\$00"
 message:          .text @"this is a message\$00"
 bye:              .text @"bye byeee show sum\$00"
@@ -43,3 +30,5 @@ cmb_pressed_str:  .text @"cbm pressed\$00"
 end_print_row_str:.text @"end row\$00"
 space_4_str:      .text @"    \$00"
 
+//This is the string buffer to print the chars on screen
+KEYS_TO_SCREEN_STR: .fill 40,0 // save 40 bytes in 0

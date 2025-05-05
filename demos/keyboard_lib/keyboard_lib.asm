@@ -1,5 +1,7 @@
-read_key:
+lda #10
+sta string_limit
 
+read_key:
 
     // Puerto A de entrada
     lda #$00   
@@ -61,7 +63,16 @@ read_key:
         //print current buffer
         jsr PRINT_LIB.clean_location_screen
         locate_text(19,0,YELLOW)
-        print_text(keys_buffer_to_str)
+        print_text(keys_buffer)
+
+
+        //print keys pressed string
+        //jsr PRINT_LIB.clean_location_screen
+        //locate_text(16,0,RED)
+        //print_text(KEYS_TO_SCREEN_STR)
+
+
+
 
     //end row message for testing
     jsr PRINT_LIB.clean_location_screen
@@ -147,10 +158,17 @@ key_pressed:
     locate_text(9,4,YELLOW)
     jsr PRINT_LIB.print_char  // print single char
 
-    // get SCREEN_CHAR
+    //----------------------- SAVE IN BUFFER ------------------------
+    // get SCREEN_CHAR and SAVE IT ON BUFFER
     lda SCREEN_CHAR
     ldy KEYS_BUFFER_COUNTER
-    sta keys_buffer_to_str,y
+    sta keys_buffer,y
+
+    //save the char on keys_to_screen_buffer
+    //ldy INPUT_INDEX_COUNTER
+    //sta KEYS_TO_SCREEN_STR,y
+    //inc INPUT_INDEX_COUNTER
+
 
     //here we can use this like a LIMIT , like text length !!
     cpy #3  //if KEYS_BUFFER_COUNTER == 4 , reset to 0
@@ -158,7 +176,8 @@ key_pressed:
 
     increment_buffer_counter:
     inc KEYS_BUFFER_COUNTER
-    //jmp read_key  
+
+
     jmp continue_reading // continue reading all rows
 
 reset_key_buffer_counter:
@@ -183,16 +202,13 @@ reset_key_buffer_counter:
 
 sleep_key:
 
-    //wait a microsencods between keys press
-    ldx #120         // 255
+    ldx #120         
     outer_loop:
-        ldy #120          // 255
+        ldy #120          
         inner_loop:
-            nop               // 1 ciclo
-            dey               // 2 ciclos
-            bne inner_loop    // 2 o 3 ciclos (promedio 2)
-            dex               // 2 ciclos
-    bne outer_loop    // 2 o 3 ciclos
-    //end wait a microsencods between keys press
-
-rts
+            nop               
+            dey               
+            bne inner_loop    
+            dex               
+    bne outer_loop
+    rts
