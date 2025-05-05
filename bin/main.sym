@@ -3,6 +3,7 @@
 .label sub_num1_1=$26ec
 .label TABLE_KEY_BOARD_ROW=$2705
 .label sub_num1_0=$26eb
+.label INPUT_STR_LIMIT=$2756
 .label MATH_LIB=$5115 {
   .label sum_32=$51ee
   .label sub_32=$5214
@@ -19,7 +20,7 @@
 .label SCREEN_HEIGHT=$19
 .label counter_table=$26c3
 .label BLACK=$0
-.label outer_loop=$bd8
+.label outer_loop=$c01
 .label sum_res_0=$26e7
 .label Row_Color_LO=$4032
 .label SCREEN_BACKGROUND_COLOR=$d021
@@ -34,7 +35,7 @@
 .label continue_reading=$84c
 .label SCREEN_ROW_POS=$26be
 .label end_mul_string=$2594
-.label reset_key_row_index=$89d
+.label reset_key_row_index=$8ba
 .label end_keyboard_str=$2632
 .label LIGHT_GRAY=$f
 .label SCREEN_CHAR=$26c0
@@ -116,12 +117,12 @@
 .label NUMBER_TO_PRINT_TABLE=$26b2
 .label total_digits=$26c5
 .label mul_num2_2=$26d9
-.label reset_key_buffer_counter=$bb3
+.label reset_key_buffer_counter=$bdc
 .label mul_num2_3=$26da
 .label mul_num2_0=$26d7
 .label mul_num2_1=$26d8
 .label keys_buffer=$250a
-.label sleep_key=$bd6
+.label sleep_key=$bff
 .label SCREEN_RAM=$400
 .label cmb_pressed_str=$2671
 .label TABLE_KEY_ASCII=$2716
@@ -130,11 +131,11 @@
 .label sub_num2_3=$26f2
 .label math_lib_string=$255d
 .label sub_num2_2=$26f1
-.label key_pressed=$8a5
+.label key_pressed=$8c2
 .label number_to_print_str=$2500
 .label sub_num2_1=$26f0
 .label sub_num2_0=$26ef
-.label increment_buffer_counter=$bad
+.label increment_buffer_counter=$bd6
 .label sub_res_2=$26f5
 .label sub_res_3=$26f6
 .label TABLE_KEY_COL_INDEX=$26f7
@@ -153,7 +154,6 @@
 .label mul_res_3=$26de
 .label coor_x_str=$2667
 .label div_num2_3=$26ce
-.label string_limit=$2756
 .label BROWN=$9
 .label div_num2_0=$26cb
 .label result_str=$25f5
@@ -177,4 +177,4 @@
 .label DARK_GRAY=$b
 .label LIBRARIES_ADDRESS=$5000
 .label GREY=$c
-.label inner_loop=$bda
+.label inner_loop=$c03

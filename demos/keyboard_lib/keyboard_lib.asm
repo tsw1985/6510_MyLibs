@@ -1,5 +1,5 @@
 lda #10
-sta string_limit
+sta INPUT_STR_LIMIT
 
 read_key:
 
@@ -67,9 +67,9 @@ read_key:
 
 
         //print keys pressed string
-        //jsr PRINT_LIB.clean_location_screen
-        //locate_text(16,0,RED)
-        //print_text(KEYS_TO_SCREEN_STR)
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(16,0,GREEN)
+        print_text(KEYS_TO_SCREEN_STR)
 
 
 
@@ -163,19 +163,22 @@ key_pressed:
     lda SCREEN_CHAR
     ldy KEYS_BUFFER_COUNTER
     sta keys_buffer,y
+    
 
-    //save the char on keys_to_screen_buffer
-    //ldy INPUT_INDEX_COUNTER
-    //sta KEYS_TO_SCREEN_STR,y
-    //inc INPUT_INDEX_COUNTER
-
+    // save the char on keys_to_screen_buffer
+    // to print it on screen
+    ldy INPUT_INDEX_COUNTER
+    sta KEYS_TO_SCREEN_STR,y
+    inc INPUT_INDEX_COUNTER
 
     //here we can use this like a LIMIT , like text length !!
+    ldy KEYS_BUFFER_COUNTER
     cpy #3  //if KEYS_BUFFER_COUNTER == 4 , reset to 0
     beq reset_key_buffer_counter
 
     increment_buffer_counter:
     inc KEYS_BUFFER_COUNTER
+    
 
 
     jmp continue_reading // continue reading all rows

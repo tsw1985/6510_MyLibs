@@ -39,11 +39,11 @@ TABLE_KEY_ASCII:
     .byte $00,$17,$12,$19,$09,$10,$00,$00
     .byte $00,$01,$04,$07,$0A,$0C,$00,$00
     .byte $00,$34,$36,$38,$30,$2D,$00,$32
-    .byte $00,$1A,$03,$02,$0D,$2E,$00,$00
+    .byte $00,$1A,$03,$02,$0D,$2E,$00,$60
     .byte $00,$13,$06,$08,$0B,$00,$00,$00
     .byte $00,$05,$14,$15,$0F,$00,$00,$11
     .byte $00,$00,$18,$16,$0E,$2C,$00,$00
 
 //for input control
-string_limit:    .byte 0
+INPUT_STR_LIMIT:     .byte 0
 INPUT_INDEX_COUNTER: .byte 0 // control string index
