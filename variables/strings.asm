@@ -13,18 +13,6 @@ number_to_print_str:
 .byte 0
 .byte 0
 
-number_to_print_clean_str: 
-.byte 0 
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-
 keys_buffer_to_str:
 .byte 0
 .byte 0
@@ -53,4 +41,5 @@ coor_x_str:       .text @"x:\$00"
 table_offset_str: .text @"offset\$00"
 cmb_pressed_str:  .text @"cbm pressed\$00"
 end_print_row_str:.text @"end row\$00"
+space_4_str:      .text @"    \$00"
 

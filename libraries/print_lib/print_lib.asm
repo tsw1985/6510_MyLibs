@@ -230,13 +230,6 @@ print_move_modules_in_table_to_number_to_print_str:
         clc
         adc #$30 //add $30 to get the CHAR_CODE to see the digit
         sta number_to_print_str,y // and save the char on the varible
-
-        // At the same time we are adding the digits (chars)
-        // we need save empty spaces. This string will be showed
-        // before to print the digit string
-        lda #96 // empty space
-        sta number_to_print_clean_str,y // and save the char on the varible
-
         
         inc counter_str  // increment counter_str
         ldy counter_str  // load the new value on Y

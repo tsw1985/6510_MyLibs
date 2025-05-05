@@ -128,7 +128,7 @@
     // Before print the number, print empty values
     jsr PRINT_LIB.clean_location_screen
     locate_text(y,x,color)
-    print_text(number_to_print_clean_str)
+    print_text(space_4_str)
 
     // Print number
     jsr PRINT_LIB.clean_location_screen
