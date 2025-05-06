@@ -17,10 +17,11 @@
 .label SCREEN_COL_COLOR_POS=$26bd
 .label mult_times_str=$262d
 .label process_buffer=$860
+.label continue_print_input=$bd4
 .label SCREEN_HEIGHT=$19
 .label counter_table=$26c3
 .label BLACK=$0
-.label outer_loop=$c01
+.label outer_loop=$c10
 .label sum_res_0=$26e7
 .label Row_Color_LO=$4032
 .label SCREEN_BACKGROUND_COLOR=$d021
@@ -88,6 +89,7 @@
 .label LIGHT_GREEN=$d
 .label CHAR_KEY_PRESSED=$26fa
 .label main=$811
+.label skip_print_input=$bde
 .label KEYS_TO_SCREEN_STR=$268a
 .label stars_line=$250f
 .label SCREEN_BORDER_COLOR=$d020
@@ -117,12 +119,12 @@
 .label NUMBER_TO_PRINT_TABLE=$26b2
 .label total_digits=$26c5
 .label mul_num2_2=$26d9
-.label reset_key_buffer_counter=$bdc
+.label reset_key_buffer_counter=$beb
 .label mul_num2_3=$26da
 .label mul_num2_0=$26d7
 .label mul_num2_1=$26d8
 .label keys_buffer=$250a
-.label sleep_key=$bff
+.label sleep_key=$c0e
 .label SCREEN_RAM=$400
 .label cmb_pressed_str=$2671
 .label TABLE_KEY_ASCII=$2716
@@ -135,7 +137,7 @@
 .label number_to_print_str=$2500
 .label sub_num2_1=$26f0
 .label sub_num2_0=$26ef
-.label increment_buffer_counter=$bd6
+.label increment_buffer_counter=$be5
 .label sub_res_2=$26f5
 .label sub_res_3=$26f6
 .label TABLE_KEY_COL_INDEX=$26f7
@@ -177,4 +179,4 @@
 .label DARK_GRAY=$b
 .label LIBRARIES_ADDRESS=$5000
 .label GREY=$c
-.label inner_loop=$c03
+.label inner_loop=$c12

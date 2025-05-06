@@ -1,4 +1,4 @@
-lda #10
+lda #9
 sta INPUT_STR_LIMIT
 
 read_key:
@@ -167,9 +167,22 @@ key_pressed:
 
     // save the char on keys_to_screen_buffer
     // to print it on screen
-    ldy INPUT_INDEX_COUNTER
-    sta KEYS_TO_SCREEN_STR,y
-    inc INPUT_INDEX_COUNTER
+
+    .break
+    pha // save on stack the current CHAR to PRINT
+    lda INPUT_INDEX_COUNTER
+    cmp INPUT_STR_LIMIT
+    bcc continue_print_input // < a INPUT_STR_LIMIT
+    beq continue_print_input // == INPUT_STR_LIMIT
+    jmp skip_print_input
+    
+    continue_print_input:
+        pla // get from STACK the current CHAR to PRINT
+        ldy INPUT_INDEX_COUNTER
+        sta KEYS_TO_SCREEN_STR,y
+        inc INPUT_INDEX_COUNTER
+
+    skip_print_input:
 
     //here we can use this like a LIMIT , like text length !!
     ldy KEYS_BUFFER_COUNTER
@@ -177,9 +190,8 @@ key_pressed:
     beq reset_key_buffer_counter
 
     increment_buffer_counter:
-    inc KEYS_BUFFER_COUNTER
-    
-
+        
+        inc KEYS_BUFFER_COUNTER
 
     jmp continue_reading // continue reading all rows
 
