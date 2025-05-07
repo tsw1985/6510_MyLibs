@@ -34,7 +34,7 @@ init_code:
         //#import "/demos/math_lib/multiplication_32_bits.asm"
         //#import "/demos/math_lib/sum_32_bits.asm"
         //#import "/demos/math_lib/sub_32_bits.asm"
-        #import "/demos/keyboard_lib/keyboard_lib.asm"
+        #import "/demos/input_lib/input_lib.asm"
         
     // NOT REMOVEEE !!!
     //restore setup
