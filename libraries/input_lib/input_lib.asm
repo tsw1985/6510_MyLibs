@@ -1,12 +1,8 @@
-#import "input_macros/input_lib_macros.asm"
-
 INPUT_LIB:
 {
+    #import "input_macros/input_lib_macros.asm"
 
     input_keyboard:
-
-    lda #9
-    sta INPUT_STR_LIMIT
 
     read_key:
 
@@ -75,7 +71,8 @@ INPUT_LIB:
 
             //print keys pressed string
             jsr PRINT_LIB.clean_location_screen
-            locate_text(16,0,GREEN)
+            //locate_text(16,0,GREEN)
+            locate_input()
             print_text(KEYS_TO_SCREEN_STR)
 
 

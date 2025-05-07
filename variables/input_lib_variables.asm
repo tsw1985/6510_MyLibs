@@ -47,3 +47,8 @@ TABLE_KEY_ASCII:
 //for input control
 INPUT_STR_LIMIT:     .byte 0
 INPUT_INDEX_COUNTER: .byte 0 // control string index
+
+//Set row and col
+SCREEN_INPUT_ROW_POS: .byte 0
+SCREEN_INPUT_COL_POS: .byte 0
+SCREEN_INPUT_COLOR:   .byte 0

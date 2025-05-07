@@ -9,7 +9,6 @@
     sta SCREEN_COL_POS
     lda #color
     sta SCREEN_CHAR_COLOR
-
 }
 
 // Save in ZERO_PAGE the low hight byte
