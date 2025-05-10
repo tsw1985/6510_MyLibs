@@ -277,38 +277,27 @@ INPUT_LIB:
         print_text(move_right_str)
         rts
 
-    clean_cursor_text:
-        jsr PRINT_LIB.clean_location_screen
-        locate_text(13,0,RED)
-        print_text(space_5_str)
+    check_combo_keys:
+        ldx #23  //CMB 
+        lda PRESSED_KEY_TABLE,x
+        beq skip // A value is 0 ? skip
+
+        ldx #16 //Cursor key
+        lda PRESSED_KEY_TABLE,x
+        beq skip // A value is 0 ? skip
+
+        // If not skip , means CMB + Cursor is pressed, move to left cursor
+        jsr move_cursor_left
         rts
 
-
-    check_combo_keys:
-        //check keys combo ------------
-        //jsr clean_cursor_text
-
-        ldx #23
-        lda PRESSED_KEY_TABLE,x
-        beq skip
-
-        ldx #16
-        lda PRESSED_KEY_TABLE,x
-        beq skip
-
-        // Aquí significa que ambas teclas están pulsadas → Cursor Izquierda
-        jsr move_cursor_left
-        jmp done_check
-
         skip:
-            // si solo está Cursor ->
-            ldx #16
+            ldx #16 //check again cursor key . Here is only cursor key
             lda PRESSED_KEY_TABLE,x
-            bne is_only_cursor_key
-            jmp done_check
+            bne is_only_cursor_key // A value is == 1 ?
+        rts
 
-            is_only_cursor_key:
-                jsr move_cursor_right
-        //end check keys combo ----------
+        is_only_cursor_key:
+            jsr move_cursor_right
+        rts
 
 }    

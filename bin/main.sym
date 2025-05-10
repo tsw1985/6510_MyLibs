@@ -4,15 +4,15 @@
 .label TABLE_KEY_BOARD_ROW=$2717
 .label sub_num1_0=$26fd
 .label INPUT_STR_LIMIT=$2768
-.label MATH_LIB=$55af {
-  .label sum_32=$5688
-  .label sub_32=$56ae
-  .label division_32=$55af
-  .label loop=$55b4
-  .label do_subtract=$55da
-  .label end_loop=$5623
-  .label continue_multiplication_32=$562e
-  .label multiplication_32=$5629
+.label MATH_LIB=$558e {
+  .label sum_32=$5667
+  .label sub_32=$568d
+  .label division_32=$558e
+  .label loop=$5593
+  .label do_subtract=$55b9
+  .label end_loop=$5602
+  .label continue_multiplication_32=$560d
+  .label multiplication_32=$5608
 }
 .label SCREEN_COL_COLOR_POS=$26cf
 .label mult_times_str=$262d
@@ -131,7 +131,7 @@
   .label input_keyboard=$5115
   .label reset_key_buffer_counter=$54f8
   .label skip_print_input=$54eb
-  .label skip=$55a2
+  .label skip=$5582
   .label continue_reading=$5148
   .label clear_pressed=$5529
   .label reset_key_row_index=$51bc
@@ -143,11 +143,10 @@
   .label read_key=$5115
   .label check_cols=$513d
   .label outer_loop=$551d
-  .label is_only_cursor_key=$55ac
+  .label is_only_cursor_key=$558a
   .label move_cursor_right=$5552
-  .label clean_cursor_text=$5570
   .label inner_loop=$551f
-  .label check_combo_keys=$558e
+  .label check_combo_keys=$5570
 }
 .label move_right_str=$2696
 .label YELLOW=$7
