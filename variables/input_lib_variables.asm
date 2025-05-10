@@ -37,7 +37,7 @@ TABLE_KEY_ASCII_X_OFFSET: .byte 1
 TABLE_KEY_ASCII:
     .byte $00,$33,$35,$37,$39,$00,$00,$31
     .byte $00,$17,$12,$19,$09,$10,$00,$00
-    .byte $00,$01,$04,$07,$0A,$0C,$00,$00
+    .byte $FE,$01,$04,$07,$0A,$0C,$00,$FF // <--- CMB offset 23 . Cursor offset 16
     .byte $00,$34,$36,$38,$30,$2D,$00,$32
     .byte $00,$1A,$03,$02,$0D,$2E,$00,$60
     .byte $00,$13,$06,$08,$0B,$00,$00,$00
@@ -52,3 +52,4 @@ INPUT_INDEX_COUNTER: .byte 0 // control string index
 SCREEN_INPUT_ROW_POS: .byte 0
 SCREEN_INPUT_COL_POS: .byte 0
 SCREEN_INPUT_COLOR:   .byte 0
+PRESSED_KEY_TABLE:    .fill 20,0

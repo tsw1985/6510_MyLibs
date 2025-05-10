@@ -22,6 +22,10 @@ INPUT_LIB:
         ldy #0
         sty TABLE_KEY_COL_INDEX
 
+        //clear key pressed table
+        jsr clear_key_pressed_table
+
+
         //Count rows
         ldx TABLE_KEY_ROW_INDEX    // 0 to 7 count rows
         lda TABLE_KEY_BOARD_ROW,x  // get a row from table
@@ -68,6 +72,10 @@ INPUT_LIB:
             locate_text(19,0,YELLOW)
             print_text(keys_buffer)
 
+
+            jsr check_combo_keys
+            
+            done_check:
 
             //print keys pressed string
             jsr PRINT_LIB.clean_location_screen
@@ -147,8 +155,17 @@ INPUT_LIB:
         adc TABLE_KEY_COL_INDEX
         sta TABLE_KEY_ASCII_X_OFFSET //save offset value
 
+        
+
+        //set keypressed table
+        ldx TABLE_KEY_ASCII_X_OFFSET
+        lda #1
+        sta PRESSED_KEY_TABLE,x // set to 1 current key pressed
+
+
         //show offset result
-        //in A is the last calculation
+        lda TABLE_KEY_ASCII_X_OFFSET //load again the offset value on A to send it to the calculation
+                                     //in A is the last calculation
         sta div_res_0
         lda #0
         sta div_res_1
@@ -234,5 +251,64 @@ INPUT_LIB:
                 dex               
         bne outer_loop
         rts
+
+
+    clear_key_pressed_table:
+        ldx #0
+        clear_pressed:
+        lda #0
+        sta PRESSED_KEY_TABLE,x
+        inx
+        cpx #64
+        bne clear_pressed
+        rts
+
+
+    move_cursor_left:
+
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(13,0,RED)
+        print_text(move_left_str)
+        rts
+
+    move_cursor_right:
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(13,0,RED)
+        print_text(move_right_str)
+        rts
+
+    clean_cursor_text:
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(13,0,RED)
+        print_text(space_5_str)
+        rts
+
+
+    check_combo_keys:
+        //check keys combo ------------
+        //jsr clean_cursor_text
+
+        ldx #23
+        lda PRESSED_KEY_TABLE,x
+        beq skip
+
+        ldx #16
+        lda PRESSED_KEY_TABLE,x
+        beq skip
+
+        // Aquí significa que ambas teclas están pulsadas → Cursor Izquierda
+        jsr move_cursor_left
+        jmp done_check
+
+        skip:
+            // si solo está Cursor ->
+            ldx #16
+            lda PRESSED_KEY_TABLE,x
+            bne is_only_cursor_key
+            jmp done_check
+
+            is_only_cursor_key:
+                jsr move_cursor_right
+        //end check keys combo ----------
 
 }    

@@ -29,6 +29,9 @@ table_offset_str: .text @"offset\$00"
 cmb_pressed_str:  .text @"cbm pressed\$00"
 end_print_row_str:.text @"end row\$00"
 space_4_str:      .text @"    \$00"
+space_5_str:      .text @"     \$00"
+move_left_str:    .text @"left \$00"
+move_right_str:   .text @"right\$00"
 
 //This is the string buffer to print the chars on screen
 KEYS_TO_SCREEN_STR: .fill 40,0 // save 40 bytes in 0
