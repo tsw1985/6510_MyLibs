@@ -1,0 +1,20 @@
+Output dir: /home/lenovo1/DEVELOPER/C64/code/mylibs/libraries/input_lib/bin
+parsing
+Got 120 errors and 0 warnings while executing:
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/libraries/input_lib/input_macros/input_lib_macros.asm 8:9) Error: Unknown symbol 'SCREEN_INPUT_ROW_POS'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/libraries/input_lib/input_macros/input_lib_macros.asm 9:9) Error: Unknown symbol 'SCREEN_ROW_POS'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/libraries/input_lib/input_macros/input_lib_macros.asm 11:9) Error: Unknown symbol 'SCREEN_INPUT_COL_POS'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/libraries/input_lib/input_macros/input_lib_macros.asm 12:9) Error: Unknown symbol 'SCREEN_COL_POS'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/libraries/input_lib/input_macros/input_lib_macros.asm 14:9) Error: Unknown symbol 'SCREEN_INPUT_COLOR'
+  ...
+
+    // move the coords set on demo file
+    // and change the values
+
+    lda SCREEN_INPUT_ROW_POS
+        ^
+
+Error: Unknown symbol 'SCREEN_INPUT_ROW_POS'
+at line 8, column 9 in input_macros/input_lib_macros.asm
+
+

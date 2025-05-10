@@ -52,4 +52,4 @@ INPUT_INDEX_COUNTER: .byte 0 // control string index
 SCREEN_INPUT_ROW_POS: .byte 0
 SCREEN_INPUT_COL_POS: .byte 0
 SCREEN_INPUT_COLOR:   .byte 0
-PRESSED_KEY_TABLE:    .fill 20,0
+PRESSED_KEY_TABLE:    .fill 64,0
