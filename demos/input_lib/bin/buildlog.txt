@@ -1,0 +1,19 @@
+Output dir: /home/lenovo1/DEVELOPER/C64/code/mylibs/demos/input_lib/bin
+parsing
+Got 5 errors and 0 warnings while executing:
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/input_lib/input_lib.asm 5:5) Error: Unknown symbol 'SCREEN_INPUT_ROW_POS'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/input_lib/input_lib.asm 8:5) Error: Unknown symbol 'SCREEN_INPUT_COL_POS'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/input_lib/input_lib.asm 11:5) Error: Unknown symbol 'INPUT_STR_LIMIT'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/input_lib/input_lib.asm 14:5) Error: Unknown symbol 'SCREEN_INPUT_COLOR'
+  (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/input_lib/input_lib.asm 16:5) Error: Unknown symbol 'INPUT_LIB'
+
+
+//set col and row of input
+lda #3
+sta SCREEN_INPUT_ROW_POS
+    ^
+
+Error: Unknown symbol 'SCREEN_INPUT_ROW_POS'
+at line 5, column 5 in input_lib.asm
+
+

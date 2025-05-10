@@ -7,7 +7,7 @@ INPUT_LIB:
     read_key:
 
         // Puerto A de entrada
-        lda #$00   
+        lda #$00
         sta $DC02 // ---> $DC00
 
         // Puerto B de salida
@@ -23,7 +23,7 @@ INPUT_LIB:
         sty TABLE_KEY_COL_INDEX
 
         //clear key pressed table
-        jsr clear_key_pressed_table
+        //jsr clear_key_pressed_table
 
 
         //Count rows
@@ -31,7 +31,7 @@ INPUT_LIB:
         lda TABLE_KEY_BOARD_ROW,x  // get a row from table
         sta $DC01                  // and save it on port
 
-        
+
             //get now KEY PRESSED . Reading COLS
             lda $DC00
             eor #%11111111           // get bit key pressed and reverse it
@@ -39,7 +39,7 @@ INPUT_LIB:
                                     // and now we need to know wich key was pressed
 
             check_cols:
-            
+
                 ldy TABLE_KEY_COL_INDEX   // now check cols, load Y index
                 lda KEY_PRESSED           // load the key_pressed
                 and TABLE_KEY_BOARD_COL,y // and know wich key was pressed
@@ -47,22 +47,22 @@ INPUT_LIB:
                                         // 00000000 , the flag Z is set to 0
 
                                         // then use BNE ( Branch Not Equals )
-                                        // because this jump is Z=0  
-                bne key_pressed           //if a key was pressed , save it
+                                        // because this jump is Z=0
 
+                bne key_pressed           //if a key was pressed , save it
                 continue_reading:
 
                     //increment COL_INDEX to check next value
                     inc TABLE_KEY_COL_INDEX
                     lda TABLE_KEY_COL_INDEX
-                    cmp #8    
-                    bne check_cols       // if col index is 8, 
+                    cmp #8
+                    bne check_cols       // if col index is 8,
                                         // go to read next col row
 
-                                // read a next row again 
+                                // read a next row again
         inc TABLE_KEY_ROW_INDEX // next row on table ...
         lda TABLE_KEY_ROW_INDEX //
-        cmp #8                  // if ROW index is 7 
+        cmp #8                  // if ROW index is 7
         beq reset_key_row_index // reset to 0
 
 
@@ -72,18 +72,14 @@ INPUT_LIB:
             locate_text(19,0,YELLOW)
             print_text(keys_buffer)
 
-
-            jsr check_combo_keys
-            
-            done_check:
+            //clear key pressed table
+            jsr clear_key_pressed_table
 
             //print keys pressed string
             jsr PRINT_LIB.clean_location_screen
             //locate_text(16,0,GREEN)
             locate_input()
             print_text(KEYS_TO_SCREEN_STR)
-
-
 
 
         //end row message for testing
@@ -107,7 +103,7 @@ INPUT_LIB:
 
         //wait a little bit
         jsr sleep_key
-            
+
         //jsr PRINT_LIB.clean_screen
 
         // show ROW INDEX
@@ -150,18 +146,18 @@ INPUT_LIB:
         lda TABLE_KEY_ROW_INDEX
         asl
         asl
-        asl  
+        asl
         clc
         adc TABLE_KEY_COL_INDEX
         sta TABLE_KEY_ASCII_X_OFFSET //save offset value
-
-        
 
         //set keypressed table
         ldx TABLE_KEY_ASCII_X_OFFSET
         lda #1
         sta PRESSED_KEY_TABLE,x // set to 1 current key pressed
 
+        jsr check_combo_keys
+        continue_normal:
 
         //show offset result
         lda TABLE_KEY_ASCII_X_OFFSET //load again the offset value on A to send it to the calculation
@@ -187,20 +183,26 @@ INPUT_LIB:
         lda SCREEN_CHAR
         ldy KEYS_BUFFER_COUNTER
         sta keys_buffer,y
-        
+
+        //check if current char is CMB, then skip to print
+        lda SCREEN_CHAR
+        cmp #$FF //cmb key
+        .break
+        beq skip_print_input // if is , then ignore
+
 
         // save the char on keys_to_screen_buffer
         // to print it on screen
 
-        .break
         pha // save on stack the current CHAR to PRINT
         lda INPUT_INDEX_COUNTER
         cmp INPUT_STR_LIMIT
         bcc continue_print_input // < a INPUT_STR_LIMIT
         beq continue_print_input // == INPUT_STR_LIMIT
         jmp skip_print_input
-        
+
         continue_print_input:
+
             pla // get from STACK the current CHAR to PRINT
             ldy INPUT_INDEX_COUNTER
             sta KEYS_TO_SCREEN_STR,y
@@ -214,7 +216,7 @@ INPUT_LIB:
         beq reset_key_buffer_counter
 
         increment_buffer_counter:
-            
+
             inc KEYS_BUFFER_COUNTER
 
         jmp continue_reading // continue reading all rows
@@ -222,7 +224,7 @@ INPUT_LIB:
     reset_key_buffer_counter:
 
         // reset counter
-        lda #-1 
+        lda #-1
         sta KEYS_BUFFER_COUNTER
 
         lda #0
@@ -241,19 +243,20 @@ INPUT_LIB:
 
     sleep_key:
 
-        ldx #120         
+        ldx #90
         outer_loop:
-            ldy #120          
+            ldy #90
             inner_loop:
-                nop               
-                dey               
-                bne inner_loop    
-                dex               
+                nop
+                dey
+                bne inner_loop
+                dex
         bne outer_loop
         rts
 
 
     clear_key_pressed_table:
+        //empty full real time keys pressed table
         ldx #0
         clear_pressed:
         lda #0
@@ -263,22 +266,23 @@ INPUT_LIB:
         bne clear_pressed
         rts
 
-
     move_cursor_left:
 
         jsr PRINT_LIB.clean_location_screen
         locate_text(13,0,RED)
         print_text(move_left_str)
-        rts
+        jmp read_key
+        //rts
 
     move_cursor_right:
         jsr PRINT_LIB.clean_location_screen
         locate_text(13,0,RED)
         print_text(move_right_str)
         rts
+        //jmp read_key
 
     check_combo_keys:
-        ldx #23  //CMB 
+        ldx #23  //CMB OFFSET !! not value
         lda PRESSED_KEY_TABLE,x
         beq skip // A value is 0 ? skip
 
@@ -288,16 +292,16 @@ INPUT_LIB:
 
         // If not skip , means CMB + Cursor is pressed, move to left cursor
         jsr move_cursor_left
-        rts
+        //jmp continue_normal
 
         skip:
             ldx #16 //check again cursor key . Here is only cursor key
             lda PRESSED_KEY_TABLE,x
             bne is_only_cursor_key // A value is == 1 ?
-        rts
+        jmp continue_normal //rts
 
         is_only_cursor_key:
             jsr move_cursor_right
-        rts
+        jmp read_key //rts
 
-}    
+}
