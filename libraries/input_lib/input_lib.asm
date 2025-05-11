@@ -68,25 +68,16 @@ INPUT_LIB:
 
 
         process_buffer:
-            //print current buffer
-            jsr PRINT_LIB.clean_location_screen
-            locate_text(19,0,YELLOW)
-            print_text(keys_buffer)
 
             //clear key pressed table
             jsr clear_key_pressed_table
 
-            //print keys pressed string
-            jsr PRINT_LIB.clean_location_screen
-            //locate_text(16,0,GREEN)
-            locate_input()
-            print_text(KEYS_TO_SCREEN_STR)
+            //print current buffer
+            jsr print_buffer
 
-
-        //end row message for testing
-        jsr PRINT_LIB.clean_location_screen
-        locate_text(20,20,YELLOW)
-        print_text(end_print_row_str)
+            //print keys pressed            
+            jsr print_keys_pressed
+            
 
 
         jmp read_key            // and go to read all again
@@ -105,46 +96,16 @@ INPUT_LIB:
         //wait a little bit
         jsr sleep_key
 
-        /*
-
-        //jsr PRINT_LIB.clean_screen
-
         // show ROW INDEX
-        jsr PRINT_LIB.clean_location_screen
-        locate_text(5,0,WHITE)
-        print_text(coor_x_str)
-        lda TABLE_KEY_ROW_INDEX
-        sta div_res_0
-        lda #0
-        sta div_res_1
-        sta div_res_2
-        sta div_res_3
-
-        // Print the result of calculation on screen
-        print_calculation_result(5,3,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+        jsr print_x_coord
 
         // show COL INDEX
-        jsr PRINT_LIB.clean_location_screen
-        locate_text(6,0,WHITE)
-        print_text(coor_y_str)
-
-        lda TABLE_KEY_COL_INDEX
-        sta div_res_0
-        lda #0
-        sta div_res_1
-        sta div_res_2
-        sta div_res_3
-        // Print the result of calculation on screen
-        print_calculation_result(6,3,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
-
-
+        jsr print_y_coord
 
         // show table offset
-        jsr PRINT_LIB.clean_location_screen
-        locate_text(7,0,WHITE)
-        print_text(table_offset_str)
-
-        */
+        //jsr PRINT_LIB.clean_location_screen
+        //locate_text(7,0,WHITE)
+        //print_text(table_offset_str)
 
         //calculate offset for table
         //char = row * 8 + col
@@ -156,35 +117,28 @@ INPUT_LIB:
         adc TABLE_KEY_COL_INDEX
         sta TABLE_KEY_ASCII_X_OFFSET //save offset value
 
-
-
-
         //set keypressed table
         ldx TABLE_KEY_ASCII_X_OFFSET
         lda #1
         sta PRESSED_KEY_TABLE,x // set to 1 current key pressed
 
+
+        //print cursor index
+        //jsr PRINT_LIB.clean_location_screen
+        //locate_text(7,0,WHITE)
+        //print_text(cursor_index_str)
+
+        //end print cursor index
+
         jsr check_combo_keys
         continue_normal:
 
         //show offset result
-        lda TABLE_KEY_ASCII_X_OFFSET //load again the offset value on A to send it to the calculation
-                                     //in A is the last calculation
-        sta div_res_0
-        lda #0
-        sta div_res_1
-        sta div_res_2
-        sta div_res_3
-        jsr PRINT_LIB.clean_location_screen
-        // Print the result of calculation on screen
-        print_calculation_result(7,8,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+        jsr print_offset_result
 
         //get char from table to print it on screen
-        ldx TABLE_KEY_ASCII_X_OFFSET
-        lda TABLE_KEY_ASCII,x
-        sta SCREEN_CHAR
-        locate_text(9,4,YELLOW)
-        jsr PRINT_LIB.print_char  // print single char
+        jsr print_current_pressed_char
+        
 
         //----------------------- SAVE IN BUFFER ------------------------
         // get SCREEN_CHAR and SAVE IT ON BUFFER
@@ -195,10 +149,7 @@ INPUT_LIB:
         //check if current char is CMB, then skip to print
         lda SCREEN_CHAR
         cmp #$FF //cmb key
-        .break
         beq skip_print_input // if is , then ignore
-
-
         // save the char on keys_to_screen_buffer
         // to print it on screen
 
@@ -280,11 +231,11 @@ INPUT_LIB:
     move_cursor_left:
 
         jsr PRINT_LIB.clean_location_screen
-        locate_text(13,0,RED)
+        locate_text(6,0,YELLOW)
         print_text(move_left_str)
 
-        dec INPUT_CURSOR_COL
-        jsr print_cursor
+        //dec INPUT_CURSOR_COL
+        //jsr print_cursor
 
         jmp read_key
         //rts
@@ -292,11 +243,11 @@ INPUT_LIB:
     move_cursor_right:
         
         jsr PRINT_LIB.clean_location_screen
-        locate_text(13,0,RED)
+        locate_text(6,0,YELLOW)
         print_text(move_right_str)
 
-        inc INPUT_CURSOR_COL
-        jsr print_cursor
+        //inc INPUT_CURSOR_COL
+        //jsr print_cursor
 
         rts
         //jmp read_key
@@ -364,5 +315,86 @@ INPUT_LIB:
 
         //inc INPUT_CURSOR_COL
         rts        
+
+
+    print_buffer:
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(1,0,WHITE)
+        print_text(buffer_str)
+
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(1,8,YELLOW)
+        print_text(keys_buffer)
+        rts
+
+    print_x_coord:
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(2,0,WHITE)
+        print_text(coor_x_str)
+        lda TABLE_KEY_ROW_INDEX
+        sta div_res_0
+        lda #0
+        sta div_res_1
+        sta div_res_2
+        sta div_res_3
+
+        // Print the result of calculation on screen
+        print_calculation_result(2,3,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+        rts
+
+    print_y_coord:
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(3,0,WHITE)
+        print_text(coor_y_str)
+
+        lda TABLE_KEY_COL_INDEX
+        sta div_res_0
+        lda #0
+        sta div_res_1
+        sta div_res_2
+        sta div_res_3
+        // Print the result of calculation on screen
+        print_calculation_result(3,3,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+        rts
+
+    print_offset_result:
+
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(4,0,WHITE)
+        print_text(calc_offset_str)
+
+
+        lda TABLE_KEY_ASCII_X_OFFSET //load again the offset value on A to send it to the calculation
+                                     //in A is the last calculation
+        sta div_res_0
+        lda #0
+        sta div_res_1
+        sta div_res_2
+        sta div_res_3
+        jsr PRINT_LIB.clean_location_screen
+        // Print the result of calculation on screen
+        print_calculation_result(4,13,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+        rts
+
+    print_current_pressed_char:
+
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(5,0,WHITE)
+        print_text(current_char_str)
+
+        ldx TABLE_KEY_ASCII_X_OFFSET
+        lda TABLE_KEY_ASCII,x
+        sta SCREEN_CHAR
+        locate_text(5,5,YELLOW)
+        jsr PRINT_LIB.print_char  // print single char
+        rts
+
+    print_keys_pressed:
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(2,12,GREEN)
+        locate_input()
+        print_text(KEYS_TO_SCREEN_STR)
+        rts
+        
 
 }
