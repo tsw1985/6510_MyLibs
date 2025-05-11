@@ -222,7 +222,7 @@ INPUT_LIB:
     move_cursor_left:
 
         jsr PRINT_LIB.clean_location_screen
-        locate_text(6,0,YELLOW)
+        locate_text(7,0,YELLOW)
         print_text(move_left_str)
 
         //dec INPUT_CURSOR_COL
@@ -234,7 +234,7 @@ INPUT_LIB:
     move_cursor_right:
         
         jsr PRINT_LIB.clean_location_screen
-        locate_text(6,0,YELLOW)
+        locate_text(7,0,YELLOW)
         print_text(move_right_str)
 
         //inc INPUT_CURSOR_COL
