@@ -7,11 +7,11 @@ INPUT_LIB:
 
     read_key:
 
-        // Puerto A de entrada
+        // Puert A = enter
         lda #$00
         sta $DC02 // ---> $DC00
 
-        // Puerto B de salida
+        // Puert B = exit
         lda #$ff
         sta $DC03 // ---> $DC01
 
@@ -25,7 +25,6 @@ INPUT_LIB:
 
         //clear key pressed table
         //jsr clear_key_pressed_table
-
 
         //Count rows
         ldx TABLE_KEY_ROW_INDEX    // 0 to 7 count rows
@@ -65,7 +64,6 @@ INPUT_LIB:
         lda TABLE_KEY_ROW_INDEX //
         cmp #8                  // if ROW index is 7
         beq reset_key_row_index // reset to 0
-
 
         process_buffer:
 
