@@ -102,11 +102,6 @@ INPUT_LIB:
         // show COL INDEX
         jsr print_y_coord
 
-        // show table offset
-        //jsr PRINT_LIB.clean_location_screen
-        //locate_text(7,0,WHITE)
-        //print_text(table_offset_str)
-
         //calculate offset for table
         //char = row * 8 + col
         lda TABLE_KEY_ROW_INDEX
@@ -122,15 +117,11 @@ INPUT_LIB:
         lda #1
         sta PRESSED_KEY_TABLE,x // set to 1 current key pressed
 
-
-        //print cursor index
-        //jsr PRINT_LIB.clean_location_screen
-        //locate_text(7,0,WHITE)
-        //print_text(cursor_index_str)
-
-        //end print cursor index
+        jsr print_cursor_index
+        
 
         jsr check_combo_keys
+        
         continue_normal:
 
         //show offset result
@@ -373,7 +364,7 @@ INPUT_LIB:
         sta div_res_3
         jsr PRINT_LIB.clean_location_screen
         // Print the result of calculation on screen
-        print_calculation_result(4,13,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+        print_calculation_result(4,8,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
         rts
 
     print_current_pressed_char:
@@ -390,11 +381,32 @@ INPUT_LIB:
         rts
 
     print_keys_pressed:
+
         jsr PRINT_LIB.clean_location_screen
         locate_text(2,12,GREEN)
         locate_input()
         print_text(KEYS_TO_SCREEN_STR)
         rts
+
+    print_cursor_index:
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(6,0,WHITE)
+        print_text(cursor_index_str)
+
+
+        //load again the offset value on A to send it to the calculation
+        //in A is the last calculation
+        lda INPUT_CURSOR_COL
+        sta div_res_0
+        lda #0
+        sta div_res_1
+        sta div_res_2
+        sta div_res_3
+        jsr PRINT_LIB.clean_location_screen
+        // Print the result of calculation on screen
+        print_calculation_result(6,7,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+        rts
+        
         
 
 }
