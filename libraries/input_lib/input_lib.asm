@@ -3,6 +3,7 @@ INPUT_LIB:
     #import "input_macros/input_lib_macros.asm"
 
     input_keyboard:
+    jsr print_cursor
 
     read_key:
 
@@ -104,6 +105,8 @@ INPUT_LIB:
         //wait a little bit
         jsr sleep_key
 
+        /*
+
         //jsr PRINT_LIB.clean_screen
 
         // show ROW INDEX
@@ -141,6 +144,8 @@ INPUT_LIB:
         locate_text(7,0,WHITE)
         print_text(table_offset_str)
 
+        */
+
         //calculate offset for table
         //char = row * 8 + col
         lda TABLE_KEY_ROW_INDEX
@@ -150,6 +155,9 @@ INPUT_LIB:
         clc
         adc TABLE_KEY_COL_INDEX
         sta TABLE_KEY_ASCII_X_OFFSET //save offset value
+
+
+
 
         //set keypressed table
         ldx TABLE_KEY_ASCII_X_OFFSET
@@ -208,6 +216,9 @@ INPUT_LIB:
             sta KEYS_TO_SCREEN_STR,y
             inc INPUT_INDEX_COUNTER
 
+            inc INPUT_CURSOR_COL
+            jsr print_cursor
+
         skip_print_input:
 
         //here we can use this like a LIMIT , like text length !!
@@ -243,9 +254,9 @@ INPUT_LIB:
 
     sleep_key:
 
-        ldx #90
+        ldx #120
         outer_loop:
-            ldy #90
+            ldy #120
             inner_loop:
                 nop
                 dey
@@ -271,13 +282,22 @@ INPUT_LIB:
         jsr PRINT_LIB.clean_location_screen
         locate_text(13,0,RED)
         print_text(move_left_str)
+
+        dec INPUT_CURSOR_COL
+        jsr print_cursor
+
         jmp read_key
         //rts
 
     move_cursor_right:
+        
         jsr PRINT_LIB.clean_location_screen
         locate_text(13,0,RED)
         print_text(move_right_str)
+
+        inc INPUT_CURSOR_COL
+        jsr print_cursor
+
         rts
         //jmp read_key
 
@@ -303,5 +323,46 @@ INPUT_LIB:
         is_only_cursor_key:
             jsr move_cursor_right
         jmp read_key //rts
+
+    
+    print_cursor:
+
+        lda #224 // Space white inverted  . + 128 , is the current char on inverted color
+        sta SCREEN_CHAR
+
+        lda INPUT_CURSOR_ROW
+        sta SCREEN_ROW_POS
+
+        lda INPUT_CURSOR_COL
+        sta SCREEN_COL_POS
+
+        //set color on color ram
+        ldx SCREEN_ROW_POS       
+        lda Row_Color_LO,x
+        sta ZERO_PAGE_ROW_COLOR_LOW_BYTE
+
+        lda Row_Color_HI,x
+        sta ZERO_PAGE_ROW_COLOR_HIGHT_BYTE
+
+        ldy SCREEN_COL_POS             
+        lda #WHITE //SCREEN_CHAR_COLOR
+        sta (ZERO_PAGE_ROW_COLOR_LOW_BYTE),y
+
+        //set coords on Screen
+        ldx SCREEN_ROW_POS       // Row 22
+        lda Row_LO,x
+        sta ZERO_PAGE_ROW_LOW_BYTE
+        lda Row_HI,x
+        sta ZERO_PAGE_ROW_HIGHT_BYTE
+
+        ldy SCREEN_COL_POS             // col 15
+        lda SCREEN_CHAR                // char " "
+        sta (ZERO_PAGE_ROW_LOW_BYTE),y
+        
+        //check buffer to know if CMB key is pressed
+        //to increment or decrement the cursor COL
+
+        //inc INPUT_CURSOR_COL
+        rts        
 
 }

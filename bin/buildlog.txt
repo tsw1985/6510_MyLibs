@@ -11,9 +11,9 @@ Memory Map
 Default-segment:
   $0801-$080c Basic
   $080e-$080d Basic End
-  $0810-$0831 Main Code
-  $2500-$2780 Variables
+  $0810-$0837 Main Code
+  $2500-$27ae Variables
   $4000-$4063 Tables
-  $5000-$56ca Libraries
+  $5000-$551d Libraries
 
 Writing Symbol file: main.sym

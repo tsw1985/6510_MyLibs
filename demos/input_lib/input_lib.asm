@@ -3,9 +3,11 @@
 //set col and row of input
 lda #3
 sta SCREEN_INPUT_ROW_POS
+sta INPUT_CURSOR_ROW
 
-lda #5
+lda #10
 sta SCREEN_INPUT_COL_POS
+sta INPUT_CURSOR_COL
 
 lda #15
 sta INPUT_STR_LIMIT
