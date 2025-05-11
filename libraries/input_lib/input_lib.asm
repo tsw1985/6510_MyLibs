@@ -72,13 +72,8 @@ INPUT_LIB:
             //clear key pressed table
             jsr clear_key_pressed_table
 
-            //print current buffer
-            jsr print_buffer
-
             //print keys pressed            
             jsr print_keys_pressed
-            
-
 
         jmp read_key            // and go to read all again
 
@@ -102,27 +97,26 @@ INPUT_LIB:
         // show COL INDEX
         jsr print_y_coord
 
-        //calculate offset for table
-        //char = row * 8 + col
-        lda TABLE_KEY_ROW_INDEX
-        asl
-        asl
-        asl
-        clc
-        adc TABLE_KEY_COL_INDEX
-        sta TABLE_KEY_ASCII_X_OFFSET //save offset value
+        // calculate offset for table
+        jsr calculate_offset_for_ascii_table
 
-        //set keypressed table
-        ldx TABLE_KEY_ASCII_X_OFFSET
-        lda #1
-        sta PRESSED_KEY_TABLE,x // set to 1 current key pressed
-
-        jsr print_cursor_index
         
 
+        //save in run time the pressed keys on keypressed_table
+        ldx TABLE_KEY_ASCII_X_OFFSET
+        lda #1  //set a 1 , it means key pressed on table
+        sta PRESSED_KEY_TABLE,x // set to 1 current key pressed
+
+        // print cursor index
+        jsr print_cursor_index
+        
+        //check combo keys
         jsr check_combo_keys
         
         continue_normal:
+
+        
+
 
         //show offset result
         jsr print_offset_result
@@ -130,12 +124,7 @@ INPUT_LIB:
         //get char from table to print it on screen
         jsr print_current_pressed_char
         
-
         //----------------------- SAVE IN BUFFER ------------------------
-        // get SCREEN_CHAR and SAVE IT ON BUFFER
-        lda SCREEN_CHAR
-        ldy KEYS_BUFFER_COUNTER
-        sta keys_buffer,y
 
         //check if current char is CMB, then skip to print
         lda SCREEN_CHAR
@@ -163,36 +152,7 @@ INPUT_LIB:
 
         skip_print_input:
 
-        //here we can use this like a LIMIT , like text length !!
-        ldy KEYS_BUFFER_COUNTER
-        cpy #3  //if KEYS_BUFFER_COUNTER == 4 , reset to 0
-        beq reset_key_buffer_counter
-
-        increment_buffer_counter:
-
-            inc KEYS_BUFFER_COUNTER
-
         jmp continue_reading // continue reading all rows
-
-    reset_key_buffer_counter:
-
-        // reset counter
-        lda #-1
-        sta KEYS_BUFFER_COUNTER
-
-        lda #0
-        ldx #0
-        sta KEYS_BUFFER,x
-        ldx #1
-        sta KEYS_BUFFER,x
-        ldx #2
-        sta KEYS_BUFFER,x
-        ldx #3
-        sta KEYS_BUFFER,x
-        ldx #4
-        sta KEYS_BUFFER,x
-
-        jmp increment_buffer_counter
 
     sleep_key:
 
@@ -225,7 +185,7 @@ INPUT_LIB:
         locate_text(7,0,YELLOW)
         print_text(move_left_str)
 
-        //dec INPUT_CURSOR_COL
+        dec INPUT_CURSOR_COL
         //jsr print_cursor
 
         jmp read_key
@@ -237,7 +197,7 @@ INPUT_LIB:
         locate_text(7,0,YELLOW)
         print_text(move_right_str)
 
-        //inc INPUT_CURSOR_COL
+        inc INPUT_CURSOR_COL
         //jsr print_cursor
 
         rts
@@ -306,17 +266,6 @@ INPUT_LIB:
 
         //inc INPUT_CURSOR_COL
         rts        
-
-
-    print_buffer:
-        jsr PRINT_LIB.clean_location_screen
-        locate_text(1,0,WHITE)
-        print_text(buffer_str)
-
-        jsr PRINT_LIB.clean_location_screen
-        locate_text(1,8,YELLOW)
-        print_text(keys_buffer)
-        rts
 
     print_x_coord:
         jsr PRINT_LIB.clean_location_screen
@@ -389,13 +338,12 @@ INPUT_LIB:
         rts
 
     print_cursor_index:
+
         jsr PRINT_LIB.clean_location_screen
         locate_text(6,0,WHITE)
         print_text(cursor_index_str)
 
-
-        //load again the offset value on A to send it to the calculation
-        //in A is the last calculation
+        //put on A the value to print
         lda INPUT_CURSOR_COL
         sta div_res_0
         lda #0
@@ -403,10 +351,21 @@ INPUT_LIB:
         sta div_res_2
         sta div_res_3
         jsr PRINT_LIB.clean_location_screen
+        
         // Print the result of calculation on screen
         print_calculation_result(6,7,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
         rts
-        
+
+    calculate_offset_for_ascii_table:
+        //char = row * 8 + col
+        lda TABLE_KEY_ROW_INDEX
+        asl
+        asl
+        asl
+        clc
+        adc TABLE_KEY_COL_INDEX
+        sta TABLE_KEY_ASCII_X_OFFSET //save offset value
+        rts        
         
 
 }
