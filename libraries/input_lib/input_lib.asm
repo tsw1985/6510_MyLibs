@@ -7,11 +7,11 @@ INPUT_LIB:
 
     read_key:
 
-        // Puert A = enter
+        // Port A = enter
         lda #$00
         sta $DC02 // ---> $DC00
 
-        // Puert B = exit
+        // Port B = exit
         lda #$ff
         sta $DC03 // ---> $DC01
 
@@ -98,8 +98,6 @@ INPUT_LIB:
         // calculate offset for table
         jsr calculate_offset_for_ascii_table
 
-        
-
         //save in run time the pressed keys on keypressed_table
         ldx TABLE_KEY_ASCII_X_OFFSET
         lda #1  //set a 1 , it means key pressed on table
@@ -113,30 +111,26 @@ INPUT_LIB:
         
         continue_normal:
 
-        
+            //show offset result
+            jsr print_offset_result
 
+            //get char from table to print it on screen
+            jsr print_current_pressed_char
+            
 
-        //show offset result
-        jsr print_offset_result
+            //check if current char is CMB, then skip to print
+            lda SCREEN_CHAR
+            cmp #$FF //cmb key
+            beq skip_print_input // if is , then ignore
+            // save the char on keys_to_screen_buffer
+            // to print it on screen
 
-        //get char from table to print it on screen
-        jsr print_current_pressed_char
-        
-        //----------------------- SAVE IN BUFFER ------------------------
-
-        //check if current char is CMB, then skip to print
-        lda SCREEN_CHAR
-        cmp #$FF //cmb key
-        beq skip_print_input // if is , then ignore
-        // save the char on keys_to_screen_buffer
-        // to print it on screen
-
-        pha // save on stack the current CHAR to PRINT
-        lda INPUT_INDEX_COUNTER
-        cmp INPUT_STR_LIMIT
-        bcc continue_print_input // < a INPUT_STR_LIMIT
-        beq continue_print_input // == INPUT_STR_LIMIT
-        jmp skip_print_input
+            pha // save on stack the current CHAR to PRINT
+            lda INPUT_INDEX_COUNTER
+            cmp INPUT_STR_LIMIT
+            bcc continue_print_input // < a INPUT_STR_LIMIT
+            beq continue_print_input // == INPUT_STR_LIMIT
+            jmp skip_print_input
 
         continue_print_input:
 
@@ -184,7 +178,30 @@ INPUT_LIB:
         print_text(move_left_str)
 
         dec INPUT_CURSOR_COL
-        //jsr print_cursor
+        
+        //invert char color
+        // calcula fila y columna
+        lda INPUT_CURSOR_ROW
+        sta SCREEN_ROW_POS
+
+        lda INPUT_CURSOR_COL
+        sta SCREEN_COL_POS
+
+        // calcular dirección en $0400 (pantalla)
+        ldx SCREEN_ROW_POS
+        lda Row_LO,x
+        sta ZERO_PAGE_ROW_LOW_BYTE
+
+        lda Row_HI,x
+        sta ZERO_PAGE_ROW_HIGHT_BYTE
+
+        ldy SCREEN_COL_POS
+        lda (ZERO_PAGE_ROW_LOW_BYTE),y
+        ora #%10000000
+        sta (ZERO_PAGE_ROW_LOW_BYTE),y
+
+        jmp read_key
+        //invert char color
 
         jmp read_key
         //rts
@@ -199,7 +216,6 @@ INPUT_LIB:
         //jsr print_cursor
 
         rts
-        //jmp read_key
 
     check_combo_keys:
         ldx #23  //CMB OFFSET !! not value
@@ -212,17 +228,17 @@ INPUT_LIB:
 
         // If not skip , means CMB + Cursor is pressed, move to left cursor
         jsr move_cursor_left
-        //jmp continue_normal
 
         skip:
             ldx #16 //check again cursor key . Here is only cursor key
             lda PRESSED_KEY_TABLE,x
             bne is_only_cursor_key // A value is == 1 ?
-        jmp continue_normal //rts
+
+        jmp continue_normal
 
         is_only_cursor_key:
             jsr move_cursor_right
-        jmp read_key //rts
+        jmp read_key
 
     
     print_cursor:
