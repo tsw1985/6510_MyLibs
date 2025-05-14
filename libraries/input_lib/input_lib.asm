@@ -75,6 +75,8 @@ INPUT_LIB:
                 jsr calculate_offset_for_ascii_table // calculation of offset
                 jsr print_offset_result              // print offset result
 
+                jsr print_current_pressed_char  // show current pressed char
+
 
 
 
@@ -322,6 +324,11 @@ INPUT_LIB:
         pull_regs_from_stack()
         rts
 
+
+    /* Function:
+            This is a debuggin function . To know the Y value of the keyboard
+            matrix.
+    */
     print_y_coord:
 
         push_regs_to_stack()
@@ -339,6 +346,28 @@ INPUT_LIB:
         sta div_res_3
         // Print the result of calculation on screen
         print_calculation_result(3,3,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+
+        pull_regs_from_stack()
+
+        rts
+
+
+    /* Function:
+        Debugging function to see the current pressed key
+    */
+    print_current_pressed_char:
+
+        push_regs_to_stack()
+
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(5,0,WHITE)
+        print_text(current_char_str)
+
+        ldx TABLE_KEY_ASCII_X_OFFSET
+        lda TABLE_KEY_ASCII,x
+        sta SCREEN_CHAR
+        locate_text(5,5,YELLOW)
+        jsr PRINT_LIB.print_char  // print single char
 
         pull_regs_from_stack()
 

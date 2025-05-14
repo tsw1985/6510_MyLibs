@@ -5,15 +5,15 @@
 .label sub_num1_0=$2720
 .label TEMP_Y_REG=$27d6
 .label INPUT_STR_LIMIT=$278b
-.label MATH_LIB=$5521 {
-  .label sum_32=$55fa
-  .label sub_32=$5620
-  .label division_32=$5521
-  .label loop=$5526
-  .label do_subtract=$554c
-  .label end_loop=$5595
-  .label continue_multiplication_32=$55a0
-  .label multiplication_32=$559b
+.label MATH_LIB=$5567 {
+  .label sum_32=$5640
+  .label sub_32=$5666
+  .label division_32=$5567
+  .label loop=$556c
+  .label do_subtract=$5592
+  .label end_loop=$55db
+  .label continue_multiplication_32=$55e6
+  .label multiplication_32=$55e1
 }
 .label SCREEN_COL_COLOR_POS=$26f2
 .label mult_times_str=$262d
@@ -139,36 +139,38 @@
 .label TABLE_KEY_ASCII=$274b
 .label INPUT_LIB=$5115 {
   .label scan_all_keys=$5131
-  .label no_key_detected=$515a
-  .label save_key_pressed=$5173 {
+  .label no_key_detected=$515d
+  .label save_key_pressed=$5176 {
   }
   .label scan_rows_loop=$5133
   .label input_keyboard=$5115
   .label scan_cols_loop=$5143
-  .label skip=$519f {
+  .label skip=$51a2 {
   }
-  .label clear_pressed=$52c0
-  .label print_y_coord=$5428 {
+  .label clear_pressed=$52c3
+  .label print_y_coord=$542b {
   }
-  .label print_cursor=$52ea {
+  .label print_cursor=$52ed {
   }
-  .label clear_key_pressed_table=$52b9 {
+  .label print_current_pressed_char=$5524 {
   }
-  .label process_pressed_keys=$5165 {
+  .label clear_key_pressed_table=$52bc {
   }
-  .label sleep_key=$52a3 {
+  .label process_pressed_keys=$5168 {
   }
-  .label calculate_offset_for_ascii_table=$52d0 {
+  .label sleep_key=$52a6 {
   }
-  .label print_x_coord=$532f {
+  .label calculate_offset_for_ascii_table=$52d3 {
   }
-  .label print_offset_result=$51a5 {
+  .label print_x_coord=$5332 {
+  }
+  .label print_offset_result=$51a8 {
   }
   .label read_key=$5122
-  .label outer_loop=$52aa
-  .label check_combo_keys=$5186 {
+  .label outer_loop=$52ad
+  .label check_combo_keys=$5189 {
   }
-  .label inner_loop=$52ac
+  .label inner_loop=$52af
 }
 .label move_right_str=$268f
 .label TEMP_X_REG=$27d5
