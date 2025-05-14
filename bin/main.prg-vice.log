@@ -21,7 +21,7 @@ Roberto Muscedere, June Tate-Gans, Pablo Roldan.
 This is free software with ABSOLUTELY NO WARRANTY.
 See the "About VICE" command for more info.
  
-Main: random seed was: 0x6824773c
+Main: random seed was: 0x68249f52
 Main: command line was: x64 -logfile /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log -moncommands /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.vs /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg
 Main: VICE system file directory: '/usr/share/vice'.
 Main: VICE system file search path: '/home/lenovo1/.local/share/vice:/usr/bin:/usr/share/vice'.
@@ -88,7 +88,7 @@ Hotkeys: OK.
 Main CPU: 
 Main CPU: starting at ($FFFC).
 Main CPU: RESET.
-VIC-II: VSP Bug: safe channels are: 025. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 123567. Emulation of memory corruption is disabled.
 AUTOSTART: Autodetecting image type of `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg'.
 Filesystem Image Probe: Error - Import GCR: Unknown GCR image version 48.
 Filesystem Image: Unknown disk image `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg'.
@@ -98,19 +98,19 @@ CART: '/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' is not a valid CRT 
 AUTOSTART: Loading PRG file `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' with autostart disk image.
 AUTOSTART: Resetting drive 8
 AUTOSTART: Resetting the machine to autostart 'MAIN'
-VIC-II: VSP Bug: safe channels are: 347. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 012346. Emulation of memory corruption is disabled.
 AUTOSTART: Turning Warp mode on.
 AUTOSTART: `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' recognized as program/p00 file.
 Monitor playback command: al C:512e .scan_all_keys
-Monitor playback command: al C:515f .no_key_detected
+Monitor playback command: al C:514e .no_key_detected
 Monitor playback command: al C:273a .TABLE_KEY_BOARD_ROW
-Monitor playback command: al C:5297 .MATH_LIB
+Monitor playback command: al C:52de .MATH_LIB
 Monitor playback command: al C:5014 .clean_screen
-Monitor playback command: al C:5311 .multiplication_32
+Monitor playback command: al C:5358 .multiplication_32
 Monitor playback command: al C:19 .SCREEN_HEIGHT
 Monitor playback command: al C:269d .buffer_str
 Monitor playback command: al C:0 .BLACK
-Monitor playback command: al C:5270 .outer_loop
+Monitor playback command: al C:529e .outer_loop
 Monitor playback command: al C:271c .sum_res_0
 Monitor playback command: al C:26f9 .counter_str
 Monitor playback command: al C:271e .sum_res_2
@@ -120,11 +120,11 @@ Monitor playback command: al C:50f2 .copy_number
 Monitor playback command: al C:5140 .scan_cols_loop
 Monitor playback command: al C:2594 .end_mul_string
 Monitor playback command: al C:2632 .end_keyboard_str
-Monitor playback command: al C:5370 .sum_32
+Monitor playback command: al C:53b7 .sum_32
 Monitor playback command: al C:f .LIGHT_GRAY
 Monitor playback command: al C:26f5 .SCREEN_CHAR
 Monitor playback command: al C:e .LIGHT_BLUE
-Monitor playback command: al C:517a .print_offset_result
+Monitor playback command: al C:5199 .print_offset_result
 Monitor playback command: al C:2714 .sum_num1_0
 Monitor playback command: al C:2715 .sum_num1_1
 Monitor playback command: al C:2716 .sum_num1_2
@@ -135,9 +135,9 @@ Monitor playback command: al C:6 .BLUE
 Monitor playback command: al C:2683 .space_5_str
 Monitor playback command: al C:2664 .coor_y_str
 Monitor playback command: al C:26f4 .SCREEN_COL_POS
-Monitor playback command: al C:516a .check_combo_keys
+Monitor playback command: al C:517a .check_combo_keys
 Monitor playback command: al C:5081 .print_move_modules_in_table_to_number_to_print_str
-Monitor playback command: al C:5396 .sub_32
+Monitor playback command: al C:53dd .sub_32
 Monitor playback command: al C:2742 .TABLE_KEY_BOARD_COL
 Monitor playback command: al C:2708 .mul_num1_0
 Monitor playback command: al C:270b .mul_num1_3
@@ -147,7 +147,7 @@ Monitor playback command: al C:270a .mul_num1_2
 Monitor playback command: al C:50a4 .loop_digits
 Monitor playback command: al C:3e8 .SCREEN_SIZE
 Monitor playback command: al C:2 .RED
-Monitor playback command: al C:5297 .division_32
+Monitor playback command: al C:52de .division_32
 Monitor playback command: al C:25c2 .sum_result_str
 Monitor playback command: al C:271b .sum_num2_3
 Monitor playback command: al C:511f .read_key
@@ -158,14 +158,16 @@ Monitor playback command: al C:2719 .sum_num2_1
 Monitor playback command: al C:271a .sum_num2_2
 Monitor playback command: al C:5000 .SYSTEM
 Monitor playback command: al C:2572 .end_div_string
+Monitor playback command: al C:5167 .save_key_pressed
 Monitor playback command: al C:d .LIGHT_GREEN
 Monitor playback command: al C:272f .CHAR_KEY_PRESSED
 Monitor playback command: al C:d020 .SCREEN_BORDER_COLOR
-Monitor playback command: al C:529c .loop
-Monitor playback command: al C:5287 .calculate_offset_for_ascii_table
+Monitor playback command: al C:5159 .process_pressed_keys
+Monitor playback command: al C:52e3 .loop
+Monitor playback command: al C:52c4 .calculate_offset_for_ascii_table
 Monitor playback command: al C:500c .restore_system
 Monitor playback command: al C:21 .ZERO_PAGE_ROW_HIGHT_BYTE
-Monitor playback command: al C:5316 .continue_multiplication_32
+Monitor playback command: al C:535d .continue_multiplication_32
 Monitor playback command: al C:278c .INPUT_INDEX_COUNTER
 Monitor playback command: al C:257f .end_div_32_str
 Monitor playback command: al C:5014 .PRINT_LIB
@@ -174,7 +176,7 @@ Monitor playback command: al C:27d0 .INPUT_CURSOR_ROW
 Monitor playback command: al C:26e7 .NUMBER_TO_PRINT_TABLE
 Monitor playback command: al C:2689 .move_left_str
 Monitor playback command: al C:250a .keys_buffer
-Monitor playback command: al C:527a .clear_key_pressed_table
+Monitor playback command: al C:52ad .clear_key_pressed_table
 Monitor playback command: al C:268f .move_right_str
 Monitor playback command: al C:2617 .multipli_n1_str
 Monitor playback command: al C:2727 .sub_num2_3
@@ -235,15 +237,14 @@ Monitor playback command: al C:3 .CYAN
 Monitor playback command: al C:25db .sub_result_str
 Monitor playback command: al C:2732 .KEY_WAIT
 Monitor playback command: al C:26f6 .SCREEN_CHAR_COLOR
-Monitor playback command: al C:516a .print_key_results
 Monitor playback command: al C:80b .upstartEnd
 Monitor playback command: al C:26b1 .calc_offset_str
-Monitor playback command: al C:5179 .skip
+Monitor playback command: al C:5193 .skip
 Monitor playback command: al C:4000 .TABLES_ADDRESS
 Monitor playback command: al C:a .PINK
 Monitor playback command: al C:24 .ZERO_PAGE_ROW_COLOR_LOW_BYTE
 Monitor playback command: al C:28 .SCREEN_WIDTH
-Monitor playback command: al C:530b .end_loop
+Monitor playback command: al C:5352 .end_loop
 Monitor playback command: al C:8 .ORANGE
 Monitor playback command: al C:278f .SCREEN_INPUT_COLOR
 Monitor playback command: al C:2500 .VARIABLES_ADDRESS
@@ -257,9 +258,9 @@ Monitor playback command: al C:2610 .division_n2_str
 Monitor playback command: al C:2730 .KEY_FLAGS
 Monitor playback command: al C:5115 .input_keyboard
 Monitor playback command: al C:811 .main
-Monitor playback command: al C:527c .clear_pressed
+Monitor playback command: al C:52b4 .clear_pressed
 Monitor playback command: al C:26bf .KEYS_TO_SCREEN_STR
-Monitor playback command: al C:52c2 .do_subtract
+Monitor playback command: al C:5309 .do_subtract
 Monitor playback command: al C:250f .stars_line
 Monitor playback command: al C:810 .MAIN_CODE_ADDRESS
 Monitor playback command: al C:26a5 .input_text_str
@@ -277,7 +278,7 @@ Monitor playback command: al C:270f .mul_num2_3
 Monitor playback command: al C:270c .mul_num2_0
 Monitor playback command: al C:27d2 .SCREEN_CHAR_COLOR_OLD
 Monitor playback command: al C:270d .mul_num2_1
-Monitor playback command: al C:526e .sleep_key
+Monitor playback command: al C:5297 .sleep_key
 Monitor playback command: al C:400 .SCREEN_RAM
 Monitor playback command: al C:266a .cmb_pressed_str
 Monitor playback command: al C:27d4 .temp_offset
@@ -302,8 +303,8 @@ Monitor playback command: al C:2706 .div_res_2
 Monitor playback command: al C:2707 .div_res_3
 Monitor playback command: al C:810 .system_status
 Monitor playback command: al C:267e .space_4_str
-Monitor playback command: al C:5272 .inner_loop
-Monitor playback command: break 5178
+Monitor playback command: al C:52a0 .inner_loop
+Monitor playback command: break 518d
 Closed monitor command playback file: /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.vs
 Main CPU: RESET.
 VSync: Sync reset
@@ -322,13 +323,10 @@ AUTOSTART: Restoring FSDevice8ConvertP00 to 1.
 AUTOSTART: Restoring FSDeviceLongNames to 0.
 AUTOSTART: Done.
 VSync: Sync reset
-press     100/0x0064  0x00000028 --- -2--- -- d
-release   100/0x0064  0x00000028 --- -2--- -- d
-press     115/0x0073  0x00000027 --- -2--- -- s
-release   115/0x0073  0x00000027 --- -2--- -- s
 press   65507/0xffe3  0x00000025 --- -2--- -- Control_L
-press      97/0x0061  0x00000026 --C -2--- -- a
+press     100/0x0064  0x00000028 --C -2--- -- d
 press   65363/0xff53  0x00000072 --C -2--- -- Right
+release 65363/0xff53  0x00000072 --C -2--- -- Right
 Mainlock: VICE thread initiating shutdown
 Mainlock: VICE thread is exiting
 Render thread: Initiating render thread 0 shutdown
@@ -356,6 +354,6 @@ KeymapIndex=1
 -default -logfile "/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log" +confirmonexit -saveres -monitorfont "DM Mono Medium 10" -monitorfg "rgb(55,218,29)" -monitorxpos "2049" -monitorypos "58" -monitorwidth "1021" -monitorheight "710" -windowxpos "0" -windowypos "58" -windowwidth "1024" -windowheight "710" +sound -keymap "1" -kbdstatusbar
 Main: VICE thread has been joined.
 Writing configuration file `/home/lenovo1/.config/vice/vicerc'.
-VIC-II: VSP Bug: safe channels are: 256. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 01346. Emulation of memory corruption is disabled.
 Hotkeys: shutting down.
 closed ALSA MIDI sequencer port 'VICE'

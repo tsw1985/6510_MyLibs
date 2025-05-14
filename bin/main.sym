@@ -5,15 +5,15 @@
 .label sub_num1_0=$2720
 .label TEMP_Y_REG=$27d6
 .label INPUT_STR_LIMIT=$278b
-.label MATH_LIB=$5297 {
-  .label sum_32=$5370
-  .label sub_32=$5396
-  .label division_32=$5297
-  .label loop=$529c
-  .label do_subtract=$52c2
-  .label end_loop=$530b
-  .label continue_multiplication_32=$5316
-  .label multiplication_32=$5311
+.label MATH_LIB=$52de {
+  .label sum_32=$53b7
+  .label sub_32=$53dd
+  .label division_32=$52de
+  .label loop=$52e3
+  .label do_subtract=$5309
+  .label end_loop=$5352
+  .label continue_multiplication_32=$535d
+  .label multiplication_32=$5358
 }
 .label SCREEN_COL_COLOR_POS=$26f2
 .label mult_times_str=$262d
@@ -134,21 +134,30 @@
 .label TABLE_KEY_ASCII=$274b
 .label INPUT_LIB=$5115 {
   .label scan_all_keys=$512e
-  .label no_key_detected=$515f
-  .label print_key_results=$516a
+  .label no_key_detected=$514e
+  .label save_key_pressed=$5167 {
+  }
   .label scan_rows_loop=$5130
   .label input_keyboard=$5115
   .label scan_cols_loop=$5140
-  .label skip=$5179
-  .label clear_pressed=$527c
-  .label clear_key_pressed_table=$527a
-  .label sleep_key=$526e
-  .label calculate_offset_for_ascii_table=$5287
-  .label print_offset_result=$517a
+  .label skip=$5193 {
+  }
+  .label clear_pressed=$52b4
+  .label clear_key_pressed_table=$52ad {
+  }
+  .label process_pressed_keys=$5159 {
+  }
+  .label sleep_key=$5297 {
+  }
+  .label calculate_offset_for_ascii_table=$52c4 {
+  }
+  .label print_offset_result=$5199 {
+  }
   .label read_key=$511f
-  .label outer_loop=$5270
-  .label check_combo_keys=$516a
-  .label inner_loop=$5272
+  .label outer_loop=$529e
+  .label check_combo_keys=$517a {
+  }
+  .label inner_loop=$52a0
 }
 .label move_right_str=$268f
 .label TEMP_X_REG=$27d5
