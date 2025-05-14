@@ -15,4 +15,6 @@ sta INPUT_STR_LIMIT
 lda #YELLOW
 sta SCREEN_INPUT_COLOR
 
+
+
 jsr INPUT_LIB.input_keyboard

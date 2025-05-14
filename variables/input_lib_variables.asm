@@ -57,3 +57,7 @@ INPUT_CURSOR_ROW:       .byte 0
 INPUT_CURSOR_COL:       .byte 0
 SCREEN_CHAR_COLOR_OLD:  .byte 0
 INPUT_CURSOR:           .byte 0
+temp_offset:            .byte 0
+TEMP_X_REG: .byte 0
+TEMP_Y_REG: .byte 0
+
