@@ -25,8 +25,10 @@ INPUT_LIB:
         jsr scan_all_keys           // scan all keyboard matrix to get the
                                     // pressed keys and save them in the table
         
+        
         jsr process_pressed_keys    // finally , process all keys to do the
                                     // target actions
+
         
         jsr sleep_key               // sleep half second between keys presses
     
@@ -66,8 +68,15 @@ INPUT_LIB:
                 // if some bit match, we calculate his offter and we save it in
                 // the table : "current keys pressed"
 
-                // do the calculation ...
-                jsr calculate_offset_for_ascii_table
+                jsr print_x_coord       // see X row value of keyboard
+                jsr print_y_coord       // see Y row value of keyboard
+
+                
+                jsr calculate_offset_for_ascii_table // calculation of offset
+                jsr print_offset_result              // print offset result
+
+
+
 
                 // save the offset result in the table
                 jsr save_key_pressed
@@ -95,7 +104,10 @@ INPUT_LIB:
         
         push_regs_to_stack()
 
+        
         jsr check_combo_keys     // First action is check the combinations keys
+
+
 
         pull_regs_from_stack()
     rts
@@ -116,11 +128,17 @@ INPUT_LIB:
         pull_regs_from_stack()
         rts
 
+    /*
+        Function:
+
+            This function check the combination keys. To check each combination
+            we need to know the offset of the target keys
+    */
     check_combo_keys:
 
         push_regs_to_stack()
 
-        ldx #47  //CMB OFFSET !! not value
+        ldx #47 // CMB OFFSET
         lda PRESSED_KEY_TABLE,x
         beq skip // A value is 0 ? skip
 
@@ -129,7 +147,7 @@ INPUT_LIB:
         beq skip // A value is 0 ? skip
 
         // If not skip , means CMB + Cursor is pressed, move to left cursor
-        .break
+        //.break
         pull_regs_from_stack()
         rts
 
@@ -140,8 +158,11 @@ INPUT_LIB:
             pull_regs_from_stack()
         rts
         
-    
-
+    /* 
+        Function:
+            This is a function for debugging, to see the offset value of each
+            key press . Must be commented. Remember we have 38911 bytes :( 
+    */
     print_offset_result:
 
         push_regs_to_stack()
@@ -161,9 +182,11 @@ INPUT_LIB:
         print_calculation_result(4,8,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
 
         pull_regs_from_stack()
-
         rts
 
+    /*
+        Function: This function do a small delay of half second
+    */
     sleep_key:
 
         push_regs_to_stack()
@@ -180,6 +203,11 @@ INPUT_LIB:
             pull_regs_from_stack()
             rts
 
+    /* 
+        Function:
+            This function set to 0 each position offset on the table
+            PRESSED_KEY_TABLE
+    */
     clear_key_pressed_table:
         
         push_regs_to_stack()
@@ -196,20 +224,121 @@ INPUT_LIB:
 
         rts
 
+    /*
+        Function:
+
+            This function calculate the offset, following the next formula:
+            
+             offset = (row * 8 ) + col
+
+            In this case, the X registers is the current ROW. We shift the bits
+            6 times. This is like do row * 8 . Finally we add the value of Y
+            register who contains the current column
+    */
     calculate_offset_for_ascii_table:
 
-        // offset = (row * 8 ) + col
         push_regs_to_stack()
 
         txa
         asl   // x 2
         asl   // x 4
         asl   // x 8
-        sta temp_offset // save 
+        sta temp_offset  // save this value in a temp_offset variable
         tya
         clc
         adc temp_offset // add y, where is the col value
         sta TABLE_KEY_ASCII_X_OFFSET  //save it here
+        pull_regs_from_stack()
+        rts
+
+    /* Function:
+
+            This function print the cursor on the selected position
+
+    */
+    print_cursor:
+
+        push_regs_to_stack()
+
+        lda #224 // Space white inverted  . + 128 , is the current char on inverted color
+        sta SCREEN_CHAR
+
+        lda INPUT_CURSOR_ROW
+        sta SCREEN_ROW_POS
+
+        lda INPUT_CURSOR_COL
+        sta SCREEN_COL_POS
+
+        //set color on color ram
+        ldx SCREEN_ROW_POS       
+        lda Row_Color_LO,x
+        sta ZERO_PAGE_ROW_COLOR_LOW_BYTE
+
+        lda Row_Color_HI,x
+        sta ZERO_PAGE_ROW_COLOR_HIGHT_BYTE
+
+        ldy SCREEN_COL_POS             
+        lda #WHITE //SCREEN_CHAR_COLOR
+        sta (ZERO_PAGE_ROW_COLOR_LOW_BYTE),y
+
+        //set coords on Screen
+        ldx SCREEN_ROW_POS       // Row 22
+        lda Row_LO,x
+        sta ZERO_PAGE_ROW_LOW_BYTE
+        lda Row_HI,x
+        sta ZERO_PAGE_ROW_HIGHT_BYTE
+
+        ldy SCREEN_COL_POS             // col 15
+        lda SCREEN_CHAR                // char " "
+        sta (ZERO_PAGE_ROW_LOW_BYTE),y
+
+        pull_regs_from_stack()
+        rts        
+
+
+
+    /* Function:
+            This is a debuggin function . To know the X value of the keyboard
+            matrix.
+    */
+    print_x_coord:
+
+        push_regs_to_stack()
+
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(2,0,WHITE)
+        print_text(coor_x_str)
+        //lda TABLE_KEY_ROW_INDEX
+        txa // the current row value is in X register
+        sta div_res_0
+        lda #0
+        sta div_res_1
+        sta div_res_2
+        sta div_res_3
+
+        // Print the result of calculation on screen
+        print_calculation_result(2,3,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+
+        pull_regs_from_stack()
+        rts
+
+    print_y_coord:
+
+        push_regs_to_stack()
+
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(3,0,WHITE)
+        print_text(coor_y_str)
+
+        //lda TABLE_KEY_COL_INDEX
+        tya  // the Y col value is in Y register
+        sta div_res_0
+        lda #0
+        sta div_res_1
+        sta div_res_2
+        sta div_res_3
+        // Print the result of calculation on screen
+        print_calculation_result(3,3,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
 
         pull_regs_from_stack()
 

@@ -1,4 +1,3 @@
-Opening monitor command playback file: /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.vs
 registered font '/usr/share/vice/common/C64_Pro_Mono-STYLE.ttf'.
 registered font '/usr/share/vice/common/PetMe1282Y.ttf'.
 registered font '/usr/share/vice/common/PetMe128.ttf'.
@@ -21,8 +20,8 @@ Roberto Muscedere, June Tate-Gans, Pablo Roldan.
 This is free software with ABSOLUTELY NO WARRANTY.
 See the "About VICE" command for more info.
  
-Main: random seed was: 0x68249f52
-Main: command line was: x64 -logfile /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log -moncommands /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.vs /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg
+Main: random seed was: 0x6824a9bd
+Main: command line was: x64 -logfile /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg
 Main: VICE system file directory: '/usr/share/vice'.
 Main: VICE system file search path: '/home/lenovo1/.local/share/vice:/usr/bin:/usr/share/vice'.
 Loading system file `/usr/share/vice/C64/kernal-901227-03.bin'.
@@ -88,7 +87,7 @@ Hotkeys: OK.
 Main CPU: 
 Main CPU: starting at ($FFFC).
 Main CPU: RESET.
-VIC-II: VSP Bug: safe channels are: 123567. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 246. Emulation of memory corruption is disabled.
 AUTOSTART: Autodetecting image type of `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg'.
 Filesystem Image Probe: Error - Import GCR: Unknown GCR image version 48.
 Filesystem Image: Unknown disk image `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg'.
@@ -98,218 +97,12 @@ CART: '/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' is not a valid CRT 
 AUTOSTART: Loading PRG file `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' with autostart disk image.
 AUTOSTART: Resetting drive 8
 AUTOSTART: Resetting the machine to autostart 'MAIN'
-VIC-II: VSP Bug: safe channels are: 012346. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 036. Emulation of memory corruption is disabled.
 AUTOSTART: Turning Warp mode on.
 AUTOSTART: `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' recognized as program/p00 file.
-Monitor playback command: al C:512e .scan_all_keys
-Monitor playback command: al C:514e .no_key_detected
-Monitor playback command: al C:273a .TABLE_KEY_BOARD_ROW
-Monitor playback command: al C:52de .MATH_LIB
-Monitor playback command: al C:5014 .clean_screen
-Monitor playback command: al C:5358 .multiplication_32
-Monitor playback command: al C:19 .SCREEN_HEIGHT
-Monitor playback command: al C:269d .buffer_str
-Monitor playback command: al C:0 .BLACK
-Monitor playback command: al C:529e .outer_loop
-Monitor playback command: al C:271c .sum_res_0
-Monitor playback command: al C:26f9 .counter_str
-Monitor playback command: al C:271e .sum_res_2
-Monitor playback command: al C:271d .sum_res_1
-Monitor playback command: al C:271f .sum_res_3
-Monitor playback command: al C:50f2 .copy_number
-Monitor playback command: al C:5140 .scan_cols_loop
-Monitor playback command: al C:2594 .end_mul_string
-Monitor playback command: al C:2632 .end_keyboard_str
-Monitor playback command: al C:53b7 .sum_32
-Monitor playback command: al C:f .LIGHT_GRAY
-Monitor playback command: al C:26f5 .SCREEN_CHAR
-Monitor playback command: al C:e .LIGHT_BLUE
-Monitor playback command: al C:5199 .print_offset_result
-Monitor playback command: al C:2714 .sum_num1_0
-Monitor playback command: al C:2715 .sum_num1_1
-Monitor playback command: al C:2716 .sum_num1_2
-Monitor playback command: al C:2717 .sum_num1_3
-Monitor playback command: al C:5035 .continue_writing
-Monitor playback command: al C:20 .ZERO_PAGE_ROW_LOW_BYTE
-Monitor playback command: al C:6 .BLUE
-Monitor playback command: al C:2683 .space_5_str
-Monitor playback command: al C:2664 .coor_y_str
-Monitor playback command: al C:26f4 .SCREEN_COL_POS
-Monitor playback command: al C:517a .check_combo_keys
-Monitor playback command: al C:5081 .print_move_modules_in_table_to_number_to_print_str
-Monitor playback command: al C:53dd .sub_32
-Monitor playback command: al C:2742 .TABLE_KEY_BOARD_COL
-Monitor playback command: al C:2708 .mul_num1_0
-Monitor playback command: al C:270b .mul_num1_3
-Monitor playback command: al C:4000 .Row_LO
-Monitor playback command: al C:2709 .mul_num1_1
-Monitor playback command: al C:270a .mul_num1_2
-Monitor playback command: al C:50a4 .loop_digits
-Monitor playback command: al C:3e8 .SCREEN_SIZE
-Monitor playback command: al C:2 .RED
-Monitor playback command: al C:52de .division_32
-Monitor playback command: al C:25c2 .sum_result_str
-Monitor playback command: al C:271b .sum_num2_3
-Monitor playback command: al C:511f .read_key
-Monitor playback command: al C:2600 .division_n1_str
-Monitor playback command: al C:26f7 .SCREEN_CHAR_INDEX
-Monitor playback command: al C:2718 .sum_num2_0
-Monitor playback command: al C:2719 .sum_num2_1
-Monitor playback command: al C:271a .sum_num2_2
-Monitor playback command: al C:5000 .SYSTEM
-Monitor playback command: al C:2572 .end_div_string
-Monitor playback command: al C:5167 .save_key_pressed
-Monitor playback command: al C:d .LIGHT_GREEN
-Monitor playback command: al C:272f .CHAR_KEY_PRESSED
-Monitor playback command: al C:d020 .SCREEN_BORDER_COLOR
-Monitor playback command: al C:5159 .process_pressed_keys
-Monitor playback command: al C:52e3 .loop
-Monitor playback command: al C:52c4 .calculate_offset_for_ascii_table
-Monitor playback command: al C:500c .restore_system
-Monitor playback command: al C:21 .ZERO_PAGE_ROW_HIGHT_BYTE
-Monitor playback command: al C:535d .continue_multiplication_32
-Monitor playback command: al C:278c .INPUT_INDEX_COUNTER
-Monitor playback command: al C:257f .end_div_32_str
-Monitor playback command: al C:5014 .PRINT_LIB
-Monitor playback command: al C:26b9 .current_char_str
-Monitor playback command: al C:27d0 .INPUT_CURSOR_ROW
-Monitor playback command: al C:26e7 .NUMBER_TO_PRINT_TABLE
-Monitor playback command: al C:2689 .move_left_str
-Monitor playback command: al C:250a .keys_buffer
-Monitor playback command: al C:52ad .clear_key_pressed_table
-Monitor playback command: al C:268f .move_right_str
-Monitor playback command: al C:2617 .multipli_n1_str
-Monitor playback command: al C:2727 .sub_num2_3
-Monitor playback command: al C:2726 .sub_num2_2
-Monitor playback command: al C:2500 .number_to_print_str
-Monitor playback command: al C:2725 .sub_num2_1
-Monitor playback command: al C:2724 .sub_num2_0
-Monitor playback command: al C:272a .sub_res_2
-Monitor playback command: al C:2695 .cursor_index_str
-Monitor playback command: al C:272b .sub_res_3
-Monitor playback command: al C:272c .TABLE_KEY_COL_INDEX
-Monitor playback command: al C:1000 .MUSIC_ADDRESS
-Monitor playback command: al C:2728 .sub_res_0
-Monitor playback command: al C:2729 .sub_res_1
-Monitor playback command: al C:2710 .mul_res_0
-Monitor playback command: al C:2648 .hello_keyb_str
-Monitor playback command: al C:2711 .mul_res_1
-Monitor playback command: al C:2712 .mul_res_2
-Monitor playback command: al C:2713 .mul_res_3
-Monitor playback command: al C:2667 .coor_x_str
-Monitor playback command: al C:9 .BROWN
-Monitor playback command: al C:25f5 .result_str
-Monitor playback command: al C:1 .WHITE
-Monitor playback command: al C:5130 .scan_rows_loop
-Monitor playback command: al C:23 .ZERO_PAGE_PRINT_TEXT_HI
-Monitor playback command: al C:4 .PURPLE
-Monitor playback command: al C:2538 .message
-Monitor playback command: al C:5 .GREEN
-Monitor playback command: al C:2676 .end_print_row_str
-Monitor playback command: al C:254a .bye
-Monitor playback command: al C:25a7 .end_mul_32_str
-Monitor playback command: al C:27d3 .INPUT_CURSOR
-Monitor playback command: al C:5000 .setup
-Monitor playback command: al C:272e .KEY_PRESSED
-Monitor playback command: al C:50df .read_tail
-Monitor playback command: al C:b .DARK_GRAY
-Monitor playback command: al C:5000 .LIBRARIES_ADDRESS
-Monitor playback command: al C:c .GREY
-Monitor playback command: al C:2723 .sub_num1_3
-Monitor playback command: al C:2722 .sub_num1_2
-Monitor playback command: al C:2721 .sub_num1_1
-Monitor playback command: al C:2720 .sub_num1_0
-Monitor playback command: al C:27d6 .TEMP_Y_REG
-Monitor playback command: al C:278b .INPUT_STR_LIMIT
-Monitor playback command: al C:5018 .clean_location_screen
-Monitor playback command: al C:26f2 .SCREEN_COL_COLOR_POS
-Monitor playback command: al C:262d .mult_times_str
-Monitor playback command: al C:27d1 .INPUT_CURSOR_COL
-Monitor playback command: al C:26f8 .counter_table
-Monitor playback command: al C:4032 .Row_Color_LO
-Monitor playback command: al C:d021 .SCREEN_BACKGROUND_COLOR
-Monitor playback command: al C:814 .init_code
-Monitor playback command: al C:274a .TABLE_KEY_ASCII_X_OFFSET
-Monitor playback command: al C:2731 .KEY_BUFFER_INDEX
-Monitor playback command: al C:26f3 .SCREEN_ROW_POS
-Monitor playback command: al C:502e .print_text
-Monitor playback command: al C:3 .CYAN
-Monitor playback command: al C:25db .sub_result_str
-Monitor playback command: al C:2732 .KEY_WAIT
-Monitor playback command: al C:26f6 .SCREEN_CHAR_COLOR
-Monitor playback command: al C:80b .upstartEnd
-Monitor playback command: al C:26b1 .calc_offset_str
-Monitor playback command: al C:5193 .skip
-Monitor playback command: al C:4000 .TABLES_ADDRESS
-Monitor playback command: al C:a .PINK
-Monitor playback command: al C:24 .ZERO_PAGE_ROW_COLOR_LOW_BYTE
-Monitor playback command: al C:28 .SCREEN_WIDTH
-Monitor playback command: al C:5352 .end_loop
-Monitor playback command: al C:8 .ORANGE
-Monitor playback command: al C:278f .SCREEN_INPUT_COLOR
-Monitor playback command: al C:2500 .VARIABLES_ADDRESS
-Monitor playback command: al C:22 .ZERO_PAGE_PRINT_TEXT_LO
-Monitor playback command: al C:2790 .PRESSED_KEY_TABLE
-Monitor playback command: al C:272d .TABLE_KEY_ROW_INDEX
-Monitor playback command: al C:26f1 .SCREEN_ROW_COLOR_POS
-Monitor playback command: al C:2739 .KEYS_BUFFER_COUNTER
-Monitor playback command: al C:278e .SCREEN_INPUT_COL_POS
-Monitor playback command: al C:2610 .division_n2_str
-Monitor playback command: al C:2730 .KEY_FLAGS
-Monitor playback command: al C:5115 .input_keyboard
-Monitor playback command: al C:811 .main
-Monitor playback command: al C:52b4 .clear_pressed
-Monitor playback command: al C:26bf .KEYS_TO_SCREEN_STR
-Monitor playback command: al C:5309 .do_subtract
-Monitor playback command: al C:250f .stars_line
-Monitor playback command: al C:810 .MAIN_CODE_ADDRESS
-Monitor playback command: al C:26a5 .input_text_str
-Monitor playback command: al C:504c .print_char
-Monitor playback command: al C:26fe .div_num1_2
-Monitor playback command: al C:26ff .div_num1_3
-Monitor playback command: al C:404b .Row_Color_HI
-Monitor playback command: al C:2733 .KEYS_BUFFER
-Monitor playback command: al C:26fc .div_num1_0
-Monitor playback command: al C:25 .ZERO_PAGE_ROW_COLOR_HIGHT_BYTE
-Monitor playback command: al C:26fd .div_num1_1
-Monitor playback command: al C:26fa .total_digits
-Monitor playback command: al C:270e .mul_num2_2
-Monitor playback command: al C:270f .mul_num2_3
-Monitor playback command: al C:270c .mul_num2_0
-Monitor playback command: al C:27d2 .SCREEN_CHAR_COLOR_OLD
-Monitor playback command: al C:270d .mul_num2_1
-Monitor playback command: al C:5297 .sleep_key
-Monitor playback command: al C:400 .SCREEN_RAM
-Monitor playback command: al C:266a .cmb_pressed_str
-Monitor playback command: al C:27d4 .temp_offset
-Monitor playback command: al C:274b .TABLE_KEY_ASCII
-Monitor playback command: al C:5115 .INPUT_LIB
-Monitor playback command: al C:27d5 .TEMP_X_REG
-Monitor playback command: al C:7 .YELLOW
-Monitor playback command: al C:255d .math_lib_string
-Monitor playback command: al C:d800 .SCREEN_COLOR_RAM
-Monitor playback command: al C:26fb .last_total_digits
-Monitor playback command: al C:2701 .div_num2_1
-Monitor playback command: al C:5046 .end_writing
-Monitor playback command: al C:2702 .div_num2_2
-Monitor playback command: al C:2703 .div_num2_3
-Monitor playback command: al C:2700 .div_num2_0
-Monitor playback command: al C:20 .ZERO_PAGE_ADDRESS
-Monitor playback command: al C:4019 .Row_HI
-Monitor playback command: al C:2704 .div_res_0
-Monitor playback command: al C:278d .SCREEN_INPUT_ROW_POS
-Monitor playback command: al C:2705 .div_res_1
-Monitor playback command: al C:2706 .div_res_2
-Monitor playback command: al C:2707 .div_res_3
-Monitor playback command: al C:810 .system_status
-Monitor playback command: al C:267e .space_4_str
-Monitor playback command: al C:52a0 .inner_loop
-Monitor playback command: break 518d
-Closed monitor command playback file: /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.vs
 Main CPU: RESET.
 VSync: Sync reset
 Unit 8: RESET.
-Monitor UI: using font 'DM Mono Medium 10' (Family:DM Mono, Size:10, Variations:-) PETSCII:no Terminal Scale:1.000000
 AUTOSTART: Loading program 'MAIN'
 AUTOSTART: Entered ROM at $e5d1
 AUTOSTART: Searching for ...
@@ -323,12 +116,104 @@ AUTOSTART: Restoring FSDevice8ConvertP00 to 1.
 AUTOSTART: Restoring FSDeviceLongNames to 0.
 AUTOSTART: Done.
 VSync: Sync reset
-press   65507/0xffe3  0x00000025 --- -2--- -- Control_L
-press     100/0x0064  0x00000028 --C -2--- -- d
-press   65363/0xff53  0x00000072 --C -2--- -- Right
-release 65363/0xff53  0x00000072 --C -2--- -- Right
-Mainlock: VICE thread initiating shutdown
-Mainlock: VICE thread is exiting
+press     116/0x0074  0x0000001c --- -2--- -- t
+release   116/0x0074  0x0000001c --- -2--- -- t
+press     102/0x0066  0x00000029 --- -2--- -- f
+release   102/0x0066  0x00000029 --- -2--- -- f
+press     103/0x0067  0x0000002a --- -2--- -- g
+release   103/0x0067  0x0000002a --- -2--- -- g
+press     106/0x006a  0x0000002c --- -2--- -- j
+release   106/0x006a  0x0000002c --- -2--- -- j
+press     104/0x0068  0x0000002b --- -2--- -- h
+release   104/0x0068  0x0000002b --- -2--- -- h
+press     110/0x006e  0x00000039 --- -2--- -- n
+release   110/0x006e  0x00000039 --- -2--- -- n
+press      98/0x0062  0x00000038 --- -2--- -- b
+release    98/0x0062  0x00000038 --- -2--- -- b
+press     118/0x0076  0x00000037 --- -2--- -- v
+release   118/0x0076  0x00000037 --- -2--- -- v
+press      99/0x0063  0x00000036 --- -2--- -- c
+release    99/0x0063  0x00000036 --- -2--- -- c
+press     113/0x0071  0x00000018 --- -2--- -- q
+release   113/0x0071  0x00000018 --- -2--- -- q
+press     119/0x0077  0x00000019 --- -2--- -- w
+release   119/0x0077  0x00000019 --- -2--- -- w
+press     101/0x0065  0x0000001a --- -2--- -- e
+release   101/0x0065  0x0000001a --- -2--- -- e
+press     114/0x0072  0x0000001b --- -2--- -- r
+release   114/0x0072  0x0000001b --- -2--- -- r
+press     116/0x0074  0x0000001c --- -2--- -- t
+release   116/0x0074  0x0000001c --- -2--- -- t
+press   65362/0xff52  0x0000006f --- -2--- -- Up
+release 65362/0xff52  0x0000006f --- -2--- -- Up
+press   65362/0xff52  0x0000006f --- -2--- -- Up
+release 65362/0xff52  0x0000006f --- -2--- -- Up
+press     103/0x0067  0x0000002a --- -2--- -- g
+release   103/0x0067  0x0000002a --- -2--- -- g
+press     106/0x006a  0x0000002c --- -2--- -- j
+release   106/0x006a  0x0000002c --- -2--- -- j
+press     102/0x0066  0x00000029 --- -2--- -- f
+release   102/0x0066  0x00000029 --- -2--- -- f
+press     107/0x006b  0x0000002d --- -2--- -- k
+release   107/0x006b  0x0000002d --- -2--- -- k
+press     103/0x0067  0x0000002a --- -2--- -- g
+release   103/0x0067  0x0000002a --- -2--- -- g
+press     105/0x0069  0x0000001f --- -2--- -- i
+press     114/0x0072  0x0000001b --- -2--- -- r
+release   105/0x0069  0x0000001f --- -2--- -- i
+release   114/0x0072  0x0000001b --- -2--- -- r
+press     105/0x0069  0x0000001f --- -2--- -- i
+press     101/0x0065  0x0000001a --- -2--- -- e
+release   105/0x0069  0x0000001f --- -2--- -- i
+release   101/0x0065  0x0000001a --- -2--- -- e
+press     119/0x0077  0x00000019 --- -2--- -- w
+press     111/0x006f  0x00000020 --- -2--- -- o
+release   119/0x0077  0x00000019 --- -2--- -- w
+release   111/0x006f  0x00000020 --- -2--- -- o
+press     101/0x0065  0x0000001a --- -2--- -- e
+release   101/0x0065  0x0000001a --- -2--- -- e
+press     105/0x0069  0x0000001f --- -2--- -- i
+release   105/0x0069  0x0000001f --- -2--- -- i
+press     114/0x0072  0x0000001b --- -2--- -- r
+release   114/0x0072  0x0000001b --- -2--- -- r
+press     105/0x0069  0x0000001f --- -2--- -- i
+release   105/0x0069  0x0000001f --- -2--- -- i
+press     116/0x0074  0x0000001c --- -2--- -- t
+press     114/0x0072  0x0000001b --- -2--- -- r
+release   116/0x0074  0x0000001c --- -2--- -- t
+press     117/0x0075  0x0000001e --- -2--- -- u
+release   114/0x0072  0x0000001b --- -2--- -- r
+release   117/0x0075  0x0000001e --- -2--- -- u
+press     116/0x0074  0x0000001c --- -2--- -- t
+release   116/0x0074  0x0000001c --- -2--- -- t
+press     116/0x0074  0x0000001c --- -2--- -- t
+press     103/0x0067  0x0000002a --- -2--- -- g
+release   116/0x0074  0x0000001c --- -2--- -- t
+release   103/0x0067  0x0000002a --- -2--- -- g
+press     111/0x006f  0x00000020 --- -2--- -- o
+release   111/0x006f  0x00000020 --- -2--- -- o
+press     103/0x0067  0x0000002a --- -2--- -- g
+press     102/0x0066  0x00000029 --- -2--- -- f
+release   103/0x0067  0x0000002a --- -2--- -- g
+release   102/0x0066  0x00000029 --- -2--- -- f
+press     108/0x006c  0x0000002e --- -2--- -- l
+release   108/0x006c  0x0000002e --- -2--- -- l
+press     100/0x0064  0x00000028 --- -2--- -- d
+release   100/0x0064  0x00000028 --- -2--- -- d
+press     107/0x006b  0x0000002d --- -2--- -- k
+release   107/0x006b  0x0000002d --- -2--- -- k
+press     119/0x0077  0x00000019 --- -2--- -- w
+release   119/0x0077  0x00000019 --- -2--- -- w
+press     119/0x0077  0x00000019 --- -2--- -- w
+release   119/0x0077  0x00000019 --- -2--- -- w
+press     106/0x006a  0x0000002c --- -2--- -- j
+release   106/0x006a  0x0000002c --- -2--- -- j
+press     101/0x0065  0x0000001a --- -2--- -- e
+release   101/0x0065  0x0000001a --- -2--- -- e
+press     106/0x006a  0x0000002c --- -2--- -- j
+release   106/0x006a  0x0000002c --- -2--- -- j
+press   65513/0xffe9  0x00000040 --- -2--- -- Alt_L
+press     113/0x0071  0x00000018 --- 12--- -- q
 Render thread: Initiating render thread 0 shutdown
 Render thread: Joining render thread 0 ...
 Render thread: Joined render thread 0.
@@ -352,8 +237,10 @@ KbdStatusbar=1
 KeymapIndex=1
 
 -default -logfile "/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log" +confirmonexit -saveres -monitorfont "DM Mono Medium 10" -monitorfg "rgb(55,218,29)" -monitorxpos "2049" -monitorypos "58" -monitorwidth "1021" -monitorheight "710" -windowxpos "0" -windowypos "58" -windowwidth "1024" -windowheight "710" +sound -keymap "1" -kbdstatusbar
+Mainlock: VICE thread initiating shutdown
+Mainlock: VICE thread is exiting
 Main: VICE thread has been joined.
 Writing configuration file `/home/lenovo1/.config/vice/vicerc'.
-VIC-II: VSP Bug: safe channels are: 01346. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 0137. Emulation of memory corruption is disabled.
 Hotkeys: shutting down.
 closed ALSA MIDI sequencer port 'VICE'

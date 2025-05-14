@@ -14,11 +14,7 @@ PRINT_LIB:
     */
     clean_location_screen:    
 
-        pha  // save A on stack
-        txa  // transfer X to A
-        pha  // push A (X) on stack
-        tya  // transfer Y to A
-        pha  // push A (Y) to stack
+        push_regs_to_stack()
 
         lda #0
         sta SCREEN_CHAR_INDEX
@@ -26,11 +22,7 @@ PRINT_LIB:
         sta SCREEN_COL_POS             // col 15
 
         
-        pla // pull A from stack (Y)
-        tay // transfer A to Y
-        pla // pull A from stack (X)
-        tax // transfer A to X
-        pla // pull A from Stack
+        pull_regs_from_stack()
 
         rts
 
@@ -40,11 +32,7 @@ PRINT_LIB:
     */
     print_text:
 
-        pha  // save A on stack
-        txa  // transfer X to A
-        pha  // push A (X) on stack
-        tya  // transfer Y to A
-        pha  // push A (Y) to stack
+        push_regs_to_stack()
 
         ldy #0
         continue_writing:
@@ -57,14 +45,7 @@ PRINT_LIB:
             jmp continue_writing
 
         end_writing:
-
-
-        pla // pull A from stack (Y)
-        tay // transfer A to Y
-        pla // pull A from stack (X)
-        tax // transfer A to X
-        pla // pull A from Stack
-
+        pull_regs_from_stack()
         rts    
 
 
@@ -77,11 +58,7 @@ PRINT_LIB:
     */
     print_char:    
 
-        pha  // save A on stack
-        txa  // transfer X to A
-        pha  // push A (X) on stack
-        tya  // transfer Y to A
-        pha  // push A (Y) to stack
+        push_regs_to_stack()
 
         //set color on color ram
         ldx SCREEN_ROW_POS       
@@ -106,13 +83,7 @@ PRINT_LIB:
         lda SCREEN_CHAR                // char E
         sta (ZERO_PAGE_ROW_LOW_BYTE),y
 
-
-        pla // pull A from stack (Y)
-        tay // transfer A to Y
-        pla // pull A from stack (X)
-        tax // transfer A to X
-        pla // pull A from Stack
-
+        pull_regs_from_stack()
         rts
 
 
@@ -125,12 +96,7 @@ print_move_modules_in_table_to_number_to_print_str:
     //----------------------------------------------
     //copy digits save to "number_to_print_str"
 
-    pha  // save A on stack
-    txa  // transfer X to A
-    pha  // push A (X) on stack
-    tya  // transfer Y to A
-    pha  // push A (Y) to stack
-
+    push_regs_to_stack()
 
     // Prepare N2 . Set number to 10
     // because it is need it to get 
@@ -242,12 +208,7 @@ print_move_modules_in_table_to_number_to_print_str:
         lda total_digits  // load the current value of total digits
         bne copy_number   // if not is 0 , continue
 
-
-        pla // pull A from stack (Y)
-        tay // transfer A to Y
-        pla // pull A from stack (X)
-        tax // transfer A to X
-        pla // pull A from Stack
+        pull_regs_from_stack()
 
     rts
 
