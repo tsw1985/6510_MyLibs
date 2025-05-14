@@ -21,7 +21,7 @@ Roberto Muscedere, June Tate-Gans, Pablo Roldan.
 This is free software with ABSOLUTELY NO WARRANTY.
 See the "About VICE" command for more info.
  
-Main: random seed was: 0x68247053
+Main: random seed was: 0x6824773c
 Main: command line was: x64 -logfile /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log -moncommands /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.vs /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg
 Main: VICE system file directory: '/usr/share/vice'.
 Main: VICE system file search path: '/home/lenovo1/.local/share/vice:/usr/bin:/usr/share/vice'.
@@ -88,7 +88,7 @@ Hotkeys: OK.
 Main CPU: 
 Main CPU: starting at ($FFFC).
 Main CPU: RESET.
-VIC-II: VSP Bug: safe channels are: 6. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 025. Emulation of memory corruption is disabled.
 AUTOSTART: Autodetecting image type of `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg'.
 Filesystem Image Probe: Error - Import GCR: Unknown GCR image version 48.
 Filesystem Image: Unknown disk image `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg'.
@@ -98,7 +98,7 @@ CART: '/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' is not a valid CRT 
 AUTOSTART: Loading PRG file `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' with autostart disk image.
 AUTOSTART: Resetting drive 8
 AUTOSTART: Resetting the machine to autostart 'MAIN'
-VIC-II: VSP Bug: safe channels are: 34. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 347. Emulation of memory corruption is disabled.
 AUTOSTART: Turning Warp mode on.
 AUTOSTART: `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' recognized as program/p00 file.
 Monitor playback command: al C:512e .scan_all_keys
@@ -310,7 +310,7 @@ VSync: Sync reset
 Unit 8: RESET.
 Monitor UI: using font 'DM Mono Medium 10' (Family:DM Mono, Size:10, Variations:-) PETSCII:no Terminal Scale:1.000000
 AUTOSTART: Loading program 'MAIN'
-AUTOSTART: Entered ROM at $e5d4
+AUTOSTART: Entered ROM at $e5d1
 AUTOSTART: Searching for ...
 AUTOSTART: Loading
 AUTOSTART: Entered ROM at $ea21
@@ -322,22 +322,40 @@ AUTOSTART: Restoring FSDevice8ConvertP00 to 1.
 AUTOSTART: Restoring FSDeviceLongNames to 0.
 AUTOSTART: Done.
 VSync: Sync reset
-press     119/0x0077  0x00000019 --- -2--- -- w
-release   119/0x0077  0x00000019 --- -2--- -- w
-press     101/0x0065  0x0000001a --- -2--- -- e
-release   101/0x0065  0x0000001a --- -2--- -- e
-press     102/0x0066  0x00000029 --- -2--- -- f
-release   102/0x0066  0x00000029 --- -2--- -- f
-press     119/0x0077  0x00000019 --- -2--- -- w
-press     101/0x0065  0x0000001a --- -2--- -- e
-release   119/0x0077  0x00000019 --- -2--- -- w
-release   101/0x0065  0x0000001a --- -2--- -- e
-press     102/0x0066  0x00000029 --- -2--- -- f
-release   102/0x0066  0x00000029 --- -2--- -- f
-press     101/0x0065  0x0000001a --- -2--- -- e
-press     119/0x0077  0x00000019 --- -2--- -- w
-release   101/0x0065  0x0000001a --- -2--- -- e
-release   119/0x0077  0x00000019 --- -2--- -- w
+press     100/0x0064  0x00000028 --- -2--- -- d
+release   100/0x0064  0x00000028 --- -2--- -- d
+press     115/0x0073  0x00000027 --- -2--- -- s
+release   115/0x0073  0x00000027 --- -2--- -- s
 press   65507/0xffe3  0x00000025 --- -2--- -- Control_L
+press      97/0x0061  0x00000026 --C -2--- -- a
 press   65363/0xff53  0x00000072 --C -2--- -- Right
-release 65363/0xff53  0x00000072 --C -2--- -- Right
+Mainlock: VICE thread initiating shutdown
+Mainlock: VICE thread is exiting
+Render thread: Initiating render thread 0 shutdown
+Render thread: Joining render thread 0 ...
+Render thread: Joined render thread 0.
+
+
+LogFileName="/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log"
+SaveResourcesOnExit=1
+ConfirmOnExit=0
+MonitorXPos=2049
+MonitorYPos=58
+MonitorWidth=1021
+MonitorHeight=710
+MonitorFont="DM Mono Medium 10"
+MonitorFG="rgb(55,218,29)"
+Window0Height=710
+Window0Width=1024
+Window0Xpos=0
+Window0Ypos=58
+Sound=0
+KbdStatusbar=1
+KeymapIndex=1
+
+-default -logfile "/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log" +confirmonexit -saveres -monitorfont "DM Mono Medium 10" -monitorfg "rgb(55,218,29)" -monitorxpos "2049" -monitorypos "58" -monitorwidth "1021" -monitorheight "710" -windowxpos "0" -windowypos "58" -windowwidth "1024" -windowheight "710" +sound -keymap "1" -kbdstatusbar
+Main: VICE thread has been joined.
+Writing configuration file `/home/lenovo1/.config/vice/vicerc'.
+VIC-II: VSP Bug: safe channels are: 256. Emulation of memory corruption is disabled.
+Hotkeys: shutting down.
+closed ALSA MIDI sequencer port 'VICE'
