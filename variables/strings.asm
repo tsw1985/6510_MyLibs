@@ -36,7 +36,3 @@ buffer_str:       .text @"buffer:\$00"
 input_text_str:   .text @"input text:\$00"
 calc_offset_str:  .text @"offset:\$00"
 current_char_str: .text @"char:\$00"
-
-
-//This is the string buffer to print the chars on screen
-KEYS_TO_SCREEN_STR: .fill 40,0 // save 40 bytes in 0

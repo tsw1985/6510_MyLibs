@@ -1,6 +1,5 @@
 INPUT_LIB:
 {
-
     #import "input_macros/input_lib_macros.asm"
 
     input_keyboard:
@@ -13,7 +12,7 @@ INPUT_LIB:
         lda #$ff
         sta $DC03 //; ---> $DC01
 
-
+        // print cursor on selected position
         jsr print_cursor
 
 
@@ -25,12 +24,9 @@ INPUT_LIB:
         jsr scan_all_keys           // scan all keyboard matrix to get the
                                     // pressed keys and save them in the table
         
-        
         jsr process_pressed_keys    // finally , process all keys to do the
                                     // target actions
 
-        
-        jsr sleep_key               // sleep half second between keys presses
     
     jmp read_key                    // read keyboard again
 
@@ -68,20 +64,40 @@ INPUT_LIB:
                 // if some bit match, we calculate his offter and we save it in
                 // the table : "current keys pressed"
 
-                jsr print_x_coord       // see X row value of keyboard
-                jsr print_y_coord       // see Y row value of keyboard
 
-                
-                jsr calculate_offset_for_ascii_table // calculation of offset
-                jsr print_offset_result              // print offset result
+                jsr sleep_key               // sleep half second between keys presses
 
-                jsr print_current_pressed_char  // show current pressed char
-
-
-
+                // calculation of offset
+                jsr calculate_offset_for_ascii_table 
 
                 // save the offset result in the table
                 jsr save_key_pressed
+
+                // debug: print offset result
+                jsr print_offset_result              
+
+                // add key pressed to screen string
+                jsr add_key_to_screen_str
+
+                // print main string on screen
+                jsr print_keys_pressed
+
+                // print cursor
+                inc INPUT_CURSOR_COL
+                jsr print_cursor
+
+
+                /* Debug */
+                // debug : show current pressed char
+                jsr print_current_pressed_char  
+
+                // debug : // see X row value of keyboard
+                jsr print_x_coord
+                
+                // debug : // see Y row value of keyboard
+                jsr print_y_coord
+
+                
 
             no_key_detected:
 
@@ -106,10 +122,7 @@ INPUT_LIB:
         
         push_regs_to_stack()
 
-        
         jsr check_combo_keys     // First action is check the combinations keys
-
-
 
         pull_regs_from_stack()
     rts
@@ -127,6 +140,7 @@ INPUT_LIB:
           ldy TABLE_KEY_ASCII_X_OFFSET  //load in Y the offset
           lda #1
           sta PRESSED_KEY_TABLE,y    // set a 1 in this offset position table
+
         pull_regs_from_stack()
         rts
 
@@ -192,9 +206,9 @@ INPUT_LIB:
     sleep_key:
 
         push_regs_to_stack()
-        ldx #120
+        ldx #140
         outer_loop:
-            ldy #120
+            ldy #140
         inner_loop:
             nop
             dey
@@ -268,6 +282,7 @@ INPUT_LIB:
         lda INPUT_CURSOR_ROW
         sta SCREEN_ROW_POS
 
+        //inc INPUT_CURSOR_COL
         lda INPUT_CURSOR_COL
         sta SCREEN_COL_POS
 
@@ -293,13 +308,14 @@ INPUT_LIB:
         ldy SCREEN_COL_POS             // col 15
         lda SCREEN_CHAR                // char " "
         sta (ZERO_PAGE_ROW_LOW_BYTE),y
+        
 
         pull_regs_from_stack()
-        rts        
-
+        rts
 
 
     /* Function:
+
             This is a debuggin function . To know the X value of the keyboard
             matrix.
     */
@@ -326,6 +342,7 @@ INPUT_LIB:
 
 
     /* Function:
+
             This is a debuggin function . To know the Y value of the keyboard
             matrix.
     */
@@ -353,6 +370,7 @@ INPUT_LIB:
 
 
     /* Function:
+
         Debugging function to see the current pressed key
     */
     print_current_pressed_char:
@@ -372,5 +390,52 @@ INPUT_LIB:
         pull_regs_from_stack()
 
         rts
+
+    /*
+        Function:
+
+            Save pressed key on string KEYS_TO_STRING_STR. This is the string
+            that will appear on the screen.
+
+    */
+    add_key_to_screen_str:
+
+        push_regs_to_stack()
+
+
+        ldx TABLE_KEY_ASCII_X_OFFSET  // load offset
+        lda TABLE_KEY_ASCII,x         // get the ascii code from chars table
+        sta SCREEN_CHAR               // save the char on SCREEN_CHAR 
+        
+        ldy INPUT_INDEX_COUNTER       // store SCREEN_CHAR on KEYS_TO_STRING_STR
+        sta KEYS_TO_SCREEN_STR,y      // in y is the index. the limit is 80
+        inc INPUT_INDEX_COUNTER       // increment INPUT_INDEX_COUNTER to next
+                                      // keypress
+
+        pull_regs_from_stack()
+        rts
+
+
+
+    /*
+        Function:
+            
+            Print current text pressing the keys
+
+    */
+    print_keys_pressed:
+
+        push_regs_to_stack()
+
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(2,12,GREEN)
+        locate_input()
+        print_text(KEYS_TO_SCREEN_STR)
+
+        pull_regs_from_stack()
+
+        rts
+
+    
 
 }
