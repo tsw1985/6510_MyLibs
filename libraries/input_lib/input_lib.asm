@@ -4,6 +4,8 @@ INPUT_LIB:
 
     input_keyboard:
 
+        push_regs_to_stack()
+
         // Port A = enter
         lda #$00
         sta $DC02 //; ---> $DC00
@@ -27,8 +29,18 @@ INPUT_LIB:
         jsr process_pressed_keys    // finally , process all keys to do the
                                     // target actions
 
+
     
-    jmp read_key                    // read keyboard again
+    lda KEY_FLAGS    //check if enter is pressed
+    and #%00000010
+    beq continue_read_key 
+
+    .break
+    pull_regs_from_stack()
+    jmp fin_keyboard_demo
+
+    continue_read_key:
+        jmp read_key                    // read keyboard again
 
 
     /* ------------------------------------------------------------------------
@@ -74,7 +86,7 @@ INPUT_LIB:
                 jsr save_key_pressed
 
                 // debug: print offset result
-                jsr print_offset_result              
+                //jsr print_offset_result              
 
                 // add key pressed to screen string
                 jsr add_key_to_screen_str
@@ -85,6 +97,9 @@ INPUT_LIB:
                 // print cursor
                 inc INPUT_CURSOR_COL
                 jsr print_cursor
+
+                //check if enter is pressed
+                jsr check_if_key_is_enter
 
 
                 /* Debug */
@@ -97,7 +112,8 @@ INPUT_LIB:
                 // debug : // see Y row value of keyboard
                 jsr print_y_coord
 
-                
+                // debug: print offset result
+                jsr print_offset_result              
 
             no_key_detected:
 
@@ -144,6 +160,27 @@ INPUT_LIB:
         pull_regs_from_stack()
         rts
 
+    /* Function:
+        Check if key is enter
+    */
+    check_if_key_is_enter:
+
+        push_regs_to_stack()
+        ldx #8 // KEY ENTER
+        lda PRESSED_KEY_TABLE,x
+        bne enter_pressed
+        jmp enter_not_pressed
+        enter_pressed:
+            lda KEY_FLAGS
+            eor #%00000010
+            sta KEY_FLAGS
+
+        enter_not_pressed:
+            pull_regs_from_stack()
+        rts
+
+
+
     /*
         Function:
 
@@ -163,15 +200,17 @@ INPUT_LIB:
         beq skip // A value is 0 ? skip
 
         // If not skip , means CMB + Cursor is pressed, move to left cursor
-        //.break
-        pull_regs_from_stack()
-        rts
-
+        .break
+        lda KEY_FLAGS
+        eor #%00000001
+        sta KEY_FLAGS
+        
         skip:
-            //ldx #16 //check again cursor key . Here is only cursor key
-            //lda PRESSED_KEY_TABLE,x
-            //bne is_only_cursor_key // A value is == 1 ?
-            pull_regs_from_stack()
+
+            ldx #16 //Cursor key
+            lda PRESSED_KEY_TABLE,x
+
+        pull_regs_from_stack()
         rts
         
     /* 
@@ -436,6 +475,14 @@ INPUT_LIB:
 
         rts
 
-    
+
+    end_keyboard_demo:
+
+    jsr PRINT_LIB.clean_location_screen
+    locate_text(0,0,RED)
+    print_text(stars_line)
+    pull_regs_from_stack()
+rts
+
 
 }
