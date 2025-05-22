@@ -50,14 +50,23 @@ INPUT_LIB:
             lda KEY_FLAGS
             and #%00001000
             beq continue_read_key
-            jsr remove_current_cursor_of_screen
+
+            jsr sleep_key
+
+            lda KEY_FLAGS
+            and #%10000000   // check if remove cursor is enabled
+            bne ignore_remove_cursor_on_screen_string
+            jsr remove_cursor_on_screen_string
+            jsr decrement_cursor_position
+
+            ignore_remove_cursor_on_screen_string:
+
+
+
 
 
     // ***** Keep this check in last position ******
     continue_read_key:
-
-    lda #0
-    sta KEY_FLAGS
     jmp read_key                    // read keyboard again
 
 
@@ -125,6 +134,7 @@ INPUT_LIB:
                 lda KEY_FLAGS
                 and #%00001000
                 bne ignore_print_cursor
+                
                 // print cursor
                 inc INPUT_CURSOR_COL
                 jsr print_cursor
@@ -365,7 +375,6 @@ INPUT_LIB:
         lda INPUT_CURSOR_ROW
         sta SCREEN_ROW_POS
 
-        //inc INPUT_CURSOR_COL
         lda INPUT_CURSOR_COL
         sta SCREEN_COL_POS
 
@@ -377,9 +386,9 @@ INPUT_LIB:
         lda Row_Color_HI,x
         sta ZERO_PAGE_ROW_COLOR_HIGHT_BYTE
 
-        ldy SCREEN_COL_POS             
-        lda #WHITE //SCREEN_CHAR_COLOR
-        sta (ZERO_PAGE_ROW_COLOR_LOW_BYTE),y
+        //ldy SCREEN_COL_POS
+        //lda #WHITE               // SCREEN_CHAR_COLOR
+        //sta (ZERO_PAGE_ROW_COLOR_LOW_BYTE),y
 
         //set coords on Screen
         ldx SCREEN_ROW_POS       // Row 22
@@ -541,7 +550,7 @@ INPUT_LIB:
         rts
 
 
-    remove_current_cursor_of_screen:
+    decrement_cursor_position:
         push_regs_to_stack()
 
         jsr PRINT_LIB.clean_location_screen
@@ -556,7 +565,49 @@ INPUT_LIB:
         pull_regs_from_stack()
         rts
 
-rts
 
+    remove_cursor_on_screen_string:
+        push_regs_to_stack()
+
+
+        lda KEY_FLAGS
+        eor #%10000000  // enable IGNORE REMOVE CURSOR in tail screen
+        sta KEY_FLAGS
+
+
+        lda #96 // Space white inverted  . + 128 , is the current char on inverted color
+        sta SCREEN_CHAR
+
+        lda INPUT_CURSOR_ROW
+        sta SCREEN_ROW_POS
+
+        lda INPUT_CURSOR_COL
+        sta SCREEN_COL_POS
+
+        //set color on color ram
+        ldx SCREEN_ROW_POS       
+        lda Row_Color_LO,x
+        sta ZERO_PAGE_ROW_COLOR_LOW_BYTE
+
+        lda Row_Color_HI,x
+        sta ZERO_PAGE_ROW_COLOR_HIGHT_BYTE
+
+        //ldy SCREEN_COL_POS
+        //lda #WHITE               // SCREEN_CHAR_COLOR
+        //sta (ZERO_PAGE_ROW_COLOR_LOW_BYTE),y
+
+        //set coords on Screen
+        ldx SCREEN_ROW_POS       // Row 22
+        lda Row_LO,x
+        sta ZERO_PAGE_ROW_LOW_BYTE
+        lda Row_HI,x
+        sta ZERO_PAGE_ROW_HIGHT_BYTE
+
+        ldy SCREEN_COL_POS             // col 15
+        lda SCREEN_CHAR                // char " "
+        sta (ZERO_PAGE_ROW_LOW_BYTE),y
+
+        pull_regs_from_stack()
+        rts
 
 }
