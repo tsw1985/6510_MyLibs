@@ -12,7 +12,7 @@ CHAR_KEY_PRESSED:    .byte 0
     4 =
     5 =
     6 =
-    7 = Show cursor on TAIL of screen
+    7 = Show cursor on screen
 */
 KEY_FLAGS:           .byte 0
 KEY_BUFFER_INDEX:    .byte 0

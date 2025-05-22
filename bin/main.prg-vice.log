@@ -20,7 +20,7 @@ Roberto Muscedere, June Tate-Gans, Pablo Roldan.
 This is free software with ABSOLUTELY NO WARRANTY.
 See the "About VICE" command for more info.
  
-Main: random seed was: 0x682f4366
+Main: random seed was: 0x682f968c
 Main: command line was: x64 -logfile /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg-vice.log /home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg
 Main: VICE system file directory: '/usr/share/vice'.
 Main: VICE system file search path: '/home/lenovo1/.local/share/vice:/usr/bin:/usr/share/vice'.
@@ -87,7 +87,7 @@ Hotkeys: OK.
 Main CPU: 
 Main CPU: starting at ($FFFC).
 Main CPU: RESET.
-VIC-II: VSP Bug: safe channels are: 123467. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 2357. Emulation of memory corruption is disabled.
 AUTOSTART: Autodetecting image type of `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg'.
 Filesystem Image Probe: Error - Import GCR: Unknown GCR image version 48.
 Filesystem Image: Unknown disk image `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg'.
@@ -97,14 +97,14 @@ CART: '/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' is not a valid CRT 
 AUTOSTART: Loading PRG file `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' with autostart disk image.
 AUTOSTART: Resetting drive 8
 AUTOSTART: Resetting the machine to autostart 'MAIN'
-VIC-II: VSP Bug: safe channels are: 0125. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 0246. Emulation of memory corruption is disabled.
 AUTOSTART: Turning Warp mode on.
 AUTOSTART: `/home/lenovo1/DEVELOPER/C64/code/mylibs/bin/main.prg' recognized as program/p00 file.
 Main CPU: RESET.
 VSync: Sync reset
 Unit 8: RESET.
 AUTOSTART: Loading program 'MAIN'
-AUTOSTART: Entered ROM at $e5cf
+AUTOSTART: Entered ROM at $e5d1
 AUTOSTART: Searching for ...
 AUTOSTART: Loading
 AUTOSTART: Entered ROM at $ea21
@@ -116,93 +116,81 @@ AUTOSTART: Restoring FSDevice8ConvertP00 to 1.
 AUTOSTART: Restoring FSDeviceLongNames to 0.
 AUTOSTART: Done.
 VSync: Sync reset
-press     106/0x006a  0x0000002c --- -2--- -- j
-release   106/0x006a  0x0000002c --- -2--- -- j
-press     107/0x006b  0x0000002d --- -2--- -- k
-release   107/0x006b  0x0000002d --- -2--- -- k
-press     100/0x0064  0x00000028 --- -2--- -- d
-press     102/0x0066  0x00000029 --- -2--- -- f
-release   100/0x0064  0x00000028 --- -2--- -- d
-press     106/0x006a  0x0000002c --- -2--- -- j
-release   102/0x0066  0x00000029 --- -2--- -- f
-release   106/0x006a  0x0000002c --- -2--- -- j
-press     107/0x006b  0x0000002d --- -2--- -- k
-release   107/0x006b  0x0000002d --- -2--- -- k
-press     115/0x0073  0x00000027 --- -2--- -- s
-press     100/0x0064  0x00000028 --- -2--- -- d
-press     107/0x006b  0x0000002d --- -2--- -- k
-release   115/0x0073  0x00000027 --- -2--- -- s
-press     115/0x0073  0x00000027 --- -2--- -- s
-press     106/0x006a  0x0000002c --- -2--- -- j
-release   107/0x006b  0x0000002d --- -2--- -- k
-release   115/0x0073  0x00000027 --- -2--- -- s
-release   100/0x0064  0x00000028 --- -2--- -- d
-press     102/0x0066  0x00000029 --- -2--- -- f
-release   106/0x006a  0x0000002c --- -2--- -- j
-press     107/0x006b  0x0000002d --- -2--- -- k
-press     108/0x006c  0x0000002e --- -2--- -- l
-release   102/0x0066  0x00000029 --- -2--- -- f
-press     115/0x0073  0x00000027 --- -2--- -- s
-release   108/0x006c  0x0000002e --- -2--- -- l
-press     106/0x006a  0x0000002c --- -2--- -- j
-release   107/0x006b  0x0000002d --- -2--- -- k
-press     100/0x0064  0x00000028 --- -2--- -- d
-release   115/0x0073  0x00000027 --- -2--- -- s
-release   106/0x006a  0x0000002c --- -2--- -- j
-release   100/0x0064  0x00000028 --- -2--- -- d
-press     108/0x006c  0x0000002e --- -2--- -- l
-press     107/0x006b  0x0000002d --- -2--- -- k
-press     100/0x0064  0x00000028 --- -2--- -- d
-press     115/0x0073  0x00000027 --- -2--- -- s
-release   108/0x006c  0x0000002e --- -2--- -- l
-press     106/0x006a  0x0000002c --- -2--- -- j
-release   107/0x006b  0x0000002d --- -2--- -- k
-release   100/0x0064  0x00000028 --- -2--- -- d
-release   115/0x0073  0x00000027 --- -2--- -- s
-release   106/0x006a  0x0000002c --- -2--- -- j
-press     107/0x006b  0x0000002d --- -2--- -- k
-release   107/0x006b  0x0000002d --- -2--- -- k
-press     102/0x0066  0x00000029 --- -2--- -- f
-press     106/0x006a  0x0000002c --- -2--- -- j
-release   102/0x0066  0x00000029 --- -2--- -- f
-release   106/0x006a  0x0000002c --- -2--- -- j
-press     107/0x006b  0x0000002d --- -2--- -- k
-release   107/0x006b  0x0000002d --- -2--- -- k
-press     100/0x0064  0x00000028 --- -2--- -- d
-release   100/0x0064  0x00000028 --- -2--- -- d
-press     107/0x006b  0x0000002d --- -2--- -- k
-release   107/0x006b  0x0000002d --- -2--- -- k
-press     115/0x0073  0x00000027 --- -2--- -- s
-press     106/0x006a  0x0000002c --- -2--- -- j
-release   115/0x0073  0x00000027 --- -2--- -- s
-release   106/0x006a  0x0000002c --- -2--- -- j
-press     100/0x0064  0x00000028 --- -2--- -- d
-press     107/0x006b  0x0000002d --- -2--- -- k
-release   100/0x0064  0x00000028 --- -2--- -- d
-release   107/0x006b  0x0000002d --- -2--- -- k
 press     102/0x0066  0x00000029 --- -2--- -- f
 release   102/0x0066  0x00000029 --- -2--- -- f
-press     107/0x006b  0x0000002d --- -2--- -- k
-release   107/0x006b  0x0000002d --- -2--- -- k
+press     104/0x0068  0x0000002b --- -2--- -- h
+release   104/0x0068  0x0000002b --- -2--- -- h
 press     100/0x0064  0x00000028 --- -2--- -- d
 release   100/0x0064  0x00000028 --- -2--- -- d
-press     107/0x006b  0x0000002d --- -2--- -- k
-release   107/0x006b  0x0000002d --- -2--- -- k
+press     106/0x006a  0x0000002c --- -2--- -- j
+release   106/0x006a  0x0000002c --- -2--- -- j
+press     115/0x0073  0x00000027 --- -2--- -- s
+release   115/0x0073  0x00000027 --- -2--- -- s
+press     104/0x0068  0x0000002b --- -2--- -- h
+press     100/0x0064  0x00000028 --- -2--- -- d
+release   104/0x0068  0x0000002b --- -2--- -- h
+press     102/0x0066  0x00000029 --- -2--- -- f
+release   100/0x0064  0x00000028 --- -2--- -- d
+press     104/0x0068  0x0000002b --- -2--- -- h
+release   102/0x0066  0x00000029 --- -2--- -- f
+press     117/0x0075  0x0000001e --- -2--- -- u
+release   104/0x0068  0x0000002b --- -2--- -- h
+release   117/0x0075  0x0000001e --- -2--- -- u
+press     101/0x0065  0x0000001a --- -2--- -- e
+press     104/0x0068  0x0000002b --- -2--- -- h
+press     102/0x0066  0x00000029 --- -2--- -- f
+release   101/0x0065  0x0000001a --- -2--- -- e
+release   102/0x0066  0x00000029 --- -2--- -- f
+release   104/0x0068  0x0000002b --- -2--- -- h
+press     101/0x0065  0x0000001a --- -2--- -- e
+release   101/0x0065  0x0000001a --- -2--- -- e
+press     106/0x006a  0x0000002c --- -2--- -- j
+release   106/0x006a  0x0000002c --- -2--- -- j
+press     115/0x0073  0x00000027 --- -2--- -- s
+press     100/0x0064  0x00000028 --- -2--- -- d
+release   115/0x0073  0x00000027 --- -2--- -- s
+press     102/0x0066  0x00000029 --- -2--- -- f
+release   100/0x0064  0x00000028 --- -2--- -- d
+press     104/0x0068  0x0000002b --- -2--- -- h
+release   102/0x0066  0x00000029 --- -2--- -- f
+release   104/0x0068  0x0000002b --- -2--- -- h
+press     102/0x0066  0x00000029 --- -2--- -- f
+press     104/0x0068  0x0000002b --- -2--- -- h
+press     117/0x0075  0x0000001e --- -2--- -- u
+release   102/0x0066  0x00000029 --- -2--- -- f
+release   104/0x0068  0x0000002b --- -2--- -- h
+release   117/0x0075  0x0000001e --- -2--- -- u
+press     101/0x0065  0x0000001a --- -2--- -- e
+press     117/0x0075  0x0000001e --- -2--- -- u
+press     115/0x0073  0x00000027 --- -2--- -- s
+release   117/0x0075  0x0000001e --- -2--- -- u
+press     104/0x0068  0x0000002b --- -2--- -- h
+release   101/0x0065  0x0000001a --- -2--- -- e
+release   115/0x0073  0x00000027 --- -2--- -- s
+press     102/0x0066  0x00000029 --- -2--- -- f
+press     106/0x006a  0x0000002c --- -2--- -- j
+release   104/0x0068  0x0000002b --- -2--- -- h
+release   102/0x0066  0x00000029 --- -2--- -- f
+press     100/0x0064  0x00000028 --- -2--- -- d
+release   106/0x006a  0x0000002c --- -2--- -- j
+press     104/0x0068  0x0000002b --- -2--- -- h
+press     102/0x0066  0x00000029 --- -2--- -- f
+release   100/0x0064  0x00000028 --- -2--- -- d
+press     117/0x0075  0x0000001e --- -2--- -- u
+release   104/0x0068  0x0000002b --- -2--- -- h
+press     101/0x0065  0x0000001a --- -2--- -- e
+release   102/0x0066  0x00000029 --- -2--- -- f
+release   117/0x0075  0x0000001e --- -2--- -- u
+release   101/0x0065  0x0000001a --- -2--- -- e
+press     119/0x0077  0x00000019 --- -2--- -- w
+release   119/0x0077  0x00000019 --- -2--- -- w
+press     104/0x0068  0x0000002b --- -2--- -- h
+release   104/0x0068  0x0000002b --- -2--- -- h
+press     101/0x0065  0x0000001a --- -2--- -- e
+press     102/0x0066  0x00000029 --- -2--- -- f
+release   101/0x0065  0x0000001a --- -2--- -- e
+release   102/0x0066  0x00000029 --- -2--- -- f
 press   65507/0xffe3  0x00000025 --- -2--- -- Control_L
-press   65363/0xff53  0x00000072 --C -2--- -- Right
-release 65363/0xff53  0x00000072 --C -2--- -- Right
-press   65363/0xff53  0x00000072 --C -2--- -- Right
-release 65363/0xff53  0x00000072 --C -2--- -- Right
-press   65363/0xff53  0x00000072 --C -2--- -- Right
-release 65363/0xff53  0x00000072 --C -2--- -- Right
-press   65363/0xff53  0x00000072 --C -2--- -- Right
-release 65363/0xff53  0x00000072 --C -2--- -- Right
-press   65363/0xff53  0x00000072 --C -2--- -- Right
-release 65363/0xff53  0x00000072 --C -2--- -- Right
-press   65363/0xff53  0x00000072 --C -2--- -- Right
-release 65363/0xff53  0x00000072 --C -2--- -- Right
-press   65363/0xff53  0x00000072 --C -2--- -- Right
-release 65363/0xff53  0x00000072 --C -2--- -- Right
 press   65363/0xff53  0x00000072 --C -2--- -- Right
 release 65363/0xff53  0x00000072 --C -2--- -- Right
 press   65363/0xff53  0x00000072 --C -2--- -- Right
@@ -238,35 +226,9 @@ release 65363/0xff53  0x00000072 --C -2--- -- Right
 press   65363/0xff53  0x00000072 --C -2--- -- Right
 release 65363/0xff53  0x00000072 --C -2--- -- Right
 release 65507/0xffe3  0x00000025 --C -2--- -- Control_L
-press   65363/0xff53  0x00000072 --- -2--- -- Right
-release 65363/0xff53  0x00000072 --- -2--- -- Right
-press   65363/0xff53  0x00000072 --- -2--- -- Right
-release 65363/0xff53  0x00000072 --- -2--- -- Right
-press   65363/0xff53  0x00000072 --- -2--- -- Right
-release 65363/0xff53  0x00000072 --- -2--- -- Right
-press   65363/0xff53  0x00000072 --- -2--- -- Right
-release 65363/0xff53  0x00000072 --- -2--- -- Right
 press   65507/0xffe3  0x00000025 --- -2--- -- Control_L
 press   65363/0xff53  0x00000072 --C -2--- -- Right
 release 65363/0xff53  0x00000072 --C -2--- -- Right
-press   65363/0xff53  0x00000072 --C -2--- -- Right
-release 65363/0xff53  0x00000072 --C -2--- -- Right
-press   65363/0xff53  0x00000072 --C -2--- -- Right
-release 65363/0xff53  0x00000072 --C -2--- -- Right
-press   65363/0xff53  0x00000072 --C -2--- -- Right
-release 65363/0xff53  0x00000072 --C -2--- -- Right
-press   65363/0xff53  0x00000072 --C -2--- -- Right
-release 65363/0xff53  0x00000072 --C -2--- -- Right
-press   65363/0xff53  0x00000072 --C -2--- -- Right
-release 65363/0xff53  0x00000072 --C -2--- -- Right
-release 65507/0xffe3  0x00000025 --C -2--- -- Control_L
-press   65363/0xff53  0x00000072 --- -2--- -- Right
-release 65363/0xff53  0x00000072 --- -2--- -- Right
-press   65363/0xff53  0x00000072 --- -2--- -- Right
-release 65363/0xff53  0x00000072 --- -2--- -- Right
-press   65363/0xff53  0x00000072 --- -2--- -- Right
-release 65363/0xff53  0x00000072 --- -2--- -- Right
-press   65507/0xffe3  0x00000025 --- -2--- -- Control_L
 press   65363/0xff53  0x00000072 --C -2--- -- Right
 release 65363/0xff53  0x00000072 --C -2--- -- Right
 press   65363/0xff53  0x00000072 --C -2--- -- Right
@@ -301,6 +263,6 @@ Mainlock: VICE thread initiating shutdown
 Mainlock: VICE thread is exiting
 Main: VICE thread has been joined.
 Writing configuration file `/home/lenovo1/.config/vice/vicerc'.
-VIC-II: VSP Bug: safe channels are: 127. Emulation of memory corruption is disabled.
+VIC-II: VSP Bug: safe channels are: 37. Emulation of memory corruption is disabled.
 Hotkeys: shutting down.
 closed ALSA MIDI sequencer port 'VICE'
