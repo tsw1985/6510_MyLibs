@@ -33,22 +33,24 @@ INPUT_LIB:
         /* check if enter is pressed */
         lda KEY_FLAGS
         and #%00000010
-        beq continue_read_key 
-        pull_regs_from_stack()
-        jmp fin_keyboard_demo
+        bne exit_input
+        jmp check_cursor_left
+        exit_input:
+            pull_regs_from_stack()
+            jmp fin_keyboard_demo
         
-        /* check MOVE TO CURSOR LEFT */
-        lda KEY_FLAGS                  
-        and #%00001000
-        beq continue_read_key
-        //TODO : Move cursor to left
-
-
+        check_cursor_left:
+            /* check MOVE TO CURSOR LEFT */
+            lda KEY_FLAGS
+            and #%00001000
+            beq continue_read_key
+            // TODO : Move cursor to left
+            //.break
+            jsr remove_current_cursor_of_screen
 
 
     // ***** Keep this check in last position ******
     continue_read_key:
-
         jmp read_key                    // read keyboard again
 
 
@@ -89,6 +91,10 @@ INPUT_LIB:
                 // calculation of offset
                 jsr calculate_offset_for_ascii_table 
 
+                /* Normal approach */
+                // save the offset result in the table
+                jsr save_key_pressed
+
                 /* IGNORE TO PRINT C= key */
                 lda TABLE_KEY_ASCII_X_OFFSET
                 cmp #47
@@ -99,22 +105,19 @@ INPUT_LIB:
                 cmp #16
                 beq ignore_key_pressed
 
-                /* Normal approach */
-                // save the offset result in the table
-                jsr save_key_pressed
 
-                 // add key pressed to screen string
-                 jsr add_key_to_screen_str
+                // add key pressed to screen string
+                jsr add_key_to_screen_str
 
-                 // print main string on screen
-                 jsr print_keys_pressed
+                // print main string on screen
+                jsr print_keys_pressed
 
-                 // print cursor
-                 inc INPUT_CURSOR_COL
-                 jsr print_cursor
+                // print cursor
+                inc INPUT_CURSOR_COL
+                jsr print_cursor
 
-                 //check if enter is pressed
-                 jsr check_if_key_is_enter
+                //check if enter is pressed
+                jsr check_if_key_is_enter
 
                 ignore_key_pressed:
                 /* ----------------------- Debug ---------------------------- */
@@ -157,10 +160,6 @@ INPUT_LIB:
         push_regs_to_stack()
 
         jsr check_combo_keys     // First action is check the combinations keys
-
-        jsr clear_key_pressed_table // clear the table where are save the keys 
-                                    // pressed before save the keys again
-
 
         pull_regs_from_stack()
     rts
@@ -229,8 +228,7 @@ INPUT_LIB:
         // check single keys
         skip:
 
-            
-
+            /*
             // Only Cursor key
             ldx #16                   
             lda PRESSED_KEY_TABLE,x
@@ -238,6 +236,7 @@ INPUT_LIB:
             lda KEY_FLAGS
             eor #%00000100            // set bit flag only cursor key is pressed
             sta KEY_FLAGS
+            */
 
         continue_skip:
         pull_regs_from_stack()
@@ -377,7 +376,6 @@ INPUT_LIB:
         ldy SCREEN_COL_POS             // col 15
         lda SCREEN_CHAR                // char " "
         sta (ZERO_PAGE_ROW_LOW_BYTE),y
-        
 
         pull_regs_from_stack()
         rts
@@ -503,6 +501,22 @@ INPUT_LIB:
 
         pull_regs_from_stack()
 
+        rts
+
+
+    remove_current_cursor_of_screen:
+        push_regs_to_stack()
+
+
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(10,0,WHITE)
+        print_text(move_left_str)
+
+        /*ldx INPUT_CURSOR_COL
+        lda #0
+        sta KEYS_TO_SCREEN_STR,x*/
+
+        pull_regs_from_stack()
         rts
 
 rts
