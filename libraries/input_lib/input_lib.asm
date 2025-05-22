@@ -19,6 +19,12 @@ INPUT_LIB:
 
 
     read_key:
+
+
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(10,0,WHITE)
+        print_text(space_5_str)
+
         
         jsr scan_all_keys           // scan all keyboard matrix to get the
                                     // pressed keys and save them in the table
@@ -44,14 +50,15 @@ INPUT_LIB:
             lda KEY_FLAGS
             and #%00001000
             beq continue_read_key
-            // TODO : Move cursor to left
-            //.break
             jsr remove_current_cursor_of_screen
 
 
     // ***** Keep this check in last position ******
     continue_read_key:
-        jmp read_key                    // read keyboard again
+
+    lda #0
+    sta KEY_FLAGS
+    jmp read_key                    // read keyboard again
 
 
     /* ------------------------------------------------------------------------
@@ -112,9 +119,17 @@ INPUT_LIB:
                 // print main string on screen
                 jsr print_keys_pressed
 
+
+                // check if is allowed print the cursor . If you are doing
+                // C= + CURSOR ( left ), the cursor must be hidden.
+                lda KEY_FLAGS
+                and #%00001000
+                bne ignore_print_cursor
                 // print cursor
                 inc INPUT_CURSOR_COL
                 jsr print_cursor
+                
+                ignore_print_cursor:
 
                 //check if enter is pressed
                 jsr check_if_key_is_enter
@@ -133,8 +148,8 @@ INPUT_LIB:
                 // debug : // see Y row value of keyboard
                 jsr print_y_coord
 
-                // debug: print offset result
-                jsr print_offset_result              
+                // debug : print current index position
+                jsr print_cursor_pos
 
             no_key_detected:
 
@@ -435,6 +450,28 @@ INPUT_LIB:
 
         rts
 
+    /* Function:
+
+        Debugging function to see the current index position
+    */
+    print_cursor_pos:
+        
+        push_regs_to_stack()
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(6,0,WHITE)
+        print_text(cursor_index_str)
+
+        lda INPUT_CURSOR_COL
+        sta div_res_0
+        lda #0
+        sta div_res_1
+        sta div_res_2
+        sta div_res_3
+        // Print the result of calculation on screen
+        print_calculation_result(6,8,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+        pull_regs_from_stack()
+    rts
+
 
     /* Function:
 
@@ -507,11 +544,11 @@ INPUT_LIB:
     remove_current_cursor_of_screen:
         push_regs_to_stack()
 
-
         jsr PRINT_LIB.clean_location_screen
         locate_text(10,0,WHITE)
         print_text(move_left_str)
 
+        dec INPUT_CURSOR_COL
         /*ldx INPUT_CURSOR_COL
         lda #0
         sta KEYS_TO_SCREEN_STR,x*/
