@@ -30,14 +30,21 @@ INPUT_LIB:
                                     // pressed before save the keys again
 
     
-        lda KEY_FLAGS               // check if enter is pressed
+        /* check if enter is pressed */
+        lda KEY_FLAGS
         and #%00000010
         beq continue_read_key 
         pull_regs_from_stack()
         jmp fin_keyboard_demo
+        
+        /* check MOVE TO CURSOR LEFT */
+        lda KEY_FLAGS                  
+        and #%00001000
+        beq continue_read_key
+        //TODO : Move cursor to left
 
-    lda KEY_FLAGS                   // check if enter is pressed
-        and #%00000000
+
+
 
     // ***** Keep this check in last position ******
     continue_read_key:
@@ -77,8 +84,6 @@ INPUT_LIB:
 
                 // if some bit match, we calculate his offter and we save it in
                 // the table : "current keys pressed"
-
-
                 jsr sleep_key               // sleep half second between keys presses
 
                 // calculation of offset
@@ -500,13 +505,6 @@ INPUT_LIB:
 
         rts
 
-
-    end_keyboard_demo:
-
-    jsr PRINT_LIB.clean_location_screen
-    locate_text(0,0,RED)
-    print_text(stars_line)
-    pull_regs_from_stack()
 rts
 
 
