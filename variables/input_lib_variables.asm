@@ -3,6 +3,17 @@ TABLE_KEY_COL_INDEX: .byte 0
 TABLE_KEY_ROW_INDEX: .byte 0
 KEY_PRESSED:         .byte 0
 CHAR_KEY_PRESSED:    .byte 0
+/* KEY_FLAS BITS POSITION */
+/*
+    0 = C= KEY
+    1 = ENTER KEY
+    2 = ONLY CURSOR KEY
+    3 = C= + CURSOR ( move cursor to left )
+    4 =
+    5 =
+    6 =
+    7 =
+*/
 KEY_FLAGS:           .byte 0
 KEY_BUFFER_INDEX:    .byte 0
 KEY_WAIT:            .byte 0

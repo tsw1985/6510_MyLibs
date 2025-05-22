@@ -5,15 +5,15 @@
 .label sub_num1_0=$26f8
 .label TEMP_Y_REG=$27ae
 .label INPUT_STR_LIMIT=$2763
-.label MATH_LIB=$5628 {
-  .label sum_32=$5701
-  .label sub_32=$5727
-  .label division_32=$5628
-  .label loop=$562d
-  .label do_subtract=$5653
-  .label end_loop=$569c
-  .label continue_multiplication_32=$56a7
-  .label multiplication_32=$56a2
+.label MATH_LIB=$564b {
+  .label sum_32=$5724
+  .label sub_32=$574a
+  .label division_32=$564b
+  .label loop=$5650
+  .label do_subtract=$5676
+  .label end_loop=$56bf
+  .label continue_multiplication_32=$56ca
+  .label multiplication_32=$56c5
 }
 .label SCREEN_COL_COLOR_POS=$26ca
 .label mult_times_str=$262d
@@ -138,50 +138,53 @@
 .label temp_offset=$27ac
 .label TABLE_KEY_ASCII=$2723
 .label INPUT_LIB=$5115 {
-  .label end_keyboard_demo=$5605
-  .label scan_all_keys=$5142
-  .label no_key_detected=$5180
-  .label save_key_pressed=$5199 {
+  .label end_keyboard_demo=$5628
+  .label scan_all_keys=$5147
+  .label no_key_detected=$5196
+  .label save_key_pressed=$51b2 {
+  }
+  .label continue_skip=$520c {
   }
   .label input_keyboard=$5115 {
   }
-  .label enter_pressed=$51bb
-  .label skip=$51e4
-  .label clear_pressed=$530a
-  .label print_cursor=$5334 {
+  .label enter_pressed=$51d4
+  .label skip=$51fd
+  .label clear_pressed=$532d
+  .label print_cursor=$5357 {
   }
-  .label print_current_pressed_char=$556b {
+  .label print_current_pressed_char=$558e {
   }
-  .label print_keys_pressed=$55cb {
+  .label print_keys_pressed=$55ee {
   }
-  .label process_pressed_keys=$518b {
+  .label process_pressed_keys=$51a1 {
   }
-  .label enter_not_pressed=$51c3 {
+  .label enter_not_pressed=$51dc {
   }
-  .label calculate_offset_for_ascii_table=$531a {
+  .label calculate_offset_for_ascii_table=$533d {
   }
-  .label print_x_coord=$5379 {
+  .label print_x_coord=$539c {
   }
-  .label outer_loop=$52f4
-  .label check_combo_keys=$51c9 {
+  .label outer_loop=$5317
+  .label check_combo_keys=$51e2 {
   }
-  .label scan_rows_loop=$5144
-  .label scan_cols_loop=$5154
-  .label check_if_key_is_enter=$51ac {
+  .label scan_rows_loop=$5149
+  .label scan_cols_loop=$5159
+  .label check_if_key_is_enter=$51c5 {
   }
-  .label print_y_coord=$5472 {
+  .label print_y_coord=$5495 {
   }
-  .label add_key_to_screen_str=$55ae {
+  .label add_key_to_screen_str=$55d1 {
   }
-  .label clear_key_pressed_table=$5303 {
+  .label clear_key_pressed_table=$5326 {
   }
-  .label continue_read_key=$513f
-  .label sleep_key=$52ed {
+  .label continue_read_key=$5144
+  .label ignore_key_pressed=$5187
+  .label sleep_key=$5310 {
   }
-  .label print_offset_result=$51ef {
+  .label print_offset_result=$5212 {
   }
   .label read_key=$5127
-  .label inner_loop=$52f6
+  .label inner_loop=$5319
 }
 .label move_right_str=$268f
 .label TEMP_X_REG=$27ad

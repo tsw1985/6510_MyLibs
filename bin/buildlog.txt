@@ -14,6 +14,6 @@ Default-segment:
   $0810-$085f Main Code
   $2500-$27fe Variables
   $4000-$4063 Tables
-  $5000-$5758 Libraries
+  $5000-$577b Libraries
 
 Writing Symbol file: main.sym
