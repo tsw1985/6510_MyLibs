@@ -38,7 +38,13 @@ INPUT_LIB:
         lda KEY_FLAGS
         and #%00000010
         bne exit_input
-        jmp check_cursor_left
+
+        lda KEY_FLAGS
+        and #%00001000
+        bne check_cursor_left
+
+        jmp continue_read_key
+        
         exit_input:
             pull_regs_from_stack()
             jmp fin_keyboard_demo
@@ -47,7 +53,7 @@ INPUT_LIB:
 
             /* check MOVE TO CURSOR LEFT */
             lda KEY_FLAGS
-            and #%00001000         
+            and #%00001000
             beq continue_read_key /* if flag move cursor left is NOT enabled 
                                      jump to ignore ( continue_read_key ) */
 
@@ -261,15 +267,15 @@ INPUT_LIB:
         // check single keys
         skip:
 
-            /*
-            // Only Cursor key
+            
+            // Only Cursor key. Must move to right
             ldx #16                   
             lda PRESSED_KEY_TABLE,x
             beq continue_skip
             lda KEY_FLAGS
             eor #%00000100            // set bit flag only cursor key is pressed
             sta KEY_FLAGS
-            */
+            
 
         continue_skip:
         pull_regs_from_stack()
