@@ -20,12 +20,10 @@ INPUT_LIB:
 
     read_key:
 
-
         jsr PRINT_LIB.clean_location_screen
         locate_text(10,0,WHITE)
         print_text(space_5_str)
 
-        
         jsr scan_all_keys           // scan all keyboard matrix to get the
                                     // pressed keys and save them in the table
         
@@ -46,22 +44,23 @@ INPUT_LIB:
             jmp fin_keyboard_demo
         
         check_cursor_left:
+
             /* check MOVE TO CURSOR LEFT */
             lda KEY_FLAGS
-            and #%00001000
-            beq continue_read_key
-            
+            and #%00001000         
+            beq continue_read_key /* if flag move cursor left is NOT enabled 
+                                     jump to ignore ( continue_read_key ) */
 
-            // check limit 0 ( left )
-            .break
-            lda SCREEN_INPUT_COL_POS
-            cmp INPUT_CURSOR_COL
-            beq continue_read_key
-            bcs allow_move_to_left
+            /* Check limit to left. INPUT_CURSOR_COL 
+            must be >= SCREEN_INPUT_COL_POS */
+            lda SCREEN_INPUT_COL_POS  // LOAD LIMIT TO LEFT
+            cmp INPUT_CURSOR_COL      // Compare current cursor index
+            beq continue_read_key     // if equal to limit , ignore
+            bcs allow_move_to_left    // if not, move to left
             allow_move_to_left:
-            jsr restore_char_with_current_cursor
-            jsr decrement_current_cursor_of_screen
-            jsr move_cursor_to_left_on_string_screen
+                jsr restore_char_with_current_cursor
+                jsr decrement_current_cursor_of_screen
+                jsr move_cursor_to_left_on_string_screen
 
 
     // ***** Keep this check in last position ******
@@ -102,6 +101,13 @@ INPUT_LIB:
                 beq no_key_detected     // if does not match, continue with next
                                         // column 
 
+
+
+           /* Before all , we need to check if the str is not on length limit */
+                lda INPUT_STR_LIMIT     // LOAD LIMIT TO RIGHT
+                cmp INPUT_INDEX_COUNTER    // Compare current cursor index
+                beq ignore_print_cursor   // if equal to limit , ignore
+
                 // if some bit match, we calculate his offter and we save it in
                 // the table : "current keys pressed"
                 jsr sleep_key               // sleep half second between keys presses
@@ -123,13 +129,11 @@ INPUT_LIB:
                 cmp #16
                 beq ignore_key_pressed
 
-
                 // add key pressed to screen string
                 jsr add_key_to_screen_str
 
                 // print main string on screen
                 jsr print_keys_pressed
-
 
                 // check if is allowed print the cursor . If you are doing
                 // C= + CURSOR ( left ), the cursor must be hidden.
@@ -375,27 +379,12 @@ INPUT_LIB:
 
         push_regs_to_stack()
 
-        lda #224 // Space white inverted  . + 128 , is the current char on inverted color
-        sta SCREEN_CHAR
-
+        /* set coords col and row */
         lda INPUT_CURSOR_ROW
         sta SCREEN_ROW_POS
 
-        //inc INPUT_CURSOR_COL
         lda INPUT_CURSOR_COL
         sta SCREEN_COL_POS
-
-        //set color on color ram
-        ldx SCREEN_ROW_POS       
-        lda Row_Color_LO,x
-        sta ZERO_PAGE_ROW_COLOR_LOW_BYTE
-
-        lda Row_Color_HI,x
-        sta ZERO_PAGE_ROW_COLOR_HIGHT_BYTE
-
-        //ldy SCREEN_COL_POS             
-        //lda #WHITE //SCREEN_CHAR_COLOR
-        //sta (ZERO_PAGE_ROW_COLOR_LOW_BYTE),y
 
         //set coords on Screen
         ldx SCREEN_ROW_POS       // Row 22
@@ -406,7 +395,9 @@ INPUT_LIB:
 
         ldy SCREEN_COL_POS             // col 15
         lda SCREEN_CHAR                // char " "
-        sta (ZERO_PAGE_ROW_LOW_BYTE),y
+        lda (ZERO_PAGE_ROW_LOW_BYTE),y // get the char and invert his color
+        ora #%10000000                 // to invert we need set the bit 7 to 0
+        sta (ZERO_PAGE_ROW_LOW_BYTE),y // save the bit inverted
 
         pull_regs_from_stack()
         rts
@@ -575,6 +566,10 @@ INPUT_LIB:
         lda KEY_FLAGS
         ora #%10000000 // set bit show cursor on screen
         sta KEY_FLAGS
+
+
+        dec INPUT_INDEX_COUNTER // decrement index of string to write the char
+                                // on screen str
 
 
         lda INPUT_CURSOR_ROW
