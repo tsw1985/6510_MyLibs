@@ -43,6 +43,11 @@ INPUT_LIB:
         and #%00001000
         bne check_cursor_left
 
+
+        lda KEY_FLAGS
+        and #%00000100            // set bit flag only cursor key is pressed
+        bne check_cursor_right
+
         jmp continue_read_key
         
         exit_input:
@@ -50,12 +55,6 @@ INPUT_LIB:
             jmp fin_keyboard_demo
         
         check_cursor_left:
-
-            /* check MOVE TO CURSOR LEFT */
-            lda KEY_FLAGS
-            and #%00001000
-            beq continue_read_key /* if flag move cursor left is NOT enabled 
-                                     jump to ignore ( continue_read_key ) */
 
             /* Check limit to left. INPUT_CURSOR_COL 
             must be >= SCREEN_INPUT_COL_POS */
@@ -67,6 +66,8 @@ INPUT_LIB:
                 jsr restore_char_with_current_cursor
                 jsr decrement_current_cursor_of_screen
                 jsr move_cursor_to_left_on_string_screen
+
+        check_cursor_right:
 
 
     // ***** Keep this check in last position ******

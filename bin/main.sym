@@ -144,6 +144,7 @@
   }
   .label continue_skip=$5260 {
   }
+  .label check_cursor_right=$5180
   .label move_cursor_to_left_on_string_screen=$578d {
   }
   .label input_keyboard=$5115 {
@@ -192,9 +193,9 @@
   .label print_offset_result=$5266 {
   }
   .label read_key=$5127
-  .label exit_input=$515e {
+  .label exit_input=$5165 {
   }
-  .label check_cursor_left=$5166
+  .label check_cursor_left=$516d
   .label ignore_print_cursor=$51db
   .label inner_loop=$536d
 }
