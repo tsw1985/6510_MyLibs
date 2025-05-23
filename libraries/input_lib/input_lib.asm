@@ -67,13 +67,20 @@ INPUT_LIB:
                 jsr restore_char_with_current_cursor
                 jsr decrement_current_cursor_of_screen
                 jsr move_cursor_to_left_on_string_screen
-                jmp continue_read_key
+                jmp continue_read_key // exit function
 
         check_cursor_right:
+
+                /* check cursor limit to right */
+                lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
+                cmp INPUT_INDEX_COUNTER  // Compare current cursor index
+                beq continue_read_key    // if equal to limit , ignore
+
+
                 jsr restore_char_with_current_cursor
                 jsr increment_current_cursor_of_screen
                 jsr move_cursor_to_right_on_string_screen
-
+                jmp continue_read_key   // exit function
 
     // ***** Keep this check in last position ******
     continue_read_key:

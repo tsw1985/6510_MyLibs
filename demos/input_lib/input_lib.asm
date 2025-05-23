@@ -9,7 +9,7 @@ lda #5
 sta SCREEN_INPUT_COL_POS
 sta INPUT_CURSOR_COL
 
-lda #5
+lda #10
 sta INPUT_STR_LIMIT
 
 lda #YELLOW
