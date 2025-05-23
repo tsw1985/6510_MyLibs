@@ -20,9 +20,9 @@ INPUT_LIB:
 
     read_key:
 
-        jsr PRINT_LIB.clean_location_screen
-        locate_text(10,0,WHITE)
-        print_text(space_5_str)
+        //jsr PRINT_LIB.clean_location_screen
+        //locate_text(10,0,WHITE)
+        //print_text(space_5_str)
 
         jsr scan_all_keys           // scan all keyboard matrix to get the
                                     // pressed keys and save them in the table
@@ -49,6 +49,13 @@ INPUT_LIB:
         and #%00000100            // set bit flag only cursor key is pressed
         bne check_cursor_right
 
+
+        /* check if REMOVE key is pressed */
+        lda KEY_FLAGS
+        and #%00010000            // set bit flag only cursor key is pressed
+        bne check_delete_key
+
+
         jmp continue_read_key
         
         exit_input:
@@ -56,7 +63,6 @@ INPUT_LIB:
             jmp fin_keyboard_demo
         
         check_cursor_left:
-            .break
             /* Check limit to left. INPUT_CURSOR_COL 
             must be >= SCREEN_INPUT_COL_POS */
             lda SCREEN_INPUT_COL_POS  // LOAD LIMIT TO LEFT
@@ -81,6 +87,15 @@ INPUT_LIB:
                 jsr increment_current_cursor_of_screen
                 jsr move_cursor_to_right_on_string_screen
                 jmp continue_read_key   // exit function
+
+
+        check_delete_key:
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(10,0,WHITE)
+        print_text(delete_key_str)
+
+        jmp continue_read_key   // exit function
+
 
     // ***** Keep this check in last position ******
     continue_read_key:
@@ -139,6 +154,11 @@ INPUT_LIB:
                 /* IGNORE TO PRINT Single Cursor key */
                 lda TABLE_KEY_ASCII_X_OFFSET
                 cmp #16
+                beq ignore_key_pressed
+
+                /* IGNORE TO PRINT DELETE key */
+                lda TABLE_KEY_ASCII_X_OFFSET
+                cmp #0
                 beq ignore_key_pressed
 
                 /* We need to check if the str is not on length limit */
@@ -227,6 +247,7 @@ INPUT_LIB:
 
         push_regs_to_stack()   
           ldy TABLE_KEY_ASCII_X_OFFSET  //load in Y the offset
+          //.break
           lda #1
           sta PRESSED_KEY_TABLE,y    // set a 1 in this offset position table
 
@@ -261,11 +282,11 @@ INPUT_LIB:
     check_combo_keys:
 
         push_regs_to_stack()
-
         /* COMBO : C= + CURSOR KEY ( move cursor to left) */
         ldx #47 // CMB OFFSET
         lda PRESSED_KEY_TABLE,x
         beq skip // A value is 0 ? skip
+
 
         ldx #16 //Cursor key
         lda PRESSED_KEY_TABLE,x
@@ -282,11 +303,21 @@ INPUT_LIB:
             // Only Cursor key. Must move to right
             ldx #16                   
             lda PRESSED_KEY_TABLE,x
-            beq continue_skip
+            beq check_next_key_1
             lda KEY_FLAGS
             ora #%00000100            // set bit flag only cursor key is pressed
             sta KEY_FLAGS
+
+            check_next_key_1:
+            ldx #0             
+            lda PRESSED_KEY_TABLE,x
+            beq check_next_key_2
+            .break
+            lda KEY_FLAGS
+            ora #%00010000            // set bit flag DELETE key is pressed
+            sta KEY_FLAGS
             
+            check_next_key_2:            
 
         continue_skip:
         pull_regs_from_stack()
@@ -514,7 +545,6 @@ INPUT_LIB:
         jsr PRINT_LIB.print_char  // print single char
 
         pull_regs_from_stack()
-
         rts
 
     /*
@@ -541,8 +571,6 @@ INPUT_LIB:
         pull_regs_from_stack()
         rts
 
-
-
     /*
         Function:
             
@@ -559,31 +587,17 @@ INPUT_LIB:
         print_text(KEYS_TO_SCREEN_STR)
 
         pull_regs_from_stack()
-
         rts
-
 
     decrement_current_cursor_of_screen:
         push_regs_to_stack()
-
-        jsr PRINT_LIB.clean_location_screen
-        locate_text(10,0,WHITE)
-        print_text(move_left_str)
-
         dec INPUT_CURSOR_COL
-
         pull_regs_from_stack()
         rts
 
     increment_current_cursor_of_screen:
         push_regs_to_stack()
-
-        jsr PRINT_LIB.clean_location_screen
-        locate_text(10,0,WHITE)
-        print_text(move_left_str)
-
         inc INPUT_CURSOR_COL
-
         pull_regs_from_stack()
         rts
 

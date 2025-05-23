@@ -9,7 +9,7 @@ CHAR_KEY_PRESSED:    .byte 0
     1 = ENTER KEY
     2 = ONLY CURSOR KEY
     3 = C= + CURSOR ( move cursor to left )
-    4 =
+    4 = DELETE KEY
     5 =
     6 =
     7 = Show cursor on screen
