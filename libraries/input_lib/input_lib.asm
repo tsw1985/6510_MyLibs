@@ -39,11 +39,12 @@ INPUT_LIB:
         and #%00000010
         bne exit_input
 
+        /* check if C= + cursor left is pressed */
         lda KEY_FLAGS
         and #%00001000
         bne check_cursor_left
 
-
+        /* check if only cursor key is pressed */
         lda KEY_FLAGS
         and #%00000100            // set bit flag only cursor key is pressed
         bne check_cursor_right
@@ -55,7 +56,7 @@ INPUT_LIB:
             jmp fin_keyboard_demo
         
         check_cursor_left:
-
+            .break
             /* Check limit to left. INPUT_CURSOR_COL 
             must be >= SCREEN_INPUT_COL_POS */
             lda SCREEN_INPUT_COL_POS  // LOAD LIMIT TO LEFT
@@ -66,8 +67,12 @@ INPUT_LIB:
                 jsr restore_char_with_current_cursor
                 jsr decrement_current_cursor_of_screen
                 jsr move_cursor_to_left_on_string_screen
+                jmp continue_read_key
 
         check_cursor_right:
+                jsr restore_char_with_current_cursor
+                jsr increment_current_cursor_of_screen
+                jsr move_cursor_to_right_on_string_screen
 
 
     // ***** Keep this check in last position ******
@@ -260,21 +265,19 @@ INPUT_LIB:
         beq skip // A value is 0 ? skip
 
         // If not skip , means CMB + Cursor is pressed, move to left cursor
-        //.break
         lda KEY_FLAGS
-        eor #%00001000
+        ora #%00001000
         sta KEY_FLAGS
         
         // check single keys
         skip:
 
-            
             // Only Cursor key. Must move to right
             ldx #16                   
             lda PRESSED_KEY_TABLE,x
             beq continue_skip
             lda KEY_FLAGS
-            eor #%00000100            // set bit flag only cursor key is pressed
+            ora #%00000100            // set bit flag only cursor key is pressed
             sta KEY_FLAGS
             
 
@@ -565,6 +568,18 @@ INPUT_LIB:
         pull_regs_from_stack()
         rts
 
+    increment_current_cursor_of_screen:
+        push_regs_to_stack()
+
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(10,0,WHITE)
+        print_text(move_left_str)
+
+        inc INPUT_CURSOR_COL
+
+        pull_regs_from_stack()
+        rts
+
     move_cursor_to_left_on_string_screen:
         push_regs_to_stack()
 
@@ -574,6 +589,42 @@ INPUT_LIB:
 
 
         dec INPUT_INDEX_COUNTER // decrement index of string to write the char
+                                // on screen str
+
+
+        lda INPUT_CURSOR_ROW
+        sta SCREEN_ROW_POS
+
+        lda INPUT_CURSOR_COL
+        sta SCREEN_COL_POS
+
+        //set coords on Screen
+        ldx SCREEN_ROW_POS       // Row 22
+        lda Row_LO,x
+        sta ZERO_PAGE_ROW_LOW_BYTE
+        lda Row_HI,x
+        sta ZERO_PAGE_ROW_HIGHT_BYTE
+
+        ldy SCREEN_COL_POS             // col 15
+        lda (ZERO_PAGE_ROW_LOW_BYTE),y
+        
+        lda (ZERO_PAGE_ROW_LOW_BYTE),y
+        clc
+        adc #128
+        sta (ZERO_PAGE_ROW_LOW_BYTE),y
+
+        pull_regs_from_stack()
+        rts
+
+    move_cursor_to_right_on_string_screen:
+        push_regs_to_stack()
+
+        lda KEY_FLAGS
+        ora #%10000000 // set bit show cursor on screen
+        sta KEY_FLAGS
+
+
+        inc INPUT_INDEX_COUNTER // decrement index of string to write the char
                                 // on screen str
 
 
