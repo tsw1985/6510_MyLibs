@@ -51,6 +51,14 @@ INPUT_LIB:
             and #%00001000
             beq continue_read_key
             
+
+            // check limit 0 ( left )
+            .break
+            lda SCREEN_INPUT_COL_POS
+            cmp INPUT_CURSOR_COL
+            beq continue_read_key
+            bcs allow_move_to_left
+            allow_move_to_left:
             jsr restore_char_with_current_cursor
             jsr decrement_current_cursor_of_screen
             jsr move_cursor_to_left_on_string_screen
@@ -297,9 +305,9 @@ INPUT_LIB:
     sleep_key:
 
         push_regs_to_stack()
-        ldx #140
+        ldx #120
         outer_loop:
-            ldy #140
+            ldy #120
         inner_loop:
             nop
             dey
