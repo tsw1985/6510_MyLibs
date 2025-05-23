@@ -101,13 +101,6 @@ INPUT_LIB:
                 beq no_key_detected     // if does not match, continue with next
                                         // column 
 
-
-
-           /* Before all , we need to check if the str is not on length limit */
-                lda INPUT_STR_LIMIT     // LOAD LIMIT TO RIGHT
-                cmp INPUT_INDEX_COUNTER    // Compare current cursor index
-                beq ignore_print_cursor   // if equal to limit , ignore
-
                 // if some bit match, we calculate his offter and we save it in
                 // the table : "current keys pressed"
                 jsr sleep_key               // sleep half second between keys presses
@@ -128,6 +121,11 @@ INPUT_LIB:
                 lda TABLE_KEY_ASCII_X_OFFSET
                 cmp #16
                 beq ignore_key_pressed
+
+                /* We need to check if the str is not on length limit */
+                lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
+                cmp INPUT_INDEX_COUNTER  // Compare current cursor index
+                beq ignore_print_cursor  // if equal to limit , ignore
 
                 // add key pressed to screen string
                 jsr add_key_to_screen_str
