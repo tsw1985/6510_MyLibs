@@ -57,15 +57,29 @@ TABLE_KEY_ASCII:
 
 //for input control
 INPUT_STR_LIMIT:     .byte 0
+INPUT_STR_LIMIT_CLS:     .byte 0
+
+
 INPUT_INDEX_COUNTER: .byte 0 // control string index
 
 //Set row and col
 SCREEN_INPUT_ROW_POS:   .byte 0
 SCREEN_INPUT_COL_POS:   .byte 0
+
+SCREEN_INPUT_ROW_POS_CLS: .byte 0
+SCREEN_INPUT_COL_POS_CLS: .byte 0
+
+
+
 SCREEN_INPUT_COLOR:     .byte 0
 PRESSED_KEY_TABLE:      .fill 64,0
 INPUT_CURSOR_ROW:       .byte 0
 INPUT_CURSOR_COL:       .byte 0
+
+INPUT_CURSOR_ROW_CLS:   .byte 0
+INPUT_CURSOR_COL_CLS:       .byte 0
+
+
 SCREEN_CHAR_COLOR_OLD:  .byte 0
 INPUT_CURSOR:           .byte 0
 temp_offset:            .byte 0

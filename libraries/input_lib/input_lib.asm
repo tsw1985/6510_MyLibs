@@ -117,17 +117,19 @@ INPUT_LIB:
             bcs allow_delete_to_left    // if not, move to left
             allow_delete_to_left:
 
-                jsr PRINT_LIB.clean_location_screen
-                locate_text(10,0,WHITE)
-                print_text(delete_key_str)
+                jsr clean_str_screen  // empty screen
 
                 jsr remove_char_screen_str_by_key
-                jsr print_keys_pressed
 
+                jsr print_keys_pressed
                 jsr restore_char_with_current_cursor
                 jsr decrement_current_cursor_of_screen
                 jsr move_cursor_to_left_on_string_screen
 
+
+                //jsr PRINT_LIB.clean_location_screen
+                //locate_text(10,0,WHITE)
+                //print_text(delete_key_str)
 
 
 
@@ -759,15 +761,43 @@ INPUT_LIB:
             cmp CHAR_INDEX_2
             bne continue_swap
 
-        /* check cursor limit to right */
-        /*
-        lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
-        cmp INPUT_INDEX_COUNTER  // Compare current cursor index
-        beq continue_read_key    // if equal to limit , ignore 
-        */
-
         pull_regs_from_stack()
     rts
+
+
+
+    clean_str_screen:
+
+        push_regs_to_stack()
+
+        continue_cleaning:
+
+        //set coords on Screen
+        lda INPUT_CURSOR_ROW_CLS
+        sta SCREEN_ROW_POS
+
+        lda INPUT_CURSOR_COL_CLS
+        sta SCREEN_COL_POS
+
+        ldx SCREEN_ROW_POS       // Row 22
+        lda Row_LO,x
+        sta ZERO_PAGE_ROW_LOW_BYTE
+        lda Row_HI,x
+        sta ZERO_PAGE_ROW_HIGHT_BYTE
+
+        ldy SCREEN_COL_POS             // col 15
+        lda #96                // char E
+        sta (ZERO_PAGE_ROW_LOW_BYTE),y
+
+        inc INPUT_CURSOR_COL_CLS
+        lda INPUT_STR_LIMIT_CLS
+        cmp INPUT_CURSOR_COL_CLS
+        bne continue_cleaning
+
+
+        pull_regs_from_stack()
+        rts
+
 
 
 }
