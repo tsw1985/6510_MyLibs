@@ -68,9 +68,10 @@ INPUT_LIB:
         lda KEY_FLAGS
         and #%00010000            // set bit flag only DELETE key is pressed
         bne check_delete_key
-        //lda KEY_FLAGS
-        //and #%11101111            // set OFF bit flag DELETE key is pressed
-        //sta KEY_FLAGS
+        
+        // lda KEY_FLAGS
+        // and #%11101111            // set OFF bit flag DELETE key is pressed
+        // sta KEY_FLAGS
 
 
 
@@ -110,6 +111,8 @@ INPUT_LIB:
         check_delete_key:
             /* Check limit to left. INPUT_CURSOR_COL 
             must be >= SCREEN_INPUT_COL_POS */
+
+            jsr clean_str_screen  // empty screen
 
             lda SCREEN_INPUT_COL_POS  // LOAD LIMIT TO LEFT
             cmp INPUT_CURSOR_COL      // Compare current cursor index
