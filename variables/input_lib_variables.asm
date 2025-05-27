@@ -68,11 +68,8 @@ SCREEN_INPUT_COL_POS:   .byte 0
 
 SCREEN_INPUT_ROW_POS_CLS: .byte 0
 SCREEN_INPUT_COL_POS_CLS: .byte 0
-
-
-
 SCREEN_INPUT_COLOR:     .byte 0
-PRESSED_KEY_TABLE:      .fill 64,0
+PRESSED_KEY_TABLE:      .fill 64,0 // he we save with 1 where the offset says.
 INPUT_CURSOR_ROW:       .byte 0
 INPUT_CURSOR_COL:       .byte 0
 

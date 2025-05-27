@@ -15,18 +15,11 @@ INPUT_LIB:
         lda #$ff
         sta $DC03 //; ---> $DC01
 
-
-
-
         // print cursor on selected position
         jsr reset_bit_7_to_0_in_chars
         jsr print_cursor
 
     read_key:
-
-        //jsr PRINT_LIB.clean_location_screen
-        //locate_text(10,0,WHITE)
-        //print_text(space_5_str)
 
         jsr scan_all_keys           // scan all keyboard matrix to get the
                                     // pressed keys and save them in the table
@@ -45,7 +38,7 @@ INPUT_LIB:
     continue_read_key:
         lda #0
         sta KEY_FLAGS
-        jmp read_key                    // read keyboard again
+    jmp read_key                    // read keyboard again
 
 
     /* ------------------------------------------------------------------------
@@ -53,6 +46,8 @@ INPUT_LIB:
        ------------------------------------------------------------------------
     */
     scan_all_keys:
+
+        push_regs_to_stack()
         
         ldx #0
         scan_rows_loop:
@@ -89,7 +84,6 @@ INPUT_LIB:
                 // save the offset result in the table
                 jsr save_key_pressed_in_table
 
-               
             no_key_detected:
 
                 iny     // increment Y ( columns )
@@ -99,7 +93,8 @@ INPUT_LIB:
                 inx     // increment X ( rows)
                 cpx #8  // are 8 rows ???
                 bne scan_rows_loop // not ?? continue retrieving rows
-    
+
+    pull_regs_from_stack()
     rts   // finish function
 
 
@@ -113,10 +108,54 @@ INPUT_LIB:
         
         push_regs_to_stack()
         //jsr check_combo_keys    // First action is check the combinations keys
-        
+        jsr send_keys_from_table_to_screen_str
+        // print main string on screen
+        jsr print_keys_pressed
 
         pull_regs_from_stack()
     rts
+
+
+
+    send_keys_from_table_to_screen_str:
+        push_regs_to_stack()
+
+        ldy #0
+        /* retrieve the PRESSED_KEY_TABLE searching the values with 1 . Y will
+        contains the offset number, this will be the char to search it in the
+        table TABLE_KEY_ASCII */
+
+        continue_check_pressed_table:
+            lda PRESSED_KEY_TABLE,y   //
+            bne process_key 
+            jmp skip_check_pressed_table // if is 0 , skip
+
+            /* if is 1 ... */
+            process_key:
+
+                /* Ignore special keys */
+                cpy #47
+                beq skip_check_pressed_table
+
+                cpy #16
+                beq skip_check_pressed_table
+
+                // Process normal table
+                lda TABLE_KEY_ASCII,y     // get the ascii code from chars table
+                sta SCREEN_CHAR           // save the char on SCREEN_CHAR
+                ldx INPUT_INDEX_COUNTER
+                sta KEYS_TO_SCREEN_STR,x  // in y is the index. the limit is 80
+                inc INPUT_INDEX_COUNTER   // store SCREEN_CHAR on KEYS_TO_STRING_STR
+            skip_check_pressed_table:
+            iny
+            cpy #60
+            bne continue_check_pressed_table
+        
+        pull_regs_from_stack()
+        rts
+
+
+    
 
     /*
         Function: 
