@@ -12,16 +12,21 @@ sta INPUT_CURSOR_COL
 sta INPUT_CURSOR_COL_CLS
 
 lda #13
-sta INPUT_STR_LIMIT
+// set limit . STR_LIMIT = COL + STR_LEN
+lda INPUT_STR_LIMIT
+clc
+adc INPUT_CURSOR_COL_CLS
 sta INPUT_STR_LIMIT_CLS
+sta INPUT_STR_LIMIT
+
 
 lda #YELLOW
 sta SCREEN_INPUT_COLOR
 
 
 push_regs_to_stack()
-//jsr INPUT_LIB.input_keyboard
-jsr INPUT_LIB.reset_bit_7_to_0_in_chars
+jsr INPUT_LIB.input_keyboard
+//jsr INPUT_LIB.reset_bit_7_to_0_in_chars
 
 
 

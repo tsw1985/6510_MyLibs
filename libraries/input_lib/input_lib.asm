@@ -16,6 +16,7 @@ INPUT_LIB:
 
         // print cursor on selected position
         //jsr print_cursor
+        jsr reset_bit_7_to_0_in_chars
 
 
     read_key:
@@ -90,30 +91,32 @@ INPUT_LIB:
             bcs allow_move_to_left    // if not, move to left
             allow_move_to_left:
 
-                jsr restore_char_with_current_cursor
+                jsr reset_bit_7_to_0_in_chars
+
+                // 2 increment next position of cursor
                 jsr decrement_current_cursor_of_screen
-                jsr move_cursor_to_left_on_string_screen
+
+                // 3 show next cursor inverted
+                jsr set_bit_7_to_1_in_char
 
                 jmp continue_read_key // exit function
 
         check_cursor_right:
 
             /* check cursor limit to right */
-            lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
-            cmp INPUT_INDEX_COUNTER  // Compare current cursor index
-            beq continue_read_key    // if equal to limit , ignore
+            //lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
+            //cmp INPUT_INDEX_COUNTER  // Compare current cursor index
+            //beq continue_read_key    // if equal to limit , ignore
 
+            // 1 reset all bit REVERSE chars to 0
+            jsr reset_bit_7_to_0_in_chars
 
-            //jsr show_normal_chars
-            jsr print_keys_pressed
+            // 2 increment next position of cursor
             jsr increment_current_cursor_of_screen
-            jsr move_cursor_to_right_on_string_screen
 
+            // 3 show next cursor inverted
+            jsr set_bit_7_to_1_in_char
 
-
-            //jsr restore_char_with_current_cursor
-            //jsr increment_current_cursor_of_screen
-            //jsr move_cursor_to_right_on_string_screen
             jmp continue_read_key   // exit function
 
 
@@ -122,8 +125,7 @@ INPUT_LIB:
             /* Check limit to left. INPUT_CURSOR_COL 
             must be >= SCREEN_INPUT_COL_POS */
 
-            //jsr clean_str_screen  // empty screen
-
+            /*
             lda SCREEN_INPUT_COL_POS  // LOAD LIMIT TO LEFT
             cmp INPUT_CURSOR_COL      // Compare current cursor index
             beq continue_read_key     // if equal to limit , ignore
@@ -143,7 +145,7 @@ INPUT_LIB:
                 //jsr PRINT_LIB.clean_location_screen
                 //locate_text(10,0,WHITE)
                 //print_text(delete_key_str)
-
+        */
 
 
         jmp continue_read_key   // exit function
@@ -235,8 +237,8 @@ INPUT_LIB:
                 bne ignore_print_cursor
 
                 // print cursor
-                //inc INPUT_CURSOR_COL
-                //jsr print_cursor
+                inc INPUT_CURSOR_COL
+                jsr print_cursor
                 
                 ignore_print_cursor:
 
@@ -476,27 +478,7 @@ INPUT_LIB:
     print_cursor:
 
         push_regs_to_stack()
-
-        /* set coords col and row */
-        lda INPUT_CURSOR_ROW
-        sta SCREEN_ROW_POS
-
-        lda INPUT_CURSOR_COL
-        sta SCREEN_COL_POS
-
-        //set coords on Screen
-        ldx SCREEN_ROW_POS       // Row 22
-        lda Row_LO,x
-        sta ZERO_PAGE_ROW_LOW_BYTE
-        lda Row_HI,x
-        sta ZERO_PAGE_ROW_HIGHT_BYTE
-
-        ldy SCREEN_COL_POS             // col 15
-        lda SCREEN_CHAR                // char " "
-        lda (ZERO_PAGE_ROW_LOW_BYTE),y // get the char and invert his color
-        ora #%10000000                 // to invert we need set the bit 7 to 0
-        sta (ZERO_PAGE_ROW_LOW_BYTE),y // save the bit inverted
-
+        jsr set_bit_7_to_1_in_char
         pull_regs_from_stack()
         rts
 
@@ -815,12 +797,6 @@ INPUT_LIB:
         lda SCREEN_INPUT_COL_POS
         sta INPUT_CURSOR_COL_CLS
 
-        // set limit . STR_LIMIT = COL + STR_LEN
-        lda INPUT_STR_LIMIT
-        clc
-        adc INPUT_CURSOR_COL_CLS
-        sta INPUT_STR_LIMIT_CLS
-
         ldy INPUT_CURSOR_COL_CLS
 
         //set coords on Screen
@@ -839,9 +815,8 @@ INPUT_LIB:
         continue_reset:
         ldy INPUT_CURSOR_COL_CLS             // col 15
         lda (ZERO_PAGE_ROW_LOW_BYTE),y
-        //and #%01111111
-        ora #%10000000
-        //lda #0 // @
+        and #%01111111
+        //ora #%10000000
 
         sta (ZERO_PAGE_ROW_LOW_BYTE),y
 
@@ -851,6 +826,32 @@ INPUT_LIB:
         cmp INPUT_CURSOR_COL_CLS
         bne continue_reset
 
+        pull_regs_from_stack()
+        rts
+
+    set_bit_7_to_1_in_char:
+
+        push_regs_to_stack()
+
+        //set coords on Screen
+        lda INPUT_CURSOR_ROW_CLS
+        sta SCREEN_ROW_POS
+
+        lda INPUT_CURSOR_COL_CLS
+        sta SCREEN_COL_POS
+
+        ldx SCREEN_ROW_POS       // Row 22
+        lda Row_LO,x
+        sta ZERO_PAGE_ROW_LOW_BYTE
+        lda Row_HI,x
+        sta ZERO_PAGE_ROW_HIGHT_BYTE
+
+        ldy INPUT_CURSOR_COL             // col 15
+        lda (ZERO_PAGE_ROW_LOW_BYTE),y
+        //and #%01111111
+        ora #%10000000
+        sta (ZERO_PAGE_ROW_LOW_BYTE),y
+        
         pull_regs_from_stack()
         rts
 
