@@ -23,6 +23,8 @@ sta INPUT_STR_LIMIT
 lda #YELLOW
 sta SCREEN_INPUT_COLOR
 
+lda #0
+sta INPUT_INDEX_COUNTER
 
 push_regs_to_stack()
 jsr INPUT_LIB.input_keyboard

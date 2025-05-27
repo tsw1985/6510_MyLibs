@@ -15,6 +15,9 @@ INPUT_LIB:
         lda #$ff
         sta $DC03 //; ---> $DC01
 
+
+
+
         // print cursor on selected position
         jsr reset_bit_7_to_0_in_chars
         jsr print_cursor
@@ -111,6 +114,7 @@ INPUT_LIB:
 
             // 2 increment next position of cursor
             jsr increment_current_cursor_of_screen
+            jsr increment_input_index_counter
 
             // 3 show next cursor inverted
             jsr set_bit_7_to_1_in_char
@@ -572,7 +576,7 @@ INPUT_LIB:
         locate_text(6,0,WHITE)
         print_text(cursor_index_str)
 
-        lda INPUT_CURSOR_COL
+        lda INPUT_INDEX_COUNTER
         sta div_res_0
         lda #0
         sta div_res_1
