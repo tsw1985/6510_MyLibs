@@ -73,8 +73,6 @@ INPUT_LIB:
 
 
 
-
-
         jmp continue_read_key
         
         exit_input:
@@ -200,6 +198,11 @@ INPUT_LIB:
                 // calculation of offset
                 jsr calculate_offset_for_ascii_table
 
+
+                /* Normal approach */
+                // save the offset result in the table
+                jsr save_key_pressed_in_table
+
                 /* IGNORE TO PRINT C= key */
                 lda TABLE_KEY_ASCII_X_OFFSET
                 cmp #47
@@ -209,21 +212,21 @@ INPUT_LIB:
                 lda TABLE_KEY_ASCII_X_OFFSET
                 cmp #16
                 beq ignore_key_pressed
+                //beq special_right_cursor //ignore_key_pressed
 
                 /* IGNORE TO PRINT DELETE key */
                 //lda TABLE_KEY_ASCII_X_OFFSET
                 //cmp #0
                 //beq ignore_key_pressed
 
-                /* Normal approach */
-                // save the offset result in the table
-                jsr save_key_pressed_in_table
 
                 // add key pressed to screen string
                 jsr add_key_to_screen_str
 
+                //special_right_cursor:
                 // increment next index counter to print there the next char
                 jsr increment_input_index_counter
+
 
                 // print main string on screen
                 jsr print_keys_pressed
@@ -247,18 +250,16 @@ INPUT_LIB:
                 //cmp INPUT_INDEX_COUNTER  // Compare current cursor index
                 //beq ignore_print_cursor  // if equal to limit , ignore
 
-                //jsr increment_input_index_counter
-
                 
                 // check if is allowed print the cursor . If you are doing
                 // C= + CURSOR ( left ), the cursor must be hidden.
-                //lda KEY_FLAGS
-                //and #%00001000
-                //bne ignore_print_cursor
+                lda KEY_FLAGS
+                and #%00001000
+                bne ignore_print_cursor
 
-                //lda KEY_FLAGS
-                //and #%10000000
-                //bne ignore_print_cursor
+                lda KEY_FLAGS
+                and #%10000000
+                bne ignore_print_cursor
                 
                 ignore_print_cursor:
 
@@ -378,6 +379,7 @@ INPUT_LIB:
             ldx #16                   
             lda PRESSED_KEY_TABLE,x
             beq check_next_key_1
+            .break
             lda KEY_FLAGS
             ora #%00000100            // set bit flag only cursor key is pressed
             sta KEY_FLAGS
@@ -615,8 +617,6 @@ INPUT_LIB:
         ldx TABLE_KEY_ASCII_X_OFFSET  // load offset
         lda TABLE_KEY_ASCII,x         // get the ascii code from chars table
         sta SCREEN_CHAR               // save the char on SCREEN_CHAR 
-        
-        .break
         ldy INPUT_INDEX_COUNTER       // store SCREEN_CHAR on KEYS_TO_STRING_STR
         sta KEYS_TO_SCREEN_STR,y      // in y is the index. the limit is 80
 
