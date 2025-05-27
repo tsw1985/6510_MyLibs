@@ -34,136 +34,18 @@ INPUT_LIB:
         jsr process_pressed_keys    // finally , process all keys to do the
                                     // target actions
 
+        
+
         jsr clear_key_pressed_table // clear the table where are save the keys 
                                     // pressed before save the keys again
 
-    
-        /* check if enter is pressed */
-        lda KEY_FLAGS
-        and #%00000010
-        bne exit_input
-
-        /* 
-            Each time we do a checking, we must set the bit to 0 for next
-            iteration, the otherwise, this flag will continue enabled.
-        */
-
-        /* check if C= + cursor left is pressed */
-        lda KEY_FLAGS
-        and #%00001000
-        bne check_cursor_left
-        lda KEY_FLAGS             
-        and #%11110111            // set OFF bit
-        sta KEY_FLAGS
-
-
-        /* check if only cursor key is pressed */
-        lda KEY_FLAGS
-        and #%00000100            // set bit flag only cursor key is pressed
-        bne check_cursor_right
-        //lda KEY_FLAGS             
-        //and #%11111011            // set OFF bit
-        //sta KEY_FLAGS
-
-
-        /* check if REMOVE key is pressed */
-        lda KEY_FLAGS
-        and #%00010000            // set bit flag only DELETE key is pressed
-        bne check_delete_key
-        
-        lda KEY_FLAGS
-        and #%11101111            // set OFF bit flag DELETE key is pressed
-        sta KEY_FLAGS
-
-
-
-        jmp continue_read_key
-        
-        exit_input:
-            pull_regs_from_stack()
-            jmp fin_keyboard_demo
-        
-        check_cursor_left:
-            /* Check limit to left. INPUT_CURSOR_COL 
-            must be >= SCREEN_INPUT_COL_POS */
-            lda SCREEN_INPUT_COL_POS  // LOAD LIMIT TO LEFT
-            cmp INPUT_CURSOR_COL      // Compare current cursor index
-            beq continue_read_key     // if equal to limit , ignore
-            bcs allow_move_to_left    // if not, move to left
-            allow_move_to_left:
-
-                jsr reset_bit_7_to_0_in_chars
-
-                // 2 increment next position of cursor
-                jsr decrement_current_cursor_of_screen
-
-                // 3 show next cursor inverted
-                jsr set_bit_7_to_1_in_char
-
-                jmp continue_read_key // exit function
-
-        check_cursor_right:
-
-            /* check cursor limit to right */
-            //lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
-            //cmp INPUT_INDEX_COUNTER  // Compare current cursor index
-            //beq continue_read_key    // if equal to limit , ignore
-
-            // 1 reset all bit REVERSE chars to 0
-            jsr reset_bit_7_to_0_in_chars
-
-            // 2 increment next position of cursor
-            jsr increment_current_cursor_of_screen
-            jsr increment_input_index_counter
-
-            // 3 show next cursor inverted
-            jsr set_bit_7_to_1_in_char
-
-            // reset flag only cursor RIGHT to 0 for next iteration
-            lda KEY_FLAGS             
-            and #%11111011            // set OFF bit
-            sta KEY_FLAGS
-
-            jmp continue_read_key   // exit function
-
-
-        check_delete_key:
-
-            /* Check limit to left. INPUT_CURSOR_COL 
-            must be >= SCREEN_INPUT_COL_POS */
-
-            /*
-            lda SCREEN_INPUT_COL_POS  // LOAD LIMIT TO LEFT
-            cmp INPUT_CURSOR_COL      // Compare current cursor index
-            beq continue_read_key     // if equal to limit , ignore
-            bcs allow_delete_to_left    // if not, move to left
-            allow_delete_to_left:
-
-                jsr clean_str_screen  // empty screen
-
-                jsr remove_char_screen_str_by_key
-
-                jsr print_keys_pressed
-                jsr restore_char_with_current_cursor
-                jsr decrement_current_cursor_of_screen
-                jsr move_cursor_to_left_on_string_screen
-
-
-                //jsr PRINT_LIB.clean_location_screen
-                //locate_text(10,0,WHITE)
-                //print_text(delete_key_str)
-        */
-
-
         jmp continue_read_key   // exit function
-
 
     // ***** Keep this check in last position ******
     continue_read_key:
-
-    lda #0
-    sta KEY_FLAGS
-    jmp read_key                    // read keyboard again
+        lda #0
+        sta KEY_FLAGS
+        jmp read_key                    // read keyboard again
 
 
     /* ------------------------------------------------------------------------
@@ -207,88 +89,7 @@ INPUT_LIB:
                 // save the offset result in the table
                 jsr save_key_pressed_in_table
 
-                /* IGNORE TO PRINT C= key */
-                lda TABLE_KEY_ASCII_X_OFFSET
-                cmp #47
-                beq ignore_key_pressed
-
-                /* IGNORE TO PRINT Single Cursor key */
-                lda TABLE_KEY_ASCII_X_OFFSET
-                cmp #16
-                beq ignore_key_pressed
-                //beq special_right_cursor //ignore_key_pressed
-
-                /* IGNORE TO PRINT DELETE key */
-                //lda TABLE_KEY_ASCII_X_OFFSET
-                //cmp #0
-                //beq ignore_key_pressed
-
-
-                // add key pressed to screen string
-                jsr add_key_to_screen_str
-
-                //special_right_cursor:
-                // increment next index counter to print there the next char
-                jsr increment_input_index_counter
-
-                // print main string on screen
-                jsr print_keys_pressed
-
-                // print cursor
-                //inc INPUT_INDEX_COUNTER
-                //inc INPUT_CURSOR_COL
-
-                // 1 reset all chars to 0
-                jsr reset_bit_7_to_0_in_chars
-
-                // 2 increment next position of cursor
-                jsr increment_current_cursor_of_screen
-
-                // 3 show next cursor inverted
-                jsr print_cursor
-
-                
-                /* We need to check if the str is not on length limit */
-                //lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
-                //cmp INPUT_INDEX_COUNTER  // Compare current cursor index
-                //beq ignore_print_cursor  // if equal to limit , ignore
-
-                
-                // check if is allowed print the cursor . If you are doing
-                // C= + CURSOR ( left ), the cursor must be hidden.
-                lda KEY_FLAGS
-                and #%00001000
-                bne ignore_print_cursor
-
-                lda KEY_FLAGS
-                and #%10000000
-                bne ignore_print_cursor
-                
-                ignore_print_cursor:
-
-                //check if enter is pressed
-                jsr check_if_key_is_enter
-
-                ignore_key_pressed:
-                /* ----------------------- Debug ---------------------------- */
-                // debug: print offset result
-                jsr print_offset_result              
-
-                // debug : show current pressed char
-                jsr print_current_pressed_char  
-
-                // debug : // see X row value of keyboard
-                jsr print_x_coord
-                
-                // debug : // see Y row value of keyboard
-                jsr print_y_coord
-
-                // debug : print current index position
-                jsr print_cursor_index_pos
-
-                // debug : print current col position
-                jsr print_cursor_col_pos
-
+               
             no_key_detected:
 
                 iny     // increment Y ( columns )
@@ -311,8 +112,8 @@ INPUT_LIB:
     process_pressed_keys:
         
         push_regs_to_stack()
-
-        jsr check_combo_keys     // First action is check the combinations keys
+        //jsr check_combo_keys    // First action is check the combinations keys
+        
 
         pull_regs_from_stack()
     rts
@@ -385,7 +186,6 @@ INPUT_LIB:
             ldx #16                   
             lda PRESSED_KEY_TABLE,x
             beq check_next_key_1
-            .break
             lda KEY_FLAGS
             ora #%00000100            // set bit flag only cursor key is pressed
             sta KEY_FLAGS
