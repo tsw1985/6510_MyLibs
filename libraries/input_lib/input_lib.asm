@@ -199,7 +199,6 @@ INPUT_LIB:
                 // calculation of offset
                 jsr calculate_offset_for_ascii_table
 
-
                 /* Normal approach */
                 // save the offset result in the table
                 jsr save_key_pressed_in_table
@@ -281,7 +280,10 @@ INPUT_LIB:
                 jsr print_y_coord
 
                 // debug : print current index position
-                jsr print_cursor_pos
+                jsr print_cursor_index_pos
+
+                // debug : print current col position
+                jsr print_cursor_col_pos
 
             no_key_detected:
 
@@ -563,7 +565,7 @@ INPUT_LIB:
 
         Debugging function to see the current index position
     */
-    print_cursor_pos:
+    print_cursor_index_pos:
         
         push_regs_to_stack()
         jsr PRINT_LIB.clean_location_screen
@@ -577,7 +579,26 @@ INPUT_LIB:
         sta div_res_2
         sta div_res_3
         // Print the result of calculation on screen
-        print_calculation_result(6,8,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+        print_calculation_result(6,10,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+        pull_regs_from_stack()
+    rts
+
+
+    print_cursor_col_pos:
+        
+        push_regs_to_stack()
+        jsr PRINT_LIB.clean_location_screen
+        locate_text(7,0,WHITE)
+        print_text(cursor_col_str)
+
+        lda INPUT_CURSOR_COL
+        sta div_res_0
+        lda #0
+        sta div_res_1
+        sta div_res_2
+        sta div_res_3
+        // Print the result of calculation on screen
+        print_calculation_result(7,8,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
         pull_regs_from_stack()
     rts
 
