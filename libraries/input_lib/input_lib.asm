@@ -18,7 +18,6 @@ INPUT_LIB:
         jsr reset_bit_7_to_0_in_chars
         jsr print_cursor
 
-
     read_key:
 
         //jsr PRINT_LIB.clean_location_screen
@@ -58,9 +57,9 @@ INPUT_LIB:
         lda KEY_FLAGS
         and #%00000100            // set bit flag only cursor key is pressed
         bne check_cursor_right
-        lda KEY_FLAGS             
-        and #%11111011            // set OFF bit
-        sta KEY_FLAGS
+        //lda KEY_FLAGS             
+        //and #%11111011            // set OFF bit
+        //sta KEY_FLAGS
 
 
         /* check if REMOVE key is pressed */
@@ -71,6 +70,8 @@ INPUT_LIB:
         lda KEY_FLAGS
         and #%11101111            // set OFF bit flag DELETE key is pressed
         sta KEY_FLAGS
+
+
 
 
 
@@ -114,6 +115,11 @@ INPUT_LIB:
 
             // 3 show next cursor inverted
             jsr set_bit_7_to_1_in_char
+
+            // reset flag only cursor RIGHT to 0 for next iteration
+            lda KEY_FLAGS             
+            and #%11111011            // set OFF bit
+            sta KEY_FLAGS
 
             jmp continue_read_key   // exit function
 
@@ -189,14 +195,10 @@ INPUT_LIB:
 
                 // if some bit match, we calculate his offter and we save it in
                 // the table : "current keys pressed"
-                jsr sleep_key               // sleep half second between keys presses
+                jsr sleep_key          // sleep half second between keys presses
 
                 // calculation of offset
-                jsr calculate_offset_for_ascii_table 
-
-                /* Normal approach */
-                // save the offset result in the table
-                jsr save_key_pressed
+                jsr calculate_offset_for_ascii_table
 
                 /* IGNORE TO PRINT C= key */
                 lda TABLE_KEY_ASCII_X_OFFSET
@@ -209,34 +211,54 @@ INPUT_LIB:
                 beq ignore_key_pressed
 
                 /* IGNORE TO PRINT DELETE key */
-                lda TABLE_KEY_ASCII_X_OFFSET
-                cmp #0
-                beq ignore_key_pressed
+                //lda TABLE_KEY_ASCII_X_OFFSET
+                //cmp #0
+                //beq ignore_key_pressed
 
-                /* We need to check if the str is not on length limit */
-                lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
-                cmp INPUT_INDEX_COUNTER  // Compare current cursor index
-                beq ignore_print_cursor  // if equal to limit , ignore
+                /* Normal approach */
+                // save the offset result in the table
+                jsr save_key_pressed_in_table
 
                 // add key pressed to screen string
                 jsr add_key_to_screen_str
 
+                // increment next index counter to print there the next char
+                jsr increment_input_index_counter
+
                 // print main string on screen
                 jsr print_keys_pressed
 
+                // print cursor
+                //inc INPUT_INDEX_COUNTER
+                //inc INPUT_CURSOR_COL
+
+                // 1 reset all chars to 0
+                //jsr reset_bit_7_to_0_in_chars
+
+                // 2 increment next position of cursor
+                //jsr increment_current_cursor_of_screen
+
+                // 3 show next cursor inverted
+                //jsr print_cursor
+
+                
+                /* We need to check if the str is not on length limit */
+                //lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
+                //cmp INPUT_INDEX_COUNTER  // Compare current cursor index
+                //beq ignore_print_cursor  // if equal to limit , ignore
+
+                //jsr increment_input_index_counter
+
+                
                 // check if is allowed print the cursor . If you are doing
                 // C= + CURSOR ( left ), the cursor must be hidden.
-                lda KEY_FLAGS
-                and #%00001000
-                bne ignore_print_cursor
+                //lda KEY_FLAGS
+                //and #%00001000
+                //bne ignore_print_cursor
 
-                lda KEY_FLAGS
-                and #%10000000
-                bne ignore_print_cursor
-
-                // print cursor
-                inc INPUT_CURSOR_COL
-                jsr print_cursor
+                //lda KEY_FLAGS
+                //and #%10000000
+                //bne ignore_print_cursor
                 
                 ignore_print_cursor:
 
@@ -295,7 +317,7 @@ INPUT_LIB:
             value with the formula Offset = ( Rows x 8 ) + Cols. Because the
             keyboard have a matrix 8x8.
     */
-    save_key_pressed:
+    save_key_pressed_in_table:
 
         push_regs_to_stack()   
         ldy TABLE_KEY_ASCII_X_OFFSET  //load in Y the offset
@@ -590,15 +612,13 @@ INPUT_LIB:
 
         push_regs_to_stack()
 
-
         ldx TABLE_KEY_ASCII_X_OFFSET  // load offset
         lda TABLE_KEY_ASCII,x         // get the ascii code from chars table
         sta SCREEN_CHAR               // save the char on SCREEN_CHAR 
         
+        .break
         ldy INPUT_INDEX_COUNTER       // store SCREEN_CHAR on KEYS_TO_STRING_STR
         sta KEYS_TO_SCREEN_STR,y      // in y is the index. the limit is 80
-        inc INPUT_INDEX_COUNTER       // increment INPUT_INDEX_COUNTER to next
-                                      // keypress
 
         pull_regs_from_stack()
         rts
@@ -630,6 +650,18 @@ INPUT_LIB:
     increment_current_cursor_of_screen:
         push_regs_to_stack()
         inc INPUT_CURSOR_COL
+        pull_regs_from_stack()
+        rts
+
+    increment_input_index_counter:
+        push_regs_to_stack()
+        inc INPUT_INDEX_COUNTER
+        pull_regs_from_stack()
+        rts
+
+    decrement_input_index_counter:
+        push_regs_to_stack()
+        dec INPUT_INDEX_COUNTER
         pull_regs_from_stack()
         rts
 
@@ -727,8 +759,6 @@ INPUT_LIB:
 
         push_regs_to_stack()
 
-        .break
-
         lda INPUT_INDEX_COUNTER  // load current cursor position
         sta CHAR_INDEX_1      // set index1 with this value
         sta CHAR_INDEX_2      // set index2 with this value
@@ -811,17 +841,13 @@ INPUT_LIB:
         sta ZERO_PAGE_ROW_HIGHT_BYTE
 
         continue_reset:
-        ldy INPUT_CURSOR_COL_CLS             // col 15
-        lda (ZERO_PAGE_ROW_LOW_BYTE),y
-        and #%01111111
-        //ora #%10000000
-
-        sta (ZERO_PAGE_ROW_LOW_BYTE),y
-
-        inc INPUT_CURSOR_COL_CLS
-        
-        lda INPUT_STR_LIMIT_CLS
-        cmp INPUT_CURSOR_COL_CLS
+            ldy INPUT_CURSOR_COL_CLS             // col 15
+            lda (ZERO_PAGE_ROW_LOW_BYTE),y
+            and #%01111111
+            sta (ZERO_PAGE_ROW_LOW_BYTE),y
+            inc INPUT_CURSOR_COL_CLS
+            lda INPUT_STR_LIMIT_CLS
+            cmp INPUT_CURSOR_COL_CLS
         bne continue_reset
 
         pull_regs_from_stack()

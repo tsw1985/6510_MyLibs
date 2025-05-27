@@ -7,7 +7,7 @@ CHAR_KEY_PRESSED:    .byte 0
 /*
     0 = C= KEY
     1 = ENTER KEY
-    2 = ONLY CURSOR KEY
+    2 = ONLY CURSOR KEY ( go to right )
     3 = C= + CURSOR ( move cursor to left )
     4 = DELETE KEY
     5 =
