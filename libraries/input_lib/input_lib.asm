@@ -17,7 +17,7 @@ INPUT_LIB:
 
         // print cursor on selected position
         jsr reset_bit_7_to_0_in_chars
-        jsr print_cursor
+        //jsr print_cursor
 
     read_key:
 
@@ -107,10 +107,17 @@ INPUT_LIB:
     process_pressed_keys:
         
         push_regs_to_stack()
-        //jsr check_combo_keys    // First action is check the combinations keys
+
+        /* Launch special combo of keys , C= + Cursor ( go to left ...) , 
+        Delete , only cursor ... */
+        jsr check_combo_keys
+
+        /* Send the content of the KEYS_PRESSED_TABLE to STR to screen */
         jsr send_keys_from_table_to_screen_str
-        // print main string on screen
+
+        /* Print main string on screen */
         jsr print_keys_pressed
+
 
         pull_regs_from_stack()
     rts
@@ -133,7 +140,7 @@ INPUT_LIB:
             /* if is 1 ... */
             process_key:
 
-                /* Ignore special keys */
+                /* Ignore special keys. We want not print them*/
                 cpy #47
                 beq skip_check_pressed_table
 
@@ -213,11 +220,6 @@ INPUT_LIB:
         lda PRESSED_KEY_TABLE,x
         beq skip // A value is 0 ? skip
 
-        // If not skip , means CMB + Cursor is pressed, move to left cursor
-        lda KEY_FLAGS
-        ora #%00001000
-        sta KEY_FLAGS
-        
         // check single keys
         skip:
 
@@ -225,22 +227,33 @@ INPUT_LIB:
             ldx #16                   
             lda PRESSED_KEY_TABLE,x
             beq check_next_key_1
-            lda KEY_FLAGS
-            ora #%00000100            // set bit flag only cursor key is pressed
-            sta KEY_FLAGS
 
-            check_next_key_1:
-            ldx #0             
-            lda PRESSED_KEY_TABLE,x
-            beq check_next_key_2
-            lda KEY_FLAGS
-            ora #%00010000            // set ON bit flag DELETE key is pressed
-            sta KEY_FLAGS
+            /* If is only 16, this means it is only the cursor key, we must to
+            go to right with the cursor in the screen */
+
+            /* check cursor limit to right */
+            //lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
+            //cmp INPUT_INDEX_COUNTER  // Compare current cursor index
+            //beq continue_read_key    // if equal to limit , ignore
+
+            // 1 reset all bit REVERSE chars to 0
+            jsr reset_bit_7_to_0_in_chars
+
+            // 2 increment next position of cursor
             
+
+            // 3 show next cursor inverted
+            //jsr set_bit_7_to_1_in_char
+            jmp end_combo
+
+            
+            // Delete key <--
+            check_next_key_1:
+                        
             check_next_key_2:            
             
 
-        continue_skip:
+        end_combo:
         pull_regs_from_stack()
         rts
         
@@ -529,96 +542,6 @@ INPUT_LIB:
         pull_regs_from_stack()
         rts
 
-    move_cursor_to_left_on_string_screen:
-        push_regs_to_stack()
-
-        lda KEY_FLAGS
-        ora #%10000000 // set bit show cursor on screen
-        sta KEY_FLAGS
-
-
-        dec INPUT_INDEX_COUNTER // decrement index of string to write the char
-                                // on screen str
-
-
-        lda INPUT_CURSOR_ROW
-        sta SCREEN_ROW_POS
-
-        lda INPUT_CURSOR_COL
-        sta SCREEN_COL_POS
-
-        //set coords on Screen
-        ldx SCREEN_ROW_POS       // Row 22
-        lda Row_LO,x
-        sta ZERO_PAGE_ROW_LOW_BYTE
-        lda Row_HI,x
-        sta ZERO_PAGE_ROW_HIGHT_BYTE
-
-        ldy SCREEN_COL_POS             // col 15
-        lda (ZERO_PAGE_ROW_LOW_BYTE),y
-        
-        lda (ZERO_PAGE_ROW_LOW_BYTE),y
-        clc
-        adc #128
-        sta (ZERO_PAGE_ROW_LOW_BYTE),y
-
-        pull_regs_from_stack()
-        rts
-
-    move_cursor_to_right_on_string_screen:
-
-        push_regs_to_stack()
-
-        lda KEY_FLAGS
-        ora #%10000000 // set bit show cursor on screen
-        sta KEY_FLAGS
-
-        lda INPUT_CURSOR_ROW
-        sta SCREEN_ROW_POS
-
-        lda INPUT_CURSOR_COL
-        sta SCREEN_COL_POS
-
-        // set coords on Screen
-        ldx SCREEN_ROW_POS       // Row 22
-        lda Row_LO,x
-        sta ZERO_PAGE_ROW_LOW_BYTE
-        lda Row_HI,x
-        sta ZERO_PAGE_ROW_HIGHT_BYTE
-
-        ldy SCREEN_COL_POS             // col 15
-        lda (ZERO_PAGE_ROW_LOW_BYTE),y
-        ora #%01111111
-        sta (ZERO_PAGE_ROW_LOW_BYTE),y
-
-        pull_regs_from_stack()
-        rts
-
-    restore_char_with_current_cursor:
-        push_regs_to_stack()
-
-        lda INPUT_CURSOR_ROW
-        sta SCREEN_ROW_POS
-
-        lda INPUT_CURSOR_COL
-        sta SCREEN_COL_POS
-
-        // set coords on Screen
-        ldx SCREEN_ROW_POS       // Row 22
-        lda Row_LO,x
-        sta ZERO_PAGE_ROW_LOW_BYTE
-        lda Row_HI,x
-        sta ZERO_PAGE_ROW_HIGHT_BYTE
-
-        ldy SCREEN_COL_POS             // col 15
-        lda (ZERO_PAGE_ROW_LOW_BYTE),y
-
-        and #%01111111
-        sta (ZERO_PAGE_ROW_LOW_BYTE),y
-
-        pull_regs_from_stack()
-        rts
-
     remove_char_screen_str_by_key:
 
         push_regs_to_stack()
@@ -644,74 +567,35 @@ INPUT_LIB:
         pull_regs_from_stack()
     rts
 
-
-    clean_str_screen:
-
-        push_regs_to_stack()
-
-        continue_cleaning:
-
-        //set coords on Screen
-        lda INPUT_CURSOR_ROW_CLS
-        sta SCREEN_ROW_POS
-
-        lda INPUT_CURSOR_COL_CLS
-        sta SCREEN_COL_POS
-
-        ldx SCREEN_ROW_POS       // Row 22
-        lda Row_LO,x
-        sta ZERO_PAGE_ROW_LOW_BYTE
-        lda Row_HI,x
-        sta ZERO_PAGE_ROW_HIGHT_BYTE
-
-        ldy SCREEN_COL_POS             // col 15
-        lda #96                // char E
-        sta (ZERO_PAGE_ROW_LOW_BYTE),y
-
-        inc INPUT_CURSOR_COL_CLS
-        lda INPUT_STR_LIMIT_CLS
-        cmp INPUT_CURSOR_COL_CLS
-        bne continue_cleaning
-
-
-        pull_regs_from_stack()
-        rts
-
     reset_bit_7_to_0_in_chars:
 
-        push_regs_to_stack()
-
-        // coor Y for input row
-        lda SCREEN_INPUT_ROW_POS
-        sta INPUT_CURSOR_ROW_CLS
-
-        // coor X for input col
-        lda SCREEN_INPUT_COL_POS
-        sta INPUT_CURSOR_COL_CLS
-
-        ldy INPUT_CURSOR_COL_CLS
+         push_regs_to_stack()
 
         //set coords on Screen
         lda INPUT_CURSOR_ROW_CLS
-        sta SCREEN_ROW_POS
+        sta SCREEN_ROW_POS // <--- param X
 
         lda INPUT_CURSOR_COL_CLS
-        sta SCREEN_COL_POS
+        sta SCREEN_COL_POS // <--- param Y
 
-        ldx SCREEN_ROW_POS       // Row 22
+        ldx SCREEN_ROW_POS // Row 22
         lda Row_LO,x
         sta ZERO_PAGE_ROW_LOW_BYTE
         lda Row_HI,x
         sta ZERO_PAGE_ROW_HIGHT_BYTE
 
         continue_reset:
+            
             ldy INPUT_CURSOR_COL_CLS             // col 15
-            lda (ZERO_PAGE_ROW_LOW_BYTE),y
-            and #%01111111
+            //lda (ZERO_PAGE_ROW_LOW_BYTE),y
+            //and #%01111111
+            lda #0 // @ for testing
+
             sta (ZERO_PAGE_ROW_LOW_BYTE),y
             inc INPUT_CURSOR_COL_CLS
-            lda INPUT_STR_LIMIT_CLS
-            cmp INPUT_CURSOR_COL_CLS
+            lda INPUT_CURSOR_COL_CLS
+            cmp INPUT_STR_LIMIT_CLS
+
         bne continue_reset
 
         pull_regs_from_stack()
@@ -721,24 +605,6 @@ INPUT_LIB:
 
         push_regs_to_stack()
 
-        //set coords on Screen
-        lda INPUT_CURSOR_ROW_CLS
-        sta SCREEN_ROW_POS
-
-        lda INPUT_CURSOR_COL_CLS
-        sta SCREEN_COL_POS
-
-        ldx SCREEN_ROW_POS       // Row 22
-        lda Row_LO,x
-        sta ZERO_PAGE_ROW_LOW_BYTE
-        lda Row_HI,x
-        sta ZERO_PAGE_ROW_HIGHT_BYTE
-
-        ldy INPUT_CURSOR_COL             // col 15
-        lda (ZERO_PAGE_ROW_LOW_BYTE),y
-        //and #%01111111
-        ora #%10000000
-        sta (ZERO_PAGE_ROW_LOW_BYTE),y
         
         pull_regs_from_stack()
         rts
