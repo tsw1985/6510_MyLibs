@@ -1,5 +1,6 @@
 INPUT_LIB:
 {
+
     #import "input_macros/input_lib_macros.asm"
 
     input_keyboard:
@@ -227,7 +228,6 @@ INPUT_LIB:
                 // increment next index counter to print there the next char
                 jsr increment_input_index_counter
 
-
                 // print main string on screen
                 jsr print_keys_pressed
 
@@ -236,13 +236,13 @@ INPUT_LIB:
                 //inc INPUT_CURSOR_COL
 
                 // 1 reset all chars to 0
-                //jsr reset_bit_7_to_0_in_chars
+                jsr reset_bit_7_to_0_in_chars
 
                 // 2 increment next position of cursor
-                //jsr increment_current_cursor_of_screen
+                jsr increment_current_cursor_of_screen
 
                 // 3 show next cursor inverted
-                //jsr print_cursor
+                jsr print_cursor
 
                 
                 /* We need to check if the str is not on length limit */
