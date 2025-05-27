@@ -15,8 +15,8 @@ INPUT_LIB:
         sta $DC03 //; ---> $DC01
 
         // print cursor on selected position
-        //jsr print_cursor
         jsr reset_bit_7_to_0_in_chars
+        jsr print_cursor
 
 
     read_key:
@@ -61,8 +61,6 @@ INPUT_LIB:
         lda KEY_FLAGS             
         and #%11111011            // set OFF bit
         sta KEY_FLAGS
-
-
 
 
         /* check if REMOVE key is pressed */
