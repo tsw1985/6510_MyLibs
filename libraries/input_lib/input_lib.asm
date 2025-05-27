@@ -15,7 +15,7 @@ INPUT_LIB:
         sta $DC03 //; ---> $DC01
 
         // print cursor on selected position
-        jsr print_cursor
+        //jsr print_cursor
 
 
     read_key:
@@ -89,23 +89,32 @@ INPUT_LIB:
             beq continue_read_key     // if equal to limit , ignore
             bcs allow_move_to_left    // if not, move to left
             allow_move_to_left:
+
                 jsr restore_char_with_current_cursor
                 jsr decrement_current_cursor_of_screen
                 jsr move_cursor_to_left_on_string_screen
+
                 jmp continue_read_key // exit function
 
         check_cursor_right:
 
-                /* check cursor limit to right */
-                lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
-                cmp INPUT_INDEX_COUNTER  // Compare current cursor index
-                beq continue_read_key    // if equal to limit , ignore
+            /* check cursor limit to right */
+            lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
+            cmp INPUT_INDEX_COUNTER  // Compare current cursor index
+            beq continue_read_key    // if equal to limit , ignore
 
 
-                jsr restore_char_with_current_cursor
-                jsr increment_current_cursor_of_screen
-                jsr move_cursor_to_right_on_string_screen
-                jmp continue_read_key   // exit function
+            //jsr show_normal_chars
+            jsr print_keys_pressed
+            jsr increment_current_cursor_of_screen
+            jsr move_cursor_to_right_on_string_screen
+
+
+
+            //jsr restore_char_with_current_cursor
+            //jsr increment_current_cursor_of_screen
+            //jsr move_cursor_to_right_on_string_screen
+            jmp continue_read_key   // exit function
 
 
         check_delete_key:
@@ -226,8 +235,8 @@ INPUT_LIB:
                 bne ignore_print_cursor
 
                 // print cursor
-                inc INPUT_CURSOR_COL
-                jsr print_cursor
+                //inc INPUT_CURSOR_COL
+                //jsr print_cursor
                 
                 ignore_print_cursor:
 
@@ -681,16 +690,12 @@ INPUT_LIB:
         rts
 
     move_cursor_to_right_on_string_screen:
+
         push_regs_to_stack()
 
         lda KEY_FLAGS
         ora #%10000000 // set bit show cursor on screen
         sta KEY_FLAGS
-
-
-        inc INPUT_INDEX_COUNTER // decrement index of string to write the char
-                                // on screen str
-
 
         lda INPUT_CURSOR_ROW
         sta SCREEN_ROW_POS
@@ -698,7 +703,7 @@ INPUT_LIB:
         lda INPUT_CURSOR_COL
         sta SCREEN_COL_POS
 
-        //set coords on Screen
+        // set coords on Screen
         ldx SCREEN_ROW_POS       // Row 22
         lda Row_LO,x
         sta ZERO_PAGE_ROW_LOW_BYTE
@@ -707,10 +712,7 @@ INPUT_LIB:
 
         ldy SCREEN_COL_POS             // col 15
         lda (ZERO_PAGE_ROW_LOW_BYTE),y
-        
-        lda (ZERO_PAGE_ROW_LOW_BYTE),y
-        clc
-        adc #128
+        ora #%01111111
         sta (ZERO_PAGE_ROW_LOW_BYTE),y
 
         pull_regs_from_stack()
@@ -769,7 +771,6 @@ INPUT_LIB:
     rts
 
 
-
     clean_str_screen:
 
         push_regs_to_stack()
@@ -798,6 +799,57 @@ INPUT_LIB:
         cmp INPUT_CURSOR_COL_CLS
         bne continue_cleaning
 
+
+        pull_regs_from_stack()
+        rts
+
+    reset_bit_7_to_0_in_chars:
+
+        push_regs_to_stack()
+
+        // coor Y for input row
+        lda SCREEN_INPUT_ROW_POS
+        sta INPUT_CURSOR_ROW_CLS
+
+        // coor X for input col
+        lda SCREEN_INPUT_COL_POS
+        sta INPUT_CURSOR_COL_CLS
+
+        // set limit . STR_LIMIT = COL + STR_LEN
+        lda INPUT_STR_LIMIT
+        clc
+        adc INPUT_CURSOR_COL_CLS
+        sta INPUT_STR_LIMIT_CLS
+
+        ldy INPUT_CURSOR_COL_CLS
+
+        //set coords on Screen
+        lda INPUT_CURSOR_ROW_CLS
+        sta SCREEN_ROW_POS
+
+        lda INPUT_CURSOR_COL_CLS
+        sta SCREEN_COL_POS
+
+        ldx SCREEN_ROW_POS       // Row 22
+        lda Row_LO,x
+        sta ZERO_PAGE_ROW_LOW_BYTE
+        lda Row_HI,x
+        sta ZERO_PAGE_ROW_HIGHT_BYTE
+
+        continue_reset:
+        ldy INPUT_CURSOR_COL_CLS             // col 15
+        lda (ZERO_PAGE_ROW_LOW_BYTE),y
+        //and #%01111111
+        ora #%10000000
+        //lda #0 // @
+
+        sta (ZERO_PAGE_ROW_LOW_BYTE),y
+
+        inc INPUT_CURSOR_COL_CLS
+        
+        lda INPUT_STR_LIMIT_CLS
+        cmp INPUT_CURSOR_COL_CLS
+        bne continue_reset
 
         pull_regs_from_stack()
         rts

@@ -20,7 +20,9 @@ sta SCREEN_INPUT_COLOR
 
 
 push_regs_to_stack()
-jsr INPUT_LIB.input_keyboard
+//jsr INPUT_LIB.input_keyboard
+jsr INPUT_LIB.reset_bit_7_to_0_in_chars
+
 
 
 fin_keyboard_demo:
