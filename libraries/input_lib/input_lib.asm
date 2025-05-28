@@ -162,8 +162,6 @@ INPUT_LIB:
         rts
 
 
-    
-
     /*
         Function: 
             
@@ -220,6 +218,8 @@ INPUT_LIB:
         lda PRESSED_KEY_TABLE,x
         beq skip // A value is 0 ? skip
 
+        // code for LEFT CURSOR
+
         // check single keys
         skip:
 
@@ -240,10 +240,10 @@ INPUT_LIB:
             jsr reset_bit_7_to_0_in_chars
 
             // 2 increment next position of cursor
+            jsr increment_current_cursor_of_screen
             
-
             // 3 show next cursor inverted
-            //jsr set_bit_7_to_1_in_char
+            jsr set_bit_7_to_1_in_char
             jmp end_combo
 
             
@@ -577,6 +577,7 @@ INPUT_LIB:
 
         lda INPUT_CURSOR_COL_CLS
         sta SCREEN_COL_POS // <--- param Y
+        pha // save original INPUT_CURSOR_COL_CLS to get again the original val
 
         ldx SCREEN_ROW_POS // Row 22
         lda Row_LO,x
@@ -589,6 +590,7 @@ INPUT_LIB:
             ldy INPUT_CURSOR_COL_CLS             // col 15
             //lda (ZERO_PAGE_ROW_LOW_BYTE),y
             //and #%01111111
+            
             lda #0 // @ for testing
 
             sta (ZERO_PAGE_ROW_LOW_BYTE),y
@@ -598,6 +600,9 @@ INPUT_LIB:
 
         bne continue_reset
 
+        pla // get INPUT_CURSOR_COL_CLS original value from stack
+        sta INPUT_CURSOR_COL_CLS
+
         pull_regs_from_stack()
         rts
 
@@ -605,7 +610,25 @@ INPUT_LIB:
 
         push_regs_to_stack()
 
-        
+        //set coords on Screen
+        lda INPUT_CURSOR_ROW_CLS
+        sta SCREEN_ROW_POS // <--- param X
+
+        lda INPUT_CURSOR_COL_CLS
+        sta SCREEN_COL_POS // <--- param Y
+
+        ldx SCREEN_ROW_POS       // Row 22
+        lda Row_LO,x
+        sta ZERO_PAGE_ROW_LOW_BYTE
+        lda Row_HI,x
+        sta ZERO_PAGE_ROW_HIGHT_BYTE
+
+        ldy INPUT_CURSOR_COL             // col 15
+        lda (ZERO_PAGE_ROW_LOW_BYTE),y
+        //and #%01111111
+        ora #%10000000
+        sta (ZERO_PAGE_ROW_LOW_BYTE),y
+
         pull_regs_from_stack()
         rts
 
