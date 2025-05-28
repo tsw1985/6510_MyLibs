@@ -21,6 +21,14 @@
     jsr PRINT_LIB.print_text
 }
 
+.macro print_input_text(string){
+    lda #<string
+    sta ZERO_PAGE_PRINT_TEXT_LO
+    lda #>string
+    sta ZERO_PAGE_PRINT_TEXT_HI
+    jsr PRINT_LIB.print_input_text
+}
+
 // This macro clean all variables related
 // to show the digits numbers
 .macro clear_NUMBER_TO_PRINT_TABLE(){
