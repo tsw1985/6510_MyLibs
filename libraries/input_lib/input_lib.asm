@@ -32,19 +32,15 @@ INPUT_LIB:
 
         jsr clear_key_pressed_table // clear the table where are save the keys 
                                     // pressed before save the keys again
-
     
         /* check if enter is pressed */
         lda KEY_FLAGS
         and #%00000010
         bne exit_input
-
         /* 
             Each time we do a checking, we must set the bit to 0 for next
             iteration, the otherwise, this flag will continue enabled.
         */
-
-        /* check if C= + cursor left is pressed */
         lda KEY_FLAGS
         and #%00001000
         bne check_cursor_left
@@ -52,8 +48,6 @@ INPUT_LIB:
         and #%11110111            // set OFF bit
         sta KEY_FLAGS
 
-
-        /* check if only cursor key is pressed */
         lda KEY_FLAGS
         and #%00000100            // set bit flag only cursor key is pressed
         bne check_cursor_right
@@ -61,10 +55,6 @@ INPUT_LIB:
         and #%11111011            // set OFF bit
         sta KEY_FLAGS
 
-
-
-
-        /* check if REMOVE key is pressed */
         lda KEY_FLAGS
         and #%00010000            // set bit flag only DELETE key is pressed
         bne check_delete_key
@@ -72,8 +62,9 @@ INPUT_LIB:
         lda KEY_FLAGS
         and #%11101111            // set OFF bit flag DELETE key is pressed
         sta KEY_FLAGS
-
-
+        
+        //jsr clear_key_pressed_table // clear the table where are save the keys 
+                                    // pressed before save the keys again
 
         jmp continue_read_key
         
@@ -95,12 +86,10 @@ INPUT_LIB:
                 jmp continue_read_key // exit function
 
         check_cursor_right:
-
                 /* check cursor limit to right */
                 lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
                 cmp INPUT_INDEX_COUNTER  // Compare current cursor index
                 beq continue_read_key    // if equal to limit , ignore
-
 
                 jsr restore_char_with_current_cursor
                 jsr increment_current_cursor_of_screen
@@ -127,7 +116,9 @@ INPUT_LIB:
 
                 jsr print_keys_pressed
                 jsr restore_char_with_current_cursor
+                
                 jsr decrement_current_cursor_of_screen
+                dec INPUT_INDEX_COUNTER
                 jsr move_cursor_to_left_on_string_screen
 
 
@@ -189,21 +180,6 @@ INPUT_LIB:
                 // save the offset result in the table
                 jsr save_key_pressed
 
-                /* IGNORE TO PRINT C= key */
-                lda TABLE_KEY_ASCII_X_OFFSET
-                cmp #47
-                beq ignore_key_pressed
-
-                /* IGNORE TO PRINT Single Cursor key */
-                lda TABLE_KEY_ASCII_X_OFFSET
-                cmp #16
-                beq ignore_key_pressed
-
-                /* IGNORE TO PRINT DELETE key */
-                lda TABLE_KEY_ASCII_X_OFFSET
-                cmp #0
-                beq ignore_key_pressed
-
                 /* We need to check if the str is not on length limit */
                 lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
                 cmp INPUT_INDEX_COUNTER  // Compare current cursor index
@@ -226,7 +202,7 @@ INPUT_LIB:
                 bne ignore_print_cursor
 
                 // print cursor
-                inc INPUT_CURSOR_COL
+                //inc INPUT_CURSOR_COL
                 jsr print_cursor
                 
                 ignore_print_cursor:
@@ -273,11 +249,47 @@ INPUT_LIB:
     process_pressed_keys:
         
         push_regs_to_stack()
+        /* COMBO : C= + CURSOR KEY ( move cursor to left) */
+        ldx #47 // CMB OFFSET
+        lda PRESSED_KEY_TABLE,x
+        beq skip // A value is 0 ? skip
 
-        jsr check_combo_keys     // First action is check the combinations keys
+        ldx #16 //Cursor key
+        lda PRESSED_KEY_TABLE,x
+        beq skip // A value is 0 ? skip
 
+        // If not skip , means CMB + Cursor is pressed, move to left cursor
+        lda KEY_FLAGS
+        ora #%00001000
+        sta KEY_FLAGS
+        
+        // check single keys
+        skip:
+
+            // Only Cursor key. Must move to right
+            ldx #16                   
+            lda PRESSED_KEY_TABLE,x
+            beq check_next_key_1
+            lda KEY_FLAGS
+            ora #%00000100            // set bit flag only cursor key is pressed
+            sta KEY_FLAGS
+            jmp exit_set_flags
+
+            check_next_key_1:
+            ldx #0             
+            lda PRESSED_KEY_TABLE,x
+            beq check_next_key_2
+            lda KEY_FLAGS
+            ora #%00010000            // set ON bit flag DELETE key is pressed
+            sta KEY_FLAGS
+            jmp exit_set_flags
+            
+            check_next_key_2:            
+            
+        exit_set_flags:
         pull_regs_from_stack()
-    rts
+        rts
+
 
     /*
         Function: 
@@ -316,55 +328,6 @@ INPUT_LIB:
             pull_regs_from_stack()
         rts
 
-    /*
-        Function:
-
-            This function check the combination keys. To check each combination
-            we need to know the offset of the target keys
-    */
-    check_combo_keys:
-
-        push_regs_to_stack()
-        /* COMBO : C= + CURSOR KEY ( move cursor to left) */
-        ldx #47 // CMB OFFSET
-        lda PRESSED_KEY_TABLE,x
-        beq skip // A value is 0 ? skip
-
-
-        ldx #16 //Cursor key
-        lda PRESSED_KEY_TABLE,x
-        beq skip // A value is 0 ? skip
-
-        // If not skip , means CMB + Cursor is pressed, move to left cursor
-        lda KEY_FLAGS
-        ora #%00001000
-        sta KEY_FLAGS
-        
-        // check single keys
-        skip:
-
-            // Only Cursor key. Must move to right
-            ldx #16                   
-            lda PRESSED_KEY_TABLE,x
-            beq check_next_key_1
-            lda KEY_FLAGS
-            ora #%00000100            // set bit flag only cursor key is pressed
-            sta KEY_FLAGS
-
-            check_next_key_1:
-            ldx #0             
-            lda PRESSED_KEY_TABLE,x
-            beq check_next_key_2
-            lda KEY_FLAGS
-            ora #%00010000            // set ON bit flag DELETE key is pressed
-            sta KEY_FLAGS
-            
-            check_next_key_2:            
-            
-
-        continue_skip:
-        pull_regs_from_stack()
-        rts
         
     /* 
         Function:
@@ -600,19 +563,44 @@ INPUT_LIB:
     add_key_to_screen_str:
 
         push_regs_to_stack()
+        ldy #0
+
+        /* retrieve the PRESSED_KEY_TABLE searching the values with 1 . Y will
+        contains the offset number, this will be the char to search it in the
+        table TABLE_KEY_ASCII */
+
+        continue_check_pressed_table:
+            lda PRESSED_KEY_TABLE,y   //
+            bne process_key 
+            jmp skip_check_pressed_table // if is 0 , skip
+
+            /* if is 1 ... */
+            process_key:
+
+                /* Ignore special keys. We want not print them*/
+                cpy #47
+                beq skip_check_pressed_table
+
+                cpy #16
+                beq skip_check_pressed_table
+
+                // Process normal table
+                lda TABLE_KEY_ASCII,y     // get the ascii code from chars table
+                sta SCREEN_CHAR           // save the char on SCREEN_CHAR
+                ldx INPUT_INDEX_COUNTER
+                sta KEYS_TO_SCREEN_STR,x  // in y is the index. the limit is 80
+                inc INPUT_INDEX_COUNTER   // store SCREEN_CHAR on KEYS_TO_STRING_STR
+
+                inc INPUT_CURSOR_COL
 
 
-        ldx TABLE_KEY_ASCII_X_OFFSET  // load offset
-        lda TABLE_KEY_ASCII,x         // get the ascii code from chars table
-        sta SCREEN_CHAR               // save the char on SCREEN_CHAR 
+            skip_check_pressed_table:
+            iny
+            cpy #60
+            bne continue_check_pressed_table
         
-        ldy INPUT_INDEX_COUNTER       // store SCREEN_CHAR on KEYS_TO_STRING_STR
-        sta KEYS_TO_SCREEN_STR,y      // in y is the index. the limit is 80
-        inc INPUT_INDEX_COUNTER       // increment INPUT_INDEX_COUNTER to next
-                                      // keypress
-
         pull_regs_from_stack()
-        rts
+    rts
 
     /*
         Function:
@@ -774,30 +762,37 @@ INPUT_LIB:
 
         push_regs_to_stack()
 
-        continue_cleaning:
-
         //set coords on Screen
         lda INPUT_CURSOR_ROW_CLS
-        sta SCREEN_ROW_POS
+        sta SCREEN_ROW_POS // <--- param X
 
         lda INPUT_CURSOR_COL_CLS
-        sta SCREEN_COL_POS
+        sta SCREEN_COL_POS // <--- param Y
+        pha // save original INPUT_CURSOR_COL_CLS to get again the original val
 
-        ldx SCREEN_ROW_POS       // Row 22
+        ldx SCREEN_ROW_POS // Row 22
         lda Row_LO,x
         sta ZERO_PAGE_ROW_LOW_BYTE
         lda Row_HI,x
         sta ZERO_PAGE_ROW_HIGHT_BYTE
 
-        ldy SCREEN_COL_POS             // col 15
-        lda #96                // char E
-        sta (ZERO_PAGE_ROW_LOW_BYTE),y
+        continue_reset:
+            
+            ldy INPUT_CURSOR_COL_CLS             // col 15
+            //lda (ZERO_PAGE_ROW_LOW_BYTE),y
+            //and #%01111111
+            
+            lda #96 // @ for testing
 
-        inc INPUT_CURSOR_COL_CLS
-        lda INPUT_STR_LIMIT_CLS
-        cmp INPUT_CURSOR_COL_CLS
-        bne continue_cleaning
+            sta (ZERO_PAGE_ROW_LOW_BYTE),y
+            inc INPUT_CURSOR_COL_CLS
+            lda INPUT_CURSOR_COL_CLS
+            cmp INPUT_STR_LIMIT_CLS
 
+        bne continue_reset
+
+        pla // get INPUT_CURSOR_COL_CLS original value from stack
+        sta INPUT_CURSOR_COL_CLS
 
         pull_regs_from_stack()
         rts
