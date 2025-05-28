@@ -17,7 +17,7 @@ INPUT_LIB:
 
         // print cursor on selected position
         jsr reset_bit_7_to_0_in_chars
-        //jsr print_cursor
+        jsr print_cursor
 
     read_key:
 
@@ -588,10 +588,10 @@ INPUT_LIB:
         continue_reset:
             
             ldy INPUT_CURSOR_COL_CLS             // col 15
-            //lda (ZERO_PAGE_ROW_LOW_BYTE),y
-            //and #%01111111
+            lda (ZERO_PAGE_ROW_LOW_BYTE),y
+            and #%01111111
             
-            lda #0 // @ for testing
+            //lda #0 // @ for testing
 
             sta (ZERO_PAGE_ROW_LOW_BYTE),y
             inc INPUT_CURSOR_COL_CLS

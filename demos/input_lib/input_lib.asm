@@ -26,8 +26,10 @@ lda #0
 sta INPUT_INDEX_COUNTER
 
 push_regs_to_stack()
-jsr INPUT_LIB.input_keyboard
-//jsr INPUT_LIB.reset_bit_7_to_0_in_chars
+//jsr INPUT_LIB.input_keyboard
+
+jsr INPUT_LIB.reset_bit_7_to_0_in_chars
+jsr INPUT_LIB.print_cursor
 
 
 

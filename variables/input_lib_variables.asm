@@ -83,6 +83,6 @@ temp_offset:            .byte 0
 TEMP_X_REG:             .byte 0
 TEMP_Y_REG:             .byte 0
 //This is the string buffer to print the chars on screen
-KEYS_TO_SCREEN_STR:     .fill 80,0 // save 80 bytes with 0
+KEYS_TO_SCREEN_STR:     .fill 80,96 // save 80 bytes with 0
 CHAR_INDEX_1:           .byte 0
 CHAR_INDEX_2:           .byte 0

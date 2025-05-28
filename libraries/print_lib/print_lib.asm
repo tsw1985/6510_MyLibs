@@ -48,6 +48,29 @@ PRINT_LIB:
         pull_regs_from_stack()
         rts    
 
+    /*
+        Function:
+            
+           Print the text of the input . We must print until the value ( lenght)
+           of INPUT_STR_LIMIT
+    */
+    print_input_text:
+
+        push_regs_to_stack()
+
+        ldy #0
+        continue_input_writing:
+            lda (ZERO_PAGE_PRINT_TEXT_LO),y
+            sta SCREEN_CHAR    //load char to show
+            jsr print_char
+            inc SCREEN_COL_POS
+            iny
+            cpy INPUT_STR_LIMIT
+        bne continue_input_writing
+
+        pull_regs_from_stack()
+        rts
+
 
 
     /*
