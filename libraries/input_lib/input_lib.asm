@@ -15,7 +15,7 @@ input_keyboard:
     lda #$ff
     sta $DC03 //; ---> $DC01
 
-    // print cursor on selected position
+    /* print init cursor in selected position */
     jsr print_cursor
 
 read_key:
@@ -26,6 +26,9 @@ read_key:
     */
     jsr scan_all_keys           
     
+    /* add key pressed to screen string */
+    jsr add_scanend_keys_to_screen_str
+
     /* 
        When the table of all keys pressed is filled , we read each position. If
        a position match with a special offset, this means this can be a LEFT ,
@@ -33,36 +36,29 @@ read_key:
        
        Here is set the bits of KEY_FLAGS for the execute the target actions
     */
-    jsr detect_action_by_key    
-
+    jsr detect_specials_keys_and_set_actions_flags
     
-    // add key pressed to screen string
-    jsr add_key_to_screen_str
+    /* execute key actions (left, right,del ...) */
+    jsr execute_actions_key
 
-    // print main string on screen
+    /* print main string on screen */
     jsr print_keys_pressed
 
-    // print cursor
+    /* print cursor */
     jsr print_cursor
     
-    in_length_of_string:
+    /* clear the table where are save the keys pressed before save the keys 
+       again */
+    jsr clear_key_pressed_table 
 
-    //check if enter is pressed
-    jsr check_if_key_is_enter
-
-    jsr clear_key_pressed_table // clear the table where are save the keys 
-                                // pressed before save the keys again
-
-    jsr execute_key_actions     // execute key actions (left, right,del ...)
-
-    jsr reset_key_flags         // reset the flags to next iteration
+    /* reset the flags to next iteration */
+    jsr reset_key_flags         
 
     /* ----------------------- Debug ---------------------------- */
     jsr print_debug_params    
     /* ----------------------- Debug ---------------------------- */
 
 jmp read_key                    // read keyboard again
-
 
 
 print_debug_params:
@@ -96,7 +92,7 @@ reset_key_flags:
 rts
 
 
-execute_key_actions:
+execute_actions_key:
 
     push_regs_to_stack()
 
@@ -232,7 +228,7 @@ rts   // finish function
     need launch the custom actions on each combination.
 
 */
-detect_action_by_key:
+detect_specials_keys_and_set_actions_flags:
     
     push_regs_to_stack()
     /* COMBO : C= + CURSOR KEY ( move cursor to left) */
@@ -252,26 +248,35 @@ detect_action_by_key:
     // check single keys
     skip:
 
-        // Only Cursor key. Must move to right
+        /* Detect only cursor to right */
         ldx #16                   
         lda PRESSED_KEY_TABLE,x
-        beq check_next_key_1
+        beq check_if_is_delete_key
         lda KEY_FLAGS
         ora #%00000100            // set bit flag only cursor key is pressed
         sta KEY_FLAGS
         jmp exit_set_flags
 
-        check_next_key_1:
+        /* Detect if is Delete key */
+        check_if_is_delete_key:
         ldx #0             
         lda PRESSED_KEY_TABLE,x
-        beq check_next_key_2
+        beq check_if_is_enter_key
         lda KEY_FLAGS
         ora #%00010000            // set ON bit flag DELETE key is pressed
         sta KEY_FLAGS
         jmp exit_set_flags
         
-        check_next_key_2:            
-        
+        check_if_is_enter_key:
+        ldx #8 // KEY ENTER
+        lda PRESSED_KEY_TABLE,x
+        beq exit_set_flags
+        lda KEY_FLAGS
+        ora #%00000010
+        sta KEY_FLAGS
+        jmp exit_set_flags
+
+
     exit_set_flags:
     pull_regs_from_stack()
     rts
@@ -293,28 +298,6 @@ save_key_pressed:
     pull_regs_from_stack()
     rts
 
-/* Function:
-    Check if enter key is pressed
-*/
-check_if_key_is_enter:
-
-    push_regs_to_stack()
-    ldx #8 // KEY ENTER
-    lda PRESSED_KEY_TABLE,x
-    bne enter_pressed
-    jmp enter_not_pressed
-
-    enter_pressed:
-
-        lda KEY_FLAGS
-        eor #%00000010
-        sta KEY_FLAGS
-
-    enter_not_pressed:
-        pull_regs_from_stack()
-    rts
-
-    
 /* 
     Function:
         This is a function for debugging, to see the offset value of each
@@ -590,7 +573,7 @@ rts
         that will appear on the screen.
 
 */
-add_key_to_screen_str:
+add_scanend_keys_to_screen_str:
 
     push_regs_to_stack()
     ldy #0
