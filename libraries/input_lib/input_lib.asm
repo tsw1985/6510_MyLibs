@@ -20,18 +20,25 @@ input_keyboard:
 
 read_key:
 
-    jsr scan_all_keys           // scan all keyboard matrix to get the
-                                // pressed keys and save them in the table
+    /* 
+       scan all keyboard matrix to get the
+       pressed keys and save them in the table
+    */
+    jsr scan_all_keys           
     
-    jsr process_pressed_keys    // finally , process all keys to do the
-                                // target actions
-
-
+    /* 
+       When the table of all keys pressed is filled , we read each position. If
+       a position match with a special offset, this means this can be a LEFT ,
+       RIGHT, DELETE or ENTER.
+       
+       Here is set the bits of KEY_FLAGS for the execute the target actions
+    */
+    jsr detect_action_by_key    
 
     /* We need to check if the str is not on length limit */
     lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
     cmp INPUT_INDEX_COUNTER  // Compare current cursor index
-    beq ignore_print_cursor  // if equal to limit , ignore
+    beq in_length_of_string  // if equal to limit , ignore
 
     // add key pressed to screen string
     jsr add_key_to_screen_str
@@ -39,25 +46,13 @@ read_key:
     // print main string on screen
     jsr print_keys_pressed
 
-    // check if is allowed print the cursor . If you are doing
-    // C= + CURSOR ( left ), the cursor must be hidden.
-    lda KEY_FLAGS
-    and #%00001000
-    bne ignore_print_cursor
-
-    lda KEY_FLAGS
-    and #%10000000
-    bne ignore_print_cursor
-
     // print cursor
     jsr print_cursor
     
-    ignore_print_cursor:
+    in_length_of_string:
 
     //check if enter is pressed
     jsr check_if_key_is_enter
-
-    ignore_key_pressed:
 
     jsr clear_key_pressed_table // clear the table where are save the keys 
                                 // pressed before save the keys again
@@ -241,7 +236,7 @@ rts   // finish function
     need launch the custom actions on each combination.
 
 */
-process_pressed_keys:
+detect_action_by_key:
     
     push_regs_to_stack()
     /* COMBO : C= + CURSOR KEY ( move cursor to left) */
@@ -611,7 +606,7 @@ add_key_to_screen_str:
     continue_check_pressed_table:
         lda PRESSED_KEY_TABLE,y   //
         bne process_key 
-        jmp skip_check_pressed_table // if is 0 , skip
+        jmp not_add_key_to_screen_str // if is 0 , skip
 
         /* if is 1 ... */
         process_key:
@@ -619,25 +614,29 @@ add_key_to_screen_str:
             /* Ignore special keys. We want not print them*/
 
             cpy #0
-            beq skip_check_pressed_table
+            beq not_add_key_to_screen_str
 
             cpy #47
-            beq skip_check_pressed_table
+            beq not_add_key_to_screen_str
 
             cpy #16
-            beq skip_check_pressed_table
+            beq not_add_key_to_screen_str
 
             // Process normal table
             lda TABLE_KEY_ASCII,y     // get the ascii code from chars table
             sta SCREEN_CHAR           // save the char on SCREEN_CHAR
             ldx INPUT_INDEX_COUNTER
             sta KEYS_TO_SCREEN_STR,x  // in y is the index. the limit is 80
+
+            /* check if string is <= str_length */
+            //lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
+            //cmp INPUT_INDEX_COUNTER  // Compare current cursor index
+            //beq not_add_key_to_screen_str  // if equal to limit , ignore
+
             jsr increment_index_cursor_index
+            jsr increment_current_cursor_of_screen
 
-            inc INPUT_CURSOR_COL
-
-
-        skip_check_pressed_table:
+        not_add_key_to_screen_str:
         iny
         cpy #60
         bne continue_check_pressed_table
