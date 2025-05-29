@@ -26,6 +26,39 @@ read_key:
     jsr process_pressed_keys    // finally , process all keys to do the
                                 // target actions
 
+
+
+    /* We need to check if the str is not on length limit */
+    lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
+    cmp INPUT_INDEX_COUNTER  // Compare current cursor index
+    beq ignore_print_cursor  // if equal to limit , ignore
+
+    // add key pressed to screen string
+    jsr add_key_to_screen_str
+
+    // print main string on screen
+    jsr print_keys_pressed
+
+    // check if is allowed print the cursor . If you are doing
+    // C= + CURSOR ( left ), the cursor must be hidden.
+    lda KEY_FLAGS
+    and #%00001000
+    bne ignore_print_cursor
+
+    lda KEY_FLAGS
+    and #%10000000
+    bne ignore_print_cursor
+
+    // print cursor
+    jsr print_cursor
+    
+    ignore_print_cursor:
+
+    //check if enter is pressed
+    jsr check_if_key_is_enter
+
+    ignore_key_pressed:
+
     jsr clear_key_pressed_table // clear the table where are save the keys 
                                 // pressed before save the keys again
 
@@ -33,9 +66,36 @@ read_key:
 
     jsr reset_key_flags         // reset the flags to next iteration
 
+    /* ----------------------- Debug ---------------------------- */
+    jsr print_debug_params    
+    /* ----------------------- Debug ---------------------------- */
+
 jmp read_key                    // read keyboard again
 
 
+
+print_debug_params:
+    push_regs_to_stack()
+    // debug: print offset result
+    jsr print_offset_result
+
+    // debug : show current pressed char
+    jsr print_current_pressed_char
+
+    // debug : // see X row value of keyboard
+    jsr print_x_coord
+
+    // debug : // see Y row value of keyboard
+    jsr print_y_coord
+
+    // debug : print current index position
+    jsr print_cursor_index_pos
+
+    // debug : print current col position
+    jsr print_cursor_col_pos
+
+    pull_regs_from_stack()
+rts
 
 reset_key_flags:
     push_regs_to_stack()
@@ -118,8 +178,8 @@ execute_key_actions:
 
     exit_actions:
     pull_regs_from_stack()
-
 rts
+
 
 /* Function:
     
@@ -127,6 +187,7 @@ rts
 */
 scan_all_keys:
     
+    push_regs_to_stack()
     ldx #0
     scan_rows_loop:
 
@@ -160,57 +221,6 @@ scan_all_keys:
             // save the offset result in the table
             jsr save_key_pressed
 
-            /* We need to check if the str is not on length limit */
-            lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
-            cmp INPUT_INDEX_COUNTER  // Compare current cursor index
-            beq ignore_print_cursor  // if equal to limit , ignore
-
-            // add key pressed to screen string
-            jsr add_key_to_screen_str
-
-            // print main string on screen
-            jsr print_keys_pressed
-
-            // check if is allowed print the cursor . If you are doing
-            // C= + CURSOR ( left ), the cursor must be hidden.
-            lda KEY_FLAGS
-            and #%00001000
-            bne ignore_print_cursor
-
-            lda KEY_FLAGS
-            and #%10000000
-            bne ignore_print_cursor
-
-            // print cursor
-            //inc INPUT_CURSOR_COL
-            jsr print_cursor
-            
-            ignore_print_cursor:
-
-            //check if enter is pressed
-            jsr check_if_key_is_enter
-
-            ignore_key_pressed:
-            /* ----------------------- Debug ---------------------------- */
-            // debug: print offset result
-            jsr print_offset_result
-
-            // debug : show current pressed char
-            jsr print_current_pressed_char
-
-            // debug : // see X row value of keyboard
-            jsr print_x_coord
-
-            // debug : // see Y row value of keyboard
-            jsr print_y_coord
-
-            // debug : print current index position
-            jsr print_cursor_index_pos
-
-            // debug : print current col position
-            jsr print_cursor_col_pos
-            /* ----------------------- Debug ---------------------------- */
-
         no_key_detected:
 
             iny                // increment Y ( columns )
@@ -221,6 +231,7 @@ scan_all_keys:
             cpx #8             // are 8 rows ???
             bne scan_rows_loop // not ?? continue retrieving rows
 
+    pull_regs_from_stack()
 rts   // finish function
 
 
