@@ -49,46 +49,47 @@ execute_key_actions:
 
     push_regs_to_stack()
 
-    /* check if enter is pressed */
+    /* ENTER KEY is pressed */
     lda KEY_FLAGS
     and #%00000010
     bne exit_input
-    /* 
-        Each time we do a checking, we must set the bit to 0 for next
-        iteration, the otherwise, this flag will continue enabled.
-    */
+    
+    /* MOVE CURSOR TO LEFT */
     lda KEY_FLAGS
     and #%00001000
-    bne check_cursor_left
+    bne cursor_to_left
 
+    /* MOVE CURSOR TO RIGHT */
     lda KEY_FLAGS
     and #%00000100            // set bit flag only cursor key is pressed
-    bne check_cursor_right
+    bne cursor_to_right
 
+    /* DELETE MOVE CURSOR TO RIGHT */
     lda KEY_FLAGS
     and #%00010000            // set bit flag only DELETE key is pressed
-    bne check_delete_key
+    bne delete_key
     
+    /* if is not set any action, exit of function */
     jmp exit_actions
 
     exit_input:
         pull_regs_from_stack()
         jmp fin_keyboard_demo
     
-    check_cursor_left:
+    cursor_to_left:
         /* Check limit to left. INPUT_CURSOR_COL 
         must be >= SCREEN_INPUT_COL_POS */
         lda SCREEN_INPUT_COL_POS  // LOAD LIMIT TO LEFT
         cmp INPUT_CURSOR_COL      // Compare current cursor index
-        beq exit_actions     // if equal to limit , ignore
+        beq exit_actions          // if equal to limit , ignore
         bcs allow_move_to_left    // if not, move to left
         allow_move_to_left:
             jsr restore_char_with_current_cursor
             jsr decrement_current_cursor_of_screen
             jsr move_cursor_to_left_on_string_screen
-            jmp exit_actions // exit function
+            jmp exit_actions  // exit function
 
-    check_cursor_right:
+    cursor_to_right:
             /* check cursor limit to right */
             lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
             cmp INPUT_INDEX_COUNTER  // Compare current cursor index
@@ -99,7 +100,7 @@ execute_key_actions:
             jsr move_cursor_to_right_on_string_screen
             jmp exit_actions   // exit function
 
-    check_delete_key:
+    delete_key:
         /* Check limit to left. INPUT_CURSOR_COL 
         must be >= SCREEN_INPUT_COL_POS */
         lda SCREEN_INPUT_COL_POS  // LOAD LIMIT TO LEFT
@@ -120,9 +121,9 @@ execute_key_actions:
 
 rts
 
-/* ------------------------------------------------------------------------
-                        FUNCTIONS
-    ------------------------------------------------------------------------
+/* Function:
+    
+    This function scan the keyboard matrix and save all matchs
 */
 scan_all_keys:
     
@@ -620,7 +621,7 @@ add_key_to_screen_str:
             sta SCREEN_CHAR           // save the char on SCREEN_CHAR
             ldx INPUT_INDEX_COUNTER
             sta KEYS_TO_SCREEN_STR,x  // in y is the index. the limit is 80
-            inc INPUT_INDEX_COUNTER   // store SCREEN_CHAR on KEYS_TO_STRING_STR
+            jsr increment_index_cursor_index
 
             inc INPUT_CURSOR_COL
 
@@ -642,7 +643,6 @@ rts
 print_keys_pressed:
 
     push_regs_to_stack()
-
     jsr PRINT_LIB.clean_location_screen
     locate_text(2,12,GREEN)
     locate_input()
@@ -663,6 +663,19 @@ increment_current_cursor_of_screen:
     pull_regs_from_stack()
     rts
 
+increment_index_cursor_index:
+    push_regs_to_stack()
+    inc INPUT_INDEX_COUNTER
+    pull_regs_from_stack()
+rts
+
+decrement_index_cursor_index:
+    push_regs_to_stack()
+    dec INPUT_INDEX_COUNTER
+    pull_regs_from_stack()
+rts
+
+
 move_cursor_to_left_on_string_screen:
     push_regs_to_stack()
 
@@ -670,9 +683,12 @@ move_cursor_to_left_on_string_screen:
     ora #%10000000 // set bit show cursor on screen
     sta KEY_FLAGS
 
-    dec INPUT_INDEX_COUNTER // decrement index of string to write the char
-                            // on screen str
+    jsr decrement_index_cursor_index // decrement index of string to write the 
+                                     // char on screen str
 
+
+    /* The variables SCREEN_ROW_POS and SCREEN_ROW_COL are IMPORTANT . Those are
+       the variables to get the position of ROW and COL in the SCREEN TABLE */
     lda INPUT_CURSOR_ROW
     sta SCREEN_ROW_POS
 
@@ -704,10 +720,7 @@ move_cursor_to_right_on_string_screen:
     ora #%10000000 // set bit show cursor on screen
     sta KEY_FLAGS
 
-
-    inc INPUT_INDEX_COUNTER // decrement index of string to write the char
-                            // on screen str
-
+    jsr increment_index_cursor_index
 
     lda INPUT_CURSOR_ROW
     sta SCREEN_ROW_POS
@@ -759,24 +772,21 @@ restore_char_with_current_cursor:
     rts
 
 remove_char_screen_str_by_key:
-
     push_regs_to_stack()
 
-    .break
-
-    lda INPUT_INDEX_COUNTER  // load current cursor position
-    sta CHAR_INDEX_1      // set index1 with this value
-    sta CHAR_INDEX_2      // set index2 with this value
-    dec CHAR_INDEX_2      // decrement index2 by 1
+    lda INPUT_INDEX_COUNTER       // load current cursor position
+    sta CHAR_INDEX_1              // set index1 with this value
+    sta CHAR_INDEX_2              // set index2 with this value
+    dec CHAR_INDEX_2              // decrement index2 by 1
     
     continue_swap:
-        ldx CHAR_INDEX_1      // load offset X with index1
-        ldy CHAR_INDEX_2      // load offset Y with index2
+        ldx CHAR_INDEX_1          // load offset X with index1
+        ldy CHAR_INDEX_2          // load offset Y with index2
         lda KEYS_TO_SCREEN_STR,x  // swap chars ... 1 to 0 , 2 to 1 ... 3 to 2..
         sta KEYS_TO_SCREEN_STR,y
 
-        inc CHAR_INDEX_1      // increment index to go to next char
-        inc CHAR_INDEX_2      // increment index to go to next char
+        inc CHAR_INDEX_1          // increment index to go to next char
+        inc CHAR_INDEX_2          // increment index to go to next char
 
         lda INPUT_STR_LIMIT
         cmp CHAR_INDEX_2
@@ -784,8 +794,6 @@ remove_char_screen_str_by_key:
 
     pull_regs_from_stack()
 rts
-
-
 
 clean_str_screen:
 
@@ -823,7 +831,7 @@ clean_str_screen:
     pla // get INPUT_CURSOR_COL_CLS original value from stack
     sta INPUT_CURSOR_COL_CLS
 
-    pull_regs_from_stack()
-    rts
+pull_regs_from_stack()
+rts
 
 }
