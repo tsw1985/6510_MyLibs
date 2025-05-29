@@ -41,12 +41,26 @@ read_key:
     /* execute key actions (left, right,del ...) */
     jsr execute_actions_key
 
+    /* 
+        To avoid a screen flikering, we check if the bit 5 is enable . This bit
+        is set to 1 if the user press a new normal key and the SCREEN_STR is 
+        updated, then , print the string updated.
+
+        This bit is set to 1 in function "add_scanend_keys_to_screen_str"
+    */
+    lda KEY_FLAGS
+    and #%00100000
+    beq skip_print_string_and_cursor
+
     /* print main string on screen */
     jsr print_keys_pressed
-
     /* print cursor */
     jsr print_cursor
+    /* Only for  debugging */
+    jsr print_debug_params    
     
+    skip_print_string_and_cursor:
+
     /* clear the table where are save the keys pressed before save the keys 
        again */
     jsr clear_key_pressed_table 
@@ -54,9 +68,6 @@ read_key:
     /* reset the flags to next iteration */
     jsr reset_key_flags         
 
-    /* ----------------------- Debug ---------------------------- */
-    jsr print_debug_params    
-    /* ----------------------- Debug ---------------------------- */
 
 jmp read_key                    // read keyboard again
 
@@ -607,7 +618,12 @@ add_scanend_keys_to_screen_str:
             cpy #16
             beq not_add_key_to_screen_str
 
-            // Process normal table
+            /* Enable bit 5 = SCREEN_STR Updated */
+            lda KEY_FLAGS
+            ora #%00100000
+            sta KEY_FLAGS
+
+            /* Process normal table */
             lda TABLE_KEY_ASCII,y     // get the ascii code from chars table
             sta SCREEN_CHAR           // save the char on SCREEN_CHAR
             ldx INPUT_INDEX_COUNTER
