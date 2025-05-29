@@ -20,10 +20,6 @@ INPUT_LIB:
 
     read_key:
 
-        //jsr PRINT_LIB.clean_location_screen
-        //locate_text(10,0,WHITE)
-        //print_text(space_5_str)
-
         jsr scan_all_keys           // scan all keyboard matrix to get the
                                     // pressed keys and save them in the table
         
@@ -110,25 +106,12 @@ INPUT_LIB:
             bcs allow_delete_to_left    // if not, move to left
             allow_delete_to_left:
 
-                jsr clean_str_screen  // empty screen
-
                 jsr remove_char_screen_str_by_key
-
                 jsr print_keys_pressed
                 jsr restore_char_with_current_cursor
-                
                 jsr decrement_current_cursor_of_screen
-                dec INPUT_INDEX_COUNTER
                 jsr move_cursor_to_left_on_string_screen
-
-
-                //jsr PRINT_LIB.clean_location_screen
-                //locate_text(10,0,WHITE)
-                //print_text(delete_key_str)
-
-
-
-        jmp continue_read_key   // exit function
+                jmp continue_read_key   // exit function
 
 
     // ***** Keep this check in last position ******
@@ -578,6 +561,10 @@ INPUT_LIB:
             process_key:
 
                 /* Ignore special keys. We want not print them*/
+
+                cpy #0
+                beq skip_check_pressed_table
+
                 cpy #47
                 beq skip_check_pressed_table
 
@@ -639,10 +626,8 @@ INPUT_LIB:
         ora #%10000000 // set bit show cursor on screen
         sta KEY_FLAGS
 
-
         dec INPUT_INDEX_COUNTER // decrement index of string to write the char
                                 // on screen str
-
 
         lda INPUT_CURSOR_ROW
         sta SCREEN_ROW_POS
