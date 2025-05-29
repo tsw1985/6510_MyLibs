@@ -35,11 +35,7 @@ read_key:
     */
     jsr detect_action_by_key    
 
-    /* We need to check if the str is not on length limit */
-    lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
-    cmp INPUT_INDEX_COUNTER  // Compare current cursor index
-    beq in_length_of_string  // if equal to limit , ignore
-
+    
     // add key pressed to screen string
     jsr add_key_to_screen_str
 
@@ -604,7 +600,14 @@ add_key_to_screen_str:
     table TABLE_KEY_ASCII */
 
     continue_check_pressed_table:
-        lda PRESSED_KEY_TABLE,y   //
+
+        /* We need to check if the str is not on length limit */
+        /* check if string is <= str_length */
+        lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
+        cmp INPUT_INDEX_COUNTER  // Compare current cursor index
+        beq not_add_key_to_screen_str  // if equal to limit , ignore
+
+        lda PRESSED_KEY_TABLE,y   
         bne process_key 
         jmp not_add_key_to_screen_str // if is 0 , skip
 
@@ -612,7 +615,6 @@ add_key_to_screen_str:
         process_key:
 
             /* Ignore special keys. We want not print them*/
-
             cpy #0
             beq not_add_key_to_screen_str
 
@@ -627,11 +629,6 @@ add_key_to_screen_str:
             sta SCREEN_CHAR           // save the char on SCREEN_CHAR
             ldx INPUT_INDEX_COUNTER
             sta KEYS_TO_SCREEN_STR,x  // in y is the index. the limit is 80
-
-            /* check if string is <= str_length */
-            //lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
-            //cmp INPUT_INDEX_COUNTER  // Compare current cursor index
-            //beq not_add_key_to_screen_str  // if equal to limit , ignore
 
             jsr increment_index_cursor_index
             jsr increment_current_cursor_of_screen
