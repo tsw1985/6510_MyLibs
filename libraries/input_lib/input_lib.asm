@@ -18,8 +18,19 @@ input_keyboard:
     /* print init cursor in selected position */
     jsr print_cursor
 
+    /* reset screem str  Fill spaces */ 
+    jsr reset_screen_str
+
+    /* Init read keys loop */
+    jsr read_key
+
+    pull_regs_from_stack()
+rts
+
 read_key:
 
+    push_regs_to_stack()
+    init_reading:
     /* 
        scan all keyboard matrix to get the
        pressed keys and save them in the table
@@ -65,11 +76,18 @@ read_key:
        again */
     jsr clear_key_pressed_table 
 
+    /* Check if bit ENTER is enabled to exit */
+    lda KEY_FLAGS
+    and #%00000010
+    bne finish_reading_keys
+
     /* reset the flags to next iteration */
     jsr reset_key_flags         
+    jmp init_reading                    // read keyboard again
+    finish_reading_keys:
+    pull_regs_from_stack()
+rts
 
-
-jmp read_key                    // read keyboard again
 
 
 print_debug_params:
@@ -108,9 +126,9 @@ execute_actions_key:
     push_regs_to_stack()
 
     /* ENTER KEY is pressed */
-    lda KEY_FLAGS
+    /*lda KEY_FLAGS
     and #%00000010
-    bne exit_input
+    bne exit_input*/
     
     /* MOVE CURSOR TO LEFT */
     lda KEY_FLAGS
@@ -130,9 +148,10 @@ execute_actions_key:
     /* if is not set any action, exit of function */
     jmp exit_actions
 
-    exit_input:
-        pull_regs_from_stack()
-        jmp fin_keyboard_demo
+    //exit_input:
+        //pull_regs_from_stack()
+        //rts
+        //jmp fin_keyboard_demo
     
     cursor_to_left:
         /* Check limit to left. INPUT_CURSOR_COL 
@@ -279,7 +298,7 @@ detect_specials_keys_and_set_actions_flags:
         jmp exit_set_flags
         
         check_if_is_enter_key:
-        ldx #8 // KEY ENTER
+        ldx #8                   // KEY ENTER
         lda PRESSED_KEY_TABLE,x
         beq exit_set_flags
         lda KEY_FLAGS
@@ -839,5 +858,19 @@ clean_str_screen:
 
 pull_regs_from_stack()
 rts
+
+reset_screen_str:
+    push_regs_to_stack()
+
+    lda #96 // empty space
+    ldx #0
+    continue_reset_screen:
+        sta KEYS_TO_SCREEN_STR,x
+        inx
+        cpx #80
+        bne continue_reset_screen
+
+    pull_regs_from_stack()
+    rts
 
 }

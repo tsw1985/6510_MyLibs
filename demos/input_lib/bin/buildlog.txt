@@ -1,6 +1,6 @@
 Output dir: /home/lenovo1/DEVELOPER/C64/code/mylibs/demos/input_lib/bin
 parsing
-Got 18 errors and 0 warnings while executing:
+Got 16 errors and 0 warnings while executing:
   (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/input_lib/input_lib.asm 5:5) Error: Unknown symbol 'SCREEN_INPUT_ROW_POS'
   (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/input_lib/input_lib.asm 6:5) Error: Unknown symbol 'INPUT_CURSOR_ROW'
   (/home/lenovo1/DEVELOPER/C64/code/mylibs/demos/input_lib/input_lib.asm 7:5) Error: Unknown symbol 'INPUT_CURSOR_ROW_CLS'
