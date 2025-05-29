@@ -21,6 +21,8 @@ input_keyboard:
     /* reset screem str  Fill spaces */ 
     jsr reset_screen_str
 
+    jsr reset_key_flags
+
     /* Init read keys loop */
     jsr read_key
 
