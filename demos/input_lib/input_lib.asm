@@ -30,8 +30,6 @@ sta INPUT_INDEX_COUNTER
 
 jsr INPUT_LIB.input_keyboard
 
-.break
-
 //-----------
 
 lda #0

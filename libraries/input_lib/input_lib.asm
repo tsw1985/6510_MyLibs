@@ -240,14 +240,14 @@ scan_all_keys:
             lda KEY_PRESSED        //load current key pressed ( bits with 1)
             and TABLE_KEY_BOARD_COL,y  // match some bit with some col row?
             beq no_key_detected     // if does not match, continue with next
-                                    // column 
+                                 // column 
 
             // if some bit match, we calculate his offter and we save it in
             // the table : "current keys pressed"
             jsr sleep_key             // sleep half second between keys presses
 
             // calculation of offset
-            jsr calculate_offset_for_ascii_table 
+            jsr calculate_offset_for_ascii_table
 
             /* Normal approach */
             // save the offset result in the table
@@ -433,6 +433,7 @@ calculate_offset_for_ascii_table:
     clc
     adc temp_offset // add y, where is the col value
     sta TABLE_KEY_ASCII_X_OFFSET  //save it here
+    .break
     pull_regs_from_stack()
     rts
 
@@ -668,7 +669,7 @@ add_scanend_keys_to_screen_str:
 
         not_add_key_to_screen_str:
         iny
-        cpy #60
+        cpy #61
         bne continue_check_pressed_table
     
     pull_regs_from_stack()
