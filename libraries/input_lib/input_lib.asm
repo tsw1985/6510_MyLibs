@@ -21,7 +21,11 @@ input_keyboard:
     /* reset screem str  Fill spaces */ 
     jsr reset_screen_str
 
+    /* reset key flags */
     jsr reset_key_flags
+
+    /* reset table key pressed */
+    jsr clear_key_pressed_table         
 
     /* Init read keys loop */
     jsr read_key
@@ -51,6 +55,9 @@ read_key:
     */
     jsr detect_specials_keys_and_set_actions_flags
     
+    
+
+
     /* execute key actions (left, right,del ...) */
     jsr execute_actions_key
 
@@ -65,6 +72,11 @@ read_key:
     and #%00100000
     beq skip_print_string_and_cursor
 
+    /* Check if bit ENTER is enabled to exit */
+    lda KEY_FLAGS
+    and #%00000010
+    bne finish_reading_keys
+
     /* print main string on screen */
     jsr print_keys_pressed
     /* print cursor */
@@ -78,15 +90,16 @@ read_key:
        again */
     jsr clear_key_pressed_table 
 
-    /* Check if bit ENTER is enabled to exit */
-    lda KEY_FLAGS
-    and #%00000010
-    bne finish_reading_keys
 
     /* reset the flags to next iteration */
     jsr reset_key_flags         
     jmp init_reading                    // read keyboard again
     finish_reading_keys:
+
+    /* when the enter key is pressed, we finish the execution, so we need
+    reset the KEY_FLAGS and reset the pressed key table */
+    jsr clear_key_pressed_table         
+    jsr reset_key_flags                 
     pull_regs_from_stack()
 rts
 
@@ -622,8 +635,8 @@ add_scanend_keys_to_screen_str:
         cmp INPUT_INDEX_COUNTER  // Compare current cursor index
         beq not_add_key_to_screen_str  // if equal to limit , ignore
 
-        lda PRESSED_KEY_TABLE,y   
-        bne process_key 
+        lda PRESSED_KEY_TABLE,y   // start processing
+        bne process_key           // if is 1 , process
         jmp not_add_key_to_screen_str // if is 0 , skip
 
         /* if is 1 ... */
