@@ -27,8 +27,13 @@ input_keyboard:
     /* reset table key pressed */
     jsr clear_key_pressed_table         
 
+    jsr init_irq_timer
+
+
     /* Init read keys loop */
     jsr read_key
+
+
 
     pull_regs_from_stack()
 rts
@@ -56,8 +61,6 @@ read_key:
     jsr detect_specials_keys_and_set_actions_flags
     
     
-
-
     /* execute key actions (left, right,del ...) */
     jsr execute_actions_key
 
@@ -884,6 +887,119 @@ reset_screen_str:
         inx
         cpx #80
         bne continue_reset_screen
+
+    pull_regs_from_stack()
+    rts
+
+init_irq_timer:
+
+    push_regs_to_stack()
+    sei  // stop interruptions
+
+    // Configurar vector de IRQ
+    lda #<blink_cursor       // Byte bajo de mi función
+    sta $0314                       // Vector IRQ bajo
+    lda #>blink_cursor       // Byte alto de mi función
+    sta $0315                       // Vector IRQ alto
+
+    // Vamos con ~0.5 segundos y contamos 4 veces
+    lda #<12500             // Valor bajo (~0.5 seg)
+    sta $DC04               // Timer A Low
+    lda #>12500             // Valor alto  
+    sta $DC05               // Timer A High
+    
+    // Habilitar IRQ del Timer A
+    lda #%10000001          // Bit 7=1 (set), Bit 0=1 (Timer A)
+    sta $DC0D               // CIA1 Interrupt Control
+    
+    // Iniciar timer (continuo)
+    lda #%00000001          // Start Timer A, continuous
+    sta $DC0E               // CIA1 Control Register A
+
+
+    cli  // restore interruptions
+
+    pull_regs_from_stack()
+    rts
+
+
+blink_cursor:
+    push_regs_to_stack()
+    
+    //; Leer CIA1 ICR para limpiar flag
+    lda $DC0D
+    
+    //; Incrementar contador
+    inc IRQ_COUNTER
+    lda IRQ_COUNTER
+    cmp #60                  //; 4 * 0.5 = 2 segundos
+    bne irq_exit
+    
+    //; Reset contador
+    lda #0
+    sta IRQ_COUNTER
+    
+    //; Toggle cursor state
+    lda CURSOR_STATE        //; Variable nueva que necesitas
+    eor #1                  //; Invierte bit 0
+    sta CURSOR_STATE
+    beq cursor_off
+    
+cursor_on:
+    jsr enable_current_cursor
+    jmp irq_exit
+    
+cursor_off:
+    jsr disable_current_cursor
+    
+irq_exit:
+    pull_regs_from_stack()
+    jmp $EA31
+
+disable_current_cursor:
+    push_regs_to_stack()
+
+    lda INPUT_CURSOR_ROW
+    sta SCREEN_ROW_POS
+
+    lda INPUT_CURSOR_COL
+    sta SCREEN_COL_POS
+
+    // set coords on Screen
+    ldx SCREEN_ROW_POS       // Row 22
+    lda Row_LO,x
+    sta ZERO_PAGE_ROW_LOW_BYTE
+    lda Row_HI,x
+    sta ZERO_PAGE_ROW_HIGHT_BYTE
+
+    ldy SCREEN_COL_POS             // col 15
+    lda (ZERO_PAGE_ROW_LOW_BYTE),y
+    and #%01111111
+    sta (ZERO_PAGE_ROW_LOW_BYTE),y
+
+    pull_regs_from_stack()
+    rts
+
+enable_current_cursor:
+    push_regs_to_stack()
+
+    lda INPUT_CURSOR_ROW
+    sta SCREEN_ROW_POS
+
+    lda INPUT_CURSOR_COL
+    sta SCREEN_COL_POS
+
+    // set coords on Screen
+    ldx SCREEN_ROW_POS       // Row 22
+    lda Row_LO,x
+    sta ZERO_PAGE_ROW_LOW_BYTE
+    lda Row_HI,x
+    sta ZERO_PAGE_ROW_HIGHT_BYTE
+
+    ldy SCREEN_COL_POS             // col 15
+    lda (ZERO_PAGE_ROW_LOW_BYTE),y
+    ora #%10000000
+    sta (ZERO_PAGE_ROW_LOW_BYTE),y
 
     pull_regs_from_stack()
     rts

@@ -11,7 +11,7 @@ CHAR_KEY_PRESSED:    .byte 0
     3 = C= + CURSOR ( move cursor to left )
     4 = DELETE KEY
     5 = Screen String UPDATED ( to avoid screen flikering . Print in loop)
-    6 =
+    6 = Cursor enabled
     7 = Show cursor on screen
 */
 KEY_FLAGS:           .byte 0
@@ -86,3 +86,6 @@ TEMP_Y_REG:             .byte 0
 KEYS_TO_SCREEN_STR:     .fill 80,96 // save 80 bytes with 0
 CHAR_INDEX_1:           .byte 0
 CHAR_INDEX_2:           .byte 0
+
+IRQ_COUNTER: .byte 0
+CURSOR_STATE: .byte 0
