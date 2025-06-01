@@ -433,7 +433,6 @@ calculate_offset_for_ascii_table:
     clc
     adc temp_offset // add y, where is the col value
     sta TABLE_KEY_ASCII_X_OFFSET  //save it here
-    .break
     pull_regs_from_stack()
     rts
 

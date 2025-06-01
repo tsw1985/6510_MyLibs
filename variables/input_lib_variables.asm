@@ -56,8 +56,9 @@ TABLE_KEY_ASCII:
     .byte $00,$00,$18,$16,$0E,$2C,$00,$00
 
 //for input control
-INPUT_STR_LIMIT:     .byte 0
-INPUT_STR_LIMIT_CLS:     .byte 0
+INPUT_CURSOR:        .byte 0  // This is to check the limit
+INPUT_STR_LIMIT:     .byte 0  // Lenght of str
+INPUT_STR_LIMIT_CLS: .byte 0
 
 
 INPUT_INDEX_COUNTER: .byte 0 // control string index
@@ -78,7 +79,6 @@ INPUT_CURSOR_COL_CLS:       .byte 0
 
 
 SCREEN_CHAR_COLOR_OLD:  .byte 0
-INPUT_CURSOR:           .byte 0
 temp_offset:            .byte 0
 TEMP_X_REG:             .byte 0
 TEMP_Y_REG:             .byte 0

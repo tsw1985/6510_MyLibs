@@ -4,7 +4,7 @@
 .label TABLE_KEY_BOARD_ROW=$2729
 .label sub_num1_0=$270f
 .label TEMP_Y_REG=$27ca
-.label INPUT_STR_LIMIT=$277a
+.label INPUT_STR_LIMIT=$277b
 .label MATH_LIB=$5b47 {
   .label sum_32=$5c20
   .label sub_32=$5c46
@@ -17,7 +17,7 @@
 }
 .label SCREEN_COL_COLOR_POS=$26e1
 .label mult_times_str=$262d
-.label INPUT_CURSOR_COL=$27c3
+.label INPUT_CURSOR_COL=$27c4
 .label SCREEN_HEIGHT=$19
 .label buffer_str=$26a9
 .label counter_table=$26e7
@@ -57,10 +57,10 @@
 .label SCREEN_WIDTH=$28
 .label SCREEN_COL_POS=$26e3
 .label ORANGE=$8
-.label SCREEN_INPUT_COLOR=$2781
+.label SCREEN_INPUT_COLOR=$2782
 .label TABLE_KEY_BOARD_COL=$2731
 .label mul_num1_0=$26f7
-.label SCREEN_INPUT_COL_POS_CLS=$2780
+.label SCREEN_INPUT_COL_POS_CLS=$2781
 .label mul_num1_3=$26fa
 .label VARIABLES_ADDRESS=$2500
 .label Row_LO=$4000
@@ -68,13 +68,13 @@
 .label CHAR_INDEX_1=$281b
 .label ZERO_PAGE_PRINT_TEXT_LO=$22
 .label mul_num1_2=$26f9
-.label PRESSED_KEY_TABLE=$2782
+.label PRESSED_KEY_TABLE=$2783
 .label TABLE_KEY_ROW_INDEX=$271c
 .label CHAR_INDEX_2=$281c
 .label SCREEN_ROW_COLOR_POS=$26e0
 .label SCREEN_SIZE=$3e8
 .label RED=$2
-.label INPUT_CURSOR_COL_CLS=$27c5
+.label INPUT_CURSOR_COL_CLS=$27c6
 .label sum_result_str=$25c2
 .label sum_num2_3=$270a
 .label division_n1_str=$2600
@@ -83,7 +83,7 @@
 .label sum_num2_0=$2707
 .label sum_num2_1=$2708
 .label KEYS_BUFFER_COUNTER=$2728
-.label SCREEN_INPUT_COL_POS=$277e
+.label SCREEN_INPUT_COL_POS=$277f
 .label sum_num2_2=$2709
 .label SYSTEM=$5000 {
   .label restore_system=$500c
@@ -108,7 +108,7 @@
 .label div_num1_0=$26eb
 .label ZERO_PAGE_ROW_COLOR_HIGHT_BYTE=$25
 .label div_num1_1=$26ec
-.label INPUT_INDEX_COUNTER=$277c
+.label INPUT_INDEX_COUNTER=$277d
 .label end_div_32_str=$257f
 .label PRINT_LIB=$5014 {
   .label continue_writing=$5035
@@ -131,15 +131,15 @@
   .label clean_screen=$5014
 }
 .label current_char_str=$26c5
-.label INPUT_STR_LIMIT_CLS=$277b
-.label SCREEN_INPUT_ROW_POS_CLS=$277f
-.label INPUT_CURSOR_ROW=$27c2
+.label INPUT_STR_LIMIT_CLS=$277c
+.label SCREEN_INPUT_ROW_POS_CLS=$2780
+.label INPUT_CURSOR_ROW=$27c3
 .label NUMBER_TO_PRINT_TABLE=$26d6
 .label total_digits=$26e9
 .label mul_num2_2=$26fd
 .label mul_num2_3=$26fe
 .label mul_num2_0=$26fb
-.label SCREEN_CHAR_COLOR_OLD=$27c6
+.label SCREEN_CHAR_COLOR_OLD=$27c7
 .label mul_num2_1=$26fc
 .label move_left_str=$2689
 .label keys_buffer=$250a
@@ -249,7 +249,7 @@
 .label sub_num2_1=$2714
 .label sub_num2_0=$2713
 .label sub_res_2=$2719
-.label INPUT_CURSOR_ROW_CLS=$27c4
+.label INPUT_CURSOR_ROW_CLS=$27c5
 .label cursor_index_str=$2695
 .label sub_res_3=$271a
 .label TABLE_KEY_COL_INDEX=$271b
@@ -276,7 +276,7 @@
 .label ZERO_PAGE_PRINT_TEXT_HI=$23
 .label PURPLE=$4
 .label div_res_0=$26f3
-.label SCREEN_INPUT_ROW_POS=$277d
+.label SCREEN_INPUT_ROW_POS=$277e
 .label message=$2538
 .label div_res_1=$26f4
 .label GREEN=$5
@@ -285,7 +285,7 @@
 .label div_res_3=$26f6
 .label bye=$254a
 .label end_mul_32_str=$25a7
-.label INPUT_CURSOR=$27c7
+.label INPUT_CURSOR=$277a
 .label system_status=$810
 .label space_4_str=$267e
 .label cursor_col_str=$26a0

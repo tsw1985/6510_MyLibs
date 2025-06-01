@@ -16,9 +16,7 @@ sta INPUT_CURSOR_COL
 sta INPUT_CURSOR_COL_CLS
 
 // set limit . STR_LIMIT = COL + STR_LEN
-lda #13
-clc
-adc INPUT_CURSOR_COL
+lda #5
 sta INPUT_STR_LIMIT
 sta INPUT_STR_LIMIT_CLS
 
@@ -31,6 +29,7 @@ sta INPUT_INDEX_COUNTER
 jsr INPUT_LIB.input_keyboard
 
 //-----------
+
 
 lda #0
 sta INPUT_STR_LIMIT_CLS
@@ -48,8 +47,6 @@ sta INPUT_CURSOR_COL_CLS
 
 // set limit . STR_LIMIT = COL + STR_LEN
 lda #13
-clc
-adc INPUT_CURSOR_COL
 sta INPUT_STR_LIMIT
 sta INPUT_STR_LIMIT_CLS
 
@@ -58,10 +55,7 @@ sta SCREEN_INPUT_COLOR
 
 lda #0
 sta INPUT_INDEX_COUNTER
-
 jsr INPUT_LIB.input_keyboard
-
-
 
 
 jsr PRINT_LIB.clean_location_screen
