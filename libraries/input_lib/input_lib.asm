@@ -15,6 +15,9 @@ input_keyboard:
     lda #$ff
     sta $DC03 //; ---> $DC01
 
+    /* init timer for cursor blinking */
+    jsr init_irq_timer
+
     /* print init cursor in selected position */
     jsr print_cursor
 
@@ -27,13 +30,8 @@ input_keyboard:
     /* reset table key pressed */
     jsr clear_key_pressed_table         
 
-    jsr init_irq_timer
-
-
     /* Init read keys loop */
     jsr read_key
-
-
 
     pull_regs_from_stack()
 rts
@@ -896,26 +894,25 @@ init_irq_timer:
     push_regs_to_stack()
     sei  // stop interruptions
 
-    // Configurar vector de IRQ
-    lda #<blink_cursor       // Byte bajo de mi función
-    sta $0314                       // Vector IRQ bajo
-    lda #>blink_cursor       // Byte alto de mi función
-    sta $0315                       // Vector IRQ alto
+    // Set up address of our code to execute
+    lda #<blink_cursor       // LOW byte function
+    sta $0314                // Set where is the low byte
+    lda #>blink_cursor       // HI Byte function
+    sta $0315                // Set where is the hight byte
 
-    // Vamos con ~0.5 segundos y contamos 4 veces
-    lda #<12500             // Valor bajo (~0.5 seg)
+    // Count from 12500 to 0 +z0.5 sec
+    lda #<12500             // Low byte value
     sta $DC04               // Timer A Low
-    lda #>12500             // Valor alto  
+    lda #>12500             // Hight byte value
     sta $DC05               // Timer A High
     
-    // Habilitar IRQ del Timer A
+    // Enable IRQ Timer
     lda #%10000001          // Bit 7=1 (set), Bit 0=1 (Timer A)
     sta $DC0D               // CIA1 Interrupt Control
     
-    // Iniciar timer (continuo)
+    // Star IRQ Timer loop mode . When is 0 , it start again
     lda #%00000001          // Start Timer A, continuous
     sta $DC0E               // CIA1 Control Register A
-
 
     cli  // restore interruptions
 
@@ -926,35 +923,41 @@ init_irq_timer:
 blink_cursor:
     push_regs_to_stack()
     
-    //; Leer CIA1 ICR para limpiar flag
-    lda $DC0D
+    /* We need read the CIA1 ICR to clean the flags . Also we can ask wich INT
+    was launched */
+    lda $DC0D 
     
-    //; Incrementar contador
+    /* Each 0,5 second this code is executed , so , in each iteration , we 
+    increment the IRQ COUNTER , if it is not 60 , we execute the code*/
     inc IRQ_COUNTER
     lda IRQ_COUNTER
-    cmp #60                  //; 4 * 0.5 = 2 segundos
-    bne irq_exit
+    cmp #60              // +- 2 seconds   
+    bne irq_timer_exit
     
-    //; Reset contador
+    /* If we execute the code, first step is reset the counter */
     lda #0
     sta IRQ_COUNTER
     
-    //; Toggle cursor state
-    lda CURSOR_STATE        //; Variable nueva que necesitas
-    eor #1                  //; Invierte bit 0
-    sta CURSOR_STATE
-    beq cursor_off
+    /* Toggle cursor state */
+    lda CURSOR_STATE        // Toggle the bit . 1 to 0 , 0 to 1 ....
+    eor #1                  // toggle the bit
+    sta CURSOR_STATE        // Save the new toggle state
+    beq cursor_off          // if Z flag is 0,turn off the cursor,if not,turn on
     
 cursor_on:
     jsr enable_current_cursor
-    jmp irq_exit
+    jmp irq_timer_exit
     
 cursor_off:
     jsr disable_current_cursor
     
-irq_exit:
+irq_timer_exit:
     pull_regs_from_stack()
-    jmp $EA31
+    jmp $EA31 // finish IRQ function. 
+    /* do not use RTI . The JMP $EA31 is the best approach to return from a 
+    interrupt function . With RTI the system CRASH if we want return to basic */
+    //rti
+
 
 disable_current_cursor:
     push_regs_to_stack()

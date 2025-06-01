@@ -161,8 +161,6 @@
   }
   .label print_cursor_col_pos=$586f {
   }
-  .label irq_exit=$5b9f {
-  }
   .label clear_pressed=$53ea
   .label print_cursor=$5414 {
   }
@@ -175,6 +173,8 @@
   .label reset_screen_str=$5b33 {
   }
   .label init_irq_timer=$5b4a {
+  }
+  .label irq_timer_exit=$5b9f {
   }
   .label calculate_offset_for_ascii_table=$53fa {
   }
