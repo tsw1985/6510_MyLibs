@@ -3,6 +3,7 @@ SYSTEM:
 	setup:
     
 		//kernel_status
+		push_regs_to_stack()
 		
 		sei // Disable system interrupts
 		lda $0001
@@ -12,17 +13,19 @@ SYSTEM:
 		lda #%00110110 // Disable BASIC
 		sta $0001 // Processor port
         cli // Enable system interrupts
+		pull_regs_from_stack()
 		rts
 
 	//go back to the status before change
 	//the address 0001 . Without this, when
 	//the program finish, the C64 is died
 	restore_system:
-
+		push_regs_to_stack()
 		sei
 		lda system_status
     	sta $0001		
 		cli
+		pull_regs_from_stack()
 		rts
 		
 		/*sei // Disable system interrupts

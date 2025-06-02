@@ -4,7 +4,9 @@ PRINT_LIB:
 {
 
     clean_screen:
+        push_regs_to_stack()
         jsr $e544 //clear screen
+        pull_regs_from_stack()
         rts
 
 

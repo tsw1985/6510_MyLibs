@@ -7,6 +7,13 @@ input_keyboard:
 
     push_regs_to_stack()
 
+    // GUARDAR configuración original
+    lda $DC02
+    sta ORIGINAL_DC_02
+    
+    lda $DC03  
+    sta ORIGINAL_DC_03
+
     // Port A = enter
     lda #$00
     sta $DC02 //; ---> $DC00
@@ -105,6 +112,13 @@ read_key:
     jsr clear_key_pressed_table         
     jsr reset_key_flags
     jsr destroy_irq_timer
+
+
+    // RESTAURAR al final
+    lda ORIGINAL_DC_02
+    sta $DC02
+    lda ORIGINAL_DC_03
+    sta $DC03
 
     pull_regs_from_stack()
 rts

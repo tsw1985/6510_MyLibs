@@ -92,3 +92,6 @@ CURSOR_STATE: .byte 0
 
 OLD_IRQ_LOW:  .byte 0
 OLD_IRQ_HIGH: .byte 0
+
+ORIGINAL_DC_02: .byte 0
+ORIGINAL_DC_03: .byte 0
