@@ -850,45 +850,6 @@ remove_char_screen_str_by_key:
     pull_regs_from_stack()
 rts
 
-clean_str_screen:
-
-    push_regs_to_stack()
-
-    //set coords on Screen
-    lda INPUT_CURSOR_ROW_CLS
-    sta SCREEN_ROW_POS // <--- param X
-
-    lda INPUT_CURSOR_COL_CLS
-    sta SCREEN_COL_POS // <--- param Y
-    pha // save original INPUT_CURSOR_COL_CLS to get again the original val
-
-    ldx SCREEN_ROW_POS // Row 22
-    lda Row_LO,x
-    sta ZERO_PAGE_ROW_LOW_BYTE
-    lda Row_HI,x
-    sta ZERO_PAGE_ROW_HIGHT_BYTE
-
-    continue_reset:
-        
-        ldy INPUT_CURSOR_COL_CLS             // col 15
-        //lda (ZERO_PAGE_ROW_LOW_BYTE),y
-        //and #%01111111
-        
-        lda #96 // @ for testing
-
-        sta (ZERO_PAGE_ROW_LOW_BYTE),y
-        inc INPUT_CURSOR_COL_CLS
-        lda INPUT_CURSOR_COL_CLS
-        cmp INPUT_STR_LIMIT_CLS
-
-    bne continue_reset
-
-    pla // get INPUT_CURSOR_COL_CLS original value from stack
-    sta INPUT_CURSOR_COL_CLS
-
-pull_regs_from_stack()
-rts
-
 reset_screen_str:
     push_regs_to_stack()
 
