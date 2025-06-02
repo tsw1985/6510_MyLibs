@@ -626,12 +626,13 @@ add_scanned_keys_to_screen_str:
     /* if enter was pressed, then set action ENTER to finish the rutine */
     ldx #8
     lda PRESSED_KEY_TABLE,x      // start processing
+    /* if enter ( #8 offset ) is 1 , this means ENTER KEY WAS PRESSED , then
+    we must set the flag and exit */
     beq init_scan_keys           // if is 1 , process
-    lda KEY_FLAGS
-    ora #%00000010
+    lda KEY_FLAGS   
+    ora #%00000010  // set the flag
     sta KEY_FLAGS
-    .break
-    jmp finish_scan
+    jmp finish_scan // exit function
 
     init_scan_keys:
 
