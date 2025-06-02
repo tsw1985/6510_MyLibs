@@ -100,7 +100,9 @@ read_key:
     /* when the enter key is pressed, we finish the execution, so we need
     reset the KEY_FLAGS and reset the pressed key table */
     jsr clear_key_pressed_table         
-    jsr reset_key_flags                 
+    jsr reset_key_flags
+    jsr destroy_irq_timer
+
     pull_regs_from_stack()
 rts
 
@@ -894,6 +896,15 @@ init_irq_timer:
     push_regs_to_stack()
     sei  // stop interruptions
 
+    /* SAVE ORIGINAL VECTOR. 
+    When the rutine is finished , we must kill the timer and restore the old
+    vector address
+    */
+    lda $0314
+    sta OLD_IRQ_LOW
+    lda $0315  
+    sta OLD_IRQ_HIGH
+
     // Set up address of our code to execute
     lda #<blink_cursor       // LOW byte function
     sta $0314                // Set where is the low byte
@@ -957,6 +968,29 @@ irq_timer_exit:
     /* do not use RTI . The JMP $EA31 is the best approach to return from a 
     interrupt function . With RTI the system CRASH if we want return to basic */
     //rti
+
+
+destroy_irq_timer:
+    push_regs_to_stack()
+    sei                     // Disable interruptions
+    
+    // Stop timer
+    lda #%00000000          // Stop Timer A
+    sta $DC0E               // CIA1 Control Register A
+    
+    // Disable IRQ Timer A
+    lda #%01111111          // Bit 7=0 (clear), rest to 1 
+    sta $DC0D               // Disable the IRQ on CIA1
+    
+    // Restore IRQ OLD Address vector
+    lda OLD_IRQ_LOW         // Low address
+    sta $0314
+    lda OLD_IRQ_HIGH        // High address vector
+    sta $0315
+    
+    cli                     // Restore interruptions
+    pull_regs_from_stack()
+rts    
 
 
 disable_current_cursor:

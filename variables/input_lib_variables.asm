@@ -90,5 +90,5 @@ CHAR_INDEX_2:           .byte 0
 IRQ_COUNTER: .byte 0
 CURSOR_STATE: .byte 0
 
-old_irq_low:  .byte 0
-old_irq_high: .byte 0
+OLD_IRQ_LOW:  .byte 0
+OLD_IRQ_HIGH: .byte 0
