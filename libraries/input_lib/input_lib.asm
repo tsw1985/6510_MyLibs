@@ -44,10 +44,18 @@ read_key:
        scan all keyboard matrix to get the
        pressed keys and save them in the table
     */
-    jsr scan_all_keys           
+    jsr scan_all_keys
     
     /* add key pressed to screen string */
-    jsr add_scanend_keys_to_screen_str
+    jsr add_scanned_keys_to_screen_str
+
+    /* Check if bit ENTER is enabled to exit.
+       Do NOT MOVE this code. Must be here because the last function set the
+       KEY_FLAGS if the enter key was pressed.
+     */
+    lda KEY_FLAGS
+    and #%00000010
+    bne finish_reading_keys
 
     /* 
        When the table of all keys pressed is filled , we read each position. If
@@ -57,7 +65,6 @@ read_key:
        Here is set the bits of KEY_FLAGS for the execute the target actions
     */
     jsr detect_specials_keys_and_set_actions_flags
-    
     
     /* execute key actions (left, right,del ...) */
     jsr execute_actions_key
@@ -72,11 +79,6 @@ read_key:
     lda KEY_FLAGS
     and #%00100000
     beq skip_print_string_and_cursor
-
-    /* Check if bit ENTER is enabled to exit */
-    lda KEY_FLAGS
-    and #%00000010
-    bne finish_reading_keys
 
     /* print main string on screen */
     jsr print_keys_pressed
@@ -95,8 +97,9 @@ read_key:
     /* reset the flags to next iteration */
     jsr reset_key_flags         
     jmp init_reading                    // read keyboard again
-    finish_reading_keys:
 
+    finish_reading_keys:
+    .break
     /* when the enter key is pressed, we finish the execution, so we need
     reset the KEY_FLAGS and reset the pressed key table */
     jsr clear_key_pressed_table         
@@ -143,11 +146,6 @@ execute_actions_key:
 
     push_regs_to_stack()
 
-    /* ENTER KEY is pressed */
-    /*lda KEY_FLAGS
-    and #%00000010
-    bne exit_input*/
-    
     /* MOVE CURSOR TO LEFT */
     lda KEY_FLAGS
     and #%00001000
@@ -621,31 +619,42 @@ rts
         that will appear on the screen.
 
 */
-add_scanend_keys_to_screen_str:
+add_scanned_keys_to_screen_str:
 
     push_regs_to_stack()
-    ldy #0
 
+    /* if enter was pressed, then set action ENTER to finish the rutine */
+    ldx #8
+    lda PRESSED_KEY_TABLE,x      // start processing
+    beq init_scan_keys           // if is 1 , process
+    lda KEY_FLAGS
+    ora #%00000010
+    sta KEY_FLAGS
+    .break
+    jmp finish_scan
+
+    init_scan_keys:
+
+    ldy #0
     /* retrieve the PRESSED_KEY_TABLE searching the values with 1 . Y will
     contains the offset number, this will be the char to search it in the
     table TABLE_KEY_ASCII */
-
     continue_check_pressed_table:
 
         /* We need to check if the str is not on length limit */
         /* check if string is <= str_length */
-        lda INPUT_STR_LIMIT      // LOAD LIMIT TO RIGHT
-        cmp INPUT_INDEX_COUNTER  // Compare current cursor index
+        lda INPUT_STR_LIMIT            // LOAD LIMIT TO RIGHT
+        cmp INPUT_INDEX_COUNTER        // Compare current cursor index
         beq not_add_key_to_screen_str  // if equal to limit , ignore
 
-        lda PRESSED_KEY_TABLE,y   // start processing
-        bne process_key           // if is 1 , process
-        jmp not_add_key_to_screen_str // if is 0 , skip
+        lda PRESSED_KEY_TABLE,y          // start processing
+        bne process_key                  // if is 1 , process
+        jmp not_add_key_to_screen_str    // if is 0 , skip
 
         /* if is 1 ... */
         process_key:
 
-            /* Ignore special keys. We want not print them*/
+            /* Ignore special keys. We want do not print them*/
             cpy #0
             beq not_add_key_to_screen_str
 
@@ -654,6 +663,7 @@ add_scanend_keys_to_screen_str:
 
             cpy #16
             beq not_add_key_to_screen_str
+
 
             /* Enable bit 5 = SCREEN_STR Updated */
             lda KEY_FLAGS
@@ -673,7 +683,8 @@ add_scanend_keys_to_screen_str:
         iny
         cpy #61
         bne continue_check_pressed_table
-    
+
+    finish_scan:
     pull_regs_from_stack()
 rts
 
