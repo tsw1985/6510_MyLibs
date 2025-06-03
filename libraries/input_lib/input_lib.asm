@@ -885,36 +885,40 @@ rotate_right_str_string:
 
     push_regs_to_stack()
 
-    // Empezar desde el final del string
+    // Load Y with string LENGTH
     ldy INPUT_STR_LIMIT      
-    
+
     lda INPUT_STR_LIMIT
     sec
-    sbc #1 // substract -1 to lenght
-    sta ROTATE_INDEX
+    sbc #1               // substract -1 to lenght
+    sta ROTATE_INDEX     // and add this value to ROTATE_INDEX ( last char )
 
-    dey                      // Y = último índice válido
+    dey                  // Y = decrement Y ( last valid index ) remember the
+                         // system start from 0 ...
     
 continue_rotation:
 
-        cpy INPUT_INDEX_COUNTER // ¿Hemos llegado al cursor?
-        beq end_rotate         // Si Y == cursor, crear espacio y parar
-        bcc end_rotate         // Si Y < cursor, crear espacio y parar
-        
-        // Calcular índice anterior manualmente
-        dec ROTATE_INDEX
-        ldx ROTATE_INDEX
-        
-        // Mover carácter una posición a la derecha
-        lda KEYS_TO_SCREEN_STR,x // Cargar carácter de posición anterior
-        sta KEYS_TO_SCREEN_STR,y // Guardarlo en posición actual
-        
-        dey                      // Ir a la siguiente posición
-        jmp continue_rotation
+    cpy INPUT_INDEX_COUNTER // check if Y is in cursor
+    beq end_rotate          //  Y == It is Y in cursor position ?
+    bcc end_rotate          // it is Y < cursor ?
+    
+    /* Decrement ROTATE_INDEX */
+    dec ROTATE_INDEX
+    ldx ROTATE_INDEX
+    
+    /* Rotate chars 1 position to right */
+    lda KEYS_TO_SCREEN_STR,x   // Load backward char
+    sta KEYS_TO_SCREEN_STR,y   // And save it in current position of Y
+    
+    dey                        // Decrement Y to go to next position
+    jmp continue_rotation
 
 end_rotate:
     pull_regs_from_stack()
 rts
+
+
+
 
 reset_screen_str:
     push_regs_to_stack()
