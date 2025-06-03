@@ -5,19 +5,19 @@
 .label sub_num1_0=$270f
 .label TEMP_Y_REG=$27cc
 .label INPUT_STR_LIMIT=$277b
-.label MATH_LIB=$5c72 {
-  .label sum_32=$5d4b {
+.label MATH_LIB=$5c78 {
+  .label sum_32=$5d51 {
   }
-  .label sub_32=$5d7b {
+  .label sub_32=$5d81 {
   }
-  .label division_32=$5c72 {
+  .label division_32=$5c78 {
   }
-  .label loop=$5c77
-  .label do_subtract=$5c9d
-  .label end_loop=$5ce6 {
+  .label loop=$5c7d
+  .label do_subtract=$5ca3
+  .label end_loop=$5cec {
   }
-  .label continue_multiplication_32=$5cf1
-  .label multiplication_32=$5cec {
+  .label continue_multiplication_32=$5cf7
+  .label multiplication_32=$5cf2 {
   }
 }
 .label SCREEN_COL_COLOR_POS=$26e1
@@ -183,18 +183,18 @@
   }
   .label rotate_right_str_string=$5b46 {
   }
-  .label reset_screen_str=$5b75 {
+  .label reset_screen_str=$5b7b {
   }
-  .label init_irq_timer=$5b8c {
+  .label init_irq_timer=$5b92 {
   }
-  .label irq_timer_exit=$5bed {
+  .label irq_timer_exit=$5bf3 {
   }
   .label calculate_offset_for_ascii_table=$5433 {
   }
   .label process_key=$59cc
   .label outer_loop=$540d
-  .label cursor_on=$5be4
-  .label end_rotate=$5b6f {
+  .label cursor_on=$5bea
+  .label end_rotate=$5b75 {
   }
   .label allow_move_to_left=$5224
   .label decrement_current_cursor_of_screen=$5a3a {
@@ -220,10 +220,10 @@
   }
   .label print_offset_result=$5308 {
   }
-  .label cursor_off=$5bea
+  .label cursor_off=$5bf0
   .label print_cursor_index_pos=$57ad {
   }
-  .label blink_cursor=$5bc3 {
+  .label blink_cursor=$5bc9 {
   }
   .label continue_swap=$5b26
   .label finish_reading_keys=$51b5
@@ -236,14 +236,14 @@
   .label restore_char_with_current_cursor=$5ae8 {
   }
   .label allow_delete_to_left=$524e
-  .label continue_rotation=$5b58
-  .label disable_current_cursor=$5c18 {
+  .label continue_rotation=$5b5e
+  .label disable_current_cursor=$5c1e {
   }
   .label print_x_coord=$547d {
   }
   .label print_cursor_pos=$566f {
   }
-  .label continue_reset_screen=$5b7e
+  .label continue_reset_screen=$5b84
   .label init_reading=$5189
   .label not_add_key_to_screen_str=$59f5
   .label scan_rows_loop=$526d
@@ -252,12 +252,12 @@
   .label cursor_to_left=$521a
   .label print_y_coord=$5576 {
   }
-  .label enable_current_cursor=$5c45 {
+  .label enable_current_cursor=$5c4b {
   }
   .label check_if_is_delete_key=$52cb
   .label detect_specials_keys_and_set_actions_flags=$529e {
   }
-  .label destroy_irq_timer=$5bf5 {
+  .label destroy_irq_timer=$5bfb {
   }
   .label decrement_index_cursor_index=$5a64 {
   }

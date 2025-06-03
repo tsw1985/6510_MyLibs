@@ -853,13 +853,6 @@ restore_char_with_current_cursor:
 remove_char_screen_str_by_key:
     push_regs_to_stack()
 
-
-    //ldy INPUT_STR_LIMIT        // load limit in Y
-    //iny
-    //lda #96 // space
-    //sta KEYS_TO_SCREEN_STR,y
-
-
     lda INPUT_INDEX_COUNTER       // load current cursor position
     sta CHAR_INDEX_1              // set index1 with this value
     sta CHAR_INDEX_2              // set index2 with this value
@@ -885,16 +878,20 @@ rotate_right_str_string:
 
     push_regs_to_stack()
 
-    // Load Y with string LENGTH
+    /* Load Y with string LENGTH */
     ldy INPUT_STR_LIMIT      
 
+    /* load A with STR LIMIT */
     lda INPUT_STR_LIMIT
-    sec
-    sbc #1               // substract -1 to lenght
-    sta ROTATE_INDEX     // and add this value to ROTATE_INDEX ( last char )
+    sta ROTATE_INDEX  // save the LENGTH value in ROTATE_INDEX
+    dec ROTATE_INDEX  // substract -1 to lenght
+    lda ROTATE_INDEX  // load in A this new value
+    sta ROTATE_INDEX  // save this this new updated value to ROTATE_INDEX
+                      // ( last char )
 
-    dey                  // Y = decrement Y ( last valid index ) remember the
-                         // system start from 0 ...
+    dey               // Y = decrement Y ( last valid index ) remember the
+                      // system start from 0 ... So , if the LENGTH is 10 , we
+                      // must start by 9.
     
 continue_rotation:
 
@@ -904,11 +901,13 @@ continue_rotation:
     
     /* Decrement ROTATE_INDEX */
     dec ROTATE_INDEX
+
+    /* load X with this new value */
     ldx ROTATE_INDEX
     
     /* Rotate chars 1 position to right */
     lda KEYS_TO_SCREEN_STR,x   // Load backward char
-    sta KEYS_TO_SCREEN_STR,y   // And save it in current position of Y
+    sta KEYS_TO_SCREEN_STR,y   // and save it in current position of Y
     
     dey                        // Decrement Y to go to next position
     jmp continue_rotation
@@ -916,8 +915,6 @@ continue_rotation:
 end_rotate:
     pull_regs_from_stack()
 rts
-
-
 
 
 reset_screen_str:
