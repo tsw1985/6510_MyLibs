@@ -65,7 +65,13 @@ PRINT_LIB:
             lda (ZERO_PAGE_PRINT_TEXT_LO),y
             sta SCREEN_CHAR    //load char to show
             jsr print_char
-            inc SCREEN_COL_POS
+            /* increment SCREEN_COL_POS */
+            //inc SCREEN_COL_POS
+            lda SCREEN_COL_POS
+            clc
+            adc #1
+            sta SCREEN_COL_POS
+
             iny
             cpy INPUT_STR_LIMIT
         bne continue_input_writing

@@ -55,17 +55,6 @@ read_key:
     */
     jsr scan_all_keys
 
-    /* add key pressed to screen string */
-    jsr add_scanned_keys_to_screen_str
-
-    /* Check if bit ENTER is enabled to exit.
-       Do NOT MOVE this code. Must be here because the last function set the
-       KEY_FLAGS if the enter key was pressed.
-     */
-    lda KEY_FLAGS
-    and #%00000010
-    bne finish_reading_keys
-
     /* 
        When the table of all keys pressed is filled , we read each position. If
        a position match with a special offset, this means this can be a LEFT ,
@@ -78,6 +67,25 @@ read_key:
     /* execute key actions (left, right,del ...) */
     jsr execute_actions_key
 
+    /* detect if last position of SCREEN STRING if empty. If it is empty, we
+    allow scan and write keys */
+    ldy INPUT_STR_LIMIT
+    dey
+    lda KEYS_TO_SCREEN_STR,y
+    cmp #96
+    bne skip_print_string_and_cursor
+
+    /* add key pressed to screen string */
+    jsr add_scanned_keys_to_screen_str
+
+    /* Check if bit ENTER is enabled to exit.
+       Do NOT MOVE this code. Must be here because the last function set the
+       KEY_FLAGS if the enter key was pressed.
+     */
+    lda KEY_FLAGS
+    and #%00000010
+    bne finish_reading_keys
+
     /* 
         To avoid a screen flikering, we check if the bit 5 is enable . This bit
         is set to 1 if the user press a new normal key and the SCREEN_STR is
@@ -89,12 +97,14 @@ read_key:
     and #%00100000
     beq skip_print_string_and_cursor
 
+    sei
+        /* print cursor */
+        jsr print_cursor
 
-    /* print main string on screen */
-    jsr print_keys_pressed
+        /* print main string on screen */
+        jsr print_keys_pressed
 
-    /* print cursor */
-    jsr print_cursor
+    cli
 
     /***********************/
     /* Only for  debugging */
@@ -260,7 +270,7 @@ scan_all_keys:
 
             // if some bit match, we calculate his offter and we save it in
             // the table : "current keys pressed"
-            //jsr sleep_key             // sleep half second between keys presses
+            jsr sleep_key             // sleep half second between keys presses
 
             // calculation of offset
             jsr calculate_offset_for_ascii_table
@@ -269,7 +279,7 @@ scan_all_keys:
             // save the offset result in the table
             jsr save_key_pressed
 
-            jsr sleep_key
+            //jsr sleep_key
 
         no_key_detected:
 
@@ -394,9 +404,9 @@ print_offset_result:
 sleep_key:
 
     push_regs_to_stack()
-    ldx #120
+    ldx #130
     outer_loop:
-        ldy #120
+        ldy #130
     inner_loop:
         nop
         dey
@@ -684,8 +694,19 @@ add_scanned_keys_to_screen_str:
             cpy #16 /*cursor key */
             beq not_add_key_to_screen_str
 
-
             jsr rotate_right_str_string
+            /*tya
+            pha
+                ldy INPUT_STR_LIMIT
+                dey
+                lda KEYS_TO_SCREEN_STR,y
+                cmp #96
+                bne skip_rotate
+                jsr rotate_right_str_string
+                skip_rotate:
+
+            pla
+            tay*/
 
             /* Enable bit 5 = SCREEN_STR Updated */
             lda KEY_FLAGS
