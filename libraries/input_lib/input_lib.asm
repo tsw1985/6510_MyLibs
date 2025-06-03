@@ -882,23 +882,28 @@ remove_char_screen_str_by_key:
 rts
 
 rotate_right_str_string:
+
     push_regs_to_stack()
 
     // Empezar desde el final del string
     ldy INPUT_STR_LIMIT      
+    
+    lda INPUT_STR_LIMIT
+    sec
+    sbc #1 // substract -1 to lenght
+    sta ROTATE_INDEX
+
     dey                      // Y = último índice válido
     
 continue_rotation:
-        // ¿Hemos llegado al cursor?
-        cpy INPUT_INDEX_COUNTER
+
+        cpy INPUT_INDEX_COUNTER // ¿Hemos llegado al cursor?
         beq end_rotate         // Si Y == cursor, crear espacio y parar
         bcc end_rotate         // Si Y < cursor, crear espacio y parar
         
         // Calcular índice anterior manualmente
-        tya                      // A = Y (posición actual)
-        sec
-        sbc #1                   // A = Y - 1 (posición anterior)
-        tax                      // X = posición anterior
+        dec ROTATE_INDEX
+        ldx ROTATE_INDEX
         
         // Mover carácter una posición a la derecha
         lda KEYS_TO_SCREEN_STR,x // Cargar carácter de posición anterior
