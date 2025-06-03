@@ -52,9 +52,14 @@ read_key:
        pressed keys and save them in the table
     */
     jsr scan_all_keys
-    
+
+
+
+
     /* add key pressed to screen string */
     jsr add_scanned_keys_to_screen_str
+
+    
 
     /* Check if bit ENTER is enabled to exit.
        Do NOT MOVE this code. Must be here because the last function set the
@@ -78,7 +83,7 @@ read_key:
 
     /* 
         To avoid a screen flikering, we check if the bit 5 is enable . This bit
-        is set to 1 if the user press a new normal key and the SCREEN_STR is 
+        is set to 1 if the user press a new normal key and the SCREEN_STR is
         updated, then , print the string updated.
 
         This bit is set to 1 in function "add_scanend_keys_to_screen_str"
@@ -87,11 +92,19 @@ read_key:
     and #%00100000
     beq skip_print_string_and_cursor
 
+    
+
+
     /* print main string on screen */
     jsr print_keys_pressed
+
     /* print cursor */
     jsr print_cursor
+
+
+    /***********************/
     /* Only for  debugging */
+    /***********************/
     jsr print_debug_params    
     
     skip_print_string_and_cursor:
@@ -106,7 +119,7 @@ read_key:
     jmp init_reading                    // read keyboard again
 
     finish_reading_keys:
-    .break
+
     /* when the enter key is pressed, we finish the execution, so we need
     reset the KEY_FLAGS and reset the pressed key table */
     jsr clear_key_pressed_table         
@@ -178,11 +191,6 @@ execute_actions_key:
     /* if is not set any action, exit of function */
     jmp exit_actions
 
-    //exit_input:
-        //pull_regs_from_stack()
-        //rts
-        //jmp fin_keyboard_demo
-    
     cursor_to_left:
         /* Check limit to left. INPUT_CURSOR_COL 
         must be >= SCREEN_INPUT_COL_POS */
@@ -670,15 +678,17 @@ add_scanned_keys_to_screen_str:
         process_key:
 
             /* Ignore special keys. We want do not print them*/
-            cpy #0
+            cpy #0 /* delete key */
             beq not_add_key_to_screen_str
 
-            cpy #47
+            cpy #47 /* C= key */
             beq not_add_key_to_screen_str
 
-            cpy #16
+            cpy #16 /*cursor key */
             beq not_add_key_to_screen_str
 
+
+            jsr rotate_right_str_string
 
             /* Enable bit 5 = SCREEN_STR Updated */
             lda KEY_FLAGS
@@ -843,6 +853,13 @@ restore_char_with_current_cursor:
 remove_char_screen_str_by_key:
     push_regs_to_stack()
 
+
+    //ldy INPUT_STR_LIMIT        // load limit in Y
+    //iny
+    //lda #96 // space
+    //sta KEYS_TO_SCREEN_STR,y
+
+
     lda INPUT_INDEX_COUNTER       // load current cursor position
     sta CHAR_INDEX_1              // set index1 with this value
     sta CHAR_INDEX_2              // set index2 with this value
@@ -861,6 +878,36 @@ remove_char_screen_str_by_key:
         cmp CHAR_INDEX_2
         bne continue_swap
 
+    pull_regs_from_stack()
+rts
+
+rotate_right_str_string:
+    push_regs_to_stack()
+
+    // Empezar desde el final del string
+    ldy INPUT_STR_LIMIT      
+    dey                      // Y = último índice válido
+    
+continue_rotation:
+        // ¿Hemos llegado al cursor?
+        cpy INPUT_INDEX_COUNTER
+        beq end_rotate         // Si Y == cursor, crear espacio y parar
+        bcc end_rotate         // Si Y < cursor, crear espacio y parar
+        
+        // Calcular índice anterior manualmente
+        tya                      // A = Y (posición actual)
+        sec
+        sbc #1                   // A = Y - 1 (posición anterior)
+        tax                      // X = posición anterior
+        
+        // Mover carácter una posición a la derecha
+        lda KEYS_TO_SCREEN_STR,x // Cargar carácter de posición anterior
+        sta KEYS_TO_SCREEN_STR,y // Guardarlo en posición actual
+        
+        dey                      // Ir a la siguiente posición
+        jmp continue_rotation
+
+end_rotate:
     pull_regs_from_stack()
 rts
 

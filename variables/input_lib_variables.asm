@@ -59,6 +59,9 @@ TABLE_KEY_ASCII:
 INPUT_CURSOR:        .byte 0  // This is to check the limit
 INPUT_STR_LIMIT:     .byte 0  // Lenght of str
 INPUT_STR_LIMIT_CLS: .byte 0
+INPUT_STR_LIMIT_ROTATE: .byte 0
+ROTATE_INDEX:           .byte 0
+
 
 
 INPUT_INDEX_COUNTER: .byte 0 // control string index
@@ -95,3 +98,7 @@ OLD_IRQ_HIGH: .byte 0
 
 ORIGINAL_DC_02: .byte 0
 ORIGINAL_DC_03: .byte 0
+
+
+
+
