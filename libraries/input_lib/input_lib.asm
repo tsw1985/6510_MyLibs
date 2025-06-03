@@ -99,7 +99,7 @@ read_key:
     /***********************/
     /* Only for  debugging */
     /***********************/
-    jsr print_debug_params    
+    //jsr print_debug_params
     
     skip_print_string_and_cursor:
 
@@ -394,13 +394,10 @@ print_offset_result:
 sleep_key:
 
     push_regs_to_stack()
-    ldx #105
+    ldx #120
     outer_loop:
-        ldy #105
+        ldy #120
     inner_loop:
-        nop
-        nop
-        nop
         nop
         dey
         bne inner_loop
@@ -723,7 +720,6 @@ print_keys_pressed:
 
     push_regs_to_stack()
     jsr PRINT_LIB.clean_location_screen
-    locate_text(2,12,GREEN)
     locate_input()
     print_input_text(KEYS_TO_SCREEN_STR)
 
@@ -732,25 +728,41 @@ print_keys_pressed:
 
 decrement_current_cursor_of_screen:
     push_regs_to_stack()
-    dec INPUT_CURSOR_COL
+    //dec INPUT_CURSOR_COL
+    lda INPUT_CURSOR_COL
+    sec 
+    sbc #1
+    sta INPUT_CURSOR_COL
     pull_regs_from_stack()
     rts
 
 increment_current_cursor_of_screen:
     push_regs_to_stack()
-    inc INPUT_CURSOR_COL
+    //inc INPUT_CURSOR_COL
+    lda INPUT_CURSOR_COL
+    clc
+    adc #1
+    sta INPUT_CURSOR_COL
     pull_regs_from_stack()
     rts
 
 increment_index_cursor_index:
     push_regs_to_stack()
-    inc INPUT_INDEX_COUNTER
+    //inc INPUT_INDEX_COUNTER
+    lda INPUT_INDEX_COUNTER
+    clc
+    adc #1
+    sta INPUT_INDEX_COUNTER
     pull_regs_from_stack()
 rts
 
 decrement_index_cursor_index:
     push_regs_to_stack()
-    dec INPUT_INDEX_COUNTER
+    //dec INPUT_INDEX_COUNTER
+    lda INPUT_INDEX_COUNTER
+    sec 
+    sbc #1
+    sta INPUT_INDEX_COUNTER
     pull_regs_from_stack()
 rts
 
