@@ -53,13 +53,8 @@ read_key:
     */
     jsr scan_all_keys
 
-
-
-
     /* add key pressed to screen string */
     jsr add_scanned_keys_to_screen_str
-
-    
 
     /* Check if bit ENTER is enabled to exit.
        Do NOT MOVE this code. Must be here because the last function set the
@@ -92,15 +87,12 @@ read_key:
     and #%00100000
     beq skip_print_string_and_cursor
 
-    
-
 
     /* print main string on screen */
     jsr print_keys_pressed
 
     /* print cursor */
     jsr print_cursor
-
 
     /***********************/
     /* Only for  debugging */
@@ -112,7 +104,6 @@ read_key:
     /* clear the table where are save the keys pressed before save the keys 
        again */
     jsr clear_key_pressed_table 
-
 
     /* reset the flags to next iteration */
     jsr reset_key_flags         
@@ -456,6 +447,7 @@ calculate_offset_for_ascii_table:
     clc
     adc temp_offset // add y, where is the col value
     sta TABLE_KEY_ASCII_X_OFFSET  //save it here
+    .break
     pull_regs_from_stack()
     rts
 
@@ -706,7 +698,7 @@ add_scanned_keys_to_screen_str:
 
         not_add_key_to_screen_str:
         iny
-        cpy #61
+        cpy #62
         bne continue_check_pressed_table
 
     finish_scan:
