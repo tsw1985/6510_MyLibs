@@ -47,6 +47,8 @@ read_key:
 
     push_regs_to_stack()
     init_reading:
+
+
     /* 
        scan all keyboard matrix to get the
        pressed keys and save them in the table
@@ -258,7 +260,7 @@ scan_all_keys:
 
             // if some bit match, we calculate his offter and we save it in
             // the table : "current keys pressed"
-            jsr sleep_key             // sleep half second between keys presses
+            //jsr sleep_key             // sleep half second between keys presses
 
             // calculation of offset
             jsr calculate_offset_for_ascii_table
@@ -267,7 +269,10 @@ scan_all_keys:
             // save the offset result in the table
             jsr save_key_pressed
 
+            jsr sleep_key
+
         no_key_detected:
+
 
             iny                // increment Y ( columns )
             cpy #8             // 8 cols ?
@@ -389,10 +394,13 @@ print_offset_result:
 sleep_key:
 
     push_regs_to_stack()
-    ldx #120
+    ldx #105
     outer_loop:
-        ldy #120
+        ldy #105
     inner_loop:
+        nop
+        nop
+        nop
         nop
         dey
         bne inner_loop
