@@ -18,6 +18,10 @@ KEY_FLAGS:           .byte 0
 KEY_BUFFER_INDEX:    .byte 0
 KEY_WAIT:            .byte 0
 
+
+PRINTING_FLAG: .byte 0
+
+
 // Save CMB KEY and
 // future others special
 // keys
@@ -98,6 +102,7 @@ OLD_IRQ_HIGH: .byte 0
 
 ORIGINAL_DC_02: .byte 0
 ORIGINAL_DC_03: .byte 0
+
 
 
 

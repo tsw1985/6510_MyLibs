@@ -97,19 +97,22 @@ read_key:
     and #%00100000
     beq skip_print_string_and_cursor
 
-    sei
-        /* print cursor */
-        jsr print_cursor
-
+    jsr block_because_is_printing
         /* print main string on screen */
         jsr print_keys_pressed
+    jsr unblock_because_is_not_printing
 
-    cli
+    jsr block_because_is_printing
+        /* print cursor */
+        jsr print_cursor
+    jsr unblock_because_is_not_printing
+
 
     /***********************/
     /* Only for  debugging */
     /***********************/
-    //jsr print_debug_params
+    jsr print_debug_params
+  
     
     skip_print_string_and_cursor:
 
@@ -139,27 +142,53 @@ read_key:
     pull_regs_from_stack()
 rts
 
+block_because_is_printing:
+    push_regs_to_stack()
+    lda #1
+    sta PRINTING_FLAG
+    pull_regs_from_stack()
+rts
+
+unblock_because_is_not_printing:
+    push_regs_to_stack()
+    lda #0
+    sta PRINTING_FLAG
+    pull_regs_from_stack()
+rts
 
 
 print_debug_params:
     push_regs_to_stack()
     // debug: print offset result
-    jsr print_offset_result
+
+    jsr block_because_is_printing
+        jsr print_offset_result
+    jsr unblock_because_is_not_printing
 
     // debug : show current pressed char
-    jsr print_current_pressed_char
+    jsr block_because_is_printing
+        jsr print_current_pressed_char
+    jsr unblock_because_is_not_printing
 
     // debug : // see X row value of keyboard
-    jsr print_x_coord
+    jsr block_because_is_printing
+        jsr print_x_coord
+    jsr unblock_because_is_not_printing
 
     // debug : // see Y row value of keyboard
-    jsr print_y_coord
+    jsr block_because_is_printing
+        jsr print_y_coord
+    jsr unblock_because_is_not_printing
 
     // debug : print current index position
-    jsr print_cursor_index_pos
+    jsr block_because_is_printing
+        jsr print_cursor_index_pos
+    jsr unblock_because_is_not_printing
 
     // debug : print current col position
-    jsr print_cursor_col_pos
+    jsr block_because_is_printing
+        jsr print_cursor_col_pos
+    jsr unblock_because_is_not_printing
 
     pull_regs_from_stack()
 rts
@@ -228,7 +257,10 @@ execute_actions_key:
         allow_delete_to_left:
 
             jsr remove_char_screen_str_by_key
-            jsr print_keys_pressed
+            
+            jsr block_because_is_printing
+                jsr print_keys_pressed
+            jsr unblock_because_is_not_printing
             jsr restore_char_with_current_cursor
             jsr decrement_current_cursor_of_screen
             jsr move_cursor_to_left_on_string_screen
@@ -476,18 +508,22 @@ print_cursor:
     push_regs_to_stack()
 
     /* set coords col and row */
+    sei
     lda INPUT_CURSOR_ROW
     sta SCREEN_ROW_POS
 
     lda INPUT_CURSOR_COL
     sta SCREEN_COL_POS
+    cli
 
     //set coords on Screen
+    sei
     ldx SCREEN_ROW_POS       // Row 22
     lda Row_LO,x
     sta ZERO_PAGE_ROW_LOW_BYTE
     lda Row_HI,x
     sta ZERO_PAGE_ROW_HIGHT_BYTE
+    cli
 
     ldy SCREEN_COL_POS             // col 15
     lda SCREEN_CHAR                // char " "
@@ -749,41 +785,33 @@ print_keys_pressed:
 
 decrement_current_cursor_of_screen:
     push_regs_to_stack()
-    //dec INPUT_CURSOR_COL
-    lda INPUT_CURSOR_COL
-    sec 
-    sbc #1
-    sta INPUT_CURSOR_COL
+    sei
+    dec INPUT_CURSOR_COL
+    cli
     pull_regs_from_stack()
     rts
 
 increment_current_cursor_of_screen:
     push_regs_to_stack()
-    //inc INPUT_CURSOR_COL
-    lda INPUT_CURSOR_COL
-    clc
-    adc #1
-    sta INPUT_CURSOR_COL
+    sei
+    inc INPUT_CURSOR_COL
+    cli
     pull_regs_from_stack()
     rts
 
 increment_index_cursor_index:
     push_regs_to_stack()
-    //inc INPUT_INDEX_COUNTER
-    lda INPUT_INDEX_COUNTER
-    clc
-    adc #1
-    sta INPUT_INDEX_COUNTER
+    sei
+    inc INPUT_INDEX_COUNTER
+    cli
     pull_regs_from_stack()
 rts
 
 decrement_index_cursor_index:
     push_regs_to_stack()
-    //dec INPUT_INDEX_COUNTER
-    lda INPUT_INDEX_COUNTER
-    sec 
-    sbc #1
-    sta INPUT_INDEX_COUNTER
+    sei
+    dec INPUT_INDEX_COUNTER
+    cli
     pull_regs_from_stack()
 rts
 
@@ -801,18 +829,22 @@ move_cursor_to_left_on_string_screen:
 
     /* The variables SCREEN_ROW_POS and SCREEN_ROW_COL are IMPORTANT . Those are
        the variables to get the position of ROW and COL in the SCREEN TABLE */
+    sei
     lda INPUT_CURSOR_ROW
     sta SCREEN_ROW_POS
 
     lda INPUT_CURSOR_COL
     sta SCREEN_COL_POS
+    cli
 
     //set coords on Screen
+    sei
     ldx SCREEN_ROW_POS       // Row 22
     lda Row_LO,x
     sta ZERO_PAGE_ROW_LOW_BYTE
     lda Row_HI,x
     sta ZERO_PAGE_ROW_HIGHT_BYTE
+    cli
 
     ldy SCREEN_COL_POS             // col 15
     lda (ZERO_PAGE_ROW_LOW_BYTE),y
@@ -834,18 +866,22 @@ move_cursor_to_right_on_string_screen:
 
     jsr increment_index_cursor_index
 
+    sei
     lda INPUT_CURSOR_ROW
     sta SCREEN_ROW_POS
 
     lda INPUT_CURSOR_COL
     sta SCREEN_COL_POS
+    cli
 
     //set coords on Screen
+    sei
     ldx SCREEN_ROW_POS       // Row 22
     lda Row_LO,x
     sta ZERO_PAGE_ROW_LOW_BYTE
     lda Row_HI,x
     sta ZERO_PAGE_ROW_HIGHT_BYTE
+    cli
 
     ldy SCREEN_COL_POS             // col 15
     lda (ZERO_PAGE_ROW_LOW_BYTE),y
@@ -861,18 +897,22 @@ move_cursor_to_right_on_string_screen:
 restore_char_with_current_cursor:
     push_regs_to_stack()
 
+    sei
     lda INPUT_CURSOR_ROW
     sta SCREEN_ROW_POS
 
     lda INPUT_CURSOR_COL
     sta SCREEN_COL_POS
+    cli
 
     // set coords on Screen
+    sei
     ldx SCREEN_ROW_POS       // Row 22
     lda Row_LO,x
     sta ZERO_PAGE_ROW_LOW_BYTE
     lda Row_HI,x
     sta ZERO_PAGE_ROW_HIGHT_BYTE
+    cli
 
     ldy SCREEN_COL_POS             // col 15
     lda (ZERO_PAGE_ROW_LOW_BYTE),y
@@ -1010,6 +1050,10 @@ blink_cursor:
     /* We need read the CIA1 ICR to clean the flags . Also we can ask wich INT
     was launched */
     lda $DC0D 
+
+    /* The system is printing text ???? */
+    lda PRINTING_FLAG
+    bne irq_timer_exit   // If it is busy, ignore interruption code
     
     /* Each 0,5 second this code is executed , so , in each iteration , we 
     increment the IRQ COUNTER , if it is not 60 , we execute the code*/
@@ -1029,11 +1073,15 @@ blink_cursor:
     beq cursor_off          // if Z flag is 0,turn off the cursor,if not,turn on
     
 cursor_on:
-    jsr enable_current_cursor
+    jsr block_because_is_printing
+        jsr enable_current_cursor
+    jsr unblock_because_is_not_printing
     jmp irq_timer_exit
     
 cursor_off:
-    jsr disable_current_cursor
+    jsr block_because_is_printing
+        jsr disable_current_cursor
+    jsr unblock_because_is_not_printing
     
 irq_timer_exit:
     pull_regs_from_stack()
@@ -1069,18 +1117,22 @@ rts
 disable_current_cursor:
     push_regs_to_stack()
 
+    sei
     lda INPUT_CURSOR_ROW
     sta SCREEN_ROW_POS
 
     lda INPUT_CURSOR_COL
     sta SCREEN_COL_POS
+    cli
 
     // set coords on Screen
+    sei
     ldx SCREEN_ROW_POS       // Row 22
     lda Row_LO,x
     sta ZERO_PAGE_ROW_LOW_BYTE
     lda Row_HI,x
     sta ZERO_PAGE_ROW_HIGHT_BYTE
+    cli
 
     ldy SCREEN_COL_POS             // col 15
     lda (ZERO_PAGE_ROW_LOW_BYTE),y
@@ -1093,18 +1145,22 @@ disable_current_cursor:
 enable_current_cursor:
     push_regs_to_stack()
 
+    sei
     lda INPUT_CURSOR_ROW
     sta SCREEN_ROW_POS
 
     lda INPUT_CURSOR_COL
     sta SCREEN_COL_POS
+    cli
 
     // set coords on Screen
+    sei
     ldx SCREEN_ROW_POS       // Row 22
     lda Row_LO,x
     sta ZERO_PAGE_ROW_LOW_BYTE
     lda Row_HI,x
     sta ZERO_PAGE_ROW_HIGHT_BYTE
+    cli
 
     ldy SCREEN_COL_POS             // col 15
     lda (ZERO_PAGE_ROW_LOW_BYTE),y
