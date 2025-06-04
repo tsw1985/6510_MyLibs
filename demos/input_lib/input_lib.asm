@@ -11,6 +11,6 @@ insert_text(18,1,user_wrote_str,WHITE)
 insert_text(18,15,KEYS_TO_SCREEN_STR,GRAY)
 
 /* comment this. This is a infinity loop to allow see the wrote text */
-wait_key:
-jmp wait_key
+//wait_key:
+//jmp wait_key
 

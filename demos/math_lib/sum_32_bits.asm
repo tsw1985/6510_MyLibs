@@ -98,6 +98,4 @@ print_calculation_result(15,5,YELLOW,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
 // -----------------------------------------------
 // Print end message testing
-jsr PRINT_LIB.clean_location_screen
-locate_text(3,0,YELLOW)
-print_text(sum_result_str)
+insert_text(3,0,sum_result_str,YELLOW)

@@ -146,14 +146,10 @@
 
 
     // Before print the number, print empty values
-    jsr PRINT_LIB.clean_location_screen
-    locate_text(y,x,color)
-    print_text(space_4_str)
+    insert_text(y,x,space_4_str,color)
 
     // Print number
-    jsr PRINT_LIB.clean_location_screen
-    locate_text(y,x,color)
-    print_text(number_to_print_str)
+    insert_text(y,x,number_to_print_str,color)
 
     //reset all
     clear_NUMBER_TO_PRINT_TABLE()

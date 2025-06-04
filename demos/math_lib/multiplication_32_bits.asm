@@ -1,20 +1,14 @@
 //call multiplication function
 
 //print first string
-jsr PRINT_LIB.clean_location_screen
-locate_text(4,0,YELLOW)
-print_text(multipli_n1_str) //La division de  ...
+insert_text(4,0,multipli_n1_str,YELLOW)
 
 
 //print first string
-jsr PRINT_LIB.clean_location_screen
-locate_text(10,0,YELLOW)
-print_text(mult_times_str) // POR
+insert_text(10,0,mult_times_str,YELLOW)
 
 //print result string
-jsr PRINT_LIB.clean_location_screen
-locate_text(15,0,YELLOW)
-print_text(result_str) //resultado
+insert_text(15,0,result_str,YELLOW)
 
 
 //Print N1
@@ -60,6 +54,4 @@ print_calculation_result(17,5,PINK,mul_res_0,
                                    mul_res_3)
 
 //Print end text
-jsr PRINT_LIB.clean_location_screen
-locate_text(20,10,GREEN)
-print_text(end_mul_32_str) //end div
+insert_text(20,10,end_mul_32_str,GREEN)

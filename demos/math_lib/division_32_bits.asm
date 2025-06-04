@@ -1,21 +1,13 @@
 //First : show all text
 
 //print first string
-jsr PRINT_LIB.clean_location_screen
-locate_text(6,0,YELLOW)
-print_text(division_n1_str) //La division de  ...
-
-
-//print first string
-jsr PRINT_LIB.clean_location_screen
-locate_text(10,0,YELLOW)
-print_text(division_n2_str) // ENTRE
+insert_text(6,0,division_n1_str,YELLOW)
+insert_text(10,0,division_n2_str,YELLOW)
 
 
 //print result string
-jsr PRINT_LIB.clean_location_screen
-locate_text(15,0,YELLOW)
-print_text(result_str) //resultado
+insert_text(15,0,result_str,YELLOW)
+
 
 //Print N1
 print_digits_str(8,5,WHITE,$40,$6A,$02,$00)
@@ -64,6 +56,4 @@ jsr MATH_LIB.division_32
 print_calculation_result(17,5,PINK,div_res_0,div_res_1,div_res_2,div_res_3)
 
 //Print end text
-jsr PRINT_LIB.clean_location_screen
-locate_text(20,10,GREEN)
-print_text(end_div_32_str) //end div
+insert_text(20,10,end_div_32_str,GREEN)

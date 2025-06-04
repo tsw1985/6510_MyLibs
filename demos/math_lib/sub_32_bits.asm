@@ -31,7 +31,5 @@ jsr MATH_LIB.sub_32
 
 //Print the result
 print_calculation_result(10,3,PINK,sub_res_0,sub_res_1,sub_res_2,sub_res_3)
-jsr PRINT_LIB.clean_location_screen
-locate_text(6,0,YELLOW)
-print_text(sub_result_str)
+insert_text(6,0,sub_result_str,YELLOW)
 

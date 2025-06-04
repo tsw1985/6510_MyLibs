@@ -295,14 +295,16 @@ scan_all_keys:
     scan_rows_loop:
 
         lda TABLE_KEY_BOARD_ROW,x   // get keyboard row to explore
+        cli
         sta $DC01                   // and set it on PORT B
 
         lda $DC00                   // get keyboard col to explore if some
+        
                                     // key is pressed
         eor #%11111111              // invert values of rows cols ( 0 to 1)
         sta KEY_PRESSED             // save the inverted value on A
                                     // once we have the result of the pressed
-                                    // keys, we go to retrieve the COL ROW
+        sei                            // keys, we go to retrieve the COL ROW
                                     // table
 
         ldy #0                    // we start to retrieve all cols ( 0 to 7)
@@ -425,10 +427,7 @@ save_key_pressed:
 print_offset_result:
 
     push_regs_to_stack()
-
-    jsr PRINT_LIB.clean_location_screen
-    locate_text(4,0,WHITE)
-    print_text(calc_offset_str)
+    insert_text(4,0,calc_offset_str,WHITE)
 
     lda TABLE_KEY_ASCII_X_OFFSET
     sta div_res_0
@@ -555,11 +554,8 @@ print_cursor:
 print_x_coord:
 
     push_regs_to_stack()
+    insert_text(2,0,coor_x_str,WHITE)
 
-    jsr PRINT_LIB.clean_location_screen
-    locate_text(2,0,WHITE)
-    print_text(coor_x_str)
-    //lda TABLE_KEY_ROW_INDEX
     txa // the current row value is in X register
     sta div_res_0
     lda #0
@@ -582,10 +578,7 @@ print_x_coord:
 print_y_coord:
 
     push_regs_to_stack()
-
-    jsr PRINT_LIB.clean_location_screen
-    locate_text(3,0,WHITE)
-    print_text(coor_y_str)
+    insert_text(3,0,coor_y_str,WHITE)
 
     //lda TABLE_KEY_COL_INDEX
     tya  // the Y col value is in Y register
@@ -608,9 +601,7 @@ print_y_coord:
 print_cursor_pos:
     
     push_regs_to_stack()
-    jsr PRINT_LIB.clean_location_screen
-    locate_text(6,0,WHITE)
-    print_text(cursor_index_str)
+    insert_text(6,0,cursor_index_str,WHITE)
 
     lda INPUT_CURSOR_COL
     sta div_res_0
@@ -631,10 +622,8 @@ rts
 print_current_pressed_char:
 
     push_regs_to_stack()
+    insert_text(5,0,current_char_str,WHITE)
 
-    jsr PRINT_LIB.clean_location_screen
-    locate_text(5,0,WHITE)
-    print_text(current_char_str)
 
     ldx TABLE_KEY_ASCII_X_OFFSET
     lda TABLE_KEY_ASCII,x
@@ -652,9 +641,7 @@ print_current_pressed_char:
 print_cursor_index_pos:
 
     push_regs_to_stack()
-    jsr PRINT_LIB.clean_location_screen
-    locate_text(6,0,WHITE)
-    print_text(cursor_index_str)
+    insert_text(6,0,cursor_index_str,WHITE)
 
     lda INPUT_INDEX_COUNTER
     sta div_res_0
@@ -674,9 +661,7 @@ rts
 print_cursor_col_pos:
 
     push_regs_to_stack()
-    jsr PRINT_LIB.clean_location_screen
-    locate_text(7,0,WHITE)
-    print_text(cursor_col_str)
+    insert_text(7,0,cursor_col_str,WHITE)
 
     lda INPUT_CURSOR_COL
     sta div_res_0
