@@ -9,7 +9,7 @@ main:
 	//txs       // Initialize system stack
 
     //start setup
-    jsr SYSTEM.setup
+    //jsr SYSTEM.setup
 
 init_code:
 
@@ -35,18 +35,22 @@ init_code:
         //#import "/demos/math_lib/sum_32_bits.asm"
         //#import "/demos/math_lib/sub_32_bits.asm"
         #import "/demos/input_lib/input_lib.asm"
-        
-    // NOT REMOVEEE !!!
-    //restore setup
-    jsr SYSTEM.restore_system
 
-    /*
+    /*    
     wait_key:
         jsr $ffe4       // GETIN
         cmp #0
         beq wait_key    // si no se ha pulsado tecla, repetir
-        jmp init_code            
     */
+
+
+    // NOT REMOVEEE !!!
+    //restore setup
+    //jsr SYSTEM.restore_system
+
+    
+        
+    
 
 //jmp init_code        
 //rts // exit to basic

@@ -1,16 +1,33 @@
-// set the variables x,y,color
-// later are used on print text functions
-.macro locate_input(){
+/* This macro insert the INPUT in the coords y,x with limit and color */
+.macro input_text(y,x,limit,color){
 
-    // move the coords set on demo file
-    // and change the values
+    lda #0
+    sta INPUT_STR_LIMIT_CLS
+    sta INPUT_STR_LIMIT
 
-    lda SCREEN_INPUT_ROW_POS
-    sta SCREEN_ROW_POS
-    
-    lda SCREEN_INPUT_COL_POS
-    sta SCREEN_COL_POS
-    
-    lda SCREEN_INPUT_COLOR
-    sta SCREEN_CHAR_COLOR
+    lda #y // 19
+    sta SCREEN_INPUT_ROW_POS
+    sta INPUT_CURSOR_ROW
+    sta INPUT_CURSOR_ROW_CLS
+
+    lda #x //5
+    sta SCREEN_INPUT_COL_POS
+    sta INPUT_CURSOR_COL
+    sta INPUT_CURSOR_COL_CLS
+
+    // set limit . STR_LIMIT = COL + STR_LEN
+    lda #limit //13
+    sta INPUT_STR_LIMIT
+    sta INPUT_STR_LIMIT_CLS
+
+    lda #color //BLACK
+    sta SCREEN_INPUT_COLOR
+
+    lda #0
+    sta INPUT_INDEX_COUNTER
+
+    /* call the rutine */
+    jsr INPUT_LIB.input_keyboard
+
+
 }

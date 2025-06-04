@@ -21,6 +21,19 @@
     jsr PRINT_LIB.print_text
 }
 
+.macro insert_text(y,x,string,color){
+
+    jsr PRINT_LIB.clean_location_screen
+    locate_text(y,x,color)
+    print_text(string)
+
+}
+
+
+
+
+
+
 .macro print_input_text(string){
     lda #<string
     sta ZERO_PAGE_PRINT_TEXT_LO

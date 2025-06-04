@@ -3,11 +3,18 @@ INPUT_LIB:
 
 #import "input_macros/input_lib_macros.asm"
 
+/* Function:
+
+    This is a input function. The user write and when the user press enter
+    the returned value is the variable "KEYS_TO_SCREEN_STR" .
+
+*/
+
 input_keyboard:
 
     push_regs_to_stack()
 
-    // GUARDAR configuración original
+    /*Save original values*/
     lda $DC02
     sta ORIGINAL_DC_02
     
@@ -36,6 +43,10 @@ input_keyboard:
 
     /* reset table key pressed */
     jsr clear_key_pressed_table         
+
+    /* this insert a 0 in the limit of string, to avoid print garbage in the
+    return string */
+    jsr insert_end_line_in_screen_str
 
     /* Init read keys loop */
     jsr read_key
@@ -496,7 +507,6 @@ calculate_offset_for_ascii_table:
     clc
     adc temp_offset // add y, where is the col value
     sta TABLE_KEY_ASCII_X_OFFSET  //save it here
-    .break
     pull_regs_from_stack()
     rts
 
@@ -769,7 +779,19 @@ print_keys_pressed:
 
     push_regs_to_stack()
     jsr PRINT_LIB.clean_location_screen
-    locate_input()
+    
+    /* Get the coords.This coords were set in the macro "insert_input" */
+    sei
+    lda SCREEN_INPUT_ROW_POS
+    sta SCREEN_ROW_POS
+    
+    lda SCREEN_INPUT_COL_POS
+    sta SCREEN_COL_POS
+    
+    lda SCREEN_INPUT_COLOR
+    sta SCREEN_CHAR_COLOR
+    cli
+
     print_input_text(KEYS_TO_SCREEN_STR)
     pull_regs_from_stack()
     rts
@@ -1160,5 +1182,16 @@ enable_current_cursor:
 
     pull_regs_from_stack()
     rts
+
+
+insert_end_line_in_screen_str:
+    push_regs_to_stack()
+    ldy INPUT_STR_LIMIT
+    lda #0
+    sta KEYS_TO_SCREEN_STR,y
+    pull_regs_from_stack()
+rts
+
+
 
 }

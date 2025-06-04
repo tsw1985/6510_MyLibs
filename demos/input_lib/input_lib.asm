@@ -1,91 +1,16 @@
-//call input_lib
-
-lda #0
-sta INPUT_STR_LIMIT_CLS
-sta INPUT_STR_LIMIT
-
-//set col and row of input
-lda #15
-sta SCREEN_INPUT_ROW_POS
-sta INPUT_CURSOR_ROW
-sta INPUT_CURSOR_ROW_CLS
-
-lda #0
-sta SCREEN_INPUT_COL_POS
-sta INPUT_CURSOR_COL
-sta INPUT_CURSOR_COL_CLS
-
-// set limit . STR_LIMIT = COL + STR_LEN
-lda #39
-sta INPUT_STR_LIMIT
-sta INPUT_STR_LIMIT_CLS
-sta INPUT_STR_LIMIT_ROTATE
+/* CALL INPUT ROW , COL , LIMIT , COLOR */
+input_text(15,0,12,PINK)
+/* Show wrote text demo */
+insert_text(16,1,user_wrote_str,RED)
+insert_text(16,15,KEYS_TO_SCREEN_STR,GREEN)
 
 
-lda #YELLOW
-sta SCREEN_INPUT_COLOR
+input_text(17,0,12,YELLOW)
+/* Show wrote text demo */
+insert_text(18,1,user_wrote_str,WHITE)
+insert_text(18,15,KEYS_TO_SCREEN_STR,GRAY)
 
-lda #0
-sta INPUT_INDEX_COUNTER
+/* comment this. This is a infinity loop to allow see the wrote text */
+wait_key:
+jmp wait_key
 
-jsr INPUT_LIB.input_keyboard
-
-//-----------
-
-
-lda #0
-sta INPUT_STR_LIMIT_CLS
-sta INPUT_STR_LIMIT
-
-lda #19
-sta SCREEN_INPUT_ROW_POS
-sta INPUT_CURSOR_ROW
-sta INPUT_CURSOR_ROW_CLS
-
-lda #5
-sta SCREEN_INPUT_COL_POS
-sta INPUT_CURSOR_COL
-sta INPUT_CURSOR_COL_CLS
-
-// set limit . STR_LIMIT = COL + STR_LEN
-lda #13
-sta INPUT_STR_LIMIT
-sta INPUT_STR_LIMIT_CLS
-
-lda #BLACK
-sta SCREEN_INPUT_COLOR
-
-lda #0
-sta INPUT_INDEX_COUNTER
-jsr INPUT_LIB.input_keyboard
-
-//--------------------------------------------
-lda #0
-sta INPUT_STR_LIMIT_CLS
-sta INPUT_STR_LIMIT
-
-lda #21
-sta SCREEN_INPUT_ROW_POS
-sta INPUT_CURSOR_ROW
-sta INPUT_CURSOR_ROW_CLS
-
-lda #1
-sta SCREEN_INPUT_COL_POS
-sta INPUT_CURSOR_COL
-sta INPUT_CURSOR_COL_CLS
-
-// set limit . STR_LIMIT = COL + STR_LEN
-lda #17
-sta INPUT_STR_LIMIT
-sta INPUT_STR_LIMIT_CLS
-
-lda #PINK
-sta SCREEN_INPUT_COLOR
-
-lda #0
-sta INPUT_INDEX_COUNTER
-jsr INPUT_LIB.input_keyboard
-
-jsr PRINT_LIB.clean_location_screen
-locate_text(5,0,WHITE)
-print_text(bye)
