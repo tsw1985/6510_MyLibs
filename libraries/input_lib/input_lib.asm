@@ -64,6 +64,14 @@ read_key:
     */
     jsr detect_specials_keys_and_set_actions_flags
     
+    /* Check if bit ENTER is enabled to exit.
+       Do NOT MOVE this code. Must be here because the last function set the
+       KEY_FLAGS if the enter key was pressed.
+     */
+    lda KEY_FLAGS
+    and #%00000010
+    bne finish_reading_keys
+    
     /* execute key actions (left, right,del ...) */
     jsr execute_actions_key
 
@@ -78,13 +86,7 @@ read_key:
     /* add key pressed to screen string */
     jsr add_scanned_keys_to_screen_str
 
-    /* Check if bit ENTER is enabled to exit.
-       Do NOT MOVE this code. Must be here because the last function set the
-       KEY_FLAGS if the enter key was pressed.
-     */
-    lda KEY_FLAGS
-    and #%00000010
-    bne finish_reading_keys
+    
 
     /* 
         To avoid a screen flikering, we check if the bit 5 is enable . This bit
@@ -730,19 +732,9 @@ add_scanned_keys_to_screen_str:
             cpy #16 /*cursor key */
             beq not_add_key_to_screen_str
 
+            /* rotate chars . This is to insert chars in the middle 
+            of the string */
             jsr rotate_right_str_string
-            /*tya
-            pha
-                ldy INPUT_STR_LIMIT
-                dey
-                lda KEYS_TO_SCREEN_STR,y
-                cmp #96
-                bne skip_rotate
-                jsr rotate_right_str_string
-                skip_rotate:
-
-            pla
-            tay*/
 
             /* Enable bit 5 = SCREEN_STR Updated */
             lda KEY_FLAGS
@@ -779,7 +771,6 @@ print_keys_pressed:
     jsr PRINT_LIB.clean_location_screen
     locate_input()
     print_input_text(KEYS_TO_SCREEN_STR)
-
     pull_regs_from_stack()
     rts
 

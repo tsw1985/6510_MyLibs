@@ -32,7 +32,7 @@ jsr INPUT_LIB.input_keyboard
 
 //-----------
 
-/*
+
 lda #0
 sta INPUT_STR_LIMIT_CLS
 sta INPUT_STR_LIMIT
@@ -89,4 +89,3 @@ jsr INPUT_LIB.input_keyboard
 jsr PRINT_LIB.clean_location_screen
 locate_text(5,0,WHITE)
 print_text(bye)
-*/
