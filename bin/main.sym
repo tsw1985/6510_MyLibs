@@ -36,12 +36,13 @@
 .label ORIGINAL_DC_02=$2830
 .label sum_res_1=$2718
 .label ORIGINAL_DC_03=$2831
-.label init_code=$811
+.label init_code=$814
 .label sum_res_3=$271a
 .label TABLE_KEY_ASCII_X_OFFSET=$2746
 .label KEY_BUFFER_INDEX=$272c
 .label SCREEN_ROW_POS=$26ee
 .label end_mul_string=$2594
+.label wait_key=$8f1
 .label end_keyboard_str=$2632
 .label IRQ_COUNTER=$282c
 .label LIGHT_GRAY=$f
@@ -215,7 +216,7 @@
   .label clear_key_pressed_table=$5488 {
   }
   .label init_scan_keys=$5a2a
-  .label skip_print_string_and_cursor=$51cc
+  .label skip_print_string_and_cursor=$51c9
   .label sleep_key=$5472 {
   }
   .label remove_char_screen_str_by_key=$5b8c {
@@ -228,7 +229,7 @@
   .label blink_cursor=$5c40 {
   }
   .label continue_swap=$5b9d
-  .label finish_reading_keys=$51d5
+  .label finish_reading_keys=$51d2
   .label move_cursor_to_left_on_string_screen=$5add {
   }
   .label skip=$5325
@@ -248,7 +249,7 @@
   .label print_cursor_pos=$56df {
   }
   .label continue_reset_screen=$5bfb
-  .label init_reading=$5192
+  .label init_reading=$518f
   .label not_add_key_to_screen_str=$5a65
   .label scan_rows_loop=$52d7
   .label exit_actions=$52ca {
@@ -271,7 +272,7 @@
   }
   .label exit_set_flags=$535b {
   }
-  .label read_key=$518d {
+  .label read_key=$518a {
   }
   .label delete_key=$52a8
   .label inner_loop=$547b

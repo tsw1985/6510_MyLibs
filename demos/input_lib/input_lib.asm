@@ -1,16 +1,19 @@
+/* input 1 demo */
 /* CALL INPUT ROW , COL , LIMIT , COLOR */
-input_text(15,0,12,PINK)
+input_text(15,0,20,PINK)
 /* Show wrote text demo */
 insert_text(16,1,user_wrote_str,RED)
 insert_text(16,15,KEYS_TO_SCREEN_STR,GREEN)
 
 
-input_text(17,0,12,YELLOW)
+/* input 2 demo */
+/* CALL INPUT ROW , COL , LIMIT , COLOR */
+input_text(17,0,39,YELLOW)
 /* Show wrote text demo */
 insert_text(18,1,user_wrote_str,WHITE)
-insert_text(18,15,KEYS_TO_SCREEN_STR,GRAY)
+insert_text(18,12,KEYS_TO_SCREEN_STR,GRAY)
 
 /* comment this. This is a infinity loop to allow see the wrote text */
-//wait_key:
-//jmp wait_key
+wait_key:
+jmp wait_key
 

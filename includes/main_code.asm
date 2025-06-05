@@ -9,7 +9,7 @@ main:
 	//txs       // Initialize system stack
 
     //start setup
-    //jsr SYSTEM.setup
+    jsr SYSTEM.setup
 
 init_code:
 
@@ -36,7 +36,7 @@ init_code:
     //#import "/demos/math_lib/sub_32_bits.asm"
 
     // KEYBOARD DEMOS
-    //#import "/demos/input_lib/input_lib.asm"
+    #import "/demos/input_lib/input_lib.asm"
 
     /*    
     wait_key:
@@ -48,10 +48,9 @@ init_code:
 
     // NOT REMOVEEE !!!
     //restore setup
-    //jsr SYSTEM.restore_system
+    jsr SYSTEM.restore_system
+    jsr PRINT_LIB.clean_screen
+    //rts // exit to basic
 
 
 //jmp init_code   
-
-//jsr PRINT_LIB.clean_screen
-rts // exit to basic

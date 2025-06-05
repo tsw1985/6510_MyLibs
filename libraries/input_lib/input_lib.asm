@@ -44,9 +44,7 @@ input_keyboard:
     /* reset table key pressed */
     jsr clear_key_pressed_table         
 
-    /* this insert a 0 in the limit of string, to avoid print garbage in the
-    return string */
-    jsr insert_end_line_in_screen_str
+    
 
     /* Init read keys loop */
     jsr read_key
@@ -144,6 +142,12 @@ read_key:
     jsr clear_key_pressed_table         
     jsr reset_key_flags
     jsr destroy_irq_timer
+
+
+
+    /* this insert a 0 in the limit of string, to avoid print garbage in the
+    return string */
+    jsr insert_end_line_in_screen_str
 
 
     // RESTAURAR al final
