@@ -62,7 +62,6 @@ TABLE_KEY_ASCII:
 //for input control
 INPUT_CURSOR:        .byte 0  // This is to check the limit
 INPUT_STR_LIMIT:     .byte 0  // Lenght of str
-INPUT_STR_LIMIT_CLS: .byte 0
 INPUT_STR_LIMIT_ROTATE: .byte 0
 ROTATE_INDEX:           .byte 0
 
@@ -80,10 +79,6 @@ SCREEN_INPUT_COLOR:     .byte 0
 PRESSED_KEY_TABLE:      .fill 64,0 // he we save with 1 where the offset says.
 INPUT_CURSOR_ROW:       .byte 0
 INPUT_CURSOR_COL:       .byte 0
-
-INPUT_CURSOR_ROW_CLS:   .byte 0
-INPUT_CURSOR_COL_CLS:       .byte 0
-
 
 SCREEN_CHAR_COLOR_OLD:  .byte 0
 temp_offset:            .byte 0

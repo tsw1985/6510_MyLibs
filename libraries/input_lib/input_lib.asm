@@ -14,6 +14,10 @@ input_keyboard:
 
     push_regs_to_stack()
 
+    /* Reset INPUT_INDEX_COUNTER Index counter cursor */
+    lda #0
+    sta INPUT_INDEX_COUNTER
+
     /*Save original values*/
     lda $DC02
     sta ORIGINAL_DC_02
@@ -43,8 +47,6 @@ input_keyboard:
 
     /* reset table key pressed */
     jsr clear_key_pressed_table         
-
-    
 
     /* Init read keys loop */
     jsr read_key

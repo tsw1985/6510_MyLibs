@@ -3,6 +3,7 @@
 PRINT_LIB:
 {
 
+    /* Function to clean screen. Call a KERNAL function */
     clean_screen:
         push_regs_to_stack()
         jsr $e544 //clear screen
@@ -11,7 +12,8 @@ PRINT_LIB:
 
 
     /*
-        Def   : clean ROW - COL coords
+        Def   : clean ROW - COL coords . This function clean the char, row and
+                col variables.
         Input : none
     */
     clean_location_screen:    
@@ -23,9 +25,7 @@ PRINT_LIB:
         sta SCREEN_ROW_POS
         sta SCREEN_COL_POS             // col 15
 
-        
         pull_regs_from_stack()
-
         rts
 
     /*
@@ -37,10 +37,14 @@ PRINT_LIB:
         push_regs_to_stack()
 
         ldy #0
+
+
+        /* This function read the value in in ZP. If this found a 0, this mean
+           end screen */
         continue_writing:
             lda (ZERO_PAGE_PRINT_TEXT_LO),y
-            beq end_writing    //si A == 0 flag Z active
-            sta SCREEN_CHAR    //load char to show
+            beq end_writing    // if found the 0 , this means end string
+            sta SCREEN_CHAR    // load char to show in screen calling print_char
             jsr print_char
             iny
             inc SCREEN_COL_POS
@@ -86,12 +90,30 @@ PRINT_LIB:
         Input : SCREEN_ROW_POS ( X position)
                 SCREEN_COL_POS ( Y position)
                 SCREEN_CHAR ( char to show )
+
+        The coords are in the variables SCREEN_ROW_POS . To get the memory
+        position of the screen , we use a system. Exists a table in /tables
+        called screen_table.asm .
+        
+        There are 2 variables Row_LO and Row_HI . Here we calc the start byte
+        of a ROW in the screen . This is calculated using the formula:
+
+            SCREEN_RAM + ( SCREEN_WIDTH * row_number) .
+
+            Then we get the HIGHT byte and LOW_BYTE of this address and we save
+            this values in the ZERO PAGE. We create a pointer. Finally we use
+            the Y register to access to the column and we save the value ( char) 
+            to print in the ZERO_PAGE_ROW_LOW_BYTE:
+
+            sta (ZERO_PAGE_ROW_LOW_BYTE),y
+
+            See the ZP values of the project.
     */
     print_char:    
 
         push_regs_to_stack()
 
-        //set color on color ram
+        // Set color on color ram
         ldx SCREEN_ROW_POS       
         lda Row_Color_LO,x
         sta ZERO_PAGE_ROW_COLOR_LOW_BYTE
@@ -103,8 +125,7 @@ PRINT_LIB:
         lda SCREEN_CHAR_COLOR
         sta (ZERO_PAGE_ROW_COLOR_LOW_BYTE),y
 
-        //set coords on Screen
-        ldx SCREEN_ROW_POS       // Row 22
+        ldx SCREEN_ROW_POS
         lda Row_LO,x
         sta ZERO_PAGE_ROW_LOW_BYTE
         lda Row_HI,x
@@ -144,7 +165,6 @@ print_move_modules_in_table_to_number_to_print_str:
     sta div_res_1
     sta div_res_2
     sta div_res_3
-
 
     // set to 0 X , it is the index to save
     // each digit ( module ) on the table

@@ -3,26 +3,26 @@
 .label sub_num1_1=$271c
 .label TABLE_KEY_BOARD_ROW=$2736
 .label sub_num1_0=$271b
-.label TEMP_Y_REG=$27d9
+.label TEMP_Y_REG=$27d6
 .label INPUT_STR_LIMIT=$2788
-.label MATH_LIB=$5d1b {
-  .label sum_32=$5df4 {
+.label MATH_LIB=$5d20 {
+  .label sum_32=$5df9 {
   }
-  .label sub_32=$5e24 {
+  .label sub_32=$5e29 {
   }
-  .label division_32=$5d1b {
+  .label division_32=$5d20 {
   }
-  .label loop=$5d20
-  .label do_subtract=$5d46
-  .label end_loop=$5d8f {
+  .label loop=$5d25
+  .label do_subtract=$5d4b
+  .label end_loop=$5d94 {
   }
-  .label continue_multiplication_32=$5d9a
-  .label multiplication_32=$5d95 {
+  .label continue_multiplication_32=$5d9f
+  .label multiplication_32=$5d9a {
   }
 }
 .label SCREEN_COL_COLOR_POS=$26ed
 .label mult_times_str=$262d
-.label INPUT_CURSOR_COL=$27d3
+.label INPUT_CURSOR_COL=$27d2
 .label SCREEN_HEIGHT=$19
 .label buffer_str=$26a9
 .label counter_table=$26f3
@@ -33,18 +33,18 @@
 .label SCREEN_BACKGROUND_COLOR=$d021
 .label counter_str=$26f4
 .label sum_res_2=$2719
-.label ORIGINAL_DC_02=$2830
+.label ORIGINAL_DC_02=$282d
 .label sum_res_1=$2718
-.label ORIGINAL_DC_03=$2831
+.label ORIGINAL_DC_03=$282e
 .label init_code=$814
 .label sum_res_3=$271a
 .label TABLE_KEY_ASCII_X_OFFSET=$2746
 .label KEY_BUFFER_INDEX=$272c
 .label SCREEN_ROW_POS=$26ee
 .label end_mul_string=$2594
-.label wait_key=$8f1
+.label wait_key=$8c5
 .label end_keyboard_str=$2632
-.label IRQ_COUNTER=$282c
+.label IRQ_COUNTER=$2829
 .label LIGHT_GRAY=$f
 .label SCREEN_CHAR=$26f0
 .label LIGHT_BLUE=$e
@@ -65,37 +65,36 @@
 .label ZERO_PAGE_ROW_COLOR_LOW_BYTE=$24
 .label coor_y_str=$2664
 .label SCREEN_WIDTH=$28
-.label OLD_IRQ_HIGH=$282f
+.label OLD_IRQ_HIGH=$282c
 .label SCREEN_COL_POS=$26ef
 .label ORANGE=$8
-.label SCREEN_INPUT_COLOR=$2791
+.label SCREEN_INPUT_COLOR=$2790
 .label TABLE_KEY_BOARD_COL=$273e
 .label mul_num1_0=$2703
-.label SCREEN_INPUT_COL_POS_CLS=$2790
+.label SCREEN_INPUT_COL_POS_CLS=$278f
 .label mul_num1_3=$2706
 .label VARIABLES_ADDRESS=$2500
 .label Row_LO=$4000
 .label mul_num1_1=$2704
-.label CHAR_INDEX_1=$282a
+.label CHAR_INDEX_1=$2827
 .label ZERO_PAGE_PRINT_TEXT_LO=$22
 .label mul_num1_2=$2705
-.label PRESSED_KEY_TABLE=$2792
+.label PRESSED_KEY_TABLE=$2791
 .label TABLE_KEY_ROW_INDEX=$2728
-.label CHAR_INDEX_2=$282b
+.label CHAR_INDEX_2=$2828
 .label SCREEN_ROW_COLOR_POS=$26ec
 .label SCREEN_SIZE=$3e8
 .label RED=$2
-.label INPUT_CURSOR_COL_CLS=$27d5
 .label sum_result_str=$25c2
 .label sum_num2_3=$2716
 .label division_n1_str=$2600
 .label SCREEN_CHAR_INDEX=$26f2
 .label delete_key_str=$26cb
-.label CURSOR_STATE=$282d
+.label CURSOR_STATE=$282a
 .label sum_num2_0=$2713
 .label sum_num2_1=$2714
 .label KEYS_BUFFER_COUNTER=$2735
-.label SCREEN_INPUT_COL_POS=$278e
+.label SCREEN_INPUT_COL_POS=$278d
 .label sum_num2_2=$2715
 .label SYSTEM=$5000 {
   .label restore_system=$5016 {
@@ -109,7 +108,7 @@
 .label LIGHT_GREEN=$d
 .label CHAR_KEY_PRESSED=$272a
 .label main=$811
-.label KEYS_TO_SCREEN_STR=$27da
+.label KEYS_TO_SCREEN_STR=$27d7
 .label stars_line=$250f
 .label SCREEN_BORDER_COLOR=$d020
 .label PRINTING_FLAG=$272e
@@ -123,7 +122,7 @@
 .label div_num1_0=$26f7
 .label ZERO_PAGE_ROW_COLOR_HIGHT_BYTE=$25
 .label div_num1_1=$26f8
-.label INPUT_INDEX_COUNTER=$278c
+.label INPUT_INDEX_COUNTER=$278b
 .label end_div_32_str=$257f
 .label PRINT_LIB=$5028 {
   .label continue_writing=$5053
@@ -147,140 +146,139 @@
   }
 }
 .label current_char_str=$26c5
-.label INPUT_STR_LIMIT_CLS=$2789
-.label SCREEN_INPUT_ROW_POS_CLS=$278f
-.label INPUT_CURSOR_ROW=$27d2
+.label SCREEN_INPUT_ROW_POS_CLS=$278e
+.label INPUT_CURSOR_ROW=$27d1
 .label NUMBER_TO_PRINT_TABLE=$26e2
 .label total_digits=$26f5
 .label mul_num2_2=$2709
 .label mul_num2_3=$270a
 .label mul_num2_0=$2707
-.label SCREEN_CHAR_COLOR_OLD=$27d6
+.label SCREEN_CHAR_COLOR_OLD=$27d3
 .label mul_num2_1=$2708
 .label move_left_str=$2689
 .label keys_buffer=$250a
 .label SCREEN_RAM=$400
 .label cmb_pressed_str=$266a
-.label temp_offset=$27d7
+.label temp_offset=$27d4
 .label TABLE_KEY_ASCII=$2747
 .label INPUT_LIB=$5157 {
-  .label scan_all_keys=$52d0 {
+  .label scan_all_keys=$52d5 {
   }
-  .label no_key_detected=$52fa
-  .label save_key_pressed=$5361 {
+  .label no_key_detected=$52ff
+  .label save_key_pressed=$5366 {
   }
-  .label increment_index_cursor_index=$5abd {
+  .label increment_index_cursor_index=$5ac2 {
   }
   .label input_keyboard=$5157 {
   }
-  .label print_cursor_col_pos=$5918 {
+  .label print_cursor_col_pos=$591d {
   }
-  .label clear_pressed=$548f
-  .label print_cursor=$54b9 {
+  .label clear_pressed=$5494
+  .label print_cursor=$54be {
   }
-  .label reset_key_flags=$5251 {
+  .label reset_key_flags=$5256 {
   }
-  .label print_current_pressed_char=$57da {
+  .label print_current_pressed_char=$57df {
   }
-  .label print_keys_pressed=$5a70 {
+  .label print_keys_pressed=$5a75 {
   }
-  .label rotate_right_str_string=$5bbd {
+  .label rotate_right_str_string=$5bc2 {
   }
-  .label reset_screen_str=$5bf2 {
+  .label reset_screen_str=$5bf7 {
   }
-  .label init_irq_timer=$5c09 {
+  .label init_irq_timer=$5c0e {
   }
-  .label irq_timer_exit=$5c7b {
+  .label irq_timer_exit=$5c80 {
   }
-  .label calculate_offset_for_ascii_table=$549f {
+  .label calculate_offset_for_ascii_table=$54a4 {
   }
-  .label process_key=$5a3c
-  .label outer_loop=$5479
-  .label cursor_on=$5c66
-  .label end_rotate=$5bec {
+  .label process_key=$5a41
+  .label outer_loop=$547e
+  .label cursor_on=$5c6b
+  .label end_rotate=$5bf1 {
   }
-  .label allow_move_to_left=$5288
-  .label decrement_current_cursor_of_screen=$5a9d {
+  .label allow_move_to_left=$528d
+  .label decrement_current_cursor_of_screen=$5aa2 {
   }
-  .label scan_cols_loop=$52e9
-  .label print_debug_params=$5210 {
+  .label scan_cols_loop=$52ee
+  .label print_debug_params=$5215 {
   }
-  .label increment_current_cursor_of_screen=$5aad {
+  .label increment_current_cursor_of_screen=$5ab2 {
   }
-  .label check_if_is_enter_key=$5349
-  .label add_scanned_keys_to_screen_str=$5a13 {
+  .label check_if_is_enter_key=$534e
+  .label add_scanned_keys_to_screen_str=$5a18 {
   }
-  .label execute_actions_key=$5261 {
+  .label execute_actions_key=$5266 {
   }
-  .label cursor_to_right=$5294
-  .label clear_key_pressed_table=$5488 {
+  .label cursor_to_right=$5299
+  .label clear_key_pressed_table=$548d {
   }
-  .label init_scan_keys=$5a2a
-  .label skip_print_string_and_cursor=$51c9
-  .label sleep_key=$5472 {
+  .label init_scan_keys=$5a2f
+  .label skip_print_string_and_cursor=$51ce
+  .label sleep_key=$5477 {
   }
-  .label remove_char_screen_str_by_key=$5b8c {
+  .label remove_char_screen_str_by_key=$5b91 {
   }
-  .label print_offset_result=$5374 {
+  .label print_offset_result=$5379 {
   }
-  .label cursor_off=$5c72
-  .label print_cursor_index_pos=$581d {
+  .label cursor_off=$5c77
+  .label print_cursor_index_pos=$5822 {
   }
-  .label blink_cursor=$5c40 {
+  .label blink_cursor=$5c45 {
   }
-  .label continue_swap=$5b9d
-  .label finish_reading_keys=$51d2
-  .label move_cursor_to_left_on_string_screen=$5add {
+  .label continue_swap=$5ba2
+  .label finish_reading_keys=$51d7
+  .label move_cursor_to_left_on_string_screen=$5ae2 {
   }
-  .label skip=$5325
-  .label continue_check_pressed_table=$5a2c
-  .label move_cursor_to_right_on_string_screen=$5b1c {
+  .label skip=$532a
+  .label continue_check_pressed_table=$5a31
+  .label move_cursor_to_right_on_string_screen=$5b21 {
   }
-  .label restore_char_with_current_cursor=$5b5b {
+  .label restore_char_with_current_cursor=$5b60 {
   }
-  .label allow_delete_to_left=$52b2
-  .label continue_rotation=$5bd5
-  .label disable_current_cursor=$5ca6 {
+  .label allow_delete_to_left=$52b7
+  .label continue_rotation=$5bda
+  .label disable_current_cursor=$5cab {
   }
-  .label block_because_is_printing=$51f0 {
+  .label block_because_is_printing=$51f5 {
   }
-  .label print_x_coord=$54ed {
+  .label print_x_coord=$54f2 {
   }
-  .label print_cursor_pos=$56df {
+  .label print_cursor_pos=$56e4 {
   }
-  .label continue_reset_screen=$5bfb
-  .label init_reading=$518f
-  .label not_add_key_to_screen_str=$5a65
-  .label scan_rows_loop=$52d7
-  .label exit_actions=$52ca {
+  .label continue_reset_screen=$5c00
+  .label init_reading=$5194
+  .label not_add_key_to_screen_str=$5a6a
+  .label scan_rows_loop=$52dc
+  .label exit_actions=$52cf {
   }
-  .label unblock_because_is_not_printing=$5200 {
+  .label unblock_because_is_not_printing=$5205 {
   }
-  .label cursor_to_left=$527e
-  .label print_y_coord=$55e6 {
+  .label cursor_to_left=$5283
+  .label print_y_coord=$55eb {
   }
-  .label enable_current_cursor=$5cd7 {
+  .label enable_current_cursor=$5cdc {
   }
-  .label check_if_is_delete_key=$5337
-  .label detect_specials_keys_and_set_actions_flags=$530a {
+  .label check_if_is_delete_key=$533c
+  .label detect_specials_keys_and_set_actions_flags=$530f {
   }
-  .label destroy_irq_timer=$5c83 {
+  .label destroy_irq_timer=$5c88 {
   }
-  .label insert_end_line_in_screen_str=$5d08 {
+  .label insert_end_line_in_screen_str=$5d0d {
   }
-  .label decrement_index_cursor_index=$5acd {
+  .label decrement_index_cursor_index=$5ad2 {
   }
-  .label exit_set_flags=$535b {
+  .label exit_set_flags=$5360 {
   }
-  .label read_key=$518a {
+  .label read_key=$518f {
   }
-  .label delete_key=$52a8
-  .label inner_loop=$547b
-  .label finish_scan=$5a6a {
+  .label delete_key=$52ad
+  .label inner_loop=$5480
+  .label finish_scan=$5a6f {
   }
 }
 .label move_right_str=$268f
-.label TEMP_X_REG=$27d8
+.label TEMP_X_REG=$27d5
 .label YELLOW=$7
 .label multipli_n1_str=$2617
 .label sub_num2_3=$2722
@@ -290,7 +288,6 @@
 .label sub_num2_1=$2720
 .label sub_num2_0=$271f
 .label sub_res_2=$2725
-.label INPUT_CURSOR_ROW_CLS=$27d4
 .label cursor_index_str=$2695
 .label sub_res_3=$2726
 .label TABLE_KEY_COL_INDEX=$2727
@@ -300,7 +297,7 @@
 .label sub_res_0=$2723
 .label sub_res_1=$2724
 .label mul_res_0=$270b
-.label OLD_IRQ_LOW=$282e
+.label OLD_IRQ_LOW=$282b
 .label hello_keyb_str=$2648
 .label mul_res_1=$270c
 .label div_num2_1=$26fc
@@ -314,12 +311,12 @@
 .label result_str=$25f5
 .label ZERO_PAGE_ADDRESS=$20
 .label WHITE=$1
-.label ROTATE_INDEX=$278b
+.label ROTATE_INDEX=$278a
 .label Row_HI=$4019
 .label ZERO_PAGE_PRINT_TEXT_HI=$23
 .label PURPLE=$4
 .label div_res_0=$26ff
-.label SCREEN_INPUT_ROW_POS=$278d
+.label SCREEN_INPUT_ROW_POS=$278c
 .label message=$2538
 .label div_res_1=$2700
 .label GREEN=$5
@@ -328,7 +325,7 @@
 .label div_res_3=$2702
 .label bye=$254a
 .label end_mul_32_str=$25a7
-.label INPUT_STR_LIMIT_ROTATE=$278a
+.label INPUT_STR_LIMIT_ROTATE=$2789
 .label INPUT_CURSOR=$2787
 .label system_status=$810
 .label space_4_str=$267e
