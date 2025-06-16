@@ -1,8 +1,7 @@
 // ------------------------- Keyboard Variables -------------------------------
-TABLE_KEY_COL_INDEX: .byte 0
-TABLE_KEY_ROW_INDEX: .byte 0
+/* Save byte key pressed */
 KEY_PRESSED:         .byte 0
-CHAR_KEY_PRESSED:    .byte 0
+
 /* KEY_FLAS BITS POSITION */
 /*
     0 = C= KEY
@@ -14,20 +13,14 @@ CHAR_KEY_PRESSED:    .byte 0
     6 = Cursor enabled
     7 = Show cursor on screen
 */
-KEY_FLAGS:           .byte 0
-KEY_BUFFER_INDEX:    .byte 0
-KEY_WAIT:            .byte 0
+KEY_FLAGS:     .byte 0
 
-
+/* Variable to allow or block the IRQ action. If it is 1 means the system
+is printing in screen */
 PRINTING_FLAG: .byte 0
 
 
-// Save CMB KEY and
-// future others special
-// keys
-KEYS_BUFFER:         .fill 6,0
-KEYS_BUFFER_COUNTER: .byte 0
-
+/* MATRIX on ROW keys */
 TABLE_KEY_BOARD_ROW:
     .byte %11111110  // 0
     .byte %11111101  // 1
@@ -38,7 +31,8 @@ TABLE_KEY_BOARD_ROW:
     .byte %10111111  // 6
     .byte %01111111  // 7
 
-TABLE_KEY_BOARD_COL:  //keys pressed
+/* MATRIX on COL keys */
+TABLE_KEY_BOARD_COL: // keys pressed
     .byte %00000001  // 0
     .byte %00000010  // 1
     .byte %00000100  // 2
@@ -48,7 +42,11 @@ TABLE_KEY_BOARD_COL:  //keys pressed
     .byte %01000000  // 6
     .byte %10000000  // 7
 
-TABLE_KEY_ASCII_X_OFFSET: .byte 1    
+/* Variable to save the calc of ROW and COL value of the keyboard MATRIX */
+TABLE_KEY_ASCII_X_OFFSET: .byte 1
+
+/* The table ASCII is where are the ASCII codes. This table is related with 
+the TABLE_KEY_ASCII_X_OFFSET.  */
 TABLE_KEY_ASCII:
     .byte $00,$33,$35,$37,$39,$00,$00,$31
     .byte $00,$17,$12,$19,$09,$10,$00,$00
@@ -59,14 +57,17 @@ TABLE_KEY_ASCII:
     .byte $00,$05,$14,$15,$0F,$00,$00,$11
     .byte $00,$00,$18,$16,$0E,$2C,$00,$00
 
-//for input control
+/* INPUT_CURSOR: This is to know where is the cursor in the input */
 INPUT_CURSOR:        .byte 0  // This is to check the limit
+
+/* INPUT_STR_LIMIT: this is the length of the input */
 INPUT_STR_LIMIT:     .byte 0  // Lenght of str
-INPUT_STR_LIMIT_ROTATE: .byte 0
+
+/* ROTATE_INDEX : This is used when the user press DELETE key. It is used to
+move the chars in the string  */
 ROTATE_INDEX:           .byte 0
 
-
-
+/* INPUT_INDEX_COUNTER: Used to know the position index in the string */
 INPUT_INDEX_COUNTER: .byte 0 // control string index
 
 //Set row and col

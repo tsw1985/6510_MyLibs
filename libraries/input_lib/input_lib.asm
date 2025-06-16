@@ -586,7 +586,6 @@ print_y_coord:
     push_regs_to_stack()
     insert_text(3,0,coor_y_str,WHITE)
 
-    //lda TABLE_KEY_COL_INDEX
     tya  // the Y col value is in Y register
     sta div_res_0
     lda #0

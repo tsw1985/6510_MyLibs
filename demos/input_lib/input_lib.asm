@@ -1,6 +1,6 @@
 /* input 1 demo */
 /* CALL INPUT ROW , COL , LIMIT , COLOR */
-input_text(15,0,20,PINK)
+input_text(15,0,25,PINK)
 /* Show wrote text demo */
 insert_text(16,1,user_wrote_str,RED)
 insert_text(16,15,KEYS_TO_SCREEN_STR,GREEN)

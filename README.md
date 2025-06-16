@@ -14,8 +14,12 @@ This functions are for kickassembler.
 ### Print a string text
 
     message: .text @"This is your text\$00"
-    jsr clean_location_screen
-    locate_text(4,1,0) // row,col,color
-    load_text(message) // string
+    insert_text(2,5,message,RED) // row , col, text , color
 
-    
+## INPUT TEXT ( Keyboard )
+
+    /* CALL INPUT ROW , COL , LIMIT , COLOR */
+    /* The variable with the wrotten text is : KEYS_TO_SCREEN_STR */
+    input_text(15,0,25,PINK)
+    insert_text(16,15,KEYS_TO_SCREEN_STR,GREEN)
+
