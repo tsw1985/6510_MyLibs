@@ -36,7 +36,8 @@ init_code:
     //#import "/demos/math_lib/sub_32_bits.asm"
 
     // KEYBOARD DEMOS
-    #import "/demos/input_lib/input_lib.asm"
+    // #import "/demos/input_lib/input_lib.asm"
+    #import "/demos/joystick_lib/joystick_lib.asm"
 
     /*    
     wait_key:

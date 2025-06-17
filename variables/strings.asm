@@ -39,3 +39,19 @@ calc_offset_str:  .text @"offset:\$00"
 current_char_str: .text @"char:\$00"
 delete_key_str:   .text @"delete key\$00"
 user_wrote_str:   .text @"user wrote:\$00"
+
+joystick_str:          .text @"joystick lib:\$00"
+joystick_fire_str:     .text @"joystic fire\$00"
+
+joystick_up_str:       .text @"joystick up \$00"
+joystick_up_right_str: .text @"joy up right\$00"
+joystick_up_left_str:  .text @"joy up left \$00"
+
+joystick_down_str:       .text @"joystick down \$00"
+joystick_down_left_str:  .text @"joy down left \$00"
+joystick_down_right_str: .text @"joy down right\$00"
+
+
+joystick_left_str:       .text @"joystick left\$00"
+joystick_right_str:      .text @"joystick right\$00"
+joystick_no_move_str:      .text @"----no move---\$00"
