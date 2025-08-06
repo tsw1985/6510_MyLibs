@@ -54,4 +54,6 @@ joystick_down_right_str: .text @"joy down right\$00"
 
 joystick_left_str:       .text @"joystick left\$00"
 joystick_right_str:      .text @"joystick right\$00"
-joystick_no_move_str:      .text @"----no move---\$00"
+joystick_no_move_str:    .text @"----no move---\$00"
+
+sprite_hello_str:        .text @"hello sprite\$00"

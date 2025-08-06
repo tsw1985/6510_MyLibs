@@ -1,4 +1,7 @@
-read_joystick:
+JOYSTICK_LIB:
+{
+
+    read_joystick:
 
     push_regs_to_stack()    
     insert_text(1,1,joystick_str,WHITE)
@@ -86,3 +89,5 @@ read_joystick:
     pull_regs_from_stack()
 
 rts
+
+}

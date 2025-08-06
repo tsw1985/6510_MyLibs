@@ -20,10 +20,10 @@ BasicUpstart2(main)
 *=VARIABLES_ADDRESS "Variables"
 #import "/includes/variables.asm"
 
-/*
+
 *=SPRITES_ADDRESS "Sprites"
 .import binary "/sprites/sprites.bin"
-*/
+
 
 /*
 *=CHARSET_ADDRESS "Charset"

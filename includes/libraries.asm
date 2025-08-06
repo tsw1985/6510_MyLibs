@@ -6,3 +6,4 @@
 #import "/libraries/input_lib/input_lib.asm"
 #import "/libraries/math_lib/math_lib.asm"
 #import "/libraries/joystick_lib/joystick_lib.asm"
+#import "/libraries/sprite_lib/sprite_lib.asm"

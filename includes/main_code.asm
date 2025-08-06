@@ -37,14 +37,17 @@ init_code:
 
     // KEYBOARD DEMOS
     // #import "/demos/input_lib/input_lib.asm"
-    #import "/demos/joystick_lib/joystick_lib.asm"
+    // #import "/demos/joystick_lib/joystick_lib.asm"
+    #import "/demos/sprite_lib/sprite_show.asm"
 
-    /*    
+
+    // uncommet in develop time
+    
     wait_key:
         jsr $ffe4       // GETIN
         cmp #0
         beq wait_key    // si no se ha pulsado tecla, repetir
-    */
+    
 
 
     // NOT REMOVEEE !!!

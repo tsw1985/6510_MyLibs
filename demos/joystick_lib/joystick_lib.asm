@@ -1,1 +1,1 @@
-jsr read_joystick
+jsr JOYSTICK_LIB.read_joystick

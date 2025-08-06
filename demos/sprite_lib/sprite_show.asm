@@ -1,0 +1,1 @@
+jsr SPRITE_LIB.show_sprite
