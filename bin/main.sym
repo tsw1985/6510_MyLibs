@@ -24,7 +24,6 @@
 .label sum_res_1=$27b3
 .label sum_res_3=$27b5
 .label end_mul_string=$2594
-.label wait_key=$5faf
 .label end_keyboard_str=$2632
 .label IRQ_COUNTER=$28b7
 .label LIGHT_GRAY=$f
@@ -81,6 +80,7 @@
 .label ZERO_PAGE_ROW_HIGHT_BYTE=$21
 .label INPUT_INDEX_COUNTER=$2819
 .label end_div_32_str=$257f
+.label wait_key_joystick=$5faf
 .label PRINT_LIB=$5028 {
   .label continue_writing=$5053
   .label print_move_modules_in_table_to_number_to_print_str=$50c3 {
