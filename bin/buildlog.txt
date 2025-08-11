@@ -15,6 +15,6 @@ Default-segment:
   $2500-$28d0 Variables
   $3000-$3fff Sprites
   $4000-$4063 Tables
-  $5000-$5fe3 Libraries
+  $5000-$5fee Libraries
 
 Writing Symbol file: main.sym
