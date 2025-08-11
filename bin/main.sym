@@ -24,9 +24,9 @@
 .label sum_res_2=$27c1
 .label sum_res_1=$27c0
 .label sum_res_3=$27c2
-.label check_joy_up=$831
+.label check_joy_up=$834
 .label end_mul_string=$2594
-.label wait_key=$91a
+.label wait_key=$8ae
 .label end_keyboard_str=$2632
 .label IRQ_COUNTER=$28c4
 .label LIGHT_GRAY=$f
@@ -122,7 +122,7 @@
 .label hello_keyb_str=$2648
 .label mul_res_1=$27b4
 .label mul_res_2=$27b5
-.label joy_down=$87a {
+.label joy_down=$863 {
 }
 .label mul_res_3=$27b6
 .label coor_x_str=$2667
@@ -142,6 +142,8 @@
 .label DARK_GRAY=$b
 .label LIBRARIES_ADDRESS=$5000
 .label GREY=$c
+.label sleep_sprite=$898 {
+}
 .label joystick_no_move_str=$276e
 .label sub_num1_3=$27c6
 .label sub_num1_2=$27c5
@@ -154,7 +156,7 @@
 .label mult_times_str=$262d
 .label joystick_str=$26e2
 .label INPUT_CURSOR_COL=$286d
-.label check_joy_down=$83b
+.label check_joy_down=$83e
 .label counter_table=$279b
 .label user_wrote_str=$26d6
 .label Row_Color_LO=$4032
@@ -177,7 +179,7 @@
   .label input_left_check=$5e6f
   .label input_right_check=$5e7e
 }
-.label joy_fire=$8f2 {
+.label joy_fire=$88d {
 }
 .label joystick_down_right_str=$2742
 .label CYAN=$3
@@ -189,12 +191,12 @@
 .label ZERO_PAGE_ROW_COLOR_LOW_BYTE=$24
 .label SCREEN_WIDTH=$28
 .label OLD_IRQ_HIGH=$28c7
-.label start_read_joystick=$817
+.label start_read_joystick=$81a
 .label ORANGE=$8
 .label SCREEN_INPUT_COLOR=$282b
 .label SCREEN_INPUT_COL_POS_CLS=$282a
 .label VARIABLES_ADDRESS=$2500
-.label joy_left=$8a2 {
+.label joy_left=$871 {
 }
 .label ZERO_PAGE_PRINT_TEXT_LO=$22
 .label PRESSED_KEY_TABLE=$282c
@@ -205,17 +207,18 @@
 .label division_n2_str=$2610
 .label KEY_FLAGS=$27d0
 .label main=$811
-.label check_joy_fire=$845
+.label check_joy_fire=$848
 .label KEYS_TO_SCREEN_STR=$2872
 .label stars_line=$250f
 .label MAIN_CODE_ADDRESS=$810
 .label input_text_str=$26b1
-.label end_read_joystick=$84f
+.label end_read_joystick=$852
 .label div_num1_2=$27a1
 .label div_num1_3=$27a2
 .label Row_Color_HI=$404b
 .label div_num1_0=$279f
 .label ZERO_PAGE_ROW_COLOR_HIGHT_BYTE=$25
+.label sleep_sprite_outer_loop=$89f
 .label div_num1_1=$27a0
 .label SPRITE_LIB=$5ec0 {
   .label show_sprite=$5ec0 {
@@ -230,7 +233,7 @@
 .label SCREEN_CHAR_COLOR_OLD=$286e
 .label mul_num2_1=$27b0
 .label JOYSTICK_2_NO_MOVE=$28ca
-.label joy_right=$8ca {
+.label joy_right=$87f {
 }
 .label SCREEN_RAM=$400
 .label cmb_pressed_str=$266a
@@ -359,7 +362,7 @@
 .label SPRITES_ADDRESS=$3000
 .label SCREEN_COLOR_RAM=$d800
 .label last_total_digits=$279e
-.label joy_up=$852 {
+.label joy_up=$855 {
 }
 .label OLD_IRQ_LOW=$28c6
 .label div_num2_1=$27a4
@@ -375,6 +378,7 @@
 .label div_res_1=$27a8
 .label div_res_2=$27a9
 .label div_res_3=$27aa
-.label check_joy_right=$827
+.label check_joy_right=$82a
 .label system_status=$810
 .label space_4_str=$267e
+.label sleep_sprite_inner_loop=$8a1
