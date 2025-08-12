@@ -3,41 +3,116 @@
 SPRITE_LIB:
 {
 
-    show_sprite:
-        push_regs_to_stack()
+    /* ROW -- */
+    sprite_0_decrement_x:
+        dec $d000
+    rts
+    sprite_1_decrement_x:
+        dec $d002
+    rts
+    sprite_2_decrement_x:
+        dec $d004
+    rts
+    sprite_3_decrement_x:
+        dec $d006
+    rts
+    sprite_4_decrement_x:
+        dec $d008
+    rts
+    sprite_5_decrement_x:
+        dec $d00a
+    rts
+    sprite_6_decrement_x:
+        dec $d00c
+    rts
+    sprite_7_decrement_x:
+        dec $d00e
+    rts
 
-        //insert_text(2,5,sprite_hello_str,RED)
-
-        /* Global */
-        sprite_set_extra_colors(GRAY,YELLOW)
-        //sprite_enable_sprite(0)
-        //sprite_enable_sprite(1)
-
-
-        /* Setup for sprite 0 */
-        sprite_load_like_multicolor(0)
-        sprite_set_position(0,160,130)
-        sprite_set_color(0,WHITE)
-        sprite_set_frame_to_sprite($00c0,0) // $00c1 ... $00c2 ...
-        /* Setup for sprite 0 */
-
-
-        /* Setup for sprite 1 */
-        sprite_load_like_multicolor(1)
-        sprite_set_position(1,50,100)
-        sprite_set_color(1,GREEN)
-        sprite_set_frame_to_sprite($00c0,1) // $00c1 ... $00c2 ...
-        /* Setup for sprite 1 */
-
-
-
-        // Enable sprites
-        sprite_enable_sprite(0)
-        sprite_enable_sprite(1)
+    /* ROW ++ */
+    sprite_0_increment_x:
+        inc $d000
+    rts
+    sprite_1_increment_x:
+        inc $d002
+    rts
+    sprite_2_increment_x:
+        inc $d004
+    rts
+    sprite_3_increment_x:
+        inc $d006
+    rts
+    sprite_4_increment_x:
+        inc $d008
+    rts
+    sprite_5_increment_x:
+        inc $d00a
+    rts
+    sprite_6_increment_x:
+        inc $d00c
+    rts
+    sprite_7_increment_x:
+        inc $d00e
+    rts
 
 
 
-        pull_regs_from_stack()
-        rts
+
+
+    /*++++++++++++++++++++++ Y *************************/
+    /* ROW -- */
+    sprite_0_decrement_y:
+        dec $d001
+    rts
+    sprite_1_decrement_y:
+        dec $d003
+    rts
+    sprite_2_decrement_y:
+        dec $d005
+    rts
+    sprite_3_decrement_y:
+        dec $d007
+    rts
+    sprite_4_decrement_y:
+        dec $d009
+    rts
+    sprite_5_decrement_y:
+        dec $d00b
+    rts
+    sprite_6_decrement_y:
+        dec $d00d
+    rts
+    sprite_7_decrement_y:
+        dec $d00f
+    rts
+
+    /* ROW ++ */
+    sprite_0_increment_y:
+        inc $d001
+    rts
+    sprite_1_increment_y:
+        inc $d003
+    rts
+    sprite_2_increment_y:
+        inc $d005
+    rts
+    sprite_3_increment_y:
+        inc $d007
+    rts
+    sprite_4_increment_y:
+        inc $d009
+    rts
+    sprite_5_increment_y:
+        inc $d00b
+    rts
+    sprite_6_increment_y:
+        inc $d00d
+    rts
+    sprite_7_increment_y:
+        inc $d00f
+    rts
+
+
+
 
 }

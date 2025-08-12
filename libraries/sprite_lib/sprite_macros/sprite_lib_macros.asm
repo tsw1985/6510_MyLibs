@@ -227,7 +227,5 @@
     .if(sprite_number == 7){
         sta $07ff
     }
+    
 }
-
-
-

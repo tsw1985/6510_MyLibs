@@ -1,4 +1,30 @@
-jsr SPRITE_LIB.show_sprite
+insert_text(2,5,sprite_hello_str,RED)
+
+/* Global */
+sprite_set_extra_colors(GRAY,YELLOW)
+
+// Enable sprites
+sprite_enable_sprite(0)
+sprite_enable_sprite(1)
+
+
+/* Setup for sprite 0 */
+sprite_load_like_multicolor(0)
+sprite_set_position(0,160,130)
+sprite_set_color(0,WHITE)
+sprite_set_frame_to_sprite($00c0,0) // $00c1 ... $00c2 ...
+/* Setup for sprite 0 */
+
+
+/* Setup for sprite 1 */
+sprite_load_like_multicolor(1)
+sprite_set_position(1,50,100)
+sprite_set_color(1,GREEN)
+sprite_set_frame_to_sprite($00c0,1)
+/* Setup for sprite 1 */
+
+
+
 
 start_read_joystick:
 
@@ -58,44 +84,28 @@ jmp start_read_joystick
 /////////////////////////////////////////////
 */
 joy_up:
-    push_regs_to_stack()
-    //insert_text(2,10,joystick_up_str,WHITE)
-
-    dec $d001 /* sprite 0 */
-    dec $d003 /* sprite 1 */
-
-    pull_regs_from_stack()
+    jsr SPRITE_LIB.sprite_0_decrement_y
+    jsr SPRITE_LIB.sprite_1_decrement_y
     rts
     
 joy_down:
-    push_regs_to_stack()
-    //insert_text(6,10,joystick_down_str,WHITE)
-    inc $d001
-    inc $d003
-
-
-    pull_regs_from_stack()
+    jsr SPRITE_LIB.sprite_0_increment_y
+    jsr SPRITE_LIB.sprite_1_increment_y
     rts
     
 joy_left:
-    push_regs_to_stack()
-    //insert_text(4,4,joystick_left_str,WHITE)
-    dec $d000
-    dec $d002
-    pull_regs_from_stack()
+    jsr SPRITE_LIB.sprite_0_decrement_x
+    jsr SPRITE_LIB.sprite_1_decrement_x
     rts
     
 joy_right:
-    push_regs_to_stack()
-    //insert_text(4,15,joystick_right_str,WHITE)
-    inc $d000
-    inc $d002
-    pull_regs_from_stack()
+    jsr SPRITE_LIB.sprite_0_increment_x
+    jsr SPRITE_LIB.sprite_1_increment_x
     rts
 
 joy_fire:
     push_regs_to_stack()
-    //insert_text(2,10,joystick_fire_str,WHITE)
+    insert_text(2,10,joystick_fire_str,WHITE)
     pull_regs_from_stack()
     rts
 
