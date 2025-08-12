@@ -33,10 +33,9 @@ SPRITE_LIB:
         sprite_set_color(0,WHITE)
 
         // Load Sprite 0
-        lda #$00c0 // FRAME 0
-        //lda #$00c1   // FRAME 1
-        sta $07f8
-        
+        /*lda #$00c0 // FRAME 0 //lda #$00c1   // FRAME 1
+        sta $07f8*/
+        sprite_set_frame_to_sprite($00c0,0)
 
         /*
         lda #%00000001 
