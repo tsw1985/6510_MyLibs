@@ -60,7 +60,10 @@ jmp start_read_joystick
 joy_up:
     push_regs_to_stack()
     //insert_text(2,10,joystick_up_str,WHITE)
-    dec $d001
+
+    dec $d001 /* sprite 0 */
+    dec $d003 /* sprite 1 */
+
     pull_regs_from_stack()
     rts
     
@@ -68,6 +71,9 @@ joy_down:
     push_regs_to_stack()
     //insert_text(6,10,joystick_down_str,WHITE)
     inc $d001
+    inc $d003
+
+
     pull_regs_from_stack()
     rts
     
@@ -75,6 +81,7 @@ joy_left:
     push_regs_to_stack()
     //insert_text(4,4,joystick_left_str,WHITE)
     dec $d000
+    dec $d002
     pull_regs_from_stack()
     rts
     
@@ -82,6 +89,7 @@ joy_right:
     push_regs_to_stack()
     //insert_text(4,15,joystick_right_str,WHITE)
     inc $d000
+    inc $d002
     pull_regs_from_stack()
     rts
 
@@ -106,3 +114,4 @@ sleep_sprite:
         
         pull_regs_from_stack()
 rts    
+

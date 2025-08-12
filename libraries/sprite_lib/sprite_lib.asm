@@ -8,45 +8,32 @@ SPRITE_LIB:
 
         //insert_text(2,5,sprite_hello_str,RED)
 
-        // ----- Set up sprite 0 -----
-        
-        // Sprite 0 X-pos
-        /*lda #160
-        sta $d000
-        
-        // Sprite 0 Y-pos
-        lda #130
-        sta $d001*/
-        sprite_set_position(0,160,130)
-
-        
-        /*lda #BROWN
-        sta $d025 //$d026 // Sprite extra color 1
-
-        lda #YELLOW
-        sta $d026 //$d027 // Sprite extra color 1*/
+        /* Global */
         sprite_set_extra_colors(GRAY,YELLOW)
-        
-        // Sprite 0 color
-        /*lda #WHITE
-        sta $d027*/
-        sprite_set_color(0,WHITE)
+        //sprite_enable_sprite(0)
+        //sprite_enable_sprite(1)
 
-        // Load Sprite 0
-        /*lda #$00c0 // FRAME 0 //lda #$00c1   // FRAME 1
-        sta $07f8*/
-        sprite_set_frame_to_sprite($00c0,0)
 
-        /*
-        lda #%00000001 
-        sta $d01c // Sprite multicolor
-        */
+        /* Setup for sprite 0 */
         sprite_load_like_multicolor(0)
+        sprite_set_position(0,160,130)
+        sprite_set_color(0,WHITE)
+        sprite_set_frame_to_sprite($00c0,0) // $00c1 ... $00c2 ...
+        /* Setup for sprite 0 */
+
+
+        /* Setup for sprite 1 */
+        sprite_load_like_multicolor(1)
+        sprite_set_position(1,50,100)
+        sprite_set_color(1,GREEN)
+        sprite_set_frame_to_sprite($00c0,1) // $00c1 ... $00c2 ...
+        /* Setup for sprite 1 */
+
+
 
         // Enable sprites
-	    /*lda #%00000001 // Sprite 0 and sprite
-	    sta $d015 // Enable sprite*/
         sprite_enable_sprite(0)
+        sprite_enable_sprite(1)
 
 
 

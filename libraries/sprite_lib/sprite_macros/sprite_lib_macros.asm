@@ -111,36 +111,38 @@
 */
 .macro sprite_load_like_multicolor(sprite_number){
 
+    lda $d01c
+
     .if(sprite_number == 0){
-        lda #%00000001 
+        ora #%00000001
     }
     
     .if(sprite_number == 1){
-        lda #%00000010
+        ora #%00000010
     }
 
     .if(sprite_number == 2){
-        lda #%00000100
+        ora #%00000100
     }
 
     .if(sprite_number == 3){
-        lda #%00001000
+        ora #%00001000
     }
 
     .if(sprite_number == 4){
-        lda #%00010000 
+        ora #%00010000 
     }
 
     .if(sprite_number == 5){
-        lda #%00100000 
+        ora #%00100000 
     }
 
     .if(sprite_number == 6){
-        lda #%01000000
+        ora #%01000000
     }
 
     .if(sprite_number == 7){
-        lda #%10000000
+        ora #%10000000
     }
 
     // Load sprite like multicolor
@@ -154,36 +156,39 @@
 */
 .macro sprite_enable_sprite(sprite_number){
 
-.if(sprite_number == 0){
-        lda #%00000001 
+    // load current sprites
+    lda $d015 
+
+    .if(sprite_number == 0){
+        ora #%00000001
     }
     
     .if(sprite_number == 1){
-        lda #%00000010
+        ora #%00000010
     }
 
     .if(sprite_number == 2){
-        lda #%00000100
+        ora #%00000100
     }
 
     .if(sprite_number == 3){
-        lda #%00001000
+        ora #%00001000
     }
 
     .if(sprite_number == 4){
-        lda #%00010000 
+        ora #%00010000 
     }
 
     .if(sprite_number == 5){
-        lda #%00100000 
+        ora #%00100000 
     }
 
     .if(sprite_number == 6){
-        lda #%01000000
+        ora #%01000000
     }
 
     .if(sprite_number == 7){
-        lda #%10000000
+        ora #%10000000
     }
 
     // Enable sprite
@@ -223,5 +228,6 @@
         sta $07ff
     }
 }
+
 
 
