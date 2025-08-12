@@ -66,10 +66,10 @@
 .macro sprite_set_extra_colors(color_one,color_two){
 
     lda #color_one
-    sta $d025 //$d026 // Sprite extra color 1
+    sta $d025 // Sprite extra color 1
 
     lda #color_two
-    sta $d026 //$d027 // Sprite extra color 2
+    sta $d026 // Sprite extra color 2
 
 }
 
@@ -79,28 +79,28 @@
 .macro sprite_set_color(sprite_number,color){
 
     lda #color
-    .if( sprite_number == 0){
+    .if( sprite_number == 0 ){
         sta $d027
     }
-    .if( sprite_number == 1){
+    .if( sprite_number == 1 ){
         sta $d028
     }
-    .if( sprite_number == 2){
+    .if( sprite_number == 2 ){
         sta $d029
     }
-    .if( sprite_number == 3){
+    .if( sprite_number == 3 ){
         sta $d02a
     }
-    .if( sprite_number == 4){
+    .if( sprite_number == 4 ){
         sta $d02b
     }
-    .if( sprite_number == 5){
+    .if( sprite_number == 5 ){
         sta $d02c
     }
-    .if( sprite_number == 6){
+    .if( sprite_number == 6 ){
         sta $d02d
     }
-    .if( sprite_number == 7){
+    .if( sprite_number == 7 ){
         sta $d02e
     }
 
@@ -113,35 +113,35 @@
 
     lda $d01c
 
-    .if(sprite_number == 0){
+    .if( sprite_number == 0 ){
         ora #%00000001
     }
     
-    .if(sprite_number == 1){
+    .if( sprite_number == 1 ){
         ora #%00000010
     }
 
-    .if(sprite_number == 2){
+    .if( sprite_number == 2 ){
         ora #%00000100
     }
 
-    .if(sprite_number == 3){
+    .if( sprite_number == 3 ){
         ora #%00001000
     }
 
-    .if(sprite_number == 4){
+    .if( sprite_number == 4 ){
         ora #%00010000 
     }
 
-    .if(sprite_number == 5){
+    .if( sprite_number == 5 ){
         ora #%00100000 
     }
 
-    .if(sprite_number == 6){
+    .if( sprite_number == 6 ){
         ora #%01000000
     }
 
-    .if(sprite_number == 7){
+    .if( sprite_number == 7 ){
         ora #%10000000
     }
 
@@ -156,76 +156,160 @@
 */
 .macro sprite_enable_sprite(sprite_number){
 
-    // load current sprites
-    lda $d015 
+
+    .if( sprite_number == 0 ){
+        lda #%00000001
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.enable_sprite
+    }
+    
+    .if( sprite_number == 1 ){
+        lda #%00000010
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.enable_sprite
+    }
+
+    .if( sprite_number == 2 ){
+        lda #%00000100
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.enable_sprite
+    }
+
+    .if( sprite_number == 3 ){
+        lda #%00001000
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.enable_sprite
+    }
+
+    .if( sprite_number == 4 ){
+        lda #%00010000 
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.enable_sprite
+    }
+
+    .if( sprite_number == 5 ){
+        lda #%00100000 
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.enable_sprite
+    }
+
+    .if( sprite_number == 6 ){
+        lda #%01000000
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.enable_sprite
+    }
+
+    .if( sprite_number == 7 ){
+        lda #%10000000
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.enable_sprite
+    }
+   
+}
+
+/*
+    Disable ( show - hide ) a sprite
+    IN: SPRITE_TO_ENABLE
+        This variable will contains the sprites to enable in binary
+*/
+.macro sprite_disable_sprite(sprite_number){
 
     .if(sprite_number == 0){
-        ora #%00000001
+        lda #%11111110
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.disable_sprite
     }
     
     .if(sprite_number == 1){
-        ora #%00000010
+        lda #%11111101
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.disable_sprite
     }
 
     .if(sprite_number == 2){
-        ora #%00000100
+        lda #%11111011
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.disable_sprite
     }
 
     .if(sprite_number == 3){
-        ora #%00001000
+        lda #%11110111
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.disable_sprite
     }
 
     .if(sprite_number == 4){
-        ora #%00010000 
+        lda #%11101111  
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.disable_sprite
     }
 
     .if(sprite_number == 5){
-        ora #%00100000 
+        lda #%11011111 
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.disable_sprite
     }
 
     .if(sprite_number == 6){
-        ora #%01000000
+        lda #%10111111
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.disable_sprite
     }
 
     .if(sprite_number == 7){
-        ora #%10000000
+        lda #%01111111
+        sta SPRITE_TO_ENABLE
+        jsr SPRITE_LIB.disable_sprite
     }
 
-    // Enable sprite
-    sta $d015 
 }
-
 
 /*
     Set a sprite frame in a sprite
+    IN : SPRITE_FRAME_POINTER
+        In this variable we set the address where is the sprite to draw in the
+        selected sprite
 */
-.macro sprite_set_frame_to_sprite(frame_index,sprite_number){
-
-    lda #frame_index
+.macro sprite_set_frame_to_sprite(frame_address_index,sprite_number){
 
     .if(sprite_number == 0){
-        sta $07f8
+        lda #frame_address_index
+        sta SPRITE_FRAME_POINTER
+        jsr SPRITE_LIB.set_frame_to_sprite_0
     }
     .if(sprite_number == 1){
-        sta $07f9
+        lda #frame_address_index
+        sta SPRITE_FRAME_POINTER
+        jsr SPRITE_LIB.set_frame_to_sprite_1
     }
     .if(sprite_number == 2){
-        sta $07fa
+        lda #frame_address_index
+        sta SPRITE_FRAME_POINTER
+        jsr SPRITE_LIB.set_frame_to_sprite_2
     }
     .if(sprite_number == 3){
-        sta $07fb
+        lda #frame_address_index
+        sta SPRITE_FRAME_POINTER
+        jsr SPRITE_LIB.set_frame_to_sprite_3
     }
     .if(sprite_number == 4){
-        sta $07fc
+        lda #frame_address_index
+        sta SPRITE_FRAME_POINTER
+        jsr SPRITE_LIB.set_frame_to_sprite_4
     }
     .if(sprite_number == 5){
-        sta $07fd
+        lda #frame_address_index
+        sta SPRITE_FRAME_POINTER
+        jsr SPRITE_LIB.set_frame_to_sprite_5
     }
     .if(sprite_number == 6){
-        sta $07fe
+        lda #frame_address_index
+        sta SPRITE_FRAME_POINTER
+        jsr SPRITE_LIB.set_frame_to_sprite_6
     }
     .if(sprite_number == 7){
-        sta $07ff
+        lda #frame_address_index
+        sta SPRITE_FRAME_POINTER
+        jsr SPRITE_LIB.set_frame_to_sprite_7
     }
-    
 }

@@ -55,12 +55,7 @@ SPRITE_LIB:
         inc $d00e
     rts
 
-
-
-
-
-    /*++++++++++++++++++++++ Y *************************/
-    /* ROW -- */
+    /* COL -- */
     sprite_0_decrement_y:
         dec $d001
     rts
@@ -86,7 +81,7 @@ SPRITE_LIB:
         dec $d00f
     rts
 
-    /* ROW ++ */
+    /* COL ++ */
     sprite_0_increment_y:
         inc $d001
     rts
@@ -112,7 +107,100 @@ SPRITE_LIB:
         inc $d00f
     rts
 
+/*
+    Enable sprite : 
+        IN : SPRITE_TO_ENABLE in binary
+        Each bit in 1 means sprite to enable
 
+*/
+enable_sprite:
 
+    push_regs_to_stack()
 
+    lda $d015             // position to enable - disable sprites
+    ora SPRITE_TO_ENABLE  // set to 1 the target sprites
+    sta $d015             // save the enables sprites
+
+    pull_regs_from_stack()
+    rts
+
+/*
+    Disable sprite : 
+        IN : SPRITE_TO_ENABLE in binary
+        Each bit in 0 means sprite to disable
+
+*/
+disable_sprite:
+    push_regs_to_stack()
+    lda $d015             // position to enable - disable sprites
+    and SPRITE_TO_ENABLE  // set to 0 the target sprites
+    sta $d015             // save the enables sprites
+    pull_regs_from_stack()
+    rts
+
+/*
+    Set frames to sprites:
+        
+        This function set a sprite data pointer ( where is the sprite draw data)
+        to a sprite target
+
+        IN: SPRITE_FRAME_POINTER ( address where is the sprite draw data)
+        Each address : $07f8 , $07f9 , $07fa ... this is the pointer (address) 
+        to set wich image to load for each sprite
+*/
+set_frame_to_sprite_0:
+    push_regs_to_stack()
+    lda SPRITE_FRAME_POINTER
+    sta $07f8   
+    pull_regs_from_stack()
+    rts
+
+set_frame_to_sprite_1:
+    push_regs_to_stack()
+    lda SPRITE_FRAME_POINTER
+    sta $07f9
+    pull_regs_from_stack()
+    rts
+
+set_frame_to_sprite_2:
+    push_regs_to_stack()
+    lda SPRITE_FRAME_POINTER
+    sta $07fa
+    pull_regs_from_stack()
+    rts
+
+set_frame_to_sprite_3:
+    push_regs_to_stack()
+    lda SPRITE_FRAME_POINTER
+    sta $07fb
+    pull_regs_from_stack()
+    rts
+
+set_frame_to_sprite_4:
+    push_regs_to_stack()
+    lda SPRITE_FRAME_POINTER
+    sta $07fc
+    pull_regs_from_stack()
+    rts
+
+set_frame_to_sprite_5:
+    push_regs_to_stack()
+    lda SPRITE_FRAME_POINTER
+    sta $07fd
+    pull_regs_from_stack()
+    rts
+
+set_frame_to_sprite_6:
+    push_regs_to_stack()
+    lda SPRITE_FRAME_POINTER
+    sta $07fe
+    pull_regs_from_stack()
+    rts
+
+set_frame_to_sprite_7:
+    push_regs_to_stack()
+    lda SPRITE_FRAME_POINTER
+    sta $07ff
+    pull_regs_from_stack()
+    rts
 }

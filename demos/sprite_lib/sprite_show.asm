@@ -7,36 +7,25 @@ sprite_set_extra_colors(GRAY,YELLOW)
 sprite_enable_sprite(0)
 sprite_enable_sprite(1)
 
-
 /* Setup for sprite 0 */
 sprite_load_like_multicolor(0)
 sprite_set_position(0,160,130)
 sprite_set_color(0,WHITE)
-sprite_set_frame_to_sprite($00c0,0) // $00c1 ... $00c2 ...
+sprite_set_frame_to_sprite($00c0,0) // $00c0 ... $00c1 ... $00c2 ...
 /* Setup for sprite 0 */
-
 
 /* Setup for sprite 1 */
 sprite_load_like_multicolor(1)
 sprite_set_position(1,50,100)
 sprite_set_color(1,GREEN)
-sprite_set_frame_to_sprite($00c0,1)
+sprite_set_frame_to_sprite($00c1,1)
 /* Setup for sprite 1 */
-
-
 
 
 start_read_joystick:
 
-    //lda #$00c1   // FRAME 1
-    //sta $07f8
-
     /* clean screen */
-    //jsr PRINT_LIB.clean_screen
     jsr sleep_sprite
-
-    //lda #$00c0   // FRAME 0
-    //sta $07f8
 
     /* read joystick positions */
     jsr JOYSTICK_LIB.read_joystick
