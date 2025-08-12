@@ -32,7 +32,8 @@ SPRITE_LIB:
 
 
         // ----- Load sprite 0 -----
-        lda #$00c0
+        lda #$00c0 // FRAME 0
+        //lda #$00c1   // FRAME 1
         sta $07f8
         
         // Sprite 0 color

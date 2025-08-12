@@ -1,3 +1,7 @@
+/*
+    JOYSTICK_POSITIONS : This is the global variable where is set the bits to
+                         know with joystick position is used.
+*/
 JOYSTICK_LIB:
 {
     read_joystick:

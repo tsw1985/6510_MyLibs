@@ -2,9 +2,15 @@ jsr SPRITE_LIB.show_sprite
 
 start_read_joystick:
 
+    //lda #$00c1   // FRAME 1
+    //sta $07f8
+
     /* clean screen */
     //jsr PRINT_LIB.clean_screen
     jsr sleep_sprite
+
+    //lda #$00c0   // FRAME 0
+    //sta $07f8
 
     /* read joystick positions */
     jsr JOYSTICK_LIB.read_joystick
@@ -40,6 +46,8 @@ start_read_joystick:
         jsr joy_fire
 
     end_read_joystick:
+
+    
 
 jmp start_read_joystick
 
