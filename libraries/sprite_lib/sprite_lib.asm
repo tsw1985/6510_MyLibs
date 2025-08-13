@@ -109,6 +109,7 @@ SPRITE_LIB:
 
 /*
     Enable sprite : 
+    --------------
         IN : SPRITE_TO_ENABLE in binary
         Each bit in 1 means sprite to enable
 
@@ -126,6 +127,7 @@ enable_sprite:
 
 /*
     Disable sprite : 
+    ----------------
         IN : SPRITE_TO_ENABLE in binary
         Each bit in 0 means sprite to disable
 
@@ -140,9 +142,10 @@ disable_sprite:
 
 /*
     Set frames to sprites:
+    ----------------------
         
-        This function set a sprite data pointer ( where is the sprite draw data)
-        to a sprite target
+        This function set a sprite data pointer ( where is the sprite picture
+        data) to a sprite target
 
         IN: SPRITE_FRAME_POINTER ( address where is the sprite draw data)
         Each address : $07f8 , $07f9 , $07fa ... this is the pointer (address) 

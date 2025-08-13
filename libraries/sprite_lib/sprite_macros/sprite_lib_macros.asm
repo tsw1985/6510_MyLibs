@@ -1,5 +1,6 @@
 /*
     Set sprite position : sprite, col , row
+    ---------------------------------------
 */
 .macro sprite_set_position( sprite_number, col, row){
 
@@ -62,6 +63,7 @@
 
 /*
     Set global sprite multicolors: color_one , color_two
+    ----------------------------------------------------
 */
 .macro sprite_set_extra_colors(color_one,color_two){
 
@@ -75,6 +77,7 @@
 
 /*
     Set color a sprite
+    ------------------
 */
 .macro sprite_set_color(sprite_number,color){
 
@@ -108,6 +111,7 @@
 
 /* 
     Setup a Sprite like multicolor mode
+    -----------------------------------
 */
 .macro sprite_load_like_multicolor(sprite_number){
 
@@ -153,6 +157,7 @@
 
 /*
     Enable ( show - hide ) a sprite
+    -------------------------------
 */
 .macro sprite_enable_sprite(sprite_number){
 
@@ -209,6 +214,7 @@
 
 /*
     Disable ( show - hide ) a sprite
+    --------------------------------
     IN: SPRITE_TO_ENABLE
         This variable will contains the sprites to enable in binary
 */
@@ -266,6 +272,7 @@
 
 /*
     Set a sprite frame in a sprite
+    ------------------------------
     IN : SPRITE_FRAME_POINTER
         In this variable we set the address where is the sprite to draw in the
         selected sprite

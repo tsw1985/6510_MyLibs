@@ -1,4 +1,4 @@
-insert_text(2,5,sprite_hello_str,RED)
+insert_text(2,5,sprite_hello_str,YELLOW)
 
 /* Global */
 sprite_set_extra_colors(GRAY,YELLOW)
@@ -61,8 +61,6 @@ start_read_joystick:
         jsr joy_fire
 
     end_read_joystick:
-
-    
 
 jmp start_read_joystick
 
