@@ -42,11 +42,12 @@ init_code:
 
 
     // uncommet in develop time
-    
+    /*
     wait_key:
         jsr $ffe4       // GETIN
         cmp #0
         beq wait_key    // si no se ha pulsado tecla, repetir
+    */
     
 
 

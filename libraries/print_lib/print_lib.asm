@@ -125,15 +125,24 @@ PRINT_LIB:
         lda SCREEN_CHAR_COLOR
         sta (ZERO_PAGE_ROW_COLOR_LOW_BYTE),y
 
+        /* Set char in row - col */
         ldx SCREEN_ROW_POS
-        lda Row_LO,x
-        sta ZERO_PAGE_ROW_LOW_BYTE
-        lda Row_HI,x
-        sta ZERO_PAGE_ROW_HIGHT_BYTE
+        lda Row_LO,x                 // example: $5020 => $20
+        sta ZERO_PAGE_ROW_LOW_BYTE   // save $20
+        lda Row_HI,x                 // example: $5020 => $50
+        sta ZERO_PAGE_ROW_HIGHT_BYTE // save $50
 
-        ldy SCREEN_COL_POS             // col 15
+        ldy SCREEN_COL_POS             // col = 15 
         lda SCREEN_CHAR                // char E
-        sta (ZERO_PAGE_ROW_LOW_BYTE),y
+        sta (ZERO_PAGE_ROW_LOW_BYTE),y // $2005  ($0520) , 15(f) = $052F .
+                                       /* 
+                                          The calculation found the ROW and then
+                                          we add the Y to move to the right
+                                          int the screen memory. REMEMBER :
+                                          The address is in LITTLE ENDIAN, that
+                                          is why you see a bytes in reverse 
+                                          order
+                                       */
 
         pull_regs_from_stack()
         rts

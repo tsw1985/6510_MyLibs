@@ -2,7 +2,10 @@
 
 SPRITE_LIB:
 {
-
+    /*
+        This functions increment and decrement de X and Y position for each
+        sprite. 0 to 7 ( 8 Sprites )
+    */
     /* ROW -- */
     sprite_0_decrement_x:
         dec $d000
