@@ -199,16 +199,15 @@ actions_in_raster:
 
         // recorrer lista de animaciones
         start_again:
-        ldx #0
+        ldx SPRITE_COUNTER // #0
 
         // Accedemos al timer de cada sprite
-
         //lda sprites_frame_counters,x   // accedemos al valor del contador del sprite que esta en X
         //cmp sprites_animations_speed,x // accedemos al valor de velocidad del sprite que esta en X
 
 
         lda SPRITE_RASTER_COUNTER
-        cmp #40
+        cmp #70
         beq start_retrieve_list_sprites      // si los valores coinciden, empezamos a recorrer los sprites
         jmp exit_raster_irq 
 
@@ -254,7 +253,9 @@ actions_in_raster:
         go_to_next_sprite:
         lda #0
         sta SPRITE_INDEX_COUNTER
-        inx  //incrementamos X para ir a la lista del siguiente sprite
+        //inx  //incrementamos X para ir a la lista del siguiente sprite
+        inc SPRITE_COUNTER
+        ldx SPRITE_COUNTER
         cpx #8 // ¿ ya son los 8 sprites ?
         beq exit_raster_irq
         jmp start_again //continue_animation_list

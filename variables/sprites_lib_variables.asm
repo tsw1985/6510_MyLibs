@@ -1,5 +1,5 @@
 SPRITE_INDEX_POINTER: .byte SPRITES_ADDRESS / $40  //  ( $3000 / 64 )
-
+SPRITE_COUNTER: .byte 0
 
 /* Sprites COLORS */
 SPRITE_FRAME_POINTER: .byte 0
