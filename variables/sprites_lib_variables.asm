@@ -1,3 +1,6 @@
+SPRITE_INDEX_POINTER: .byte SPRITES_ADDRESS / $40  //  ( $3000 / 64 )
+
+
 /* Sprites COLORS */
 SPRITE_FRAME_POINTER: .byte 0
 SPRITE_TO_ENABLE:     .byte 0
@@ -30,12 +33,12 @@ sprite_animations_list_HI:
 /* Individual animations */
 /* Air Plane In air  */
 sprite_air_plane_air_animation:
-    .byte 10   // Frame 0 in Sprite pad
-    .byte 11   // Frame 1 in Sprite pad
-    .byte 12   // Frame 2 in Sprite pad
-    .byte 13   // Frame 3 in Sprite pad
-    .byte 14   // Frame 4 in Sprite pad
-    .byte 15   // Frame 5 in Sprite pad
+    .byte 0   // Frame 0 in Sprite pad
+    .byte 1   // Frame 1 in Sprite pad
+    .byte 2   // Frame 2 in Sprite pad
+    .byte 3   // Frame 3 in Sprite pad
+    .byte 4   // Frame 4 in Sprite pad
+    .byte 5   // Frame 5 in Sprite pad
     .byte 255 // Finish animation
 /* Sprites animations speed */
 

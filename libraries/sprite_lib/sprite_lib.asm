@@ -224,17 +224,9 @@ sprite_get_index_frame_animation:
     lda ANIMATION_FRAMES_LIST_HI
     sta ZERO_PAGE_SPRITE_HIGHT_BYTE
 
-    .break
     ldy SPRITE_0_FRAME_COUNTER // 0
     lda (ZERO_PAGE_SPRITE_LOW_BYTE),y            // access to animation index
     sta SPRITE_PAD_INDEX    // save the value to add to current sprite index
-
-
-
-
-
-
-
 
     pull_regs_from_stack()
     rts

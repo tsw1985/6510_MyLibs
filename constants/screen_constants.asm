@@ -39,10 +39,3 @@
 .label INTERRUPT_STATUS              = $d019
 .label INTERRUPT_CONTROL             = $d01a
 .label INTERRUPT_RETURN	             = $ea81
-
-// SPRITES INDEX POINTER:
-//=======================
-
-.label SPRITE_INDEX_POINTER = SPRITES_ADDRESS / $40  //  ( $3000 / 64 )
-
-

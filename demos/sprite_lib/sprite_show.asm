@@ -191,7 +191,7 @@ actions_in_raster:
             
     //inc SPRITE_RASTER_COUNTER
     lda SPRITE_RASTER_COUNTER
-    cmp #100
+    cmp #50
     beq play_next_frame
     jmp exit_raster_irq
 
@@ -203,8 +203,8 @@ actions_in_raster:
 
         /* Then access to next sprite pad index , this function set the
             next sprite_pad_index */
-
         inc SPRITE_0_FRAME_COUNTER
+        
         lda SPRITE_0_FRAME_COUNTER
         sta div_res_0
         lda #0
@@ -227,26 +227,32 @@ actions_in_raster:
         sta div_res_3
         print_calculation_result(2,15,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
 
-
+        lda SPRITE_PAD_INDEX
+        cmp #255
+        beq reset_sprite_0_frame_counter
         
-        /*cmp #255
-        beq reset_animation
-
-        /* Incremen SPRITE_PAD_INDEX value to target sprite */
-        /*lda SPRITE_INDEX_POINTER
-        clc
-        adc SPRITE_PAD_INDEX
-        sta $07f8*/
-
-        /* go to next frame */
-        /*
-        inc SPRITE_FRAME_COUNTER
-
-        reset_animation:
+        //.break
+        lda SPRITE_INDEX_POINTER
+        clc        
+        adc SPRITE_PAD_INDEX // label constante que indica
+        //add index sprite pointer to current sprite to show the new frame
+        sta SPRITE_FRAME_POINTER
+        jsr SPRITE_LIB.set_frame_to_sprite_0
+        
+        jmp exit_raster_irq
+        
+        reset_sprite_0_frame_counter:
+            
             lda #0
-            sta SPRITE_FRAME_COUNTER
-            */
+            sta SPRITE_0_FRAME_COUNTER
 
+            /*
+            clc
+            adc SPRITE_INDEX_POINTER 
+            //add index sprite pointer to current sprite to show the new frame
+            lda SPRITE_FRAME_POINTER
+            jsr SPRITE_LIB.set_frame_to_sprite_0*/
+            
     exit_raster_irq:
         inc SPRITE_RASTER_COUNTER
         jmp INTERRUPT_RETURN // $ea81 - Return from interrupt

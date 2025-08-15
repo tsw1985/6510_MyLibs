@@ -22,7 +22,8 @@ BasicUpstart2(main)
 
 
 *=SPRITES_ADDRESS "Sprites"
-.import binary "/sprites/sprites.bin"
+//.import binary "/sprites/sprites.bin"
+.import binary "/sprites/numbers.bin"
 
 
 /*
