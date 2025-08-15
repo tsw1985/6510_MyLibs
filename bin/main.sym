@@ -2,6 +2,7 @@
 .label INTERRUPT_RETURN=$ea81
 .label simulate_game_loop=$8c9
 .label JOYSTICK_2_DATA=$28e9
+.label sprites_frame_counters=$2909
 .label MATH_LIB=$5d20 {
   .label sum_32=$5df9 {
   }
@@ -26,11 +27,9 @@
 .label sum_res_2=$27df
 .label sum_res_1=$27de
 .label sum_res_3=$27e0
-.label sprites_tracking_table=$2905
 .label check_joy_up=$8fe
 .label end_mul_string=$2594
 .label SPRITE_TO_ENABLE=$28f2
-.label sprite_air_plane_air_animation=$28fe
 .label end_keyboard_str=$2632
 .label IRQ_COUNTER=$28e2
 .label LIGHT_GRAY=$f
@@ -38,8 +37,8 @@
 .label LIGHT_BLUE=$e
 .label INTERRUPT_CONTROL_AND_STATUS1=$dc0d
 .label INTERRUPT_CONTROL_AND_STATUS2=$dd0d
-.label SPRITE_0_FRAME_COUNTER=$28f9
 .label sum_num1_0=$27d5
+.label SPRITE_CURRENT_SPRITE_SPEED=$28fa
 .label sum_num1_1=$27d6
 .label sum_num1_2=$27d7
 .label sum_num1_3=$27d8
@@ -51,9 +50,10 @@
 .label coor_y_str=$2664
 .label JOYSTICK_2_LEFT=$28ed
 .label SCREEN_COL_POS=$27b5
-.label ANIMATION_FRAMES_LIST_LO=$28fa
+.label ANIMATION_FRAMES_LIST_LO=$28fb
 .label TABLE_KEY_BOARD_COL=$27f8
 .label mul_num1_0=$27c9
+.label SPRITE_INDEX_COUNTER=$28f9
 .label mul_num1_3=$27cc
 .label Row_LO=$4000
 .label mul_num1_1=$27ca
@@ -111,6 +111,7 @@
   }
 }
 .label current_char_str=$26c5
+.label sprite_animation_5_to_9=$291c
 .label INPUT_CURSOR_ROW=$288a
 .label NUMBER_TO_PRINT_TABLE=$27a8
 .label move_left_str=$2689
@@ -143,6 +144,8 @@
 .label BROWN=$9
 .label result_str=$25f5
 .label WHITE=$1
+.label reset_SPRITE_INDEX_COUNTER=$c5b
+.label sprites_animations_speed=$2901
 .label ZERO_PAGE_PRINT_TEXT_HI=$23
 .label PURPLE=$4
 .label exit_raster_irq=$c60
@@ -206,6 +209,7 @@
 .label sub_result_str=$25db
 .label SCREEN_CHAR_COLOR=$27b7
 .label ZERO_PAGE_SPRITE_HIGHT_BYTE=$27
+.label sprite_animation_1_to_5=$2911
 .label calc_offset_str=$26bd
 .label TABLES_ADDRESS=$4000
 .label PINK=$a
@@ -224,7 +228,7 @@
 .label SCREEN_ROW_COLOR_POS=$27b2
 .label SPRITE_Y_POS=$28f4
 .label joystick_up_str=$26fd
-.label sprite_animations_list_HI=$28fd
+.label sprite_animations_list_HI=$28ff
 .label JOYSTICK_2_FIRE=$28ea
 .label SCREEN_INPUT_COL_POS=$2846
 .label division_n2_str=$2610
@@ -319,7 +323,6 @@
 .label SPRITE_INDEX_POINTER=$28f0
 .label joy_right=$92e
 .label actions_in_raster=$9ad
-.label reset_sprite_0_frame_counter=$c5b
 .label SPRITE_COLOR=$28f3
 .label SCREEN_RAM=$400
 .label cmb_pressed_str=$266a
@@ -454,7 +457,7 @@
 .label div_num2_1=$27c2
 .label div_num2_2=$27c3
 .label div_num2_3=$27c4
-.label ANIMATION_FRAMES_LIST_HI=$28fb
+.label ANIMATION_FRAMES_LIST_HI=$28fc
 .label div_num2_0=$27c1
 .label ZERO_PAGE_ADDRESS=$20
 .label joystick_down_left_str=$2733
@@ -467,7 +470,7 @@
 .label div_res_2=$27c7
 .label div_res_3=$27c8
 .label check_joy_right=$8f4
-.label sprite_animations_list_LO=$28fc
+.label sprite_animations_list_LO=$28fd
 .label system_status=$810
 .label space_4_str=$267e
 .label SPRITE_X_POS=$28f5

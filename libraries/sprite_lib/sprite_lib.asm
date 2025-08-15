@@ -223,7 +223,7 @@ sprite_get_current_index_sprite_pad_value_animation:
     lda ANIMATION_FRAMES_LIST_HI
     sta ZERO_PAGE_SPRITE_HIGHT_BYTE
 
-    ldy SPRITE_0_FRAME_COUNTER // 0
+    ldy SPRITE_INDEX_COUNTER // 0
     lda (ZERO_PAGE_SPRITE_LOW_BYTE),y            // access to animation index
     sta SPRITE_PAD_INDEX    // save the value to add to current sprite index
 
@@ -240,7 +240,7 @@ sprite_get_future_index_sprite_pad_value_animation:
     lda ANIMATION_FRAMES_LIST_HI
     sta ZERO_PAGE_SPRITE_HIGHT_BYTE
 
-    ldy SPRITE_0_FRAME_COUNTER // 0
+    ldy SPRITE_INDEX_COUNTER // 0
     iny //increment Y to go the next
     lda (ZERO_PAGE_SPRITE_LOW_BYTE),y            // access to animation index
     sta SPRITE_PAD_INDEX_FUTURE  // save the value to add to current sprite index

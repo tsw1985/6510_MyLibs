@@ -208,7 +208,7 @@ actions_in_raster:
         sta SPRITE_RASTER_COUNTER
 
         /* ACCESS CURRENT SPRITE FRAME COUNTER */
-        lda SPRITE_0_FRAME_COUNTER
+        lda SPRITE_INDEX_COUNTER
         sta div_res_0
         lda #0
         sta div_res_1
@@ -231,7 +231,7 @@ actions_in_raster:
 
 
         /* GET AND PRINT FUTURE VALUES */
-        lda SPRITE_0_FRAME_COUNTER
+        lda SPRITE_INDEX_COUNTER
         jsr SPRITE_LIB.sprite_get_future_index_sprite_pad_value_animation
         lda SPRITE_PAD_INDEX_FUTURE
         sta div_res_0
@@ -253,7 +253,7 @@ actions_in_raster:
         /* IF THE FUTURE VALUE is 255 , means end animation, so , play again */
         lda SPRITE_PAD_INDEX_FUTURE
         cmp #255
-        beq reset_sprite_0_frame_counter
+        beq reset_SPRITE_INDEX_COUNTER
         
         //.break
         /*lda SPRITE_INDEX_POINTER
@@ -265,13 +265,13 @@ actions_in_raster:
 
 
 
-        inc SPRITE_0_FRAME_COUNTER
+        inc SPRITE_INDEX_COUNTER
         jmp exit_raster_irq
         
-        reset_sprite_0_frame_counter:
+        reset_SPRITE_INDEX_COUNTER:
             
             lda #0
-            sta SPRITE_0_FRAME_COUNTER
+            sta SPRITE_INDEX_COUNTER
 
             /*lda SPRITE_INDEX_POINTER
             clc        

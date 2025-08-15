@@ -11,10 +11,11 @@ SPRITE_X_POS:         .byte 0
 SPRITE_RASTER_COUNTER: .byte 0
 SPRITE_PAD_INDEX:      .byte 0
 SPRITE_PAD_INDEX_FUTURE: .byte 0
+SPRITE_INDEX_COUNTER: .byte 0
+SPRITE_CURRENT_SPRITE_SPEED: .byte 0
 
 
-SPRITE_0_FRAME_COUNTER: .byte 0
-
+/* Temp values */
 ANIMATION_FRAMES_LIST_LO: .byte 0
 ANIMATION_FRAMES_LIST_HI: .byte 0
 
@@ -24,36 +25,77 @@ ANIMATION_FRAMES_LIST_HI: .byte 0
     
         ZERO_PAGE_SPRITE_HIGHT_BYTE
         ZERO_PAGE_SPRITE_LOW_BYTE
+
+    The limit list is 8 Sprites.
 */
 sprite_animations_list_LO:
-    .byte <sprite_air_plane_air_animation
+    .byte <sprite_animation_1_to_5 // Animation for sprite 1
+    .byte <sprite_animation_5_to_9 // Animation for sprite 2
+    //.byte <future_list // Animation sprite 3
+    //.byte <future_list // Animation sprite 4
+    //.byte <future_list // Animation sprite 5
+    //.byte <future_list // Animation sprite 6
+    //.byte <future_list // Animation sprite 7
+    //.byte <future_list // Animation sprite 8
 
 sprite_animations_list_HI:
-    .byte >sprite_air_plane_air_animation
+    .byte >sprite_animation_1_to_5 // Animation for sprite 1
+    .byte >sprite_animation_5_to_9 // Animation for sprite 2
+    //.byte <future_list // Animation sprite 3
+    //.byte <future_list // Animation sprite 4
+    //.byte <future_list // Animation sprite 5
+    //.byte <future_list // Animation sprite 6
+    //.byte <future_list // Animation sprite 7
+    //.byte <future_list // Animation sprite 8
 
-/* Individual animations */
-/* Air Plane In air  */
-sprite_air_plane_air_animation:
+
+/* Sprites animations speed */
+sprites_animations_speed:
+    .byte 25 // Speed for Sprite 1
+    .byte 10 // Speed for Sprite 2
+    .byte 45 // Speed for Sprite 3
+    .byte 5  // Speed for Sprite 4
+    .byte 50 // Speed for Sprite 5
+    .byte 13 // Speed for Sprite 6
+    .byte 20 // Speed for Sprite 7
+    .byte 16 // Speed for Sprite 8
+
+
+/* Sprites frame counters table */
+sprites_frame_counters:
+    .byte 0  // current frame counter sprite 1
+    .byte 0  // current frame counter sprite 2
+    .byte 0  // current frame counter sprite 3
+    .byte 0  // current frame counter sprite 4
+    .byte 0  // current frame counter sprite 5
+    .byte 0  // current frame counter sprite 6
+    .byte 0  // current frame counter sprite 7
+    .byte 0  // current frame counter sprite 8
+
+
+/* ************************************************** */
+/*            Individual animations                   */
+/* ************************************************** */
+
+/* Animation: count 1 to 5 */
+sprite_animation_1_to_5:
     .byte 0   // Frame 0 in Sprite pad
     .byte 1   // Frame 1 in Sprite pad
     .byte 2   // Frame 2 in Sprite pad
     .byte 3   // Frame 3 in Sprite pad
     .byte 4   // Frame 4 in Sprite pad
     .byte 5   // Frame 5 in Sprite pad
+    .byte 6   // Frame 6 in Sprite pad
+    .byte 7   // Frame 7 in Sprite pad
+    .byte 8   // Frame 8 in Sprite pad
+    .byte 9   // Frame 8 in Sprite pad
     .byte 255 // Finish animation
-/* Sprites animations speed */
 
-/* 
-    Sprites tracking table . Each entry is used to save the current index
-    (wich frame ) of each animation.
-
-*/
-sprites_tracking_table:
-    .byte 0   // sprite 0
-    .byte 0   // sprite 1
-    .byte 0   // sprite 2
-    .byte 0
-    .byte 0
-    .byte 0
-    .byte 0
-    .byte 0
+/* Animation: count 5 to 10 */
+sprite_animation_5_to_9:
+    .byte 5   // Frame 5 in Sprite pad
+    .byte 6   // Frame 6 in Sprite pad
+    .byte 7   // Frame 7 in Sprite pad
+    .byte 8   // Frame 8 in Sprite pad
+    .byte 9   // Frame 9 in Sprite pad
+    .byte 255 // Finish animation
