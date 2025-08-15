@@ -191,7 +191,7 @@ actions_in_raster:
             
     //inc SPRITE_RASTER_COUNTER
     lda SPRITE_RASTER_COUNTER
-    cmp #50
+    cmp #10
     beq play_next_frame
     jmp exit_raster_irq
 
@@ -203,7 +203,7 @@ actions_in_raster:
 
         /* Then access to next sprite pad index , this function set the
             next sprite_pad_index */
-        inc SPRITE_0_FRAME_COUNTER
+        //inc SPRITE_0_FRAME_COUNTER
         
         lda SPRITE_0_FRAME_COUNTER
         sta div_res_0
@@ -238,6 +238,13 @@ actions_in_raster:
         //add index sprite pointer to current sprite to show the new frame
         sta SPRITE_FRAME_POINTER
         jsr SPRITE_LIB.set_frame_to_sprite_0
+
+
+
+
+
+        inc SPRITE_0_FRAME_COUNTER
+
         
         jmp exit_raster_irq
         
