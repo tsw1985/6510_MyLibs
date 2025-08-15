@@ -58,3 +58,4 @@ joystick_no_move_str:    .text @"----no move---\$00"
 
 cur_frame_index_str:     .text @"frame index:\$00"
 cur_sprite_pad_index_str: .text @"spr pad index:\$00"
+fut_sprite_pad_index_str: .text @"fut pad index:\$00"

@@ -213,8 +213,7 @@ set_frame_to_sprite_7:
 
 
 /* Get frame index in a sprite animation */ 
-
-sprite_get_index_frame_animation:
+sprite_get_current_index_sprite_pad_value_animation:
 
     push_regs_to_stack()
 
@@ -231,4 +230,41 @@ sprite_get_index_frame_animation:
     pull_regs_from_stack()
     rts
 
+sprite_get_future_index_sprite_pad_value_animation:
+
+    push_regs_to_stack()
+
+    lda ANIMATION_FRAMES_LIST_LO
+    sta ZERO_PAGE_SPRITE_LOW_BYTE
+
+    lda ANIMATION_FRAMES_LIST_HI
+    sta ZERO_PAGE_SPRITE_HIGHT_BYTE
+
+    ldy SPRITE_0_FRAME_COUNTER // 0
+    iny //increment Y to go the next
+    lda (ZERO_PAGE_SPRITE_LOW_BYTE),y            // access to animation index
+    sta SPRITE_PAD_INDEX_FUTURE  // save the value to add to current sprite index
+
+    pull_regs_from_stack()
+    rts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }

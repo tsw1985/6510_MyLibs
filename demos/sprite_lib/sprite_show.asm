@@ -1,6 +1,8 @@
 insert_text(1,1,cur_frame_index_str,YELLOW)
 insert_text(2,1,cur_sprite_pad_index_str,YELLOW)
 
+insert_text(3,1,fut_sprite_pad_index_str,YELLOW)
+
 
 /* Global */
 sprite_set_extra_colors(GRAY,YELLOW)
@@ -10,10 +12,13 @@ sprite_enable_sprite(0)
 sprite_enable_sprite(1)
 
 /* Setup for sprite 0 */
+
 sprite_load_like_multicolor(0)
 sprite_set_position(0,160,130)
 sprite_set_color(0,WHITE)
 sprite_set_frame_to_sprite($00c0,0) // $00c0 ... $00c1 ... $00c2 ...
+
+
 /* Setup for sprite 0 */
 
 /* Setup for sprite 1 */
@@ -21,6 +26,7 @@ sprite_load_like_multicolor(1)
 sprite_set_position(1,254,60)
 sprite_set_color(1,GREEN)
 sprite_set_frame_to_sprite($00c5,1)
+
 /* Setup for sprite 1 */
 
 /*  RASTER INTERRUPT */
@@ -191,7 +197,7 @@ actions_in_raster:
             
     //inc SPRITE_RASTER_COUNTER
     lda SPRITE_RASTER_COUNTER
-    cmp #10
+    cmp #15
     beq play_next_frame
     jmp exit_raster_irq
 
@@ -201,10 +207,7 @@ actions_in_raster:
         lda #0       
         sta SPRITE_RASTER_COUNTER
 
-        /* Then access to next sprite pad index , this function set the
-            next sprite_pad_index */
-        //inc SPRITE_0_FRAME_COUNTER
-        
+        /* ACCESS CURRENT SPRITE FRAME COUNTER */
         lda SPRITE_0_FRAME_COUNTER
         sta div_res_0
         lda #0
@@ -214,11 +217,10 @@ actions_in_raster:
         // Print the curent frame counter
         print_calculation_result(1,13,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
 
-
         /* ACCESS TO SPRITE PAD INDEX IN CURRENT SPRITE */
-        jsr SPRITE_LIB.sprite_get_index_frame_animation
+        jsr SPRITE_LIB.sprite_get_current_index_sprite_pad_value_animation
 
-         /* debug */
+        /* PRINT CURRENT SPRITE_PAD_INDEX */
         lda SPRITE_PAD_INDEX
         sta div_res_0
         lda #0
@@ -227,11 +229,19 @@ actions_in_raster:
         sta div_res_3
         print_calculation_result(2,15,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
 
-        lda SPRITE_PAD_INDEX
-        cmp #255
-        beq reset_sprite_0_frame_counter
-        
-        //.break
+
+        /* GET AND PRINT FUTURE VALUES */
+        lda SPRITE_0_FRAME_COUNTER
+        jsr SPRITE_LIB.sprite_get_future_index_sprite_pad_value_animation
+        lda SPRITE_PAD_INDEX_FUTURE
+        sta div_res_0
+        lda #0
+        sta div_res_1
+        sta div_res_2
+        sta div_res_3
+        print_calculation_result(3,15,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+
+
         lda SPRITE_INDEX_POINTER
         clc        
         adc SPRITE_PAD_INDEX // label constante que indica
@@ -240,12 +250,22 @@ actions_in_raster:
         jsr SPRITE_LIB.set_frame_to_sprite_0
 
 
+        /* IF THE FUTURE VALUE is 255 , means end animation, so , play again */
+        lda SPRITE_PAD_INDEX_FUTURE
+        cmp #255
+        beq reset_sprite_0_frame_counter
+        
+        //.break
+        /*lda SPRITE_INDEX_POINTER
+        clc        
+        adc SPRITE_PAD_INDEX // label constante que indica
+        //add index sprite pointer to current sprite to show the new frame
+        sta SPRITE_FRAME_POINTER
+        jsr SPRITE_LIB.set_frame_to_sprite_0*/
 
 
 
         inc SPRITE_0_FRAME_COUNTER
-
-        
         jmp exit_raster_irq
         
         reset_sprite_0_frame_counter:
@@ -253,11 +273,11 @@ actions_in_raster:
             lda #0
             sta SPRITE_0_FRAME_COUNTER
 
-            /*
-            clc
-            adc SPRITE_INDEX_POINTER 
+            /*lda SPRITE_INDEX_POINTER
+            clc        
+            adc SPRITE_PAD_INDEX_FUTURE
             //add index sprite pointer to current sprite to show the new frame
-            lda SPRITE_FRAME_POINTER
+            sta SPRITE_FRAME_POINTER
             jsr SPRITE_LIB.set_frame_to_sprite_0*/
             
     exit_raster_irq:
