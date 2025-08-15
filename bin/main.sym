@@ -152,7 +152,7 @@
 .label sprites_animations_speed=$290e
 .label ZERO_PAGE_PRINT_TEXT_HI=$23
 .label PURPLE=$4
-.label exit_raster_irq=$ac3
+.label exit_raster_irq=$ac8
 .label message=$2538
 .label GREEN=$5
 .label end_print_row_str=$2676
@@ -222,6 +222,7 @@
 .label PINK=$a
 .label sprite_animation_2_4_6_8=$293b
 .label ZERO_PAGE_ROW_COLOR_LOW_BYTE=$24
+.label reset_sprite_counter=$ac3
 .label SCREEN_WIDTH=$28
 .label OLD_IRQ_HIGH=$28e5
 .label start_read_joystick=$8df {

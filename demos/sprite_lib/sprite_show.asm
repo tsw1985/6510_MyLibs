@@ -257,12 +257,15 @@ actions_in_raster:
         inc SPRITE_COUNTER
         ldx SPRITE_COUNTER
         cpx #8 // ¿ ya son los 8 sprites ?
-        beq exit_raster_irq
+        beq reset_sprite_counter//exit_raster_irq
         jmp start_again //continue_animation_list
 
 
     //---- end raster code
 
+reset_sprite_counter:
+    lda #0
+    sta SPRITE_COUNTER
     
 exit_raster_irq:
 inc SPRITE_RASTER_COUNTER
