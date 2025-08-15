@@ -2,7 +2,7 @@
 .label INTERRUPT_RETURN=$ea81
 .label simulate_game_loop=$8c9
 .label JOYSTICK_2_DATA=$28e9
-.label sprites_frame_counters=$2909
+.label sprites_frame_counters=$2915
 .label MATH_LIB=$5d20 {
   .label sum_32=$5df9 {
   }
@@ -51,6 +51,7 @@
 .label JOYSTICK_2_LEFT=$28ed
 .label SCREEN_COL_POS=$27b5
 .label ANIMATION_FRAMES_LIST_LO=$28fb
+.label start_retrieve_list_sprites=$9bc
 .label TABLE_KEY_BOARD_COL=$27f8
 .label mul_num1_0=$27c9
 .label SPRITE_INDEX_COUNTER=$28f9
@@ -58,7 +59,6 @@
 .label Row_LO=$4000
 .label mul_num1_1=$27ca
 .label CHAR_INDEX_1=$28e0
-.label play_next_frame=$9ba
 .label mul_num1_2=$27cb
 .label CHAR_INDEX_2=$28e1
 .label SCREEN_SIZE=$3e8
@@ -89,6 +89,7 @@
 .label ZERO_PAGE_ROW_HIGHT_BYTE=$21
 .label INPUT_INDEX_COUNTER=$2844
 .label end_div_32_str=$257f
+.label go_to_next_sprite=$ab0
 .label PRINT_LIB=$5028 {
   .label continue_writing=$5053
   .label print_move_modules_in_table_to_number_to_print_str=$50c3 {
@@ -111,12 +112,13 @@
   }
 }
 .label current_char_str=$26c5
-.label sprite_animation_5_to_9=$291c
+.label sprite_animation_5_to_9=$2928
 .label INPUT_CURSOR_ROW=$288a
 .label NUMBER_TO_PRINT_TABLE=$27a8
 .label move_left_str=$2689
 .label keys_buffer=$250a
 .label INTERRUPT_CONTROL=$d01a
+.label sprite_animation_9_10=$2942
 .label cur_sprite_pad_index_str=$278a
 .label move_right_str=$268f
 .label multipli_n1_str=$2617
@@ -142,13 +144,14 @@
 .label coor_x_str=$2667
 .label cur_frame_index_str=$277d
 .label BROWN=$9
+.label sprite_animation_2_4=$293f
+.label continue_getting_animation_frames=$9cd
 .label result_str=$25f5
 .label WHITE=$1
-.label reset_SPRITE_INDEX_COUNTER=$c5b
-.label sprites_animations_speed=$2901
+.label sprites_animations_speed=$290d
 .label ZERO_PAGE_PRINT_TEXT_HI=$23
 .label PURPLE=$4
-.label exit_raster_irq=$c60
+.label exit_raster_irq=$abd
 .label message=$2538
 .label GREEN=$5
 .label end_print_row_str=$2676
@@ -190,6 +193,7 @@
 .label JOYSTICK_2_RIGHT=$28ee
 .label SCREEN_ROW_POS=$27b4
 .label JOYSTICK_POSITIONS=$28ef
+.label continue_animation_list=$9c1
 .label JOYSTICK_LIB=$5e65 {
   .label finish_read_stick=$5eba {
   }
@@ -209,10 +213,13 @@
 .label sub_result_str=$25db
 .label SCREEN_CHAR_COLOR=$27b7
 .label ZERO_PAGE_SPRITE_HIGHT_BYTE=$27
-.label sprite_animation_1_to_5=$2911
+.label sprite_animation_1_to_5=$291d
 .label calc_offset_str=$26bd
+.label sprite_animation_1_to_2=$2932
+.label sprite_animation_1_to_3=$292e
 .label TABLES_ADDRESS=$4000
 .label PINK=$a
+.label sprite_animation_2_4_6_8=$293a
 .label ZERO_PAGE_ROW_COLOR_LOW_BYTE=$24
 .label SCREEN_WIDTH=$28
 .label OLD_IRQ_HIGH=$28e5
@@ -225,10 +232,11 @@
 .label joy_left=$92a
 .label ZERO_PAGE_PRINT_TEXT_LO=$22
 .label PRESSED_KEY_TABLE=$284a
+.label start_again=$9b0
 .label SCREEN_ROW_COLOR_POS=$27b2
 .label SPRITE_Y_POS=$28f4
 .label joystick_up_str=$26fd
-.label sprite_animations_list_HI=$28ff
+.label sprite_animations_list_HI=$2905
 .label JOYSTICK_2_FIRE=$28ea
 .label SCREEN_INPUT_COL_POS=$2846
 .label division_n2_str=$2610
@@ -240,6 +248,7 @@
 .label CURRENT_RASTER_LINE=$d012
 .label KEYS_TO_SCREEN_STR=$2890
 .label stars_line=$250f
+.label sprite_animation_4_to_1=$2935
 .label MAIN_CODE_ADDRESS=$810
 .label input_text_str=$26b1
 .label end_read_joystick=$91c {

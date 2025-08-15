@@ -1,7 +1,8 @@
 insert_text(1,1,cur_frame_index_str,YELLOW)
 insert_text(2,1,cur_sprite_pad_index_str,YELLOW)
-
 insert_text(3,1,fut_sprite_pad_index_str,YELLOW)
+
+
 
 
 /* Global */
@@ -194,93 +195,74 @@ disableRasterInterrupt:
 actions_in_raster:
 
     inc INTERRUPT_STATUS // $d019 - Set bit 0 in Interrupt Status Register to acknowledge raster interrupt
-            
-    //inc SPRITE_RASTER_COUNTER
-    lda SPRITE_RASTER_COUNTER
-    cmp #15
-    beq play_next_frame
-    jmp exit_raster_irq
+    //--- Start raster code  
 
-    play_next_frame:
-        /* Raster is in 10 iterations??  */
-        /* First reset the raster counter */
-        lda #0       
-        sta SPRITE_RASTER_COUNTER
+        // recorrer lista de animaciones
+        start_again:
+        ldx #0
 
-        /* ACCESS CURRENT SPRITE FRAME COUNTER */
-        lda SPRITE_INDEX_COUNTER
-        sta div_res_0
-        lda #0
-        sta div_res_1
-        sta div_res_2
-        sta div_res_3
-        // Print the curent frame counter
-        print_calculation_result(1,13,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+        // Accedemos al timer de cada sprite
 
-        /* ACCESS TO SPRITE PAD INDEX IN CURRENT SPRITE */
-        jsr SPRITE_LIB.sprite_get_current_index_sprite_pad_value_animation
-
-        /* PRINT CURRENT SPRITE_PAD_INDEX */
-        lda SPRITE_PAD_INDEX
-        sta div_res_0
-        lda #0
-        sta div_res_1
-        sta div_res_2
-        sta div_res_3
-        print_calculation_result(2,15,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+        //lda sprites_frame_counters,x   // accedemos al valor del contador del sprite que esta en X
+        //cmp sprites_animations_speed,x // accedemos al valor de velocidad del sprite que esta en X
 
 
-        /* GET AND PRINT FUTURE VALUES */
-        lda SPRITE_INDEX_COUNTER
-        jsr SPRITE_LIB.sprite_get_future_index_sprite_pad_value_animation
-        lda SPRITE_PAD_INDEX_FUTURE
-        sta div_res_0
-        lda #0
-        sta div_res_1
-        sta div_res_2
-        sta div_res_3
-        print_calculation_result(3,15,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+        lda SPRITE_RASTER_COUNTER
+        cmp #40
+        beq start_retrieve_list_sprites      // si los valores coinciden, empezamos a recorrer los sprites
+        jmp exit_raster_irq 
 
-
-        lda SPRITE_INDEX_POINTER
-        clc        
-        adc SPRITE_PAD_INDEX // label constante que indica
-        //add index sprite pointer to current sprite to show the new frame
-        sta SPRITE_FRAME_POINTER
-        jsr SPRITE_LIB.set_frame_to_sprite_0
-
-
-        /* IF THE FUTURE VALUE is 255 , means end animation, so , play again */
-        lda SPRITE_PAD_INDEX_FUTURE
-        cmp #255
-        beq reset_SPRITE_INDEX_COUNTER
-        
-        //.break
-        /*lda SPRITE_INDEX_POINTER
-        clc        
-        adc SPRITE_PAD_INDEX // label constante que indica
-        //add index sprite pointer to current sprite to show the new frame
-        sta SPRITE_FRAME_POINTER
-        jsr SPRITE_LIB.set_frame_to_sprite_0*/
-
-
-
-        inc SPRITE_INDEX_COUNTER
-        jmp exit_raster_irq
-        
-        reset_SPRITE_INDEX_COUNTER:
-            
+        start_retrieve_list_sprites:    
             lda #0
-            sta SPRITE_INDEX_COUNTER
+            sta SPRITE_RASTER_COUNTER
 
-            /*lda SPRITE_INDEX_POINTER
-            clc        
-            adc SPRITE_PAD_INDEX_FUTURE
-            //add index sprite pointer to current sprite to show the new frame
-            sta SPRITE_FRAME_POINTER
-            jsr SPRITE_LIB.set_frame_to_sprite_0*/
-            
-    exit_raster_irq:
-        inc SPRITE_RASTER_COUNTER
-        jmp INTERRUPT_RETURN // $ea81 - Return from interrupt
+            continue_animation_list:
 
+                // Obtenmos los bytes LO y HI para luego acceder a la lista
+                // con la funcion "sprite_get_current_index_sprite_pad_value_animation"
+                lda sprite_animations_list_LO,x
+                sta ANIMATION_FRAMES_LIST_LO
+
+                lda sprite_animations_list_HI,x
+                sta ANIMATION_FRAMES_LIST_HI
+
+                continue_getting_animation_frames:
+
+                    jsr SPRITE_LIB.sprite_get_current_index_sprite_pad_value_animation
+                    //inc SPRITE_INDEX_COUNTER  //contador de frames por cada animacion
+
+                    // despues de esta funcion, tenemos el indice en SPRITE_PAD_INDEX
+                    // lo imprimimos en pantalla para ir viendolo
+                    lda SPRITE_PAD_INDEX
+                    sta div_res_0
+                    lda #0
+                    sta div_res_1
+                    sta div_res_2
+                    sta div_res_3
+                    print_calculation_result(3,25,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+
+
+                    inc SPRITE_INDEX_COUNTER  //contador de frames por cada animacion
+
+                    // y comparamos si es 255 , que significa que es fin de las animaciones
+                    // y hay que pasar al siguiente sprite
+                    lda SPRITE_PAD_INDEX
+                    cmp #255 // ¿ SPRITE_PAD_INDEX == 255 , Llego al final de la animacion ?
+                    beq go_to_next_sprite // si es 255 pasamos al siguiente sprite
+                    jmp exit_raster_irq 
+
+        go_to_next_sprite:
+        lda #0
+        sta SPRITE_INDEX_COUNTER
+        inx  //incrementamos X para ir a la lista del siguiente sprite
+        cpx #8 // ¿ ya son los 8 sprites ?
+        beq exit_raster_irq
+        jmp start_again //continue_animation_list
+
+
+    //---- end raster code
+
+    
+exit_raster_irq:
+inc SPRITE_RASTER_COUNTER
+jmp INTERRUPT_RETURN // $ea81 - Return from interrupt
