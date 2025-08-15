@@ -56,6 +56,5 @@ joystick_left_str:       .text @"joystick left\$00"
 joystick_right_str:      .text @"joystick right\$00"
 joystick_no_move_str:    .text @"----no move---\$00"
 
-sprite_hello_str:        .text @"hello sprite\$00"
-hello_raster_str:        .text @"i come from raster\$00"
-hello_clean_raster_str:  .text @"                  \$00"
+cur_frame_index_str:     .text @"frame index:\$00"
+cur_sprite_pad_index_str: .text @"spr pad index:\$00"

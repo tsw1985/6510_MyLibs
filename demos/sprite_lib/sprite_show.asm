@@ -1,4 +1,6 @@
-insert_text(2,5,sprite_hello_str,YELLOW)
+insert_text(1,1,cur_frame_index_str,YELLOW)
+insert_text(2,1,cur_sprite_pad_index_str,YELLOW)
+
 
 /* Global */
 sprite_set_extra_colors(GRAY,YELLOW)
@@ -24,7 +26,18 @@ sprite_set_frame_to_sprite($00c5,1)
 /*  RASTER INTERRUPT */
 jsr setupRasterInterrupt
 
+
 simulate_game_loop:
+
+    cli
+        ldx #0 //sprites animation list index
+        lda sprite_animations_list_LO,x
+        sta ANIMATION_FRAMES_LIST_LO
+
+        lda sprite_animations_list_HI,x
+        sta ANIMATION_FRAMES_LIST_HI
+    sei
+
     jsr start_read_joystick
 jmp simulate_game_loop
 
@@ -173,77 +186,68 @@ disableRasterInterrupt:
 
 /* */
 actions_in_raster:
-		inc INTERRUPT_STATUS // $d019 - Set bit 0 in Interrupt Status Register to acknowledge raster interrupt
-		//////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////
-		////////////////////*** START INTERRUPT CODE *****////////////////////
-		//
+
+    inc INTERRUPT_STATUS // $d019 - Set bit 0 in Interrupt Status Register to acknowledge raster interrupt
             
-            inc SPRITE_FRAME_COUNTER
-            lda SPRITE_FRAME_COUNTER
-            cmp #10
-            bne exit_raster_irq
+    //inc SPRITE_RASTER_COUNTER
+    lda SPRITE_RASTER_COUNTER
+    cmp #100
+    beq play_next_frame
+    jmp exit_raster_irq
 
-            /* if is X , reset counter and change frame */
-            /* reset counter */
-            lda #0       
+    play_next_frame:
+        /* Raster is in 10 iterations??  */
+        /* First reset the raster counter */
+        lda #0       
+        sta SPRITE_RASTER_COUNTER
+
+        /* Then access to next sprite pad index , this function set the
+            next sprite_pad_index */
+
+        inc SPRITE_0_FRAME_COUNTER
+        lda SPRITE_0_FRAME_COUNTER
+        sta div_res_0
+        lda #0
+        sta div_res_1
+        sta div_res_2
+        sta div_res_3
+        // Print the curent frame counter
+        print_calculation_result(1,13,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+
+
+        /* ACCESS TO SPRITE PAD INDEX IN CURRENT SPRITE */
+        jsr SPRITE_LIB.sprite_get_index_frame_animation
+
+         /* debug */
+        lda SPRITE_PAD_INDEX
+        sta div_res_0
+        lda #0
+        sta div_res_1
+        sta div_res_2
+        sta div_res_3
+        print_calculation_result(2,15,YELLOW,div_res_0,div_res_1,div_res_2,div_res_3)
+
+
+        
+        /*cmp #255
+        beq reset_animation
+
+        /* Incremen SPRITE_PAD_INDEX value to target sprite */
+        /*lda SPRITE_INDEX_POINTER
+        clc
+        adc SPRITE_PAD_INDEX
+        sta $07f8*/
+
+        /* go to next frame */
+        /*
+        inc SPRITE_FRAME_COUNTER
+
+        reset_animation:
+            lda #0
             sta SPRITE_FRAME_COUNTER
+            */
 
-            /* change frame */
-            /* check current frame */
-            lda SPRITE_FRAME_CURRENT
-            cmp #1
-
-            /* if frame == 1 , change to 0 */
-            beq change_to_frame_0 // == 0
-
-            /* if frame == 0 , change to 1 */
-            bne change_to_frame_1
-            change_to_frame_1:
-                lda #$00c1
-                sta $07f8
-                lda #1
-                sta SPRITE_FRAME_CURRENT
-                jmp exit_raster_irq
-                
-            change_to_frame_0:
-                lda #$00c0
-                sta $07f8
-                lda #0
-                sta SPRITE_FRAME_CURRENT
-
-            exit_raster_irq:
-                jmp INTERRUPT_RETURN // $ea81 - Return from interrupt
-		//
-		////////////////////***** END INTERRUPT CODE *****////////////////////
-		//////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////
-
-
-/* SPRITE TABLES */
-/*  This 2 tables are main list where are listed all animations. We get the
-    HI and LOW bytes to create a address in the ZERO PAGE using: 
-    
-        ZERO_PAGE_SPRITE_HIGHT_BYTE
-        ZERO_PAGE_SPRITE_LOW_BYTE
-*/
-Sprite_animations_list_LO:
-    .byte <Sprite_air_plane_air
-
-Sprite_animations_list_HI:
-    .byte >Sprite_air_plane_air
-
-/* Individual animations */
-/* Air Plane In air  */
-Sprite_air_plane_air:
-    .byte 0   // Frame 0 in Sprite pad
-    .byte 1   // Frame 1 in Sprite pad
-    .byte 2   // Frame 2 in Sprite pad
-    .byte 3   // Frame 3 in Sprite pad
-    .byte 255 // Finish animation
-
-/* Sprites animations speed */
-
-
-
+    exit_raster_irq:
+        inc SPRITE_RASTER_COUNTER
+        jmp INTERRUPT_RETURN // $ea81 - Return from interrupt
 
