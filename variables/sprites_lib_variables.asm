@@ -1,8 +1,10 @@
+/* Pointer where start the sprites information, the pictures.
+Each sprite are 64 bytes. */
 SPRITE_INDEX_POINTER: .byte SPRITES_ADDRESS / $40  //  ( $3000 / 64 )
-SPRITE_COUNTER: .byte 0
 
-/* Sprites COLORS */
-SPRITE_FRAME_POINTER: .byte 0
+/* Value used to point to a sprite in a sprite pointer */
+SPRITE_FRAME_POINTER: .byte 0 
+
 SPRITE_TO_ENABLE:     .byte 0
 SPRITE_COLOR:         .byte 0
 SPRITE_Y_POS:         .byte 0

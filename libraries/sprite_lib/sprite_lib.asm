@@ -212,7 +212,38 @@ set_frame_to_sprite_7:
 
 
 
-/* Get frame index in a sprite animation */ 
+/* 
+
+Function:
+
+Get SPRITE_PAD index in a sprite animation. A animation is a list of bytes.
+Each byte have a value, this value is a INDEX in the spritepad program pallete.
+
+For example, we have a list of frames to play the animation. This animation is
+a player jump. This secuence are the frames : 0-1-2-3 and the value 255 means
+"end of animation".
+
+So, with this function we access to this value in this list. Imagine this like
+a List.
+
+    int[] player_jump = new int[3];
+    player_jump[0] = 1  // Frame 1 ...
+    player_jump[1] = 2  // Frame 2 ...
+    player_jump[2] = 3  // Frame 3 ...
+    player_jump[3] = 255
+
+    PARAMS:
+    =======
+
+        IN:
+            ANIMATION_FRAMES_LIST_LO: Low byte of this list
+            ANIMATION_FRAMES_LIST_HI: Hight byte of this list
+            SPRITE_INDEX_COUNTER: Index position in this list
+
+        OUT:
+            SPRITE_PAD_INDEX: The value in this list for the given index.
+
+ */ 
 sprite_get_current_index_sprite_pad_value_animation:
 
     push_regs_to_stack()
