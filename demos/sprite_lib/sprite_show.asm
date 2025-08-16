@@ -1,9 +1,4 @@
-insert_text(1,1,cur_frame_index_str,YELLOW)
-insert_text(2,1,cur_sprite_pad_index_str,YELLOW)
-insert_text(3,1,fut_sprite_pad_index_str,YELLOW)
-
-
-
+insert_text(1,1,sprites_speed_demo_str,YELLOW)
 
 /* Global */
 sprite_set_extra_colors(GRAY,YELLOW)
@@ -12,27 +7,67 @@ sprite_set_extra_colors(GRAY,YELLOW)
 sprite_enable_sprite(0)
 sprite_enable_sprite(1)
 sprite_enable_sprite(2)
+sprite_enable_sprite(3)
+sprite_enable_sprite(4)
+sprite_enable_sprite(5)
+sprite_enable_sprite(6)
+sprite_enable_sprite(7)
 
 /* Setup for sprite 1 */
 sprite_load_like_multicolor(0)
-sprite_set_position(0,100,130)
+sprite_set_position(0,40,130)
 sprite_set_color(0,WHITE)
 sprite_set_frame_to_sprite($00c0,0) // $00c0 ... $00c1 ... $00c2 ...
 /* Setup for sprite 1 */
 
 /* Setup for sprite 2 */
 sprite_load_like_multicolor(1)
-sprite_set_position(1,130,130)
-sprite_set_color(1,GREEN)
-sprite_set_frame_to_sprite($00c5,1)
+sprite_set_position(1,70,130)
+sprite_set_color(1,CYAN)
+sprite_set_frame_to_sprite($00c0,1)
 /* Setup for sprite 2 */
 
 /* Setup for sprite 3 */
 sprite_load_like_multicolor(2)
-sprite_set_position(2,180,130)
+sprite_set_position(2,100,130)
 sprite_set_color(2,YELLOW)
-sprite_set_frame_to_sprite($00c6,2)
+sprite_set_frame_to_sprite($00c0,2)
 /* Setup for sprite 3 */
+
+/* Setup for sprite 4 */
+sprite_load_like_multicolor(3)
+sprite_set_position(3,130,130)
+sprite_set_color(3,BROWN)
+sprite_set_frame_to_sprite($00c0,3)
+/* Setup for sprite 4 */
+
+/* Setup for sprite 5 */
+sprite_load_like_multicolor(4)
+sprite_set_position(4,160,130)
+sprite_set_color(4,RED)
+sprite_set_frame_to_sprite($00c0,4)
+/* Setup for sprite 5 */
+
+/* Setup for sprite 6 */
+sprite_load_like_multicolor(5)
+sprite_set_position(5,190,130)
+sprite_set_color(5,GRAY)
+sprite_set_frame_to_sprite($00c0,5)
+/* Setup for sprite 5 */
+
+/* Setup for sprite 7 */
+sprite_load_like_multicolor(6)
+sprite_set_position(6,220,130)
+sprite_set_color(6,PINK)
+sprite_set_frame_to_sprite($00c0,6)
+/* Setup for sprite 7 */
+
+/* Setup for sprite 8 */
+sprite_load_like_multicolor(7)
+sprite_set_position(7,250,130)
+sprite_set_color(7,ORANGE)
+sprite_set_frame_to_sprite($00c0,7)
+/* Setup for sprite 8 */
 
 
 
@@ -211,10 +246,10 @@ actions_in_raster:
    bucle_sprites:
 
        // Incrementar el contador de este sprite
-       inc sprites_frame_counters,x
+       inc sprites_raster_counters,x
        
        // Leer cuántos frames han pasado para este sprite
-       lda sprites_frame_counters,x    
+       lda sprites_raster_counters,x    
        
        // Comparar con la velocidad de este sprite
        cmp sprites_animations_speed,x  
@@ -316,7 +351,7 @@ actions_in_raster:
        
        // Reset del contador del timer
        lda #0
-       sta sprites_frame_counters,x
+       sta sprites_raster_counters,x
        
    siguiente_sprite:
        inx

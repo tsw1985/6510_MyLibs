@@ -29,42 +29,42 @@ ANIMATION_FRAMES_LIST_HI: .byte 0
     The limit list is 8 Sprites.
 */
 sprite_animations_list_LO:
-    .byte <sprite_animation_1_to_5  // Animation for sprite 1
-    .byte <sprite_animation_5_to_9  // Animation for sprite 2
-    .byte <sprite_animation_1_to_3  // Animation for sprite 2
-    .byte <sprite_animation_1_to_2  // Animation for sprite 2
-    .byte <sprite_animation_4_to_1  // Animation for sprite 2
-    .byte <sprite_animation_2_4_6_8 // Animation for sprite 2
-    .byte <sprite_animation_2_4     // Animation for sprite 2
-    .byte <sprite_animation_9_10    // Animation for sprite 2
+    .byte <sprite_animation_1_to_10  // Animation for sprite 1
+    .byte <sprite_animation_1_to_10  // Animation for sprite 2
+    .byte <sprite_animation_1_to_10  // Animation for sprite 3
+    .byte <sprite_animation_1_to_10  // Animation for sprite 4
+    .byte <sprite_animation_1_to_10  // Animation for sprite 5
+    .byte <sprite_animation_1_to_10  // Animation for sprite 6
+    .byte <sprite_animation_1_to_10  // Animation for sprite 7
+    .byte <sprite_animation_1_to_10  // Animation for sprite 8
 
     
 
 sprite_animations_list_HI:
-    .byte >sprite_animation_1_to_5  // Animation for sprite 1
-    .byte >sprite_animation_5_to_9  // Animation for sprite 2
-    .byte >sprite_animation_1_to_3  // Animation for sprite 2
-    .byte >sprite_animation_1_to_2  // Animation for sprite 2
-    .byte >sprite_animation_4_to_1  // Animation for sprite 2
-    .byte >sprite_animation_2_4_6_8 // Animation for sprite 2
-    .byte >sprite_animation_2_4     // Animation for sprite 2
-    .byte >sprite_animation_9_10    // Animation for sprite 2
+    .byte >sprite_animation_1_to_10  // Animation for sprite 1
+    .byte >sprite_animation_1_to_10  // Animation for sprite 2
+    .byte >sprite_animation_1_to_10  // Animation for sprite 3
+    .byte >sprite_animation_1_to_10  // Animation for sprite 4
+    .byte >sprite_animation_1_to_10  // Animation for sprite 5
+    .byte >sprite_animation_1_to_10  // Animation for sprite 6
+    .byte >sprite_animation_1_to_10  // Animation for sprite 7
+    .byte >sprite_animation_1_to_10  // Animation for sprite 8
 
 
 /* Sprites animations speed */
 sprites_animations_speed:
-    .byte 40 // Speed for Sprite 1
-    .byte 40 // Speed for Sprite 2
+    .byte 20 // Speed for Sprite 1
+    .byte 30 // Speed for Sprite 2
     .byte 40 // Speed for Sprite 3
-    .byte 5  // Speed for Sprite 4
-    .byte 50 // Speed for Sprite 5
-    .byte 13 // Speed for Sprite 6
-    .byte 20 // Speed for Sprite 7
-    .byte 16 // Speed for Sprite 8
+    .byte 50 // Speed for Sprite 4
+    .byte 25 // Speed for Sprite 5
+    .byte 15 // Speed for Sprite 6
+    .byte 8 // Speed for Sprite 7
+    .byte 4 // Speed for Sprite 8
 
 
 /* Sprites frame counters table */
-sprites_frame_counters:
+sprites_raster_counters:
     .byte 0  // current frame counter sprite 1
     .byte 0  // current frame counter sprite 2
     .byte 0  // current frame counter sprite 3
@@ -75,7 +75,7 @@ sprites_frame_counters:
     .byte 0  // current frame counter sprite 8
 
 
-/* NUEVA TABLA - Índices de animación */
+/* Indices de animación */
 sprites_animation_index:
     .byte 0  // current animation frame index sprite 1
     .byte 0  // current animation frame index sprite 2
@@ -90,6 +90,23 @@ sprites_animation_index:
 /* ************************************************** */
 /*            Individual animations                   */
 /* ************************************************** */
+
+
+/* Animation full: count 1 to 10 */
+sprite_animation_1_to_10:
+    .byte 0   // Frame 0 in Sprite pad
+    .byte 1   // Frame 1 in Sprite pad
+    .byte 2   // Frame 2 in Sprite pad
+    .byte 3   // Frame 3 in Sprite pad
+    .byte 4   // Frame 3 in Sprite pad
+    .byte 5   // Frame 0 in Sprite pad
+    .byte 6   // Frame 1 in Sprite pad
+    .byte 7   // Frame 2 in Sprite pad
+    .byte 8   // Frame 3 in Sprite pad
+    .byte 9   // Frame 3 in Sprite pad
+    .byte 255 // Finish animation
+
+
 
 /* Animation 1: count 1 to 5 */
 sprite_animation_1_to_5:
