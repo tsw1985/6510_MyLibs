@@ -77,10 +77,10 @@ simulate_game_loop:
 
     cli
         ldx #0 //sprites animation list index
-        lda sprite_animations_list_LO,x
+        lda sprite_animations_list_LO_table,x
         sta ANIMATION_FRAMES_LIST_LO
 
-        lda sprite_animations_list_HI,x
+        lda sprite_animations_list_HI_table,x
         sta ANIMATION_FRAMES_LIST_HI
     sei
 
@@ -266,13 +266,13 @@ actions_in_raster:
    bucle_sprites:
 
        // Incrementar el contador de este sprite
-       inc sprites_raster_counters,x
+       inc sprites_raster_counters_table,x
        
        // Leer cuántos frames han pasado para este sprite
-       lda sprites_raster_counters,x    
+       lda sprites_raster_counters_table,x    
        
        // Comparar con la velocidad de este sprite
-       cmp sprites_rasters_limit,x  
+       cmp sprites_rasters_limit_table,x  
        
        // Si aún no ha llegado al límite, saltar al siguiente sprite
        bcc jmp_siguiente_sprite
@@ -284,13 +284,13 @@ actions_in_raster:
        // Si llegamos aquí, este sprite SÍ debe cambiar de frame
        
        // Obtener los bytes LO y HI de la animación de este sprite
-       lda sprite_animations_list_LO,x
+       lda sprite_animations_list_LO_table,x
        sta ANIMATION_FRAMES_LIST_LO
-       lda sprite_animations_list_HI,x
+       lda sprite_animations_list_HI_table,x
        sta ANIMATION_FRAMES_LIST_HI
 
        // 1. Obtener el frame actual de la animación
-       lda sprites_animation_index,x    
+       lda sprites_animation_index_table,x    
        sta SPRITE_ANIMATION_VALUE_OFFSET
        jsr SPRITE_LIB.sprite_get_current_index_sprite_pad_value_animation
        // SPRITE_PAD_INDEX contiene el valor indice del sprite a mostrar
@@ -301,14 +301,14 @@ actions_in_raster:
        beq reset_animacion              
 
        // 2. Avanzar al siguiente frame de la animación  
-       inc sprites_animation_index,x    
+       inc sprites_animation_index_table,x    
 
        jmp continuar_sprite             
 
    reset_animacion:
        // Volver al frame 0 de la animación
        lda #0
-       sta sprites_animation_index,x
+       sta sprites_animation_index_table,x
        
        // ¡NUEVO! Obtener y mostrar el frame 0 inmediatamente
        sta SPRITE_ANIMATION_VALUE_OFFSET
@@ -316,7 +316,7 @@ actions_in_raster:
        // Ahora SPRITE_PAD_INDEX tiene el frame 0 de la animación
 
        // ¡NUEVO! Incrementar también aquí para que la próxima vez vaya al frame 1
-        inc sprites_animation_index,x
+        inc sprites_animation_index_table,x
        
    continuar_sprite:
        // 3. Calcular y aplicar el frame al sprite
@@ -371,7 +371,7 @@ actions_in_raster:
        
        // Reset del contador del timer
        lda #0
-       sta sprites_raster_counters,x
+       sta sprites_raster_counters_table,x
        
    siguiente_sprite:
        inx

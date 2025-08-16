@@ -234,7 +234,7 @@ SPRITE_LIB:
         inc $d007
         pull_regs_from_stack()
     rts
-    
+
     sprite_4_increment_y:
         push_regs_to_stack()
         ldx #4
@@ -426,5 +426,49 @@ sprite_get_current_index_sprite_pad_value_animation:
 
     pull_regs_from_stack()
     rts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 }

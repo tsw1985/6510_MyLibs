@@ -43,7 +43,7 @@ ANIMATION_FRAMES_LIST_HI: .byte 0
 
     The limit list is 8 Sprites.
 */
-sprite_animations_list_LO:
+sprite_animations_list_LO_table:
     .byte <sprite_animation_1_to_10  // Animation for sprite 1
     .byte <sprite_animation_1_to_10  // Animation for sprite 2
     .byte <sprite_animation_1_to_10  // Animation for sprite 3
@@ -54,7 +54,7 @@ sprite_animations_list_LO:
     .byte <sprite_animation_1_to_10  // Animation for sprite 8
 
     
-sprite_animations_list_HI:
+sprite_animations_list_HI_table:
     .byte >sprite_animation_1_to_10  // Animation for sprite 1
     .byte >sprite_animation_1_to_10  // Animation for sprite 2
     .byte >sprite_animation_1_to_10  // Animation for sprite 3
@@ -94,24 +94,8 @@ sprites_coord_table_x:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Sprites animations speed */
-sprites_rasters_limit:
+sprites_rasters_limit_table:
     .byte 20 // Speed for Sprite 1
     .byte 30 // Speed for Sprite 2
     .byte 40 // Speed for Sprite 3
@@ -123,7 +107,7 @@ sprites_rasters_limit:
 
 
 /* Sprites frame counters table */
-sprites_raster_counters:
+sprites_raster_counters_table:
     .byte 0  // current frame counter sprite 1
     .byte 0  // current frame counter sprite 2
     .byte 0  // current frame counter sprite 3
@@ -135,7 +119,7 @@ sprites_raster_counters:
 
 
 /* Indices de animación */
-sprites_animation_index:
+sprites_animation_index_table:
     .byte 0  // current animation frame index sprite 1
     .byte 0  // current animation frame index sprite 2
     .byte 0  // current animation frame index sprite 3
