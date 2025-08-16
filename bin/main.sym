@@ -28,15 +28,15 @@
 .label sum_res_3=$27d0
 .label sprites_coord_table_x=$2902
 .label sprites_coord_table_y=$28fa
-.label x_2=$b64
-.label x_1=$b5a
-.label x_4=$b78
+.label x_2=$b62
+.label x_1=$b58
+.label x_4=$b76
 .label check_joy_up=$9fe
-.label x_3=$b6e
-.label x_6=$b8c
-.label x_5=$b82
+.label x_3=$b6c
+.label x_6=$b8a
+.label x_5=$b80
 .label end_mul_string=$2594
-.label x_7=$b96
+.label x_7=$b94
 .label SPRITE_TO_ENABLE=$28e2
 .label end_keyboard_str=$2632
 .label IRQ_COUNTER=$28d2
@@ -47,18 +47,20 @@
 .label INTERRUPT_CONTROL_AND_STATUS2=$dd0d
 .label sum_num1_0=$27c5
 .label sum_num1_1=$27c6
+.label reset_sprite_raster_counter_in_current_sprite=$b9b
 .label sum_num1_2=$27c7
 .label sum_num1_3=$27c8
 .label ZERO_PAGE_ROW_LOW_BYTE=$20
 .label INTERRUPT_STATUS=$d019
 .label BLUE=$6
 .label space_5_str=$2683
+.label put_animation_frame_in_screen=$b44
 .label joystick_fire_str=$26f0
 .label coor_y_str=$2664
 .label JOYSTICK_2_LEFT=$28dd
 .label SCREEN_COL_POS=$27a5
 .label ANIMATION_FRAMES_LIST_LO=$28e8
-.label ignore_jump_to_bucle_sprites=$bac
+.label sprites_current_animation_index_position_table=$291a
 .label TABLE_KEY_BOARD_COL=$27e8
 .label mul_num1_0=$27b9
 .label mul_num1_3=$27bc
@@ -67,7 +69,6 @@
 .label CHAR_INDEX_1=$28d0
 .label mul_num1_2=$27bb
 .label CHAR_INDEX_2=$28d1
-.label jmp_siguiente_sprite=$b13
 .label SCREEN_SIZE=$3e8
 .label RED=$2
 .label joystick_down_str=$2724
@@ -97,6 +98,7 @@
 .label ZERO_PAGE_ROW_HIGHT_BYTE=$21
 .label INPUT_INDEX_COUNTER=$2834
 .label end_div_32_str=$257f
+.label go_to_next_sprite=$ba0
 .label PRINT_LIB=$5028 {
   .label continue_writing=$5053
   .label print_move_modules_in_table_to_number_to_print_str=$50c3 {
@@ -130,7 +132,6 @@
 .label SPRITE_ANIMATION_VALUE_OFFSET=$28e7
 .label move_right_str=$268f
 .label multipli_n1_str=$2617
-.label ignore_jump_siguiente_sprite=$b16
 .label sub_num2_3=$27d8
 .label sub_num2_2=$27d7
 .label number_to_print_str=$2500
@@ -143,7 +144,6 @@
 .label sub_res_0=$27d9
 .label SPRITE_FRAME_POINTER=$28e1
 .label sub_res_1=$27da
-.label continue_index=$b9d
 .label mul_res_0=$27c1
 .label JOYSTICK_2_UP=$28db
 .label hello_keyb_str=$2648
@@ -152,6 +152,7 @@
 .label joy_down=$a3b
 .label mul_res_3=$27c4
 .label coor_x_str=$2667
+.label exit_sprites_loop=$ba8
 .label BROWN=$9
 .label sprite_animation_2_4=$294a
 .label result_str=$25f5
@@ -173,7 +174,6 @@
 .label GREY=$c
 .label sleep_sprite=$aae {
 }
-.label continuar_sprite=$b46
 .label joystick_no_move_str=$276e
 .label sub_num1_3=$27d4
 .label sub_num1_2=$27d3
@@ -195,6 +195,7 @@
 .label ORIGINAL_DC_02=$28d6
 .label ORIGINAL_DC_03=$28d7
 .label init_code=$814
+.label reset_animation=$b36
 .label TABLE_KEY_ASCII_X_OFFSET=$27f0
 .label JOYSTICK_2_RIGHT=$28de
 .label SCREEN_ROW_POS=$27a4
@@ -236,7 +237,6 @@
 .label joy_left=$a54
 .label ZERO_PAGE_PRINT_TEXT_LO=$22
 .label PRESSED_KEY_TABLE=$283a
-.label sprites_animation_index_table=$291a
 .label SCREEN_ROW_COLOR_POS=$27a2
 .label SPRITE_Y_POS=$28e4
 .label sprites_raster_counters_table=$2912
@@ -265,7 +265,6 @@
 .label ZERO_PAGE_ROW_COLOR_HIGHT_BYTE=$25
 .label sleep_sprite_outer_loop=$ab5
 .label div_num1_1=$27ae
-.label bucle_sprites=$b06
 .label SPRITE_LIB=$5ec0 {
   .label sprite_5_decrement_y=$604f {
   }
@@ -358,7 +357,6 @@
 .label total_digits=$27ab
 .label mul_num2_2=$27bf
 .label mul_num2_3=$27c0
-.label siguiente_sprite=$ba2
 .label joystick_up_left_str=$2717
 .label mul_num2_0=$27bd
 .label SCREEN_CHAR_COLOR_OLD=$287c
@@ -369,7 +367,6 @@
 .label SPRITE_INDEX_POINTER=$28e0
 .label joy_right=$a6d
 .label actions_in_raster=$b01
-.label jump_to_bucle_sprites=$ba9
 .label SPRITE_COLOR=$28e3
 .label SCREEN_RAM=$400
 .label cmb_pressed_str=$266a
@@ -505,13 +502,13 @@
 .label div_num2_2=$27b3
 .label sprites_rasters_limit_table=$290a
 .label div_num2_3=$27b4
+.label sprites_loop=$b06
 .label ANIMATION_FRAMES_LIST_HI=$28e9
 .label div_num2_0=$27b1
 .label ZERO_PAGE_ADDRESS=$20
 .label joystick_down_left_str=$2733
 .label ROTATE_INDEX=$2833
 .label Row_HI=$4019
-.label reset_animacion=$b38
 .label enableRasterInterrupt=$af5
 .label div_res_0=$27b5
 .label SCREEN_INPUT_ROW_POS=$2835
@@ -523,3 +520,4 @@
 .label space_4_str=$267e
 .label SPRITE_X_POS=$28e5
 .label sleep_sprite_inner_loop=$ab7
+.label process_this_sprite=$b14

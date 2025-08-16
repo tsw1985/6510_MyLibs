@@ -42,6 +42,12 @@ ANIMATION_FRAMES_LIST_HI: .byte 0
         ZERO_PAGE_SPRITE_LOW_BYTE
 
     The limit list is 8 Sprites.
+
+
+    THE ORDER HERE IS VERY IMPORTANT !!!!! for testing Im using the same
+    animation list but the order of LO_table and HI_table must equal. The
+    unique diference will be the < > symbol
+
 */
 sprite_animations_list_LO_table:
     .byte <sprite_animation_1_to_10  // Animation for sprite 1
@@ -94,7 +100,12 @@ sprites_coord_table_x:
 
 
 
-/* Sprites animations speed */
+/* 
+This table is used to set a raster iterations limit for each sprite. This means,
+for example if the sprite 0 is in 20 called raster interruptions, we must change
+the frame in the current animation, this is move the the next item in the
+animation list.
+*/
 sprites_rasters_limit_table:
     .byte 20 // Speed for Sprite 1
     .byte 30 // Speed for Sprite 2
@@ -106,7 +117,9 @@ sprites_rasters_limit_table:
     .byte 4 // Speed for Sprite 8
 
 
-/* Sprites frame counters table */
+/* This table is used to save in each SPRITE how many iterations of the
+RASTER INTERRUPT are done. It is to save the counter , like a variable 
+"counter" in any hight language level */
 sprites_raster_counters_table:
     .byte 0  // current frame counter sprite 1
     .byte 0  // current frame counter sprite 2
@@ -118,8 +131,17 @@ sprites_raster_counters_table:
     .byte 0  // current frame counter sprite 8
 
 
-/* Indices de animación */
-sprites_animation_index_table:
+/* 
+
+    In this table is saved the number of frame of the animation list associated
+    for each frame. This means, if the animation list have 8 frames , in each
+    position in this table we save the current frame ( index ) of this list.
+
+    For example ,in sprite 1 ( 3 ) . Save the current animation frame index 
+    showed in screen
+
+*/
+sprites_current_animation_index_position_table:
     .byte 0  // current animation frame index sprite 1
     .byte 0  // current animation frame index sprite 2
     .byte 0  // current animation frame index sprite 3

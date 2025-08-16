@@ -254,135 +254,164 @@ disableRasterInterrupt:
 	sta INTERRUPT_CONTROL
 	rts
 
-/* */
+/* RASTER EXECUTION CODE*/
 actions_in_raster:
 
-   inc INTERRUPT_STATUS // $d019 - Set bit 0 in Interrupt Status Register to 
+    inc INTERRUPT_STATUS // $d019 - Set bit 0 in Interrupt Status Register to 
                         // acknowledge raster interrupt
 
-   // Empezar con el sprite 0
-   ldx #0
+    // X Register contains the number of SPRITE to retrieve in each iteration
+    // it is like : for ( int x = 0 ; x < 8 ; x++ )
+    ldx #0
 
-   bucle_sprites:
+    sprites_loop:
 
-       // Incrementar el contador de este sprite
-       inc sprites_raster_counters_table,x
        
-       // Leer cuántos frames han pasado para este sprite
-       lda sprites_raster_counters_table,x    
+        inc sprites_raster_counters_table,x /* Increment the value of the 
+                                     iteration counter for the current sprite */
        
-       // Comparar con la velocidad de este sprite
-       cmp sprites_rasters_limit_table,x  
+        lda sprites_raster_counters_table,x /*Load in A the current incremented 
+                                           value */
+
+        cmp sprites_rasters_limit_table,x  /* Check if the sprite counter == 
+                                              sprite limit */
        
-       // Si aún no ha llegado al límite, saltar al siguiente sprite
-       bcc jmp_siguiente_sprite
-       bne ignore_jump_siguiente_sprite
-       jmp_siguiente_sprite:
-           jmp siguiente_sprite
-       ignore_jump_siguiente_sprite:
+        beq process_this_sprite /* If it is in the limit, this means we must 
+                                  move to the next frame in this animation */
+        jmp go_to_next_sprite /* If is NOT in the limit,go to next frame (X++)*/
 
-       // Si llegamos aquí, este sprite SÍ debe cambiar de frame
+        process_this_sprite:
+
+            /* ??? Change to next frame in the animnation */
+
+            // Get the LO and HI bytes values of the associated animation list
+            // for this current sprite.
+            lda sprite_animations_list_LO_table,x
+            sta ANIMATION_FRAMES_LIST_LO
+
+            lda sprite_animations_list_HI_table,x
+            sta ANIMATION_FRAMES_LIST_HI
+
+            // Once we have the address of this list ...
+            lda sprites_current_animation_index_position_table,x    
+
+            // We save the value in the next variable ...
+            // (SPRITE_ANIMATION_VALUE_OFFSET)
+            // Then we call to the next function to get the sprited_pad index
+            // value and point to this picture in the sprites memory. This index
+            // is returned in SPRITE_PAD_INDEX from this function...
+            sta SPRITE_ANIMATION_VALUE_OFFSET
+            jsr SPRITE_LIB.sprite_get_current_index_sprite_pad_value_animation
+
+            // But , if SPRITE_PAD_INDEX have the value 255, this means we are 
+            // in the final of the animation , and we must reset to 0 
+            // the sprites_current_animation_index_position_table, because we
+            // need start to count again from 0   
+            lda SPRITE_PAD_INDEX
+            cmp #255
+            beq reset_animation
+
+            // So , if we are NOT in the final of the animation, 
+            // we increment this value in the table, 
+            inc sprites_current_animation_index_position_table,x    
+
+            // Finally we show this new slide (frame) of the animation in screen
+            jmp put_animation_frame_in_screen             
+
+    reset_animation:
        
-       // Obtener los bytes LO y HI de la animación de este sprite
-       lda sprite_animations_list_LO_table,x
-       sta ANIMATION_FRAMES_LIST_LO
-       lda sprite_animations_list_HI_table,x
-       sta ANIMATION_FRAMES_LIST_HI
-
-       // 1. Obtener el frame actual de la animación
-       lda sprites_animation_index_table,x    
-       sta SPRITE_ANIMATION_VALUE_OFFSET
-       jsr SPRITE_LIB.sprite_get_current_index_sprite_pad_value_animation
-       // SPRITE_PAD_INDEX contiene el valor indice del sprite a mostrar
-
-       // Verificar si llegamos al final de la animación
-       lda SPRITE_PAD_INDEX
-       cmp #255
-       beq reset_animacion              
-
-       // 2. Avanzar al siguiente frame de la animación  
-       inc sprites_animation_index_table,x    
-
-       jmp continuar_sprite             
-
-   reset_animacion:
-       // Volver al frame 0 de la animación
-       lda #0
-       sta sprites_animation_index_table,x
+        lda #0 // Set to 0 this index in the table
+        sta sprites_current_animation_index_position_table,x
        
-       // ¡NUEVO! Obtener y mostrar el frame 0 inmediatamente
-       sta SPRITE_ANIMATION_VALUE_OFFSET
-       jsr SPRITE_LIB.sprite_get_current_index_sprite_pad_value_animation
-       // Ahora SPRITE_PAD_INDEX tiene el frame 0 de la animación
+        // Once we have rested this value, we must force to point to the first
+        // animation frame. To get this goal , we must use our function
+        // "sprite_get_current_index_sprite_pad_value_animation" , and the with
+        // with INDEX (SPRITE_PAD_INDEX) match with the first animation of the
+        // current sprite, the IN param for this function is 
+        // "SPRITE_ANIMATION_VALUE_OFFSET"
 
-       // ¡NUEVO! Incrementar también aquí para que la próxima vez vaya al frame 1
-        inc sprites_animation_index_table,x
+        sta SPRITE_ANIMATION_VALUE_OFFSET
+        jsr SPRITE_LIB.sprite_get_current_index_sprite_pad_value_animation
+
+        // Finally we increment the value of: 
+        // "sprites_current_animation_index_position_table" to show the next
+        // frame of this sprite in the next iteration of the loop. With this
+        // we create the ilusion of a infinity animation loop
+        inc sprites_current_animation_index_position_table,x
        
-   continuar_sprite:
-       // 3. Calcular y aplicar el frame al sprite
-       lda SPRITE_INDEX_POINTER
-       clc
-       adc SPRITE_PAD_INDEX
-       sta SPRITE_FRAME_POINTER
+    put_animation_frame_in_screen:
+        
+        // If we are NOT in the LIMIT of the animation list ( final slide )
+        // We must access where start the sprites blocks in memory , this is
+        // SPRITES_ADDRESS / 64 decimal = SPRITES_ADDRESS / $40
+        // Each sprite are 64 bytes, so we must move us by 64 bytes
+        
+        // So to put the next slide of the animation sprite for the current
+        // sprite, we must access to this SPRITE_INDEX_POINTER and ADD this
+        // offset. This offset is the value of SPRITE_PAD_INDEX. This is the
+        // position of the sprite in the pallette of SPRITE PAD Windows Program
+        lda SPRITE_INDEX_POINTER 
+        clc
+        adc SPRITE_PAD_INDEX
+        sta SPRITE_FRAME_POINTER
        
-       // Asignar el frame al sprite correspondiente
-       cpx #0
-       bne x_1
-       jsr SPRITE_LIB.set_frame_to_sprite_0
-       jmp continue_index
+        // Finally, is missing only check if the X Register is pointing to
+        // the sprite 0,1,2 and so on until 8. Finally we call to the function
+        // set_frame_to_sprite_X to the this SPRITE_FRAME_POINTER in the
+        // target address sprite pointer.
+        cpx #0
+        bne x_1
+        jsr SPRITE_LIB.set_frame_to_sprite_0
+        jmp reset_sprite_raster_counter_in_current_sprite
 
-       x_1:
-       cpx #1
-           bne x_2
-           jsr SPRITE_LIB.set_frame_to_sprite_1
-           jmp continue_index
+        x_1:
+        cpx #1
+            bne x_2
+            jsr SPRITE_LIB.set_frame_to_sprite_1
+            jmp reset_sprite_raster_counter_in_current_sprite
 
-       x_2:
-           cpx #2
-           bne x_3
-           jsr SPRITE_LIB.set_frame_to_sprite_2
-           jmp continue_index
-       x_3:
-           cpx #3
-           bne x_4
-           jsr SPRITE_LIB.set_frame_to_sprite_3
-           jmp continue_index
-       x_4:
-           cpx #4
-           bne x_5
-           jsr SPRITE_LIB.set_frame_to_sprite_4
-           jmp continue_index
-       x_5:
-           cpx #5
-           bne x_6
-           jsr SPRITE_LIB.set_frame_to_sprite_5
-           jmp continue_index
-       x_6:
-           cpx #6
-           bne x_7
-           jsr SPRITE_LIB.set_frame_to_sprite_6
-           jmp continue_index
-       x_7:
-           cpx #7
-           bne continue_index
-           jsr SPRITE_LIB.set_frame_to_sprite_7
+        x_2:
+            cpx #2
+            bne x_3
+            jsr SPRITE_LIB.set_frame_to_sprite_2
+            jmp reset_sprite_raster_counter_in_current_sprite
+        x_3:
+            cpx #3
+            bne x_4
+            jsr SPRITE_LIB.set_frame_to_sprite_3
+            jmp reset_sprite_raster_counter_in_current_sprite
+        x_4:
+            cpx #4
+            bne x_5
+            jsr SPRITE_LIB.set_frame_to_sprite_4
+            jmp reset_sprite_raster_counter_in_current_sprite
+        x_5:
+            cpx #5
+            bne x_6
+            jsr SPRITE_LIB.set_frame_to_sprite_5
+            jmp reset_sprite_raster_counter_in_current_sprite
+        x_6:
+            cpx #6
+            bne x_7
+            jsr SPRITE_LIB.set_frame_to_sprite_6
+            jmp reset_sprite_raster_counter_in_current_sprite
+        x_7:
+            cpx #7
+            bne reset_sprite_raster_counter_in_current_sprite
+            jsr SPRITE_LIB.set_frame_to_sprite_7
        
-       continue_index:
+        reset_sprite_raster_counter_in_current_sprite:
+        lda #0
+        sta sprites_raster_counters_table,x
        
-       // Reset del contador del timer
-       lda #0
-       sta sprites_raster_counters_table,x
-       
-   siguiente_sprite:
-       inx
-       cpx #8
+    go_to_next_sprite:
+        inx
+        cpx #8
+        // If the loop is in the last sprite ( X == 8 )        
+        // we leave the interruption if not , we continue the loop iteration
+        beq exit_sprites_loop
+        jmp sprites_loop
 
-       beq ignore_jump_to_bucle_sprites
-       bne jump_to_bucle_sprites
-
-       jump_to_bucle_sprites:
-           jmp bucle_sprites
-
-       ignore_jump_to_bucle_sprites:
+        exit_sprites_loop:
 
 jmp INTERRUPT_RETURN // $ea81 - Return from interrupt
