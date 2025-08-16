@@ -252,7 +252,7 @@ actions_in_raster:
        lda sprites_raster_counters,x    
        
        // Comparar con la velocidad de este sprite
-       cmp sprites_animations_speed,x  
+       cmp sprites_rasters_limit,x  
        
        // Si aún no ha llegado al límite, saltar al siguiente sprite
        bcc jmp_siguiente_sprite

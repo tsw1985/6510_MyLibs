@@ -52,7 +52,7 @@ sprite_animations_list_HI:
 
 
 /* Sprites animations speed */
-sprites_animations_speed:
+sprites_rasters_limit:
     .byte 20 // Speed for Sprite 1
     .byte 30 // Speed for Sprite 2
     .byte 40 // Speed for Sprite 3

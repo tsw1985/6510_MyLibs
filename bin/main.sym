@@ -157,7 +157,6 @@
 .label sprite_animation_2_4=$293e
 .label result_str=$25f5
 .label WHITE=$1
-.label sprites_animations_speed=$28fe
 .label ZERO_PAGE_PRINT_TEXT_HI=$23
 .label PURPLE=$4
 .label message=$2538
@@ -262,6 +261,7 @@
 }
 .label div_num1_2=$27af
 .label div_num1_3=$27b0
+.label sprites_rasters_limit=$28fe
 .label Row_Color_HI=$404b
 .label div_num1_0=$27ad
 .label ZERO_PAGE_ROW_COLOR_HIGHT_BYTE=$25
