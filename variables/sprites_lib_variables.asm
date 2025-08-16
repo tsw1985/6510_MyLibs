@@ -54,8 +54,8 @@ sprite_animations_list_HI:
 /* Sprites animations speed */
 sprites_animations_speed:
     .byte 40 // Speed for Sprite 1
-    .byte 10 // Speed for Sprite 2
-    .byte 45 // Speed for Sprite 3
+    .byte 40 // Speed for Sprite 2
+    .byte 40 // Speed for Sprite 3
     .byte 5  // Speed for Sprite 4
     .byte 50 // Speed for Sprite 5
     .byte 13 // Speed for Sprite 6
@@ -102,11 +102,11 @@ sprite_animation_1_to_5:
 
 /* Animation 2: count 5 to 10 */
 sprite_animation_5_to_9:
-    .byte 5   // Frame 5 in Sprite pad
-    .byte 6   // Frame 6 in Sprite pad
-    .byte 7   // Frame 7 in Sprite pad
+    .byte 4   // Frame 5 in Sprite pad
+    .byte 5   // Frame 6 in Sprite pad
+    .byte 6   // Frame 7 in Sprite pad
+    .byte 7   // Frame 8 in Sprite pad
     .byte 8   // Frame 8 in Sprite pad
-    .byte 9   // Frame 9 in Sprite pad
     .byte 255 // Finish animation
 
 /* Animation 3: count 1 to 3 */
