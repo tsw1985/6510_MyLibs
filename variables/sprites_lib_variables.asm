@@ -81,16 +81,11 @@ sprites_frame_counters:
 
 /* Animation 1: count 1 to 5 */
 sprite_animation_1_to_5:
-    .byte 10   // Frame 0 in Sprite pad
-    .byte 20   // Frame 1 in Sprite pad
-    .byte 30   // Frame 2 in Sprite pad
-    .byte 40   // Frame 3 in Sprite pad
-    .byte 50   // Frame 4 in Sprite pad
-    .byte 60   // Frame 5 in Sprite pad
-    .byte 70   // Frame 6 in Sprite pad
-    .byte 80   // Frame 7 in Sprite pad
-    .byte 90   // Frame 8 in Sprite pad
-    .byte 100   // Frame 8 in Sprite pad
+    .byte 0    // Frame 0 in Sprite pad
+    .byte 1   // Frame 1 in Sprite pad
+    .byte 2   // Frame 2 in Sprite pad
+    .byte 3   // Frame 3 in Sprite pad
+    .byte 4   // Frame 3 in Sprite pad
     .byte 255 // Finish animation
 
 /* Animation 2: count 5 to 10 */
