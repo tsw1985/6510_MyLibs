@@ -69,10 +69,6 @@ sprite_set_color(7,ORANGE)
 sprite_set_frame_to_sprite($00c0,7)
 /* Setup for sprite 8 */
 
-
-
-
-
 /*  RASTER INTERRUPT */
 jsr setupRasterInterrupt
 
@@ -147,22 +143,46 @@ start_read_joystick:
 */
 joy_up:
     jsr SPRITE_LIB.sprite_0_decrement_y
-    //jsr SPRITE_LIB.sprite_1_decrement_y
+    jsr SPRITE_LIB.sprite_1_decrement_y
+    jsr SPRITE_LIB.sprite_2_decrement_y
+    jsr SPRITE_LIB.sprite_3_decrement_y
+    jsr SPRITE_LIB.sprite_4_decrement_y
+    jsr SPRITE_LIB.sprite_5_decrement_y
+    jsr SPRITE_LIB.sprite_6_decrement_y
+    jsr SPRITE_LIB.sprite_7_decrement_y
     rts
     
 joy_down:
     jsr SPRITE_LIB.sprite_0_increment_y
-    //jsr SPRITE_LIB.sprite_1_increment_y
+    jsr SPRITE_LIB.sprite_1_increment_y
+    jsr SPRITE_LIB.sprite_2_increment_y
+    jsr SPRITE_LIB.sprite_3_increment_y
+    jsr SPRITE_LIB.sprite_4_increment_y
+    jsr SPRITE_LIB.sprite_5_increment_y
+    jsr SPRITE_LIB.sprite_6_increment_y
+    jsr SPRITE_LIB.sprite_7_increment_y
     rts
     
 joy_left:
     jsr SPRITE_LIB.sprite_0_decrement_x
-    //jsr SPRITE_LIB.sprite_1_decrement_x
+    jsr SPRITE_LIB.sprite_1_decrement_x
+    jsr SPRITE_LIB.sprite_2_decrement_x
+    jsr SPRITE_LIB.sprite_3_decrement_x
+    jsr SPRITE_LIB.sprite_4_decrement_x
+    jsr SPRITE_LIB.sprite_5_decrement_x
+    jsr SPRITE_LIB.sprite_6_decrement_x
+    jsr SPRITE_LIB.sprite_7_decrement_x
     rts
     
 joy_right:
     jsr SPRITE_LIB.sprite_0_increment_x
-    //jsr SPRITE_LIB.sprite_1_increment_x
+    jsr SPRITE_LIB.sprite_1_increment_x
+    jsr SPRITE_LIB.sprite_2_increment_x
+    jsr SPRITE_LIB.sprite_3_increment_x
+    jsr SPRITE_LIB.sprite_4_increment_x
+    jsr SPRITE_LIB.sprite_5_increment_x
+    jsr SPRITE_LIB.sprite_6_increment_x
+    jsr SPRITE_LIB.sprite_7_increment_x
     rts
 
 joy_fire:
@@ -271,7 +291,7 @@ actions_in_raster:
 
        // 1. Obtener el frame actual de la animación
        lda sprites_animation_index,x    
-       sta SPRITE_INDEX_COUNTER
+       sta SPRITE_ANIMATION_VALUE_OFFSET
        jsr SPRITE_LIB.sprite_get_current_index_sprite_pad_value_animation
        // SPRITE_PAD_INDEX contiene el valor indice del sprite a mostrar
 
@@ -291,7 +311,7 @@ actions_in_raster:
        sta sprites_animation_index,x
        
        // ¡NUEVO! Obtener y mostrar el frame 0 inmediatamente
-       sta SPRITE_INDEX_COUNTER
+       sta SPRITE_ANIMATION_VALUE_OFFSET
        jsr SPRITE_LIB.sprite_get_current_index_sprite_pad_value_animation
        // Ahora SPRITE_PAD_INDEX tiene el frame 0 de la animación
 

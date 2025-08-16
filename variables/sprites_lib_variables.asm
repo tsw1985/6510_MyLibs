@@ -2,24 +2,37 @@
 Each sprite are 64 bytes. */
 SPRITE_INDEX_POINTER: .byte SPRITES_ADDRESS / $40  //  ( $3000 / 64 )
 
-/* Value used to point to a sprite in a sprite pointer */
+/* SPRITE_FRAME_POINTER: Value used to point to a sprite in a sprite pointer */
 SPRITE_FRAME_POINTER: .byte 0 
 
+/* SPRITE_TO_ENABLE: Value to select a sprite and enable it. Used in 
+macro "sprite_enable_sprite" */
 SPRITE_TO_ENABLE:     .byte 0
+
+/* SPRITE_COLOR: Value to set a sprite color */
 SPRITE_COLOR:         .byte 0
+
+/* TODO: move to a table*/ 
 SPRITE_Y_POS:         .byte 0
 SPRITE_X_POS:         .byte 0
 
-SPRITE_RASTER_COUNTER: .byte 0
+/* SPRITE_PAD_INDEX: Returned value index in the sprite pad pallete. 
+   Used in function: sprite_get_current_index_sprite_pad_value_animation */
 SPRITE_PAD_INDEX:      .byte 0
-SPRITE_PAD_INDEX_FUTURE: .byte 0
-SPRITE_INDEX_COUNTER: .byte 0
-SPRITE_CURRENT_SPRITE_SPEED: .byte 0
 
+/* SPRITE_ANIMATION_VALUE_OFFSET: Value used into the function
+"sprite_get_current_index_sprite_pad_value_animation" , to move us in a 
+sprite animation list */
+SPRITE_ANIMATION_VALUE_OFFSET: .byte 0
 
-/* Temp values */
+/* ANIMATION_FRAMES_LIST_LO and ANIMATION_FRAMES_LIST_HI:
+
+Values with contains the LOW and HIGHT bytes of a animation list address.
+They are used in function "sprite_get_current_index_sprite_pad_value_animation"
+to create the ZP pointer used in this function */
 ANIMATION_FRAMES_LIST_LO: .byte 0
 ANIMATION_FRAMES_LIST_HI: .byte 0
+
 
 /* SPRITE TABLES */
 /*  This 2 tables are main list where are listed all animations. We get the
@@ -41,7 +54,6 @@ sprite_animations_list_LO:
     .byte <sprite_animation_1_to_10  // Animation for sprite 8
 
     
-
 sprite_animations_list_HI:
     .byte >sprite_animation_1_to_10  // Animation for sprite 1
     .byte >sprite_animation_1_to_10  // Animation for sprite 2
@@ -51,6 +63,51 @@ sprite_animations_list_HI:
     .byte >sprite_animation_1_to_10  // Animation for sprite 6
     .byte >sprite_animation_1_to_10  // Animation for sprite 7
     .byte >sprite_animation_1_to_10  // Animation for sprite 8
+
+
+
+/*
+
+This tables are used to set the coords for each sprite
+*/
+/* SPRITES COORDS Y */
+sprites_coord_table_y:
+    .byte 0  // coor Y for sprite 1
+    .byte 0  // coor Y for sprite 2
+    .byte 0  // coor Y for sprite 3
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+
+/* SPRITES COORDS X */
+sprites_coord_table_x:
+    .byte 0  // coor X for sprite 1
+    .byte 0  // coor X for sprite 2
+    .byte 0  // coor X for sprite 3
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* Sprites animations speed */
@@ -92,8 +149,6 @@ sprites_animation_index:
 /* ************************************************** */
 /*            Individual animations                   */
 /* ************************************************** */
-
-
 /* Animation full: count 1 to 10 */
 sprite_animation_1_to_10:
     .byte 0   // Frame 0 in Sprite pad
@@ -107,8 +162,6 @@ sprite_animation_1_to_10:
     .byte 8   // Frame 3 in Sprite pad
     .byte 9   // Frame 3 in Sprite pad
     .byte 255 // Finish animation
-
-
 
 /* Animation 1: count 1 to 5 */
 sprite_animation_1_to_5:
@@ -159,13 +212,11 @@ sprite_animation_2_4_6_8:
     .byte 7   // Frame 6 in Sprite pad
     .byte 255 // Finish animation        
 
-
 /* Animation 7: show 2-4 */
 sprite_animation_2_4:
     .byte 1   // Frame 5 in Sprite pad
     .byte 3   // Frame 6 in Sprite pad
     .byte 255 // Finish animation        
-
 
 /* Animation 8: show 2-4 */
 sprite_animation_9_10:

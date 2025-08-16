@@ -4,58 +4,93 @@
 */
 .macro sprite_set_position( sprite_number, col, row){
 
-    // Sprite 0 Y-pos
+    // Sprite X-pos
     lda #row
+
     .if(sprite_number == 0){
+        ldx #0
+        sta sprites_coord_table_x,x
         sta $d001
     }
     .if(sprite_number == 1){
+        ldx #1
+        sta sprites_coord_table_x,x
         sta $d003
     }
     .if(sprite_number == 2){
+        ldx #2
+        sta sprites_coord_table_x,x
         sta $d005
     }
     .if(sprite_number == 3){
+        ldx #3
+        sta sprites_coord_table_x,x
         sta $d007
     }
     .if(sprite_number == 4){
+        ldx #4
+        sta sprites_coord_table_x,x
         sta $d009
     }
     .if(sprite_number == 5){
+        ldx #5
+        sta sprites_coord_table_x,x
         sta $d00b
     }
     .if(sprite_number == 6){
+        ldx #6
+        sta sprites_coord_table_x,x
         sta $d00d
     }
     .if(sprite_number == 7){
+        ldx #7
+        sta sprites_coord_table_x,x
         sta $d00f
     }
 
 
-    // Sprite 0 X-pos
+    // Sprite Y-pos
     lda #col
+
+    
     .if(sprite_number == 0){
+        ldx #0
+        sta sprites_coord_table_y,x
         sta $d000
     }
     .if(sprite_number == 1){
+        ldx #1
+        sta sprites_coord_table_y,x
         sta $d002
     }
     .if(sprite_number == 2){
+        ldx #2
+        sta sprites_coord_table_y,x
         sta $d004
     }
     .if(sprite_number == 3){
+        ldx #3
+        sta sprites_coord_table_y,x
         sta $d006
     }
     .if(sprite_number == 4){
+        ldx #4
+        sta sprites_coord_table_y,x
         sta $d008
     }
     .if(sprite_number == 5){
+        ldx #5
+        sta sprites_coord_table_y,x
         sta $d00a
     }
     .if(sprite_number == 6){
+        ldx #6
+        sta sprites_coord_table_y,x
         sta $d00c
     }
     .if(sprite_number == 7){
+        ldx #7
+        sta sprites_coord_table_y,x
         sta $d00e
     }
 

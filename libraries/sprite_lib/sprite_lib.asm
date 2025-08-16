@@ -8,106 +8,263 @@ SPRITE_LIB:
     */
     /* ROW -- */
     sprite_0_decrement_x:
+        push_regs_to_stack()
+        ldx #0
+        dec sprites_coord_table_x,x
         dec $d000
-    rts
+        pull_regs_from_stack()
+        rts
+
     sprite_1_decrement_x:
+        push_regs_to_stack()
+        ldx #1
+        dec sprites_coord_table_x,x
         dec $d002
-    rts
+        pull_regs_from_stack()
+        rts
+
     sprite_2_decrement_x:
+        push_regs_to_stack()
+        ldx #2
+        dec sprites_coord_table_x,x
         dec $d004
-    rts
+        pull_regs_from_stack()
+        rts
+
     sprite_3_decrement_x:
+        push_regs_to_stack()
+        ldx #3
+        dec sprites_coord_table_x,x
         dec $d006
-    rts
+        pull_regs_from_stack()
+        rts
+
     sprite_4_decrement_x:
+        push_regs_to_stack()
+        ldx #4
+        dec sprites_coord_table_x,x
         dec $d008
-    rts
+        pull_regs_from_stack()
+        rts
+
     sprite_5_decrement_x:
+        push_regs_to_stack()
+        ldx #5
+        dec sprites_coord_table_x,x
         dec $d00a
-    rts
+        pull_regs_from_stack()
+        rts
+
     sprite_6_decrement_x:
+        push_regs_to_stack()
+        ldx #6
+        dec sprites_coord_table_x,x
         dec $d00c
-    rts
+        pull_regs_from_stack()
+        rts
+
     sprite_7_decrement_x:
+        push_regs_to_stack()
+        ldx #7
+        dec sprites_coord_table_x,x
         dec $d00e
-    rts
+        pull_regs_from_stack()
+        rts
 
     /* ROW ++ */
     sprite_0_increment_x:
+        push_regs_to_stack()
+        ldx #0
+        inc sprites_coord_table_x,x
         inc $d000
-    rts
-    sprite_1_increment_x:
-        inc $d002
-    rts
-    sprite_2_increment_x:
-        inc $d004
-    rts
-    sprite_3_increment_x:
-        inc $d006
-    rts
-    sprite_4_increment_x:
-        inc $d008
-    rts
-    sprite_5_increment_x:
-        inc $d00a
-    rts
-    sprite_6_increment_x:
-        inc $d00c
-    rts
-    sprite_7_increment_x:
-        inc $d00e
-    rts
+        pull_regs_from_stack()
+        rts
 
+    sprite_1_increment_x:
+        push_regs_to_stack()
+        ldx #1
+        inc sprites_coord_table_x,x
+        inc $d002
+        pull_regs_from_stack()
+        rts
+
+    sprite_2_increment_x:
+        push_regs_to_stack()
+        ldx #2
+        inc sprites_coord_table_x,x
+        inc $d004
+        pull_regs_from_stack()
+        rts
+
+    sprite_3_increment_x:
+        push_regs_to_stack()
+        ldx #3
+        inc sprites_coord_table_x,x
+        inc $d006
+        pull_regs_from_stack()
+        rts
+    
+    sprite_4_increment_x:
+        push_regs_to_stack()
+        ldx #4
+        inc sprites_coord_table_x,x
+        inc $d008
+        pull_regs_from_stack()
+        rts
+
+    sprite_5_increment_x:
+        push_regs_to_stack()
+        ldx #5
+        inc sprites_coord_table_x,x
+        inc $d00a
+        pull_regs_from_stack()
+        rts
+
+    sprite_6_increment_x:
+        push_regs_to_stack()
+        ldx #6
+        inc sprites_coord_table_x,x
+        inc $d00c
+        pull_regs_from_stack()
+        rts
+
+    sprite_7_increment_x:
+        push_regs_to_stack()
+        ldx #7
+        inc sprites_coord_table_x,x
+        inc $d00e
+        pull_regs_from_stack()
+        rts
+
+    
     /* COL -- */
     sprite_0_decrement_y:
+        push_regs_to_stack()
+        ldx #0
+        dec sprites_coord_table_y,x
         dec $d001
-    rts
+        pull_regs_from_stack()
+        rts
+
+
     sprite_1_decrement_y:
+        push_regs_to_stack()
+        ldx #1
+        dec sprites_coord_table_y,x
         dec $d003
-    rts
+        pull_regs_from_stack()
+        rts
+    
     sprite_2_decrement_y:
+        push_regs_to_stack()
+        ldx #2
+        dec sprites_coord_table_y,x
         dec $d005
-    rts
+        pull_regs_from_stack()
+        rts
+    
     sprite_3_decrement_y:
+        push_regs_to_stack()
+        ldx #3
+        dec sprites_coord_table_y,x
         dec $d007
-    rts
+        pull_regs_from_stack()
+        rts
     sprite_4_decrement_y:
+        push_regs_to_stack()
+        ldx #4
+        dec sprites_coord_table_y,x
         dec $d009
-    rts
+        pull_regs_from_stack()
+        rts
+    
     sprite_5_decrement_y:
+        push_regs_to_stack()
+        ldx #5
+        dec sprites_coord_table_y,x
         dec $d00b
-    rts
+        pull_regs_from_stack()
+        rts
+
     sprite_6_decrement_y:
+        push_regs_to_stack()
+        ldx #6
+        dec sprites_coord_table_y,x
         dec $d00d
-    rts
+        pull_regs_from_stack()
+        rts
+    
     sprite_7_decrement_y:
+        push_regs_to_stack()
+        ldx #7
+        dec sprites_coord_table_y,x
         dec $d00f
+        pull_regs_from_stack()
     rts
 
     /* COL ++ */
     sprite_0_increment_y:
+        push_regs_to_stack()
+        ldx #0
+        inc sprites_coord_table_y,x
         inc $d001
+        pull_regs_from_stack()
     rts
+
     sprite_1_increment_y:
+        push_regs_to_stack()
+        ldx #1
+        inc sprites_coord_table_y,x
         inc $d003
+        pull_regs_from_stack()
     rts
+
     sprite_2_increment_y:
+        push_regs_to_stack()
+        ldx #2
+        inc sprites_coord_table_y,x
         inc $d005
+        pull_regs_from_stack()
     rts
+
     sprite_3_increment_y:
+        push_regs_to_stack()
+        ldx #3
+        inc sprites_coord_table_y,x
         inc $d007
+        pull_regs_from_stack()
     rts
+    
     sprite_4_increment_y:
+        push_regs_to_stack()
+        ldx #4
+        inc sprites_coord_table_y,x
         inc $d009
+        pull_regs_from_stack()
     rts
+
     sprite_5_increment_y:
+        push_regs_to_stack()
+        ldx #5
+        inc sprites_coord_table_y,x
         inc $d00b
+        pull_regs_from_stack()
     rts
+
     sprite_6_increment_y:
+        push_regs_to_stack()
+        ldx #6
+        inc sprites_coord_table_y,x
         inc $d00d
+        pull_regs_from_stack()
     rts
+
     sprite_7_increment_y:
+        push_regs_to_stack()
+        ldx #7
+        inc sprites_coord_table_y,x
         inc $d00f
+        pull_regs_from_stack()
     rts
 
 /*
@@ -236,9 +393,9 @@ a List.
     =======
 
         IN:
-            ANIMATION_FRAMES_LIST_LO: Low byte of this list
-            ANIMATION_FRAMES_LIST_HI: Hight byte of this list
-            SPRITE_INDEX_COUNTER: Index position in this list
+            ANIMATION_FRAMES_LIST_LO: Low byte of this animation list
+            ANIMATION_FRAMES_LIST_HI: Hight byte of this animation list
+            SPRITE_ANIMATION_VALUE_OFFSET: Index position in this list
 
         OUT:
             SPRITE_PAD_INDEX: The value in this list for the given index.
@@ -254,48 +411,20 @@ sprite_get_current_index_sprite_pad_value_animation:
     lda ANIMATION_FRAMES_LIST_HI
     sta ZERO_PAGE_SPRITE_HIGHT_BYTE
 
-    ldy SPRITE_INDEX_COUNTER // 0
-    lda (ZERO_PAGE_SPRITE_LOW_BYTE),y            // access to animation index
-    sta SPRITE_PAD_INDEX    // save the value to add to current sprite index
+    ldy SPRITE_ANIMATION_VALUE_OFFSET //This value move to the right X positions
+                                      //in the current sprite_animation list.
+
+                  //Is like do in a array -> array[SPRITE_ANIMATION_VALUE_OFFSET
+                  //This value is saved in Y register and used in the custom 
+                  //address created using the ZERO_PAGE bellow
+
+
+    lda (ZERO_PAGE_SPRITE_LOW_BYTE),y // get the value of this item in the list
+                                      // using a INDIRECT ADDRESSING with the ZP 
+    sta SPRITE_PAD_INDEX    // returned value wich contains the value of the
+                            // target sprite into the sprite pad pallete
 
     pull_regs_from_stack()
     rts
-
-sprite_get_future_index_sprite_pad_value_animation:
-
-    push_regs_to_stack()
-
-    lda ANIMATION_FRAMES_LIST_LO
-    sta ZERO_PAGE_SPRITE_LOW_BYTE
-
-    lda ANIMATION_FRAMES_LIST_HI
-    sta ZERO_PAGE_SPRITE_HIGHT_BYTE
-
-    ldy SPRITE_INDEX_COUNTER // 0
-    iny //increment Y to go the next
-    lda (ZERO_PAGE_SPRITE_LOW_BYTE),y            // access to animation index
-    sta SPRITE_PAD_INDEX_FUTURE  // save the value to add to current sprite index
-
-    pull_regs_from_stack()
-    rts
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
 }
