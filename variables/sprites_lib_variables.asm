@@ -75,6 +75,18 @@ sprites_frame_counters:
     .byte 0  // current frame counter sprite 8
 
 
+/* NUEVA TABLA - Índices de animación */
+sprites_animation_index:
+    .byte 0  // current animation frame index sprite 1
+    .byte 0  // current animation frame index sprite 2
+    .byte 0  // current animation frame index sprite 3
+    .byte 0  // current animation frame index sprite 4
+    .byte 0  // current animation frame index sprite 5
+    .byte 0  // current animation frame index sprite 6
+    .byte 0  // current animation frame index sprite 7
+    .byte 0  // current animation frame index sprite 8
+
+
 /* ************************************************** */
 /*            Individual animations                   */
 /* ************************************************** */

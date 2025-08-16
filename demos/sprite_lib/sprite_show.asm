@@ -212,19 +212,106 @@ actions_in_raster:
         cmp sprites_animations_speed,x  
         
         // Si aún no ha llegado al límite, saltar al siguiente sprite
-        bcc siguiente_sprite            // bcc = branch if carry clear (A < memoria)
-        
+        bcc jmp_siguiente_sprite//siguiente_sprite            
+        bne ignore_jump_siguiente_sprite
+        jmp_siguiente_sprite:
+            jmp siguiente_sprite
+        ignore_jump_siguiente_sprite:
+
         // Si llegamos aquí, este sprite SÍ debe cambiar de frame
-        // TODO: aquí pondríamos la lógica de cambio de frame
         
-        // Reset del contador de este sprite (vuelve a 0)
+        // Obtener los bytes LO y HI de la animación de este sprite
+        lda sprite_animations_list_LO,x
+        sta ANIMATION_FRAMES_LIST_LO
+        lda sprite_animations_list_HI,x
+        sta ANIMATION_FRAMES_LIST_HI
+
+        // 1. Obtener el frame actual de la animación
+        lda sprites_animation_index,x    
+        sta SPRITE_INDEX_COUNTER
+        jsr SPRITE_LIB.sprite_get_current_index_sprite_pad_value_animation
+        // SPRITE_PAD_INDEX contiene el valor indice del sprite a mostrar
+
+        // Verificar si llegamos al final de la animación
+        lda SPRITE_PAD_INDEX
+        cmp #255
+        beq reset_animacion              
+
+        // 2. Avanzar al siguiente frame de la animación  
+        inc sprites_animation_index,x    
+
+        jmp continuar_sprite             
+
+    reset_animacion:
+        // Volver al frame 0 de la animación
+        lda #0
+        sta sprites_animation_index,x
+        
+    continuar_sprite:
+        // 3. Calcular y aplicar el frame al sprite
+        lda SPRITE_INDEX_POINTER
+        clc
+        adc SPRITE_PAD_INDEX
+        sta SPRITE_FRAME_POINTER
+        
+        // Asignar el frame al sprite correspondiente (tu código original)
+        cpx #0
+        bne x_1
+        jsr SPRITE_LIB.set_frame_to_sprite_0
+        jmp continue_index
+
+        x_1:
+        cpx #1
+            bne x_2
+            jsr SPRITE_LIB.set_frame_to_sprite_1
+            jmp continue_index
+
+        x_2:
+            cpx #2
+            bne x_3
+            jsr SPRITE_LIB.set_frame_to_sprite_2
+            jmp continue_index
+        x_3:
+            cpx #3
+            bne x_4
+            jsr SPRITE_LIB.set_frame_to_sprite_3
+            jmp continue_index
+        x_4:
+            cpx #4
+            bne x_5
+            jsr SPRITE_LIB.set_frame_to_sprite_4
+            jmp continue_index
+        x_5:
+            cpx #5
+            bne x_6
+            jsr SPRITE_LIB.set_frame_to_sprite_5
+            jmp continue_index
+        x_6:
+            cpx #6
+            bne x_7
+            jsr SPRITE_LIB.set_frame_to_sprite_6
+            jmp continue_index
+        x_7:
+            cpx #7
+            bne continue_index
+            jsr SPRITE_LIB.set_frame_to_sprite_7
+        
+        continue_index:
+        
+        // Reset del contador del timer
         lda #0
         sta sprites_frame_counters,x
         
     siguiente_sprite:
         inx
         cpx #8
-        bne bucle_sprites
 
-    // Aquí terminamos habiendo visitado todos los sprites
-    jmp INTERRUPT_RETURN // $ea81 - Return from interrupt
+        beq ignore_jump_to_bucle_sprites
+        bne jump_to_bucle_sprites // bucle_sprites
+
+        jump_to_bucle_sprites:
+            jmp bucle_sprites
+
+        ignore_jump_to_bucle_sprites:
+
+jmp INTERRUPT_RETURN // $ea81 - Return from interrupt
