@@ -25,29 +25,35 @@ init_code:
 
     //but , we are showing the demos for each library
 
-    // PRINT LIB DEMOS
+    /*  PRINT LIB DEMOS */
     //#import "/demos/print_lib/print_single_char.asm"
     //#import "/demos/print_lib/print_text.asm"
 
-    // MATHS LIBS DEMOS
+    /* MATHS LIBS DEMOS */
     //#import "/demos/math_lib/division_32_bits.asm"
     //#import "/demos/math_lib/multiplication_32_bits.asm"
     //#import "/demos/math_lib/sum_32_bits.asm"
     //#import "/demos/math_lib/sub_32_bits.asm"
 
-    // KEYBOARD DEMOS
+    /* KEYBOARD DEMOS */
     // #import "/demos/input_lib/input_lib.asm"
+
+    /* JOYSTICK DEMO */
     //  #import "/demos/joystick_lib/joystick_lib.asm"
-     #import "/demos/sprite_lib/sprite_show.asm"
+
+    /* 8 SPRITES animations with individual speeds */
+    // #import "/demos/sprite_lib/sprite_show.asm"
+
+    /* Simple concurrence system ( Round Robbin) */
+    #import "/demos/concurrent/concurrent.asm"
 
 
     // uncommet in develop time
-    /*
     wait_key:
         jsr $ffe4       // GETIN
         cmp #0
         beq wait_key    // si no se ha pulsado tecla, repetir
-    */
+    
     
 
 
