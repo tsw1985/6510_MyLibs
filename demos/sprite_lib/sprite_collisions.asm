@@ -15,14 +15,14 @@ sprite_enable_sprite(1)
 
 /* Setup for sprite 1 PLAYER */
 sprite_load_like_multicolor(0)
-sprite_set_position(0,100,130)
+sprite_set_position(0,160,125)
 sprite_set_color(0,WHITE)
 sprite_set_frame_to_sprite($00c0,0) // $00c0 ... $00c1 ... $00c2 ...
 /* Setup for sprite 1 */
 
 /* Setup for sprite 2 ENEMY */
 sprite_load_like_multicolor(1)
-sprite_set_position(1,150,150)
+sprite_set_position(1,200,195)
 sprite_set_color(1,CYAN)
 sprite_set_frame_to_sprite($00c0,1)
 /* Setup for sprite 2 */
@@ -371,12 +371,12 @@ push_regs_to_stack()
 
     /* Reset local variables */
     lda #0
-    //sta SPRITE_CENTER_PLAYER_POS_Y
-    //sta SPRITE_CENTER_PLAYER_POS_X
-    //sta SPRITE_OBJECT_Y_PLUS_OFFSET
-    //sta SPRITE_OBJECT_X_PLUS_OFFSET
-    //sta SPRITE_OBJECT_Y
-    //sta SPRITE_OBJECT_X
+    sta SPRITE_CENTER_PLAYER_POS_Y
+    sta SPRITE_CENTER_PLAYER_POS_X
+    sta SPRITE_OBJECT_Y_PLUS_OFFSET
+    sta SPRITE_OBJECT_X_PLUS_OFFSET
+    sta SPRITE_OBJECT_Y
+    sta SPRITE_OBJECT_X
 
 
     /* get center Y */
@@ -384,24 +384,24 @@ push_regs_to_stack()
     ldx #0
     lda sprites_coord_table_y,x
 
-    //clc 
-    //adc #10
-    //sta SPRITE_CENTER_PLAYER_POS_Y
+    clc 
+    adc #10
+    sta SPRITE_CENTER_PLAYER_POS_Y
 
     sta sum_res_0
     lda #0
     sta sum_res_1
     sta sum_res_2
     sta sum_res_3
-    print_calculation_result(3,15,YELLOW,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+    print_calculation_result(3,15,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
     /* PRINT X OF PLAYER */
     ldx #0
     lda sprites_coord_table_x,x
     
-    //clc 
-    //adc #12
-    //sta SPRITE_CENTER_PLAYER_POS_X
+    clc 
+    adc #12
+    sta SPRITE_CENTER_PLAYER_POS_X
     
     sta sum_res_0
     lda #0
@@ -409,7 +409,7 @@ push_regs_to_stack()
     sta sum_res_2
     sta sum_res_3
 
-    print_calculation_result(4,15,YELLOW,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+    print_calculation_result(4,15,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
     /* ENEMY */
 
@@ -422,7 +422,7 @@ push_regs_to_stack()
     sta sum_res_2
     sta sum_res_3
 
-    print_calculation_result(6,15,YELLOW,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+    print_calculation_result(6,9,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
     /* PRINT X OF ENEMY */
     ldx #1
@@ -433,7 +433,7 @@ push_regs_to_stack()
     sta sum_res_2
     sta sum_res_3
 
-    print_calculation_result(7,15,YELLOW,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+    print_calculation_result(7,9,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
     /*
     //-*************************************************-
@@ -461,9 +461,9 @@ push_regs_to_stack()
     bcs sprite_no_hit
 
     inc $d020 // change border color
-
     sprite_no_hit:
     */
+    
 
 
 pull_regs_from_stack()
