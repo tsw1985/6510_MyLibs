@@ -8,8 +8,8 @@ is the sprite 0 */
 SPRITE_CENTER_PLAYER_POS_X: .byte 0
 SPRITE_CENTER_PLAYER_POS_Y: .byte 0
 
-/* Temp variable to save the current value of X Register */
-SPRITE_CURRENT_REG_X: .byte 0
+/* Variable to save the sprite index to check the collision on it */
+SPRITE_TO_CHECK: .byte 0
 
 /* This variables are use to save the current value of other sprites 
 ( not player), can be a sprite enemy for example */

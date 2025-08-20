@@ -1,7 +1,6 @@
 insert_text(1,1,sprites_colls_demo_str,YELLOW)
 insert_text(3,1,sprites_player_y_str,YELLOW)
 insert_text(4,1,sprites_player_x_str,YELLOW)
-
 insert_text(6,1,sprites_enemy_y_str,YELLOW)
 insert_text(7,1,sprites_enemy_x_str,YELLOW)
 
@@ -13,6 +12,10 @@ sprite_enable_sprite(0)
 sprite_enable_sprite(1)
 sprite_enable_sprite(2)
 sprite_enable_sprite(3)
+sprite_enable_sprite(4)
+sprite_enable_sprite(5)
+sprite_enable_sprite(6)
+sprite_enable_sprite(7)
 
 
 
@@ -44,8 +47,38 @@ sprite_load_like_multicolor(3)
 sprite_set_position(3,120,225)
 sprite_set_color(3,WHITE)
 sprite_set_frame_to_sprite($00c0,3)
-/* Setup for sprite 3 */
+/* Setup for sprite 4 */
 
+
+/* Setup for sprite 5 ENEMY */
+sprite_load_like_multicolor(4)
+sprite_set_position(4,150,62)
+sprite_set_color(4,WHITE)
+sprite_set_frame_to_sprite($00c0,5)
+/* Setup for sprite 5 */
+
+
+/* Setup for sprite 6 ENEMY */
+sprite_load_like_multicolor(5)
+sprite_set_position(5,215,90)
+sprite_set_color(5,WHITE)
+sprite_set_frame_to_sprite($00c0,5)
+/* Setup for sprite 6 */
+
+
+/* Setup for sprite 7 ENEMY */
+sprite_load_like_multicolor(6)
+sprite_set_position(6,227,40)
+sprite_set_color(6,WHITE)
+sprite_set_frame_to_sprite($00c0,6)
+/* Setup for sprite 7 */
+
+/* Setup for sprite 8 ENEMY */
+sprite_load_like_multicolor(7)
+sprite_set_position(7,170,200)
+sprite_set_color(7,WHITE)
+sprite_set_frame_to_sprite($00c0,7)
+/* Setup for sprite 7 */
 
 
 
@@ -57,7 +90,7 @@ jsr setupRasterInterrupt
 simulate_game_loop:
 
 
-    //cli
+    cli
 
         ldx #0 //sprites animation list index
         lda sprite_animations_list_LO_table,x
@@ -68,13 +101,13 @@ simulate_game_loop:
 
         jsr start_read_joystick
 
-    //sei
+    sei
 
         /* Call to check collision in any sprite */
         inc SPRITE_INDEX_COUNTER // incremento contador indice ++1
         lda SPRITE_INDEX_COUNTER // cargo el valor del count actual
         sta SPRITE_INDEX_COUNTER // lo guardo en la variable in para funcion checkcollision
-        sta SPRITE_CURRENT_REG_X  // valor guardado
+        sta SPRITE_TO_CHECK  // valor guardado
         jsr check_sprite_collisions // llamo a la funcion para comprobar X sprite > 1 a 7
 
         lda SPRITE_INDEX_COUNTER // cargo de nuevo el valor indice
@@ -85,7 +118,7 @@ simulate_game_loop:
     reset_counters:
         lda #0
         sta SPRITE_INDEX_COUNTER
-        sta SPRITE_CURRENT_REG_X
+        sta SPRITE_TO_CHECK
 
 jmp simulate_game_loop
 
@@ -173,9 +206,9 @@ sleep_sprite:
 
     push_regs_to_stack()
 
-    ldx #50
+    ldx #25 //50
     sleep_sprite_outer_loop:
-        ldy #50
+        ldy #25 //50
     sleep_sprite_inner_loop:
         nop
         dey
@@ -340,14 +373,10 @@ actions_in_raster:
         // set_frame_to_sprite_X to the this SPRITE_FRAME_POINTER in the
         // target address sprite pointer.
 
-
-
         // This is the SPRITE PLAYER ( this is player by default )
         // get currents X-Y Positions of the sprite player
         // SPRITE_PLAYER_POS_X
         // SPRITE_PLAYER_POS_Y
-
-        
 
         cpx #0
         bne x_1
@@ -420,7 +449,7 @@ jmp INTERRUPT_RETURN // $ea81 - Return from interrupt
         
         IN:
         
-            SPRITE_CURRENT_REG_X
+            SPRITE_TO_CHECK
 
 */
 check_sprite_collisions:
@@ -436,68 +465,71 @@ push_regs_to_stack()
     sta SPRITE_ENEMY_X
 
 
-    /* get center Y */
-    /* PRINT Y OF PLAYER */
+    /* set center Y */
     ldx #0
     lda sprites_coord_table_y,x
-
     clc 
-    adc #10
+    adc #10   // add 10 to point to the center of the sprite player COLS
     sta SPRITE_CENTER_PLAYER_POS_Y
 
+    /* PRINT Y OF PLAYER */
     sta sum_res_0
     lda #0
     sta sum_res_1
     sta sum_res_2
     sta sum_res_3
     print_calculation_result(3,15,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+    
 
-    /* PRINT X OF PLAYER */
     ldx #0
     lda sprites_coord_table_x,x
     
+    
     clc 
-    adc #12
+    adc #12 // add 12 to set the center of sprite player ROWS
     sta SPRITE_CENTER_PLAYER_POS_X
+    
+    /* PRINT X OF PLAYER */
     
     sta sum_res_0
     lda #0
     sta sum_res_1
     sta sum_res_2
     sta sum_res_3
-
     print_calculation_result(4,15,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+    
 
     /* ENEMY */
 
     /* PRINT Y OF ENEMY */
+    /*
     lda sprites_coord_table_y,x
     sta sum_res_0
     lda #0
     sta sum_res_1
     sta sum_res_2
     sta sum_res_3
-
     print_calculation_result(6,9,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+    */
 
     /* PRINT X OF ENEMY */
-    //ldx #1
+    /*
     lda sprites_coord_table_x,x
     sta sum_res_0
     lda #0
     sta sum_res_1
     sta sum_res_2
     sta sum_res_3
-
     print_calculation_result(7,9,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+    */
 
     /* Now is time to set the limit coordinates values */
 
 
-    lda SPRITE_CURRENT_REG_X //load the SPRITE to check the collision, it is 
-                             //saved in variable SPRITE_CURRENT_REG_X
-    tax //stx #1
-    //ldx #1  // sprite 2 for demo
+    lda SPRITE_TO_CHECK  // load the SPRITE to check the collision, it is 
+                         // saved in variable SPRITE_TO_CHECK
+    tax   // transfer the value storaged in reg A to reg X
+
 
     /* Enemy X */
     lda sprites_coord_table_x,x
