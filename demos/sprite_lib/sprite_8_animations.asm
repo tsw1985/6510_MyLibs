@@ -15,21 +15,21 @@ sprite_enable_sprite(7)
 
 /* Setup for sprite 1 */
 sprite_load_like_multicolor(0)
-sprite_set_position(0,40,130)
+sprite_set_position(0,130,40)
 sprite_set_color(0,WHITE)
 sprite_set_frame_to_sprite($00c0,0) // $00c0 ... $00c1 ... $00c2 ...
 /* Setup for sprite 1 */
 
 /* Setup for sprite 2 */
 sprite_load_like_multicolor(1)
-sprite_set_position(1,70,130)
+sprite_set_position(1,130,70)
 sprite_set_color(1,CYAN)
 sprite_set_frame_to_sprite($00c0,1)
 /* Setup for sprite 2 */
 
 /* Setup for sprite 3 */
 sprite_load_like_multicolor(2)
-sprite_set_position(2,100,130)
+sprite_set_position(2,130,100)
 sprite_set_color(2,YELLOW)
 sprite_set_frame_to_sprite($00c0,2)
 /* Setup for sprite 3 */
@@ -43,28 +43,28 @@ sprite_set_frame_to_sprite($00c0,3)
 
 /* Setup for sprite 5 */
 sprite_load_like_multicolor(4)
-sprite_set_position(4,160,130)
+sprite_set_position(4,130,160)
 sprite_set_color(4,RED)
 sprite_set_frame_to_sprite($00c0,4)
 /* Setup for sprite 5 */
 
 /* Setup for sprite 6 */
 sprite_load_like_multicolor(5)
-sprite_set_position(5,190,130)
+sprite_set_position(5,130,190)
 sprite_set_color(5,GRAY)
 sprite_set_frame_to_sprite($00c0,5)
 /* Setup for sprite 5 */
 
 /* Setup for sprite 7 */
 sprite_load_like_multicolor(6)
-sprite_set_position(6,220,130)
+sprite_set_position(6,130,220)
 sprite_set_color(6,PINK)
 sprite_set_frame_to_sprite($00c0,6)
 /* Setup for sprite 7 */
 
 /* Setup for sprite 8 */
 sprite_load_like_multicolor(7)
-sprite_set_position(7,250,130)
+sprite_set_position(7,130,250)
 sprite_set_color(7,ORANGE)
 sprite_set_frame_to_sprite($00c0,7)
 /* Setup for sprite 8 */

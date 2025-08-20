@@ -45,10 +45,10 @@ init_code:
     //#import "/demos/joystick_lib/joystick_lib.asm"
     
     /* 8 SPRITES animations with individual speeds */
-    //#import "/demos/sprite_lib/sprite_8_animations.asm"
+    #import "/demos/sprite_lib/sprite_8_animations.asm"
 
     /* SPRITES COLLISIONS */
-    #import "/demos/sprite_lib/sprite_collisions.asm"
+    //#import "/demos/sprite_lib/sprite_collisions.asm"
 
 
 

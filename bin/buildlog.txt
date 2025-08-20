@@ -11,7 +11,7 @@ Memory Map
 Default-segment:
   $0801-$080c Basic
   $080e-$080d Basic End
-  $0810-$0e15 Main Code
+  $0810-$0bb7 Main Code
   $2500-$29f8 Variables
   $3000-$3fff Sprites
   $4000-$4063 Tables
