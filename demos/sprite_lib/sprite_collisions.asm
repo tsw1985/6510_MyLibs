@@ -11,46 +11,89 @@ sprite_set_extra_colors(GRAY,YELLOW)
 // Enable sprites
 sprite_enable_sprite(0)
 sprite_enable_sprite(1)
+sprite_enable_sprite(2)
+sprite_enable_sprite(3)
+
 
 
 /* Setup for sprite 1 PLAYER */
 sprite_load_like_multicolor(0)
 sprite_set_position(0,160,125)
-sprite_set_color(0,WHITE)
+sprite_set_color(0,YELLOW)
 sprite_set_frame_to_sprite($00c0,0) // $00c0 ... $00c1 ... $00c2 ...
 /* Setup for sprite 1 */
 
 /* Setup for sprite 2 ENEMY */
 sprite_load_like_multicolor(1)
 sprite_set_position(1,200,195)
-sprite_set_color(1,CYAN)
+sprite_set_color(1,WHITE)
 sprite_set_frame_to_sprite($00c0,1)
 /* Setup for sprite 2 */
+
+
+/* Setup for sprite 3 ENEMY */
+sprite_load_like_multicolor(2)
+sprite_set_position(2,125,145)
+sprite_set_color(2,WHITE)
+sprite_set_frame_to_sprite($00c0,2)
+/* Setup for sprite 3 */
+
+
+/* Setup for sprite 4 ENEMY */
+sprite_load_like_multicolor(3)
+sprite_set_position(3,120,225)
+sprite_set_color(3,WHITE)
+sprite_set_frame_to_sprite($00c0,3)
+/* Setup for sprite 3 */
+
+
 
 
 /*  RASTER INTERRUPT */
 jsr setupRasterInterrupt
 
 
+/* MAIN LOOP */ 
 simulate_game_loop:
 
-    cli
+
+    //cli
+
         ldx #0 //sprites animation list index
         lda sprite_animations_list_LO_table,x
         sta ANIMATION_FRAMES_LIST_LO
 
         lda sprite_animations_list_HI_table,x
         sta ANIMATION_FRAMES_LIST_HI
-    sei
 
-    jsr start_read_joystick
+        jsr start_read_joystick
 
-    jsr check_sprite_collisions
+    //sei
 
+        /* Call to check collision in any sprite */
+        inc SPRITE_INDEX_COUNTER // incremento contador indice ++1
+        lda SPRITE_INDEX_COUNTER // cargo el valor del count actual
+        sta SPRITE_INDEX_COUNTER // lo guardo en la variable in para funcion checkcollision
+        sta SPRITE_CURRENT_REG_X  // valor guardado
+        jsr check_sprite_collisions // llamo a la funcion para comprobar X sprite > 1 a 7
+
+        lda SPRITE_INDEX_COUNTER // cargo de nuevo el valor indice
+        cmp #8                   // comparo con 8
+        beq reset_counters
+        jmp simulate_game_loop
+
+    reset_counters:
+        lda #0
+        sta SPRITE_INDEX_COUNTER
+        sta SPRITE_CURRENT_REG_X
 
 jmp simulate_game_loop
 
 
+
+
+
+/* Function to read the joystick port */
 start_read_joystick:
 
     push_regs_to_stack()
@@ -191,6 +234,8 @@ disableRasterInterrupt:
 
 /* RASTER EXECUTION CODE*/
 actions_in_raster:
+
+    
 
     inc INTERRUPT_STATUS // $d019 - Set bit 0 in Interrupt Status Register to 
                         // acknowledge raster interrupt
@@ -351,8 +396,9 @@ actions_in_raster:
         reset_sprite_raster_counter_in_current_sprite:
         lda #0
         sta sprites_raster_counters_table,x
-       
+
     go_to_next_sprite:
+
         inx
         cpx #8
         // If the loop is in the last sprite ( X == 8 )        
@@ -366,6 +412,17 @@ jmp INTERRUPT_RETURN // $ea81 - Return from interrupt
 
 
 
+/* 
+
+    Function:
+
+        Check a target sprite if have a collision.
+        
+        IN:
+        
+            SPRITE_CURRENT_REG_X
+
+*/
 check_sprite_collisions:
 push_regs_to_stack()
 
@@ -373,10 +430,10 @@ push_regs_to_stack()
     lda #0
     sta SPRITE_CENTER_PLAYER_POS_Y
     sta SPRITE_CENTER_PLAYER_POS_X
-    sta SPRITE_OBJECT_Y_PLUS_OFFSET
-    sta SPRITE_OBJECT_X_PLUS_OFFSET
-    sta SPRITE_OBJECT_Y
-    sta SPRITE_OBJECT_X
+    sta SPRITE_ENEMY_Y_PLUS_OFFSET
+    sta SPRITE_ENEMY_X_PLUS_OFFSET
+    sta SPRITE_ENEMY_Y
+    sta SPRITE_ENEMY_X
 
 
     /* get center Y */
@@ -414,7 +471,6 @@ push_regs_to_stack()
     /* ENEMY */
 
     /* PRINT Y OF ENEMY */
-    ldx #1
     lda sprites_coord_table_y,x
     sta sum_res_0
     lda #0
@@ -425,7 +481,7 @@ push_regs_to_stack()
     print_calculation_result(6,9,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
     /* PRINT X OF ENEMY */
-    ldx #1
+    //ldx #1
     lda sprites_coord_table_x,x
     sta sum_res_0
     lda #0
@@ -436,22 +492,26 @@ push_regs_to_stack()
     print_calculation_result(7,9,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
     /* Now is time to set the limit coordinates values */
-     
-    ldx #1  // sprite 2 for demo
+
+
+    lda SPRITE_CURRENT_REG_X //load the SPRITE to check the collision, it is 
+                             //saved in variable SPRITE_CURRENT_REG_X
+    tax //stx #1
+    //ldx #1  // sprite 2 for demo
 
     /* Enemy X */
     lda sprites_coord_table_x,x
-    sta SPRITE_OBJECT_X
+    sta SPRITE_ENEMY_X
     clc
     adc #SPRITE_WIDTH // 24
-    sta SPRITE_OBJECT_X_PLUS_OFFSET
+    sta SPRITE_ENEMY_X_PLUS_OFFSET
 
     /* Enemy Y */
     lda sprites_coord_table_y,x
-    sta SPRITE_OBJECT_Y
+    sta SPRITE_ENEMY_Y
     clc
     adc #SPRITE_HEIGHT // 21
-    sta SPRITE_OBJECT_Y_PLUS_OFFSET
+    sta SPRITE_ENEMY_Y_PLUS_OFFSET
 
 
     
@@ -459,24 +519,24 @@ push_regs_to_stack()
     // Start comparations
     // If Player_X >= Enemy_X
     lda SPRITE_CENTER_PLAYER_POS_X
-    cmp SPRITE_OBJECT_X
+    cmp SPRITE_ENEMY_X
     bcc sprite_no_hit  // if is LESS means X is between the X and X + offset of rectangle
 
     // IF Player_X <= Enemy_X + Sprite_width
     lda SPRITE_CENTER_PLAYER_POS_X
-    cmp SPRITE_OBJECT_X_PLUS_OFFSET
+    cmp SPRITE_ENEMY_X_PLUS_OFFSET
     bcs sprite_no_hit
 
 
     // Start comparations
     // If Player_Y >= Enemy_Y
     lda SPRITE_CENTER_PLAYER_POS_Y
-    cmp SPRITE_OBJECT_Y
+    cmp SPRITE_ENEMY_Y
     bcc sprite_no_hit  // if is LESS means X is between the X and X + offset of rectangle
 
     // IF Player_Y <= Enemy_Y + Sprite_height
     lda SPRITE_CENTER_PLAYER_POS_Y
-    cmp SPRITE_OBJECT_Y_PLUS_OFFSET
+    cmp SPRITE_ENEMY_Y_PLUS_OFFSET
     bcs sprite_no_hit
 
     inc $d020 // change border color
