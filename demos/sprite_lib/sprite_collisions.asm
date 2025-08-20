@@ -29,15 +29,15 @@ sprite_set_frame_to_sprite($00c0,0) // $00c0 ... $00c1 ... $00c2 ...
 /* Setup for sprite 2 ENEMY */
 sprite_load_like_multicolor(1)
 sprite_set_position(1,200,195)
-sprite_set_color(1,WHITE)
+sprite_set_color(1,PINK)
 sprite_set_frame_to_sprite($00c0,1)
 /* Setup for sprite 2 */
 
 
 /* Setup for sprite 3 ENEMY */
-sprite_load_like_multicolor(2)
+sprite_load_like_multicolor(482)
 sprite_set_position(2,125,145)
-sprite_set_color(2,WHITE)
+sprite_set_color(2,RED)
 sprite_set_frame_to_sprite($00c0,2)
 /* Setup for sprite 3 */
 
@@ -45,7 +45,7 @@ sprite_set_frame_to_sprite($00c0,2)
 /* Setup for sprite 4 ENEMY */
 sprite_load_like_multicolor(3)
 sprite_set_position(3,120,225)
-sprite_set_color(3,WHITE)
+sprite_set_color(3,GREEN)
 sprite_set_frame_to_sprite($00c0,3)
 /* Setup for sprite 4 */
 
@@ -53,7 +53,7 @@ sprite_set_frame_to_sprite($00c0,3)
 /* Setup for sprite 5 ENEMY */
 sprite_load_like_multicolor(4)
 sprite_set_position(4,150,62)
-sprite_set_color(4,WHITE)
+sprite_set_color(4,ORANGE)
 sprite_set_frame_to_sprite($00c0,5)
 /* Setup for sprite 5 */
 
@@ -61,7 +61,7 @@ sprite_set_frame_to_sprite($00c0,5)
 /* Setup for sprite 6 ENEMY */
 sprite_load_like_multicolor(5)
 sprite_set_position(5,215,90)
-sprite_set_color(5,WHITE)
+sprite_set_color(5,BROWN)
 sprite_set_frame_to_sprite($00c0,5)
 /* Setup for sprite 6 */
 
@@ -69,14 +69,14 @@ sprite_set_frame_to_sprite($00c0,5)
 /* Setup for sprite 7 ENEMY */
 sprite_load_like_multicolor(6)
 sprite_set_position(6,227,40)
-sprite_set_color(6,WHITE)
+sprite_set_color(6,GRAY)
 sprite_set_frame_to_sprite($00c0,6)
 /* Setup for sprite 7 */
 
 /* Setup for sprite 8 ENEMY */
 sprite_load_like_multicolor(7)
 sprite_set_position(7,170,200)
-sprite_set_color(7,WHITE)
+sprite_set_color(7,BLACK)
 sprite_set_frame_to_sprite($00c0,7)
 /* Setup for sprite 7 */
 
@@ -552,30 +552,74 @@ push_regs_to_stack()
     // If Player_X >= Enemy_X
     lda SPRITE_CENTER_PLAYER_POS_X
     cmp SPRITE_ENEMY_X
-    bcc sprite_no_hit  // if is LESS means X is between the X and X + offset of rectangle
+    //bcc sprite_no_hit  // if is LESS means X is between the X and X + offset of rectangle
+    bcs continue_check_1
+    jmp sprite_no_hit
+
+    continue_check_1:
 
     // IF Player_X <= Enemy_X + Sprite_width
     lda SPRITE_CENTER_PLAYER_POS_X
     cmp SPRITE_ENEMY_X_PLUS_OFFSET
-    bcs sprite_no_hit
+    //bcs sprite_no_hit
+    bcc continue_check_2
+    jmp sprite_no_hit
 
+    continue_check_2:
 
     // Start comparations
     // If Player_Y >= Enemy_Y
     lda SPRITE_CENTER_PLAYER_POS_Y
     cmp SPRITE_ENEMY_Y
-    bcc sprite_no_hit  // if is LESS means X is between the X and X + offset of rectangle
+    //bcc sprite_no_hit  // if is LESS means X is between the X and X + offset of rectangle
+    bcs continue_check_3
+    jmp sprite_no_hit
+    continue_check_3:
 
     // IF Player_Y <= Enemy_Y + Sprite_height
     lda SPRITE_CENTER_PLAYER_POS_Y
     cmp SPRITE_ENEMY_Y_PLUS_OFFSET
-    bcs sprite_no_hit
+    //bcs sprite_no_hit
+    bcc change_border_color
+    jmp sprite_no_hit
 
+    change_border_color:
+
+    //If exists collision , increment border color
     inc $d020 // change border color
+
+    // and print the currents Y - X of this enemy sprite
+    /* PRINT Y OF ENEMY */
+    
+    lda SPRITE_ENEMY_Y
+    sta sum_res_0
+    lda #0
+    sta sum_res_1
+    sta sum_res_2
+    sta sum_res_3
+    print_calculation_result(6,9,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+    
+
+    /* PRINT X OF ENEMY */
+    
+    lda SPRITE_ENEMY_X
+    sta sum_res_0
+    lda #0
+    sta sum_res_1
+    sta sum_res_2
+    sta sum_res_3
+    print_calculation_result(7,9,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+
+
     jmp exit_check_collision
     sprite_no_hit:
+
+        // if no hit, reset border color to default
         lda #LIGHT_BLUE
         sta $d020
+
+
+        
     
     
     exit_check_collision:

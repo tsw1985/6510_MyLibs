@@ -22,7 +22,7 @@
 .label buffer_str=$26a9
 .label BLACK=$0
 .label sum_res_0=$2876
-.label sprite_no_hit=$dfd
+.label sprite_no_hit=$faf
 .label counter_str=$2853
 .label sum_res_2=$2878
 .label sum_res_1=$2877
@@ -38,7 +38,7 @@
 .label x_5=$bc1
 .label end_mul_string=$2594
 .label x_7=$bd5
-.label wait_key=$e08
+.label wait_key=$fba
 .label sprites_player_x_str=$27bf
 .label SPRITE_TO_ENABLE=$2993
 .label end_keyboard_str=$2632
@@ -105,6 +105,9 @@
 .label TASK_IRQ_COUNTER=$2a02
 .label SCREEN_BORDER_COLOR=$d020
 .label PRINTING_FLAG=$2888
+.label continue_check_1=$de2
+.label continue_check_2=$ded
+.label continue_check_3=$df8
 .label joystick_right_str=$275f
 .label ZERO_PAGE_ROW_HIGHT_BYTE=$21
 .label INPUT_INDEX_COUNTER=$28dd
@@ -143,7 +146,7 @@
 .label SPRITE_ANIMATION_VALUE_OFFSET=$2998
 .label move_right_str=$268f
 .label multipli_n1_str=$2617
-.label exit_check_collision=$e02 {
+.label exit_check_collision=$fb4 {
 }
 .label sub_num2_3=$2881
 .label sub_num2_2=$2880
@@ -542,6 +545,7 @@
 .label ROTATE_INDEX=$28dc
 .label Row_HI=$4019
 .label enableRasterInterrupt=$b36
+.label change_border_color=$e03
 .label div_res_0=$285e
 .label SCREEN_INPUT_ROW_POS=$28de
 .label div_res_1=$285f
