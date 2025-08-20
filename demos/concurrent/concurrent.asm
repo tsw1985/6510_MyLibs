@@ -4,6 +4,13 @@ jsr init_irq_timer
 task_infinity_loop:
 jmp task_infinity_loop
 
+
+/* 
+
+    This is the default configuration timer.
+    The values for "Count from" means, the CPU count from that number to 0
+    to do a "sleep".
+ */
 init_irq_timer:
 
     push_regs_to_stack()
@@ -22,9 +29,9 @@ init_irq_timer:
     sta $0315                
 
     // Count from 12500 to 0 = 0.5 sec
-    lda #<5000             
+    lda #<1000             
     sta $DC04               
-    lda #>5000             
+    lda #>1000             
     sta $DC05               
     
     // Enable IRQ Timer
@@ -40,6 +47,18 @@ init_irq_timer:
     pull_regs_from_stack()
     rts
 
+
+/*
+    This code is triggered when the timeout 1000 to 0 is 0.
+
+    But here we do a trick. This function is executed to fast, enter a lot times
+    by sencod. So we have a counter TASK_IRQ_COUNTER and we execute our code
+    if the counter is 60 ( more or less it is 1 second ).
+
+    The next is reset this counter to 0 to start again to count
+
+
+ */
 execute_tasks:
 
     push_regs_to_stack()

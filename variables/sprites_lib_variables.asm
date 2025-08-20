@@ -2,6 +2,31 @@
 Each sprite are 64 bytes. */
 SPRITE_INDEX_POINTER: .byte SPRITES_ADDRESS / $40  //  ( $3000 / 64 )
 
+
+
+
+/* Values to save the current coords Y-X of a sprite player. Byte default 
+is the sprite 0 */
+SPRITE_CENTER_PLAYER_POS_X: .byte 0
+SPRITE_CENTER_PLAYER_POS_Y: .byte 0
+
+/* Temp variable to save the current value of X Register */
+SPRITE_CURRENT_REG_X: .byte 0
+
+/* This variables are use to save the current value of other sprites 
+( not player), can be a sprite enemy for example */
+SPRITE_OBJECT_X: .byte 0
+SPRITE_OBJECT_X_PLUS_OFFSET: .byte 0
+
+SPRITE_OBJECT_Y: .byte 0
+SPRITE_OBJECT_Y_PLUS_OFFSET: .byte 0
+
+
+
+
+
+
+
 /* SPRITE_FRAME_POINTER: Value used to point to a sprite in a sprite pointer */
 SPRITE_FRAME_POINTER: .byte 0 
 

@@ -267,6 +267,26 @@ SPRITE_LIB:
         pull_regs_from_stack()
     rts
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
     Enable sprite : 
     --------------
@@ -429,6 +449,18 @@ sprite_get_current_index_sprite_pad_value_animation:
 
 
 
+/* 
+
+    This lib detect if the center of a sprite( player) is under the "rectangle"
+    limits of other sprite
+*/
+sprites_detect_collisions:
+    push_regs_to_stack()
+
+
+
+    pull_regs_from_stack()
+    rts
 
 
 

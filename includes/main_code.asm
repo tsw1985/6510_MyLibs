@@ -35,17 +35,22 @@ init_code:
     //#import "/demos/math_lib/sum_32_bits.asm"
     //#import "/demos/math_lib/sub_32_bits.asm"
 
+    /* Simple concurrence system ( Round Robbin) */
+    //#import "/demos/concurrent/concurrent.asm"
+
     /* KEYBOARD DEMOS */
-    // #import "/demos/input_lib/input_lib.asm"
+    //#import "/demos/input_lib/input_lib.asm"
 
     /* JOYSTICK DEMO */
-    //  #import "/demos/joystick_lib/joystick_lib.asm"
-
+    //#import "/demos/joystick_lib/joystick_lib.asm"
+    
     /* 8 SPRITES animations with individual speeds */
-    // #import "/demos/sprite_lib/sprite_show.asm"
+    //#import "/demos/sprite_lib/sprite_8_animations.asm"
 
-    /* Simple concurrence system ( Round Robbin) */
-    #import "/demos/concurrent/concurrent.asm"
+    /* SPRITES COLLISIONS */
+    #import "/demos/sprite_lib/sprite_collisions.asm"
+
+
 
 
     // uncommet in develop time

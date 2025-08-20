@@ -39,3 +39,11 @@
 .label INTERRUPT_STATUS              = $d019
 .label INTERRUPT_CONTROL             = $d01a
 .label INTERRUPT_RETURN	             = $ea81
+
+//SPRITE CONSTANTS:
+//=================
+
+.label SPRITE_HEIGHT = 21
+.label SPRITE_WIDTH  = 24
+.label SPRITE_CENTER_WIDTH_OFFSET  = 12 // 24px / 2 = 12
+.label SPRITE_CENTER_HEIGHT_OFFSET = 10 // 21px / 2 = 10.5 ( 10 rounded )
