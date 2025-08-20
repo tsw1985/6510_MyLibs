@@ -23,6 +23,7 @@
 .label buffer_str=$26a9
 .label BLACK=$0
 .label sum_res_0=$2876
+.label sprite_no_hit=$e61
 .label SPRITE_OBJECT_Y_PLUS_OFFSET=$2990
 .label counter_str=$2853
 .label sum_res_2=$2878
@@ -39,7 +40,7 @@
 .label x_5=$a7d
 .label end_mul_string=$2594
 .label x_7=$a91
-.label wait_key=$e27
+.label wait_key=$e6c
 .label sprites_player_x_str=$27bf
 .label SPRITE_TO_ENABLE=$2992
 .label end_keyboard_str=$2632
@@ -140,6 +141,8 @@
 .label SPRITE_ANIMATION_VALUE_OFFSET=$2997
 .label move_right_str=$268f
 .label multipli_n1_str=$2617
+.label exit_check_collision=$e66 {
+}
 .label sub_num2_3=$2881
 .label sub_num2_2=$2880
 .label number_to_print_str=$2500

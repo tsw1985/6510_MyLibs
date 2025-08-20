@@ -435,7 +435,26 @@ push_regs_to_stack()
 
     print_calculation_result(7,9,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
-    /*
+    /* Now is time to set the limit coordinates values */
+     
+    ldx #1  // sprite 2 for demo
+
+    /* Enemy X */
+    lda sprites_coord_table_x,x
+    sta SPRITE_OBJECT_X
+    clc
+    adc #SPRITE_WIDTH // 24
+    sta SPRITE_OBJECT_X_PLUS_OFFSET
+
+    /* Enemy Y */
+    lda sprites_coord_table_y,x
+    sta SPRITE_OBJECT_Y
+    clc
+    adc #SPRITE_HEIGHT // 21
+    sta SPRITE_OBJECT_Y_PLUS_OFFSET
+
+
+    
     //-*************************************************-
     // Start comparations
     // If Player_X >= Enemy_X
@@ -461,10 +480,13 @@ push_regs_to_stack()
     bcs sprite_no_hit
 
     inc $d020 // change border color
+    jmp exit_check_collision
     sprite_no_hit:
-    */
+        lda #LIGHT_BLUE
+        sta $d020
     
-
+    
+    exit_check_collision:
 
 pull_regs_from_stack()
 rts
