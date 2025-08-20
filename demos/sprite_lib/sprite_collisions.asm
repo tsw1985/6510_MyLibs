@@ -35,7 +35,7 @@ sprite_set_frame_to_sprite($00c0,1)
 
 
 /* Setup for sprite 3 ENEMY */
-sprite_load_like_multicolor(482)
+sprite_load_like_multicolor(2)
 sprite_set_position(2,125,145)
 sprite_set_color(2,RED)
 sprite_set_frame_to_sprite($00c0,2)
@@ -54,7 +54,7 @@ sprite_set_frame_to_sprite($00c0,3)
 sprite_load_like_multicolor(4)
 sprite_set_position(4,150,62)
 sprite_set_color(4,ORANGE)
-sprite_set_frame_to_sprite($00c0,5)
+sprite_set_frame_to_sprite($00c0,4)
 /* Setup for sprite 5 */
 
 
