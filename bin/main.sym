@@ -39,7 +39,7 @@
 .label x_5=$a7d
 .label end_mul_string=$2594
 .label x_7=$a91
-.label wait_key=$e07
+.label wait_key=$e09
 .label sprites_player_x_str=$27ba
 .label SPRITE_TO_ENABLE=$2988
 .label end_keyboard_str=$2632

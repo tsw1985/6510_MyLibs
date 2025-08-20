@@ -15,14 +15,14 @@ sprite_enable_sprite(1)
 
 /* Setup for sprite 1 PLAYER */
 sprite_load_like_multicolor(0)
-sprite_set_position(0,40,130)
+sprite_set_position(0,100,130)
 sprite_set_color(0,WHITE)
 sprite_set_frame_to_sprite($00c0,0) // $00c0 ... $00c1 ... $00c2 ...
 /* Setup for sprite 1 */
 
 /* Setup for sprite 2 ENEMY */
 sprite_load_like_multicolor(1)
-sprite_set_position(1,150,180)
+sprite_set_position(1,150,150)
 sprite_set_color(1,CYAN)
 sprite_set_frame_to_sprite($00c0,1)
 /* Setup for sprite 2 */
@@ -369,21 +369,40 @@ jmp INTERRUPT_RETURN // $ea81 - Return from interrupt
 check_sprite_collisions:
 push_regs_to_stack()
 
+    /* Reset local variables */
+    lda #0
+    //sta SPRITE_CENTER_PLAYER_POS_Y
+    //sta SPRITE_CENTER_PLAYER_POS_X
+    //sta SPRITE_OBJECT_Y_PLUS_OFFSET
+    //sta SPRITE_OBJECT_X_PLUS_OFFSET
+    //sta SPRITE_OBJECT_Y
+    //sta SPRITE_OBJECT_X
 
+
+    /* get center Y */
     /* PRINT Y OF PLAYER */
     ldx #0
     lda sprites_coord_table_y,x
+
+    //clc 
+    //adc #10
+    //sta SPRITE_CENTER_PLAYER_POS_Y
+
     sta sum_res_0
     lda #0
     sta sum_res_1
     sta sum_res_2
     sta sum_res_3
-
     print_calculation_result(3,15,YELLOW,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
     /* PRINT X OF PLAYER */
     ldx #0
     lda sprites_coord_table_x,x
+    
+    //clc 
+    //adc #12
+    //sta SPRITE_CENTER_PLAYER_POS_X
+    
     sta sum_res_0
     lda #0
     sta sum_res_1
@@ -416,20 +435,35 @@ push_regs_to_stack()
 
     print_calculation_result(7,15,YELLOW,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
+    /*
+    //-*************************************************-
+    // Start comparations
+    // If Player_X >= Enemy_X
+    lda SPRITE_CENTER_PLAYER_POS_X
+    cmp SPRITE_OBJECT_X
+    bcc sprite_no_hit  // if is LESS means X is between the X and X + offset of rectangle
 
-/*lda sprites_coord_table_y,x
-clc 
-adc #10
-sta SPRITE_CENTER_PLAYER_POS_Y
+    // IF Player_X <= Enemy_X + Sprite_width
+    lda SPRITE_CENTER_PLAYER_POS_X
+    cmp SPRITE_OBJECT_X_PLUS_OFFSET
+    bcs sprite_no_hit
 
 
-lda sprites_coord_table_x,x
-clc
-adc #12
-sta SPRITE_CENTER_PLAYER_POS_X  // save current Y player X 
-*/
+    // Start comparations
+    // If Player_Y >= Enemy_Y
+    lda SPRITE_CENTER_PLAYER_POS_Y
+    cmp SPRITE_OBJECT_Y
+    bcc sprite_no_hit  // if is LESS means X is between the X and X + offset of rectangle
 
+    // IF Player_Y <= Enemy_Y + Sprite_height
+    lda SPRITE_CENTER_PLAYER_POS_Y
+    cmp SPRITE_OBJECT_Y_PLUS_OFFSET
+    bcs sprite_no_hit
 
+    inc $d020 // change border color
+
+    sprite_no_hit:
+    */
 
 
 pull_regs_from_stack()
