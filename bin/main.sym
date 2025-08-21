@@ -27,8 +27,8 @@
 .label sum_res_2=$2887
 .label sum_res_1=$2886
 .label sum_res_3=$2888
-.label sprites_coord_table_x=$29c5
-.label sprites_coord_table_y=$29bd
+.label sprites_coord_table_x=$29c4
+.label sprites_coord_table_y=$29bc
 .label x_2=$eec
 .label x_1=$ee2
 .label x_4=$f00
@@ -40,7 +40,7 @@
 .label x_7=$f1e
 .label wait_key=$fd1
 .label sprites_player_x_str=$27ce
-.label SPRITE_TO_ENABLE=$29a5
+.label SPRITE_TO_ENABLE=$29a4
 .label end_keyboard_str=$2632
 .label IRQ_COUNTER=$298a
 .label LIGHT_GRAY=$f
@@ -48,7 +48,6 @@
 .label LIGHT_BLUE=$e
 .label INTERRUPT_CONTROL_AND_STATUS1=$dc0d
 .label INTERRUPT_CONTROL_AND_STATUS2=$dd0d
-.label SPRITE_ALLOW_PRINT=$29a1
 .label sum_num1_0=$287d
 .label sum_num1_1=$287e
 .label reset_sprite_raster_counter_in_current_sprite=$f25
@@ -67,15 +66,15 @@
 .label coor_y_str=$2664
 .label JOYSTICK_2_LEFT=$2995
 .label SCREEN_COL_POS=$285d
-.label ANIMATION_FRAMES_LIST_LO=$29ab
-.label sprites_current_animation_index_position_table=$29dd
+.label ANIMATION_FRAMES_LIST_LO=$29aa
+.label sprites_current_animation_index_position_table=$29dc
 .label sprites_colls_demo_str=$2798
 .label TABLE_KEY_BOARD_COL=$28a0
 .label mul_num1_0=$2871
 .label SPRITE_INDEX_COUNTER=$29a0
-.label SPRITE_TEMP_Y=$29a2
+.label SPRITE_TEMP_Y=$29a1
 .label mul_num1_3=$2874
-.label SPRITE_TEMP_X=$29a3
+.label SPRITE_TEMP_X=$29a2
 .label Row_LO=$4000
 .label mul_num1_1=$2872
 .label CHAR_INDEX_1=$2988
@@ -92,7 +91,7 @@
 .label delete_key_str=$26cb
 .label CURSOR_STATE=$298b
 .label sum_num2_0=$2881
-.label sprite_animation_1_to_10=$29e5
+.label sprite_animation_1_to_10=$29e4
 .label ZERO_PAGE_SPRITE_LOW_BYTE=$26
 .label sum_num2_1=$2882
 .label sum_num2_2=$2883
@@ -105,7 +104,7 @@
 .label end_div_string=$2572
 .label joystick_up_right_str=$270a
 .label LIGHT_GREEN=$d
-.label TASK_IRQ_COUNTER=$2a14
+.label TASK_IRQ_COUNTER=$2a13
 .label SCREEN_BORDER_COLOR=$d020
 .label PRINTING_FLAG=$2897
 .label continue_check_1=$f98
@@ -138,15 +137,15 @@
   }
 }
 .label current_char_str=$26c5
-.label sprite_animation_5_to_9=$29f6
+.label sprite_animation_5_to_9=$29f5
 .label INPUT_CURSOR_ROW=$2932
 .label NUMBER_TO_PRINT_TABLE=$2850
 .label move_left_str=$2689
 .label sprites_speed_demo_str=$277d
 .label keys_buffer=$250a
 .label INTERRUPT_CONTROL=$d01a
-.label sprite_animation_9_10=$2a10
-.label SPRITE_ANIMATION_VALUE_OFFSET=$29aa
+.label sprite_animation_9_10=$2a0f
+.label SPRITE_ANIMATION_VALUE_OFFSET=$29a9
 .label move_right_str=$268f
 .label multipli_n1_str=$2617
 .label exit_check_collision=$fcb {
@@ -162,7 +161,7 @@
 .label sub_res_3=$2894
 .label MUSIC_ADDRESS=$1000
 .label sub_res_0=$2891
-.label SPRITE_FRAME_POINTER=$29a4
+.label SPRITE_FRAME_POINTER=$29a3
 .label sub_res_1=$2892
 .label mul_res_0=$2879
 .label JOYSTICK_2_UP=$2993
@@ -174,12 +173,13 @@
 .label coor_x_str=$2667
 .label exit_sprites_loop=$f32
 .label BROWN=$9
-.label sprite_animation_2_4=$2a0d
+.label sprite_animation_2_4=$2a0c
 .label result_str=$25f5
 .label WHITE=$1
+.label check_sprite_loop=$f34
 .label print_enemy_values=$c14
 .label sprites_enemy_x_str=$27e6
-.label TASK_BUSY=$2a13
+.label TASK_BUSY=$2a12
 .label ZERO_PAGE_PRINT_TEXT_HI=$23
 .label PURPLE=$4
 .label message=$2538
@@ -245,13 +245,13 @@
 .label sub_result_str=$25db
 .label SCREEN_CHAR_COLOR=$285f
 .label ZERO_PAGE_SPRITE_HIGHT_BYTE=$27
-.label sprite_animation_1_to_5=$29f0
+.label sprite_animation_1_to_5=$29ef
 .label calc_offset_str=$26bd
-.label sprite_animation_1_to_2=$2a00
-.label sprite_animation_1_to_3=$29fc
+.label sprite_animation_1_to_2=$29ff
+.label sprite_animation_1_to_3=$29fb
 .label TABLES_ADDRESS=$4000
 .label PINK=$a
-.label sprite_animation_2_4_6_8=$2a08
+.label sprite_animation_2_4_6_8=$2a07
 .label ZERO_PAGE_ROW_COLOR_LOW_BYTE=$24
 .label concurrence_str=$27ef
 .label SCREEN_WIDTH=$28
@@ -267,24 +267,24 @@
 .label ZERO_PAGE_PRINT_TEXT_LO=$22
 .label PRESSED_KEY_TABLE=$28f2
 .label SCREEN_ROW_COLOR_POS=$285a
-.label SPRITE_Y_POS=$29a7
-.label sprites_raster_counters_table=$29d5
+.label SPRITE_Y_POS=$29a6
+.label sprites_raster_counters_table=$29d4
 .label SPRITE_HEIGHT=$15
 .label joystick_up_str=$26fd
 .label JOYSTICK_2_FIRE=$2992
 .label sprites_enemy_y_str=$27dd
 .label SCREEN_INPUT_COL_POS=$28ee
 .label division_n2_str=$2610
-.label SPRITE_PAD_INDEX=$29a9
+.label SPRITE_PAD_INDEX=$29a8
 .label KEY_FLAGS=$2896
-.label TASK_COUNTER=$2a15
+.label TASK_COUNTER=$2a14
 .label main=$811
 .label check_joy_fire=$df0
-.label sprite_animations_list_HI_table=$29b5
+.label sprite_animations_list_HI_table=$29b4
 .label CURRENT_RASTER_LINE=$d012
 .label KEYS_TO_SCREEN_STR=$2938
 .label stars_line=$250f
-.label sprite_animation_4_to_1=$2a03
+.label sprite_animation_4_to_1=$2a02
 .label MAIN_CODE_ADDRESS=$810
 .label input_text_str=$26b1
 .label end_read_joystick=$dfa {
@@ -292,7 +292,7 @@
 .label div_num1_2=$2867
 .label div_num1_3=$2868
 .label Row_Color_HI=$404b
-.label sprite_animations_list_LO_table=$29ad
+.label sprite_animations_list_LO_table=$29ac
 .label div_num1_0=$2865
 .label ZERO_PAGE_ROW_COLOR_HIGHT_BYTE=$25
 .label sleep_sprite_outer_loop=$e3f
@@ -387,7 +387,6 @@
   .label sprite_6_increment_y=$60fa {
   }
 }
-.label col_loop=$f34
 .label sprites_player_y_str=$27bf
 .label SCREEN_INPUT_ROW_POS_CLS=$28ef
 .label total_digits=$2863
@@ -404,7 +403,7 @@
 .label joy_right=$e0c
 .label SPRITE_CENTER_WIDTH_OFFSET=$c
 .label actions_in_raster=$e8b
-.label SPRITE_COLOR=$29a6
+.label SPRITE_COLOR=$29a5
 .label SCREEN_RAM=$400
 .label cmb_pressed_str=$266a
 .label temp_offset=$2935
@@ -538,10 +537,10 @@
 .label OLD_IRQ_LOW=$298c
 .label div_num2_1=$286a
 .label div_num2_2=$286b
-.label sprites_rasters_limit_table=$29cd
+.label sprites_rasters_limit_table=$29cc
 .label div_num2_3=$286c
 .label sprites_loop=$e90
-.label ANIMATION_FRAMES_LIST_HI=$29ac
+.label ANIMATION_FRAMES_LIST_HI=$29ab
 .label div_num2_0=$2869
 .label ZERO_PAGE_ADDRESS=$20
 .label SPRITE_ENEMY_Y=$299e
@@ -560,6 +559,6 @@
 .label system_status=$810
 .label space_4_str=$267e
 .label concurrence_task_2_str=$2821
-.label SPRITE_X_POS=$29a8
+.label SPRITE_X_POS=$29a7
 .label sleep_sprite_inner_loop=$e41
 .label process_this_sprite=$e9e

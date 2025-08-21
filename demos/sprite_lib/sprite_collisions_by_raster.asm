@@ -1,4 +1,4 @@
-/*
+/******************************************************************************
 
     Sprites collision version RASTER.
 
@@ -6,13 +6,15 @@
     and in main loop we are doing other stuffs.
 
     NOTE: 
-    -------------------------------------------------------------------------
-    The sprite movement is SLOW because we are using the print functions
-    for printing the Y-X coords of player and enemies in collision time.
+  -----------------------------------------------------------------------------
+  |  The sprite movement is SLOW because we are using the print functions     |
+  |  for printing the Y-X coords of player and enemies in collision time.     |
+  |                                                                           |
+  |  If you remove this, the sprite will fly. Anyway you can play with the    |
+  |   "sleep_sprite" function .                                               |
+  |                                                                           |
+  -----------------------------------------------------------------------------
 
-    If you remove this, the sprite will fly. Anyway you can play with the
-    "sleep_sprite" function .
-    -------------------------------------------------------------------------
  */
 
 
@@ -25,9 +27,8 @@ insert_text(7,1,sprites_enemy_x_str,YELLOW)
 /* Global */
 sprite_set_extra_colors(GRAY,YELLOW)
 
-// Enable sprites
+/* Enable sprites */
 sprite_enable_sprite(0)
-
 sprite_enable_sprite(1)
 sprite_enable_sprite(2)
 sprite_enable_sprite(3)
@@ -35,8 +36,6 @@ sprite_enable_sprite(4)
 sprite_enable_sprite(5)
 sprite_enable_sprite(6)
 sprite_enable_sprite(7)
-
-
 
 
 /* Setup for sprite 1 PLAYER */
@@ -106,11 +105,20 @@ sprite_set_frame_to_sprite(0,7)
 jsr setupRasterInterrupt
 
 
-/* MAIN LOOP */ 
+/* MAIN LOOP.
+
+    This is like a game loop
+
+ */ 
 simulate_game_loop:
 
+        
+        /* INIT SPRITE 0 animations.   
+        
+            This is the sprite_0 - animation 0. This is launched in the 
+            raster interrupt
 
-
+        */
         ldx #0 //sprites animation list index
         lda sprite_animations_list_LO_table,x
         sta ANIMATION_FRAMES_LIST_LO
@@ -121,9 +129,9 @@ simulate_game_loop:
 
 
         /*****************************
-        
             PRINT PLAYER COORDS
         ******************************/
+
         /*   Y   */
         lda SPRITE_CENTER_PLAYER_POS_Y
         sta sum_res_0
@@ -143,16 +151,9 @@ simulate_game_loop:
         print_calculation_result(4,15,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
 
-
         /************************************************
             PRINT ENEMY COORDS VALUES IN COLLISION
         **************************************************/
-
-        /*lda SPRITE_ALLOW_PRINT
-        cmp #0
-        beq print_enemy_values
-        jmp simulate_game_loop*/
-
 
         print_enemy_values:
             lda SPRITE_TEMP_Y
@@ -228,7 +229,7 @@ start_read_joystick:
     //jmp start_read_joystick
 
 
-/* 
+/*
 /////////////////////////////////////////////
                 Functions 
 /////////////////////////////////////////////
@@ -318,10 +319,9 @@ disableRasterInterrupt:
 	sta INTERRUPT_CONTROL
 	rts
 
+
 /* RASTER EXECUTION CODE*/
 actions_in_raster:
-
-    
 
     inc INTERRUPT_STATUS // $d019 - Set bit 0 in Interrupt Status Register to 
                         // acknowledge raster interrupt
@@ -492,13 +492,18 @@ actions_in_raster:
 
 
         /* Call to check collision in any sprite */
-            ldy #0
-            col_loop:
-                iny
-                sty SPRITE_TO_CHECK
-                jsr check_sprite_collisions
-                cpy #7
-                bne col_loop
+        /* This loop is execute in the last part of the RASTER Interrupt.
+           Here we retrieve each sprite ( from 1 to 7. Sprite 0 is player )
+           To check if the CENTER of sprite 0 is into the rectangle of enemy
+           sprite
+        */
+        ldy #0
+        check_sprite_loop:
+            iny
+            sty SPRITE_TO_CHECK
+            jsr check_sprite_collisions
+            cpy #7
+            bne check_sprite_loop
 
         /* end Call to check collision in any sprite */
 
@@ -530,6 +535,12 @@ push_regs_to_stack()
     sta SPRITE_ENEMY_Y
     sta SPRITE_ENEMY_X
 
+    /* 
+      The SPRITE 0 , is the player. We need calculate the center of the sprite.
+      This center of the sprite , if it is into the retangle of the enemy sprite,
+      this is a collision
+
+    */
 
     /* set center Y */
     ldx #0
@@ -551,8 +562,6 @@ push_regs_to_stack()
 
     ldx #0
     lda sprites_coord_table_x,x
-    
-    
     clc 
     adc #12 // add 12 to set the center of sprite player ROWS
     sta SPRITE_CENTER_PLAYER_POS_X
@@ -569,32 +578,29 @@ push_regs_to_stack()
 
 
 
-    /* Now is time to set the limit coordinates values */
+    /* Now is time to set the limit coordinates values load the SPRITE to check 
+    the collision, it is saved in variable SPRITE_TO_CHECK */
 
-
-    lda SPRITE_TO_CHECK  // load the SPRITE to check the collision, it is 
-                         // saved in variable SPRITE_TO_CHECK
+    lda SPRITE_TO_CHECK  
     tax   // transfer the value storaged in reg A to reg X
 
-
-    /* Enemy X */
+    /* Enemy X + offset X*/
     lda sprites_coord_table_x,x
     sta SPRITE_ENEMY_X
     clc
     adc #SPRITE_WIDTH // 24
     sta SPRITE_ENEMY_X_PLUS_OFFSET
 
-    /* Enemy Y */
+    /* Enemy Y + offset Y*/
     lda sprites_coord_table_y,x
     sta SPRITE_ENEMY_Y
     clc
     adc #SPRITE_HEIGHT // 21
     sta SPRITE_ENEMY_Y_PLUS_OFFSET
 
-
-    
-    //-*************************************************-
-    // Start comparations
+    /**************************************************/
+    /*            Start comparations                  */
+    /**************************************************/
     // If Player_X >= Enemy_X
     lda SPRITE_CENTER_PLAYER_POS_X
     cmp SPRITE_ENEMY_X
@@ -604,42 +610,43 @@ push_regs_to_stack()
 
     continue_check_1:
 
-    // IF Player_X <= Enemy_X + Sprite_width
-    lda SPRITE_CENTER_PLAYER_POS_X
-    cmp SPRITE_ENEMY_X_PLUS_OFFSET
-    //bcs sprite_no_hit
-    bcc continue_check_2
-    jmp sprite_no_hit
+        // IF Player_X <= Enemy_X + Sprite_width
+        lda SPRITE_CENTER_PLAYER_POS_X
+        cmp SPRITE_ENEMY_X_PLUS_OFFSET
+        //bcs sprite_no_hit
+        bcc continue_check_2
+        jmp sprite_no_hit
 
     continue_check_2:
 
-    // Start comparations
-    // If Player_Y >= Enemy_Y
-    lda SPRITE_CENTER_PLAYER_POS_Y
-    cmp SPRITE_ENEMY_Y
-    //bcc sprite_no_hit  // if is LESS means X is between the X and X + offset of rectangle
-    bcs continue_check_3
-    jmp sprite_no_hit
+        // Start comparations
+        // If Player_Y >= Enemy_Y
+        lda SPRITE_CENTER_PLAYER_POS_Y
+        cmp SPRITE_ENEMY_Y
+        //bcc sprite_no_hit  // if is LESS means X is between the X and X + offset of rectangle
+        bcs continue_check_3
+        jmp sprite_no_hit
+
     continue_check_3:
 
-    // IF Player_Y <= Enemy_Y + Sprite_height
-    lda SPRITE_CENTER_PLAYER_POS_Y
-    cmp SPRITE_ENEMY_Y_PLUS_OFFSET
-    //bcs sprite_no_hit
-    bcc change_border_color
-    jmp sprite_no_hit
+        // IF Player_Y <= Enemy_Y + Sprite_height
+        lda SPRITE_CENTER_PLAYER_POS_Y
+        cmp SPRITE_ENEMY_Y_PLUS_OFFSET
+        //bcs sprite_no_hit
+        bcc change_border_color
+        jmp sprite_no_hit
 
     change_border_color:
 
-    //If exists collision , increment border color
-    // change color ,save temp values and allow print
-    inc $d020 // change border color
+        //If exists collision , increment border color
+        // change color ,save temp values and allow print
+        inc $d020 // change border color
 
-    lda SPRITE_ENEMY_Y
-    sta SPRITE_TEMP_Y
-    lda SPRITE_ENEMY_X
-    sta SPRITE_TEMP_X
-    jmp exit_check_collision
+        lda SPRITE_ENEMY_Y
+        sta SPRITE_TEMP_Y
+        lda SPRITE_ENEMY_X
+        sta SPRITE_TEMP_X
+        jmp exit_check_collision
 
 
     sprite_no_hit:

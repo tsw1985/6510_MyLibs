@@ -22,13 +22,9 @@ SPRITE_ENEMY_Y_PLUS_OFFSET: .byte 0
 /* INDEX SPRITE   */
 SPRITE_INDEX_COUNTER: .byte 0
 
-
-SPRITE_ALLOW_PRINT: .byte 0
+/* TEMP VARIABLES for print the enemy Y-X values */
 SPRITE_TEMP_Y: .byte 0
 SPRITE_TEMP_X: .byte 0
-
-
-
 
 /* SPRITE_FRAME_POINTER: Value used to point to a sprite in a sprite pointer */
 SPRITE_FRAME_POINTER: .byte 0 
@@ -61,13 +57,13 @@ to create the ZP pointer used in this function */
 ANIMATION_FRAMES_LIST_LO: .byte 0
 ANIMATION_FRAMES_LIST_HI: .byte 0
 
-
+/******************************************************************************/
 /* SPRITE TABLES */
 /*  This 2 tables are main list where are listed all animations. We get the
     HI and LOW bytes to create a address in the ZERO PAGE using: 
     
-        ZERO_PAGE_SPRITE_HIGHT_BYTE
-        ZERO_PAGE_SPRITE_LOW_BYTE
+        - ZERO_PAGE_SPRITE_HIGHT_BYTE
+        - ZERO_PAGE_SPRITE_LOW_BYTE
 
     The limit list is 8 Sprites.
 
@@ -76,7 +72,7 @@ ANIMATION_FRAMES_LIST_HI: .byte 0
     animation list but the order of LO_table and HI_table must equal. The
     unique diference will be the < > symbol
 
-*/
+*******************************************************************************/
 sprite_animations_list_LO_table:
     .byte <sprite_animation_1_to_10  // Animation for sprite 1
     .byte <sprite_animation_1_to_10  // Animation for sprite 2
@@ -101,8 +97,7 @@ sprite_animations_list_HI_table:
 
 
 /*
-
-This tables are used to set the coords for each sprite
+    This tables are used to set the coords for each sprite
 */
 /* SPRITES COORDS Y */
 sprites_coord_table_y:
@@ -257,9 +252,4 @@ sprite_animation_9_10:
     .byte 8   // Frame 5 in Sprite pad
     .byte 9   // Frame 6 in Sprite pad
     .byte 255 // Finish animation
-
-
-
-
-
 
