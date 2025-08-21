@@ -314,45 +314,61 @@
         In this variable we set the address where is the sprite to draw in the
         selected sprite
 */
-.macro sprite_set_frame_to_sprite(frame_address_index,sprite_number){
+.macro sprite_set_frame_to_sprite(frame_index,sprite_number){
 
     .if(sprite_number == 0){
-        lda #frame_address_index
+        clc
+        lda SPRITE_INDEX_POINTER
+        adc #frame_index
         sta SPRITE_FRAME_POINTER
         jsr SPRITE_LIB.set_frame_to_sprite_0
     }
     .if(sprite_number == 1){
-        lda #frame_address_index
+        clc
+        lda SPRITE_INDEX_POINTER
+        adc #frame_index
         sta SPRITE_FRAME_POINTER
         jsr SPRITE_LIB.set_frame_to_sprite_1
     }
     .if(sprite_number == 2){
-        lda #frame_address_index
+        clc
+        lda SPRITE_INDEX_POINTER
+        adc #frame_index
         sta SPRITE_FRAME_POINTER
         jsr SPRITE_LIB.set_frame_to_sprite_2
     }
     .if(sprite_number == 3){
-        lda #frame_address_index
+        clc
+        lda SPRITE_INDEX_POINTER
+        adc #frame_index
         sta SPRITE_FRAME_POINTER
         jsr SPRITE_LIB.set_frame_to_sprite_3
     }
     .if(sprite_number == 4){
-        lda #frame_address_index
+        clc
+        lda SPRITE_INDEX_POINTER
+        adc #frame_index
         sta SPRITE_FRAME_POINTER
         jsr SPRITE_LIB.set_frame_to_sprite_4
     }
     .if(sprite_number == 5){
-        lda #frame_address_index
+        clc
+        lda SPRITE_INDEX_POINTER
+        adc #frame_index
         sta SPRITE_FRAME_POINTER
         jsr SPRITE_LIB.set_frame_to_sprite_5
     }
     .if(sprite_number == 6){
-        lda #frame_address_index
+        clc
+        lda SPRITE_INDEX_POINTER
+        adc #frame_index
         sta SPRITE_FRAME_POINTER
         jsr SPRITE_LIB.set_frame_to_sprite_6
     }
     .if(sprite_number == 7){
-        lda #frame_address_index
+        clc
+        lda SPRITE_INDEX_POINTER
+        adc #frame_index
         sta SPRITE_FRAME_POINTER
         jsr SPRITE_LIB.set_frame_to_sprite_7
     }

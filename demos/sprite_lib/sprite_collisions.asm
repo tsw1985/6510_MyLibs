@@ -23,14 +23,14 @@ sprite_enable_sprite(7)
 sprite_load_like_multicolor(0)
 sprite_set_position(0,160,125)
 sprite_set_color(0,YELLOW)
-sprite_set_frame_to_sprite($00c0,0) // $00c0 ... $00c1 ... $00c2 ...
+sprite_set_frame_to_sprite(0,0) // $00c0 ... $00c1 ... $00c2 ...
 /* Setup for sprite 1 */
 
 /* Setup for sprite 2 ENEMY */
 sprite_load_like_multicolor(1)
 sprite_set_position(1,200,195)
 sprite_set_color(1,PINK)
-sprite_set_frame_to_sprite($00c0,1)
+sprite_set_frame_to_sprite(0,1)
 /* Setup for sprite 2 */
 
 
@@ -38,7 +38,7 @@ sprite_set_frame_to_sprite($00c0,1)
 sprite_load_like_multicolor(2)
 sprite_set_position(2,125,145)
 sprite_set_color(2,RED)
-sprite_set_frame_to_sprite($00c0,2)
+sprite_set_frame_to_sprite(0,2)
 /* Setup for sprite 3 */
 
 
@@ -46,7 +46,7 @@ sprite_set_frame_to_sprite($00c0,2)
 sprite_load_like_multicolor(3)
 sprite_set_position(3,120,225)
 sprite_set_color(3,GREEN)
-sprite_set_frame_to_sprite($00c0,3)
+sprite_set_frame_to_sprite(0,3)
 /* Setup for sprite 4 */
 
 
@@ -54,7 +54,7 @@ sprite_set_frame_to_sprite($00c0,3)
 sprite_load_like_multicolor(4)
 sprite_set_position(4,150,62)
 sprite_set_color(4,ORANGE)
-sprite_set_frame_to_sprite($00c0,4)
+sprite_set_frame_to_sprite(0,4)
 /* Setup for sprite 5 */
 
 
@@ -62,7 +62,7 @@ sprite_set_frame_to_sprite($00c0,4)
 sprite_load_like_multicolor(5)
 sprite_set_position(5,215,90)
 sprite_set_color(5,BROWN)
-sprite_set_frame_to_sprite($00c0,5)
+sprite_set_frame_to_sprite(0,5)
 /* Setup for sprite 6 */
 
 
@@ -70,14 +70,14 @@ sprite_set_frame_to_sprite($00c0,5)
 sprite_load_like_multicolor(6)
 sprite_set_position(6,227,40)
 sprite_set_color(6,GRAY)
-sprite_set_frame_to_sprite($00c0,6)
+sprite_set_frame_to_sprite(0,6)
 /* Setup for sprite 7 */
 
 /* Setup for sprite 8 ENEMY */
 sprite_load_like_multicolor(7)
 sprite_set_position(7,170,200)
 sprite_set_color(7,BLACK)
-sprite_set_frame_to_sprite($00c0,7)
+sprite_set_frame_to_sprite(0,7)
 /* Setup for sprite 7 */
 
 
