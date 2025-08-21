@@ -91,7 +91,6 @@ jsr setupRasterInterrupt
 simulate_game_loop:
 
 
-    cli
 
         ldx #0 //sprites animation list index
         lda sprite_animations_list_LO_table,x
@@ -126,8 +125,33 @@ simulate_game_loop:
 
 
 
-    sei
+        /************************************************
+            PRINT ENEMY COORDS VALUES IN COLLISION
+        **************************************************/
 
+        lda SPRITE_ALLOW_PRINT
+        cmp #0
+        beq print_enemy_values
+        jmp simulate_game_loop
+
+
+        print_enemy_values:
+            lda SPRITE_TEMP_Y
+            sta sum_res_0
+            lda #0
+            sta sum_res_1
+            sta sum_res_2
+            sta sum_res_3
+            print_calculation_result(6,9,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+
+
+            lda SPRITE_TEMP_X
+            sta sum_res_0
+            lda #0
+            sta sum_res_1
+            sta sum_res_2
+            sta sum_res_3
+            print_calculation_result(7,9,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
 
 jmp simulate_game_loop
@@ -591,8 +615,15 @@ push_regs_to_stack()
     //If exists collision , increment border color
     inc $d020 // change border color
 
-    lda #0
+    // change color ,save temp values and allow print
+    lda #1
     sta SPRITE_ALLOW_PRINT
+
+    lda SPRITE_ENEMY_Y
+    sta SPRITE_TEMP_Y
+
+    lda SPRITE_ENEMY_X
+    sta SPRITE_TEMP_X
 
 
 
@@ -604,9 +635,11 @@ push_regs_to_stack()
         //lda #LIGHT_BLUE
         //sta $d020
 
-
-        lda #1
+        lda #0
         sta SPRITE_ALLOW_PRINT
+
+        
+
 
 
     
