@@ -680,6 +680,9 @@ push_regs_to_stack()
         //lda #LIGHT_BLUE
         //sta $d020
 
+        //lda #255
+        //sta SPRITE_IN_COLLISION
+
         // You can reset the border color but to avoid a flykering this is
         // comment
 

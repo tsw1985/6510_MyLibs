@@ -101,6 +101,29 @@ sprite_animations_list_HI_table:
 
 
 
+/* DEAD ANIMATION FOR EACH SPRITE  */
+sprite_dead_list_LO_table:
+    .byte <sprite_animation_dead
+    .byte <sprite_animation_dead
+    .byte <sprite_animation_dead
+    .byte <sprite_animation_dead
+    .byte <sprite_animation_dead
+    .byte <sprite_animation_dead
+    .byte <sprite_animation_dead
+    .byte <sprite_animation_dead
+
+    
+sprite_dead_list_HI_table:
+    .byte >sprite_animation_dead
+    .byte >sprite_animation_dead
+    .byte >sprite_animation_dead
+    .byte >sprite_animation_dead
+    .byte >sprite_animation_dead
+    .byte >sprite_animation_dead
+    .byte >sprite_animation_dead
+    .byte >sprite_animation_dead
+
+
 /*
     This tables are used to set the coords for each sprite
 */
