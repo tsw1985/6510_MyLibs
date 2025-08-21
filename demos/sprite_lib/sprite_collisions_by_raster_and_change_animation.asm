@@ -516,6 +516,7 @@ actions_in_raster:
         check_sprite_loop:
             iny
             sty SPRITE_TO_CHECK
+            
             jsr check_sprite_collisions
             cpy #7
             bne check_sprite_loop
@@ -665,10 +666,22 @@ push_regs_to_stack()
         //Save the sprite in collision
         stx SPRITE_IN_COLLISION
 
+        //---------------
+        // Cambiar estado a "en colisión"
+        lda #1
+        sta sprites_state_table,x
 
 
+        // Cambiar a animación de muerto
+        lda sprite_dead_list_LO_table,x
+        sta sprite_animations_list_LO_table,x
 
-
+        lda sprite_dead_list_HI_table,x
+        sta sprite_animations_list_HI_table,x
+        
+        //put the new animation inmediatly !
+        //lda #0
+        //sta sprites_current_animation_index_position_table,x
 
 
         jmp exit_check_collision
@@ -683,8 +696,23 @@ push_regs_to_stack()
         //lda #255
         //sta SPRITE_IN_COLLISION
 
-        // You can reset the border color but to avoid a flykering this is
-        // comment
+
+       // Solo restaurar si estaba en colisión
+        lda sprites_state_table,x
+        cmp #1
+        bne exit_check_collision
+        
+        // Volver a estado normal
+        lda #0
+        sta sprites_state_table,x
+        
+        // Restaurar animación normal (LO y HI)
+        lda sprite_animations_list_LO_table_backup,x
+        sta sprite_animations_list_LO_table,x
+
+
+        lda sprite_animations_list_HI_table_backup,x
+        sta sprite_animations_list_HI_table,x
 
     
     exit_check_collision:

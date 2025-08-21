@@ -99,6 +99,26 @@ sprite_animations_list_HI_table:
     .byte >sprite_animation_1_to_10  // Animation for sprite 7
     .byte >sprite_animation_1_to_10  // Animation for sprite 8
 
+sprite_animations_list_LO_table_backup:
+    .byte <sprite_animation_1_to_10  // Animation for sprite 1
+    .byte <sprite_animation_1_to_10  // Animation for sprite 2
+    .byte <sprite_animation_1_to_10  // Animation for sprite 3
+    .byte <sprite_animation_1_to_10  // Animation for sprite 4
+    .byte <sprite_animation_1_to_10  // Animation for sprite 5
+    .byte <sprite_animation_1_to_10  // Animation for sprite 6
+    .byte <sprite_animation_1_to_10  // Animation for sprite 7
+    .byte <sprite_animation_1_to_10  // Animation for sprite 8
+
+    
+sprite_animations_list_HI_table_backup:
+    .byte >sprite_animation_1_to_10  // Animation for sprite 1
+    .byte >sprite_animation_1_to_10  // Animation for sprite 2
+    .byte >sprite_animation_1_to_10  // Animation for sprite 3
+    .byte >sprite_animation_1_to_10  // Animation for sprite 4
+    .byte >sprite_animation_1_to_10  // Animation for sprite 5
+    .byte >sprite_animation_1_to_10  // Animation for sprite 6
+    .byte >sprite_animation_1_to_10  // Animation for sprite 7
+    .byte >sprite_animation_1_to_10  // Animation for sprite 8
 
 
 /* DEAD ANIMATION FOR EACH SPRITE  */
@@ -122,6 +142,23 @@ sprite_dead_list_HI_table:
     .byte >sprite_animation_dead
     .byte >sprite_animation_dead
     .byte >sprite_animation_dead
+
+
+
+/* SPRITE STATE TABLE: 
+    0 = normal
+    1 = in collision
+    2 = dead  
+*/    
+sprites_state_table:
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
 
 
 /*
