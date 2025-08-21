@@ -1,4 +1,21 @@
-// version raster
+/*
+
+    Sprites collision version RASTER.
+
+    This means , the collision checking is doing into the RASTER INTERRUPT
+    and in main loop we are doing other stuffs.
+
+    NOTE: 
+    -------------------------------------------------------------------------
+    The sprite movement is SLOW because we are using the print functions
+    for printing the Y-X coords of player and enemies in collision time.
+
+    If you remove this, the sprite will fly. Anyway you can play with the
+    "sleep_sprite" function .
+    -------------------------------------------------------------------------
+ */
+
+
 insert_text(1,1,sprites_colls_demo_str,YELLOW)
 insert_text(3,1,sprites_player_y_str,YELLOW)
 insert_text(4,1,sprites_player_x_str,YELLOW)
@@ -129,10 +146,10 @@ simulate_game_loop:
             PRINT ENEMY COORDS VALUES IN COLLISION
         **************************************************/
 
-        lda SPRITE_ALLOW_PRINT
+        /*lda SPRITE_ALLOW_PRINT
         cmp #0
         beq print_enemy_values
-        jmp simulate_game_loop
+        jmp simulate_game_loop*/
 
 
         print_enemy_values:
@@ -613,34 +630,24 @@ push_regs_to_stack()
     change_border_color:
 
     //If exists collision , increment border color
-    inc $d020 // change border color
-
     // change color ,save temp values and allow print
-    lda #1
-    sta SPRITE_ALLOW_PRINT
+    inc $d020 // change border color
 
     lda SPRITE_ENEMY_Y
     sta SPRITE_TEMP_Y
-
     lda SPRITE_ENEMY_X
     sta SPRITE_TEMP_X
-
-
-
-
     jmp exit_check_collision
+
+
     sprite_no_hit:
 
         // if no hit, reset border color to default
         //lda #LIGHT_BLUE
         //sta $d020
 
-        lda #0
-        sta SPRITE_ALLOW_PRINT
-
-        
-
-
+        // You can reset the border color but to avoid a flykering this is
+        // comment
 
     
     exit_check_collision:
