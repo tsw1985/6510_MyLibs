@@ -11,6 +11,11 @@ SPRITE_CENTER_PLAYER_POS_Y: .byte 0
 /* Variable to save the sprite index to check the collision on it */
 SPRITE_TO_CHECK: .byte 0
 
+/* Variable to save the wich sprite is in collision.
+The default value is in 255 because the sprites are from 0 to 7 ( 8 sprites )
+ */
+SPRITE_IN_COLLISION: .byte 255
+
 /* This variables are use to save the current value of other sprites 
 ( not player), can be a sprite enemy for example */
 SPRITE_ENEMY_X: .byte 0
@@ -178,6 +183,14 @@ sprites_current_animation_index_position_table:
 /* ************************************************** */
 /*            Individual animations                   */
 /* ************************************************** */
+
+/* Animation full: count 1 to 10 */
+sprite_animation_dead:
+    .byte 10   // Frame 0 in Sprite pad
+    .byte 11  // Frame 1 in Sprite pad
+    .byte 255 // Finish animation
+
+
 /* Animation full: count 1 to 10 */
 sprite_animation_1_to_10:
     .byte 0   // Frame 0 in Sprite pad
