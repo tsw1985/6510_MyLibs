@@ -89,7 +89,6 @@ jsr setupRasterInterrupt
 /* MAIN LOOP */ 
 simulate_game_loop:
 
-
     cli
 
         ldx #0 //sprites animation list index
@@ -102,23 +101,6 @@ simulate_game_loop:
         jsr start_read_joystick
 
     sei
-
-        /* Call to check collision in any sprite */
-        inc SPRITE_INDEX_COUNTER // incremento contador indice ++1
-        lda SPRITE_INDEX_COUNTER // cargo el valor del count actual
-        sta SPRITE_INDEX_COUNTER // lo guardo en la variable in para funcion checkcollision
-        sta SPRITE_TO_CHECK  // valor guardado
-        jsr check_sprite_collisions // llamo a la funcion para comprobar X sprite > 1 a 7
-
-        lda SPRITE_INDEX_COUNTER // cargo de nuevo el valor indice
-        cmp #8                   // comparo con 8
-        beq reset_counters
-        jmp simulate_game_loop
-
-    reset_counters:
-        lda #0
-        sta SPRITE_INDEX_COUNTER
-        sta SPRITE_TO_CHECK
 
 jmp simulate_game_loop
 
@@ -172,7 +154,6 @@ start_read_joystick:
 
     pull_regs_from_stack()
     rts
-    //jmp start_read_joystick
 
 
 /* 
@@ -277,6 +258,10 @@ actions_in_raster:
     // it is like : for ( int x = 0 ; x < 8 ; x++ )
     ldx #0
 
+    // reset SPRITE_TO_CHECK to #0
+    stx SPRITE_TO_CHECK
+
+
     sprites_loop:
 
        
@@ -378,48 +363,62 @@ actions_in_raster:
         // SPRITE_PLAYER_POS_X
         // SPRITE_PLAYER_POS_Y
 
+
+
+        // Save SPRITE to check a collision on in
+        stx SPRITE_TO_CHECK
+
         cpx #0
         bne x_1
         jsr SPRITE_LIB.set_frame_to_sprite_0
         jmp reset_sprite_raster_counter_in_current_sprite
 
         x_1:   // sprite 2
+
             cpx #1   
             bne x_2
             jsr SPRITE_LIB.set_frame_to_sprite_1
+            jsr check_sprite_collisions // check if player is in collision here
             jmp reset_sprite_raster_counter_in_current_sprite
 
 
         x_2:   // Enemy sprite
+            
             cpx #2
             bne x_3
             jsr SPRITE_LIB.set_frame_to_sprite_2
+            jsr check_sprite_collisions // check if player is in collision here
             jmp reset_sprite_raster_counter_in_current_sprite
-            
 
         x_3:
             cpx #3
             bne x_4
             jsr SPRITE_LIB.set_frame_to_sprite_3
+            jsr check_sprite_collisions // check if player is in collision here
             jmp reset_sprite_raster_counter_in_current_sprite
+
         x_4:
             cpx #4
             bne x_5
             jsr SPRITE_LIB.set_frame_to_sprite_4
+            jsr check_sprite_collisions // check if player is in collision here
             jmp reset_sprite_raster_counter_in_current_sprite
         x_5:
             cpx #5
             bne x_6
             jsr SPRITE_LIB.set_frame_to_sprite_5
+            jsr check_sprite_collisions // check if player is in collision here
             jmp reset_sprite_raster_counter_in_current_sprite
         x_6:
             cpx #6
             bne x_7
             jsr SPRITE_LIB.set_frame_to_sprite_6
+            jsr check_sprite_collisions // check if player is in collision here
             jmp reset_sprite_raster_counter_in_current_sprite
         x_7:
             cpx #7
             bne reset_sprite_raster_counter_in_current_sprite
+            jsr check_sprite_collisions // check if player is in collision here
             jsr SPRITE_LIB.set_frame_to_sprite_7
        
         reset_sprite_raster_counter_in_current_sprite:
@@ -429,13 +428,13 @@ actions_in_raster:
     go_to_next_sprite:
 
         inx
-        cpx #8
+        cpx #8  
         // If the loop is in the last sprite ( X == 8 )        
         // we leave the interruption if not , we continue the loop iteration
         beq exit_sprites_loop
         jmp sprites_loop
-
         exit_sprites_loop:
+
 
 jmp INTERRUPT_RETURN // $ea81 - Return from interrupt
 
@@ -498,31 +497,6 @@ push_regs_to_stack()
     sta sum_res_3
     print_calculation_result(4,15,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
     
-
-    /* ENEMY */
-
-    /* PRINT Y OF ENEMY */
-    /*
-    lda sprites_coord_table_y,x
-    sta sum_res_0
-    lda #0
-    sta sum_res_1
-    sta sum_res_2
-    sta sum_res_3
-    print_calculation_result(6,9,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
-    */
-
-    /* PRINT X OF ENEMY */
-    /*
-    lda sprites_coord_table_x,x
-    sta sum_res_0
-    lda #0
-    sta sum_res_1
-    sta sum_res_2
-    sta sum_res_3
-    print_calculation_result(7,9,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
-    */
-
     /* Now is time to set the limit coordinates values */
 
 
@@ -617,10 +591,6 @@ push_regs_to_stack()
         // if no hit, reset border color to default
         lda #LIGHT_BLUE
         sta $d020
-
-
-        
-    
     
     exit_check_collision:
 
