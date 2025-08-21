@@ -99,8 +99,32 @@ simulate_game_loop:
 
         lda sprite_animations_list_HI_table,x
         sta ANIMATION_FRAMES_LIST_HI
-
         jsr start_read_joystick
+
+
+        /*****************************
+        
+            PRINT PLAYER COORDS
+        ******************************/
+        /*   Y   */
+        lda SPRITE_CENTER_PLAYER_POS_Y
+        sta sum_res_0
+        lda #0
+        sta sum_res_1
+        sta sum_res_2
+        sta sum_res_3
+        print_calculation_result(3,15,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+        
+        /*  X */
+        lda SPRITE_CENTER_PLAYER_POS_X
+        sta sum_res_0
+        lda #0
+        sta sum_res_1
+        sta sum_res_2
+        sta sum_res_3
+        print_calculation_result(4,15,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+
+
 
     sei
 
@@ -567,13 +591,24 @@ push_regs_to_stack()
     //If exists collision , increment border color
     inc $d020 // change border color
 
+    lda #0
+    sta SPRITE_ALLOW_PRINT
+
+
+
 
     jmp exit_check_collision
     sprite_no_hit:
 
         // if no hit, reset border color to default
-        lda #LIGHT_BLUE
-        sta $d020
+        //lda #LIGHT_BLUE
+        //sta $d020
+
+
+        lda #1
+        sta SPRITE_ALLOW_PRINT
+
+
     
     exit_check_collision:
 

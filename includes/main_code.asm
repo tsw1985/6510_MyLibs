@@ -48,7 +48,8 @@ init_code:
     // #import "/demos/sprite_lib/sprite_8_animations.asm"
 
     /* SPRITES COLLISIONS */
-    #import "/demos/sprite_lib/sprite_collisions.asm"
+    //#import "/demos/sprite_lib/sprite_collisions.asm"
+    #import "/demos/sprite_lib/sprite_collisions_by_raster.asm"
 
 
 
