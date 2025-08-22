@@ -739,14 +739,10 @@ push_regs_to_stack()
         lda #4
         sta sprites_rasters_limit_table,x
 
-
         lda #0
         sta sprites_current_animation_index_position_table,x
         sta sprites_raster_counters_table,x
         //------- end put the new animation inmediatly !
-
-
-
 
 
 
@@ -765,21 +761,18 @@ push_regs_to_stack()
         //lda #LIGHT_BLUE
         //sta $d020
 
-        //lda #255
-        //sta SPRITE_IN_COLLISION
-
 
         // Solo restaurar si estaba en colisión
         lda sprites_state_table,x
         cmp #1
         bne exit_check_collision
         
-        // Volver a estado normal
+        // Put the sprite in normal state
 
         lda #0
         sta sprites_state_table,x
 
-        // Restaurar animación normal (LO y HI)
+        // Set sprite to normal animation
         lda sprite_animations_list_LO_table_backup,x
         sta sprite_animations_list_LO_table,x
         sta sprite_current_anim_LO_table,x
@@ -789,18 +782,18 @@ push_regs_to_stack()
         sta sprite_current_anim_HI_table,x
 
 
-
         // reset default speed in sprite
         lda sprites_rasters_limit_table_backup,x
         sta sprites_rasters_limit_table,x
         
-        
+        // set to 0 the values to ignore put again the same animation in 
+        // collision, the otherwise , always start the "dead animation" from 0
+        // in collision condition
         lda #0
         sta sprites_raster_counters_table,x
         lda #0
         sta IGNORE_RESET_ANIMATION_INDEX_TABLE,x
         
-
     
     exit_check_collision:
 
