@@ -272,6 +272,18 @@ sprites_raster_counters_table:
     .byte 0  // current frame counter sprite 8
 
 
+
+sprites_raster_counters_table_backup:
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+
+
 /* 
 
     In this table is saved the number of frame of the animation list associated
@@ -291,11 +303,6 @@ sprites_current_animation_index_position_table:
     .byte 0  // current animation frame index sprite 6
     .byte 0  // current animation frame index sprite 7
     .byte 0  // current animation frame index sprite 8
-
-
-
-
-
 
 sprites_current_animation_index_position_table_backup:
     .byte 0

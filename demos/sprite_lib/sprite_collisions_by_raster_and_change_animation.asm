@@ -722,6 +722,11 @@ push_regs_to_stack()
         sta sprites_current_animation_index_position_table_backup,x
 
 
+        //Save the current raster counter before collision
+        lda sprites_raster_counters_table,x
+        sta sprites_raster_counters_table_backup,x
+
+
         lda #0
         sta sprites_current_animation_index_position_table,x
         sta sprites_raster_counters_table,x
@@ -748,8 +753,14 @@ push_regs_to_stack()
         // Solo restaurar si estaba en colisión
         lda sprites_state_table,x
         cmp #1
-        bne exit_check_collision
+        //bne exit_check_collision
+        beq skip_exit_check_collision
+        jmp exit_check_collision
         
+        skip_exit_check_collision:
+
+
+
         // Put the sprite in normal state
 
         /* Set sprite to normal animation and retet if from zero. 
@@ -770,26 +781,24 @@ push_regs_to_stack()
         saved in the backup tables. */
         lda sprites_rasters_limit_table_backup,x
         sta sprites_rasters_limit_table,x
-4
 
 
-        /* Put again the sprite in the frame before the collision */
-        //Save the current index before reset it to 0
+
+        /* Put again the sprite in the frame before the collision. To achieve 
+        this we need get the backup value. This value is the last index frame
+        in the sprite animation before the collision with the player.
+        
+        We need substract 1 because this save the current value , always is +1.
+         */
         lda sprites_current_animation_index_position_table_backup,x
-        sec
-        sbc #1
+        //sec
+        //sbc #1  
         sta sprites_current_animation_index_position_table,x
 
-
-
-
-
-        
         /* set to 0 the values to ignore put again the same animation in 
          collision, the otherwise , always start the "dead animation" from 0
          in collision condition */
-        lda #0
-        sta sprites_raster_counters_table,x
+
         lda SPRITE_INDEX_POINTER 
         clc
         adc sprites_current_animation_index_position_table,x //  #0
@@ -798,38 +807,76 @@ push_regs_to_stack()
         // Ignore Sprite 0
             cpx #1   
             bne x_enemy_2
+
+            /* Put again the last value of the raster counter for the sprite.
+               In this point we need put the raster counter to the limit. Why?
+               Because like it is, we set the raster_counter for this sprite
+               to the limit, then, the sprite animation play faster again.
+
+               The otherwise exists a small delay until the raster counter for
+               this sprite is finished. We substract -1 because is need for the
+               comparation "raster_counter" in the raster interruption.
+            */
+            lda sprites_rasters_limit_table,x
+            sec
+            sbc #1
+            sta sprites_raster_counters_table,x // set counter to limit - 1
             jsr SPRITE_LIB.set_frame_to_sprite_1
             jmp end_reset_cases
 
         x_enemy_2:   // Enemy sprite
             cpx #2
             bne x_enemy_3
+            lda sprites_rasters_limit_table,x
+            sec
+            sbc #1
+            sta sprites_raster_counters_table,x // set counter to limit - 1
             jsr SPRITE_LIB.set_frame_to_sprite_2
             jmp end_reset_cases
 
         x_enemy_3:
             cpx #3
             bne x_enemy_4
+            lda sprites_rasters_limit_table,x
+            sec
+            sbc #1
+            sta sprites_raster_counters_table,x // set counter to limit - 1
             jsr SPRITE_LIB.set_frame_to_sprite_3
             jmp end_reset_cases
         x_enemy_4:
             cpx #4
             bne x_enemy_5
+            lda sprites_rasters_limit_table,x
+            sec
+            sbc #1
+            sta sprites_raster_counters_table,x // set counter to limit - 1
             jsr SPRITE_LIB.set_frame_to_sprite_4
             jmp end_reset_cases
         x_enemy_5:
             cpx #5
             bne x_enemy_6
+            lda sprites_rasters_limit_table,x
+            sec
+            sbc #1
+            sta sprites_raster_counters_table,x // set counter to limit - 1
             jsr SPRITE_LIB.set_frame_to_sprite_5
             jmp end_reset_cases
         x_enemy_6:
             cpx #6
             bne x_enemy_7
+            lda sprites_rasters_limit_table,x
+            sec
+            sbc #1
+            sta sprites_raster_counters_table,x // set counter to limit - 1
             jsr SPRITE_LIB.set_frame_to_sprite_6
             jmp end_reset_cases
         x_enemy_7:
             cpx #7
             bne end_reset_cases
+            lda sprites_rasters_limit_table,x
+            sec
+            sbc #1
+            sta sprites_raster_counters_table,x // set counter to limit - 1
             jsr SPRITE_LIB.set_frame_to_sprite_7
 
         end_reset_cases:
