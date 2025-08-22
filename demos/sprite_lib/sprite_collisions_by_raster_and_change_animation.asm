@@ -701,7 +701,6 @@ push_regs_to_stack()
         sta sprite_current_anim_LO_table,x 
         lda sprite_dead_list_HI_table,x
 
-
         sta sprite_animations_list_HI_table,x
         sta sprite_current_anim_HI_table,x 
 
@@ -770,6 +769,25 @@ push_regs_to_stack()
          in collision condition */
         lda #0
         sta sprites_raster_counters_table,x
+
+
+
+        // TODO !! comprobar cual es el sprite en colision para poner su
+        // primer sprite de la animacion a la fuerza segun salimos de aqui
+        lda SPRITE_INDEX_POINTER 
+        clc
+        adc #0
+        sta SPRITE_FRAME_POINTER
+        jsr SPRITE_LIB.set_frame_to_sprite_1
+
+
+
+
+
+
+
+
+
         lda #0
         sta IGNORE_RESET_ANIMATION_INDEX_TABLE,x
         

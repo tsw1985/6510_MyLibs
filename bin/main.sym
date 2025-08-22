@@ -40,7 +40,7 @@
 .label x_5=$1010
 .label end_mul_string=$2594
 .label x_7=$1024
-.label wait_key=$1138
+.label wait_key=$1144
 .label sprites_player_x_str=$27ce
 .label SPRITE_TO_ENABLE=$29b4
 .label end_keyboard_str=$2632
@@ -154,7 +154,7 @@
 .label SPRITE_ANIMATION_VALUE_OFFSET=$29c9
 .label move_right_str=$268f
 .label multipli_n1_str=$2617
-.label exit_check_collision=$1132 {
+.label exit_check_collision=$113e {
 }
 .label sub_num2_3=$289e
 .label sub_num2_2=$289d
