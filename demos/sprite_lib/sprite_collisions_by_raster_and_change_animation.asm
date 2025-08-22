@@ -484,6 +484,7 @@ actions_in_raster:
 
         cpx #0
         bne x_1
+        
         jsr SPRITE_LIB.set_frame_to_sprite_0
         jmp reset_sprite_raster_counter_in_current_sprite
 
@@ -774,19 +775,50 @@ push_regs_to_stack()
 
         // TODO !! comprobar cual es el sprite en colision para poner su
         // primer sprite de la animacion a la fuerza segun salimos de aqui
+        
         lda SPRITE_INDEX_POINTER 
         clc
         adc #0
         sta SPRITE_FRAME_POINTER
-        jsr SPRITE_LIB.set_frame_to_sprite_1
 
+        // Ignore Sprite 0
+            cpx #1   
+            bne x_enemy_2
+            jsr SPRITE_LIB.set_frame_to_sprite_1
+            jmp end_reset_cases
 
+        x_enemy_2:   // Enemy sprite
+            cpx #2
+            bne x_enemy_3
+            jsr SPRITE_LIB.set_frame_to_sprite_2
+            jmp end_reset_cases
 
+        x_enemy_3:
+            cpx #3
+            bne x_enemy_4
+            jsr SPRITE_LIB.set_frame_to_sprite_3
+            jmp end_reset_cases
+        x_enemy_4:
+            cpx #4
+            bne x_enemy_5
+            jsr SPRITE_LIB.set_frame_to_sprite_4
+            jmp end_reset_cases
+        x_enemy_5:
+            cpx #5
+            bne x_enemy_6
+            jsr SPRITE_LIB.set_frame_to_sprite_5
+            jmp end_reset_cases
+        x_enemy_6:
+            cpx #6
+            bne x_enemy_7
+            jsr SPRITE_LIB.set_frame_to_sprite_6
+            jmp end_reset_cases
+        x_enemy_7:
+            cpx #7
+            bne end_reset_cases
+            jsr SPRITE_LIB.set_frame_to_sprite_7
 
-
-
-
-
+        end_reset_cases:
 
         lda #0
         sta IGNORE_RESET_ANIMATION_INDEX_TABLE,x

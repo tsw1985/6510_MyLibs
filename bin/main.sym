@@ -40,7 +40,7 @@
 .label x_5=$1010
 .label end_mul_string=$2594
 .label x_7=$1024
-.label wait_key=$1144
+.label wait_key=$1184
 .label sprites_player_x_str=$27ce
 .label SPRITE_TO_ENABLE=$29b4
 .label end_keyboard_str=$2632
@@ -106,9 +106,16 @@
   .label setup=$5000 {
   }
 }
+.label end_reset_cases=$1179
 .label end_div_string=$2572
+.label x_enemy_2=$1140
 .label joystick_up_right_str=$270a
+.label x_enemy_3=$114a
 .label LIGHT_GREEN=$d
+.label x_enemy_4=$1154
+.label x_enemy_5=$115e
+.label x_enemy_6=$1168
+.label x_enemy_7=$1172
 .label TASK_IRQ_COUNTER=$2a76
 .label SCREEN_BORDER_COLOR=$d020
 .label PRINTING_FLAG=$28a5
@@ -154,7 +161,7 @@
 .label SPRITE_ANIMATION_VALUE_OFFSET=$29c9
 .label move_right_str=$268f
 .label multipli_n1_str=$2617
-.label exit_check_collision=$113e {
+.label exit_check_collision=$117e {
 }
 .label sub_num2_3=$289e
 .label sub_num2_2=$289d
