@@ -294,6 +294,25 @@ sprites_current_animation_index_position_table:
 
 
 
+
+
+
+sprites_current_animation_index_position_table_backup:
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+
+
+
+
+
+
+
 /*
 
     Tables to point to a animation in sprites

@@ -716,6 +716,12 @@ push_regs_to_stack()
         lda #4
         sta sprites_rasters_limit_table,x
 
+
+        //Save the current index before reset it to 0
+        lda sprites_current_animation_index_position_table,x
+        sta sprites_current_animation_index_position_table_backup,x
+
+
         lda #0
         sta sprites_current_animation_index_position_table,x
         sta sprites_raster_counters_table,x
@@ -764,21 +770,29 @@ push_regs_to_stack()
         saved in the backup tables. */
         lda sprites_rasters_limit_table_backup,x
         sta sprites_rasters_limit_table,x
+4
+
+
+        /* Put again the sprite in the frame before the collision */
+        //Save the current index before reset it to 0
+        lda sprites_current_animation_index_position_table_backup,x
+        sec
+        sbc #1
+        sta sprites_current_animation_index_position_table,x
+
+
+
+
+
         
         /* set to 0 the values to ignore put again the same animation in 
          collision, the otherwise , always start the "dead animation" from 0
          in collision condition */
         lda #0
         sta sprites_raster_counters_table,x
-
-
-
-        // TODO !! comprobar cual es el sprite en colision para poner su
-        // primer sprite de la animacion a la fuerza segun salimos de aqui
-        
         lda SPRITE_INDEX_POINTER 
         clc
-        adc #0
+        adc sprites_current_animation_index_position_table,x //  #0
         sta SPRITE_FRAME_POINTER
 
         // Ignore Sprite 0
