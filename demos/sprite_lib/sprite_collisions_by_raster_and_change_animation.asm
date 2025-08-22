@@ -554,7 +554,7 @@ actions_in_raster:
             sty SPRITE_TO_CHECK
             
             jsr check_sprite_collisions
-            cpy #7
+            cpy #8
             bne check_sprite_loop
 
         /* end Call to check collision in any sprite */
@@ -690,6 +690,8 @@ push_regs_to_stack()
 
     change_border_color:
 
+    
+
         //If exists collision , increment border color
         // change color ,save temp values and allow print
         inc $d020 // change border color
@@ -732,9 +734,21 @@ push_regs_to_stack()
         beq ignore_reset_animation_index
 
         //------- put the new animation inmediatly !
+        
+        // Put speed in dead mode sprite animation
+        lda #4
+        sta sprites_rasters_limit_table,x
+
+
         lda #0
         sta sprites_current_animation_index_position_table,x
+        sta sprites_raster_counters_table,x
         //------- end put the new animation inmediatly !
+
+
+
+
+
 
         // ---- set to 1 to avoid reset always the animation index to 0        
         lda #1
@@ -755,7 +769,7 @@ push_regs_to_stack()
         //sta SPRITE_IN_COLLISION
 
 
-       // Solo restaurar si estaba en colisión
+        // Solo restaurar si estaba en colisión
         lda sprites_state_table,x
         cmp #1
         bne exit_check_collision
@@ -775,9 +789,17 @@ push_regs_to_stack()
         sta sprite_current_anim_HI_table,x
 
 
+
+        // reset default speed in sprite
+        lda sprites_rasters_limit_table_backup,x
+        sta sprites_rasters_limit_table,x
+        
+        
+        lda #0
+        sta sprites_raster_counters_table,x
         lda #0
         sta IGNORE_RESET_ANIMATION_INDEX_TABLE,x
-
+        
 
     
     exit_check_collision:

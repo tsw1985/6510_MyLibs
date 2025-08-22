@@ -62,6 +62,20 @@ IGNORE_RESET_ANIMATION_INDEX_TABLE:
 .byte 0
 
 
+IGNORE_RESET_ANIMATION_NO_COLLISION_INDEX_TABLE: 
+.byte 0  // Sprite 0
+.byte 0  // Sprite 1
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+
+
+
+
+
 
 
 /* SPRITE_COLOR: Value to set a sprite color */
@@ -223,13 +237,25 @@ animation list.
 */
 sprites_rasters_limit_table:
     .byte 50 // Speed for Sprite 1
-    .byte 30 // Speed for Sprite 2
+    .byte 100 // Speed for Sprite 2
     .byte 40 // Speed for Sprite 3
     .byte 50 // Speed for Sprite 4
     .byte 25 // Speed for Sprite 5
     .byte 15 // Speed for Sprite 6
     .byte 8 // Speed for Sprite 7
     .byte 4 // Speed for Sprite 8
+
+
+sprites_rasters_limit_table_backup:
+    .byte 50 // Speed for Sprite 1
+    .byte 100 // Speed for Sprite 2
+    .byte 40 // Speed for Sprite 3
+    .byte 50 // Speed for Sprite 4
+    .byte 25 // Speed for Sprite 5
+    .byte 15 // Speed for Sprite 6
+    .byte 8 // Speed for Sprite 7
+    .byte 4 // Speed for Sprite 8
+
 
 
 /* This table is used to save in each SPRITE how many iterations of the
@@ -275,36 +301,24 @@ sprites_current_animation_index_position_table:
 */
 
 sprite_current_anim_LO_table: 
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
 
 sprite_current_anim_HI_table: 
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-
-
-
-
-
-
-
-
-
-
-
-
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
+    .byte 0
 
 
 /* ************************************************** */
