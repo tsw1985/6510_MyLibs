@@ -694,25 +694,27 @@ push_regs_to_stack()
         // change color ,save temp values and allow print
         inc $d020 // change border color
 
+        /* Save positions of enemy Y-X for print them in the main loop */
         lda SPRITE_ENEMY_Y
         sta SPRITE_TEMP_Y
         lda SPRITE_ENEMY_X
         sta SPRITE_TEMP_X
 
-        //Save the sprite in collision
+        /* Save the sprite in collision. Here we save the sprite index in
+           collision */
         stx SPRITE_IN_COLLISION
 
         //---------------
-        // Cambiar estado a "en colisión"
+        // Set the sprite in collision mode
         lda #1
         sta sprites_state_table,x
 
-
-        
-
-
-        // Cambiar a animación de muerto
-
+        /* Change sprite to "dead mode". To achieve this we must change the
+           pointers to point to a new animation list. 
+           
+           The tables "sprite_animations_list_LO_table" basically are a list
+           of animations lists
+        */
         lda sprite_dead_list_LO_table,x
         sta sprite_animations_list_LO_table,x
         
@@ -724,26 +726,22 @@ push_regs_to_stack()
         sta sprite_current_anim_HI_table,x 
 
 
-
+        /* Set to 1 ignore  */
         lda IGNORE_RESET_ANIMATION_INDEX_TABLE,x
         cmp #1
         beq ignore_reset_animation_index
-
 
         //------- put the new animation inmediatly !
         lda #0
         sta sprites_current_animation_index_position_table,x
         //------- end put the new animation inmediatly !
 
-        
+        // ---- set to 1 to avoid reset always the animation index to 0        
         lda #1
         sta IGNORE_RESET_ANIMATION_INDEX_TABLE,x
 
         ignore_reset_animation_index:
 
-
-        //lda #255
-        //sta SPRITE_ANIMATION_VALUE_OFFSET
         jmp exit_check_collision
 
 

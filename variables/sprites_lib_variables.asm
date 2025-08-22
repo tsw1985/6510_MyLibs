@@ -45,10 +45,15 @@ SPRITE_TO_ENABLE:     .byte 0
 
 
 
-/* IGNORE RESET ANIMATION INDEX TO 0 */
+/* IGNORE RESET ANIMATION INDEX TO 0. This table is used in collision function.
+This is used to avoid reset always to 0 the reset animation index. In a 
+collision , we can need set other animation. If we do not use this table for
+each sprite, in the function check collision, we will see always the frame 0
+in the new animation. For example , if the player shut a bullet to a 
+"enemy collision", we need show other animation with the enemy in dead */
 IGNORE_RESET_ANIMATION_INDEX_TABLE: 
-.byte 0
-.byte 0
+.byte 0  // Sprite 0
+.byte 0  // Sprite 1
 .byte 0
 .byte 0
 .byte 0
