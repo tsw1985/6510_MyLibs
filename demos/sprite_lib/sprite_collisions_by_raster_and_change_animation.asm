@@ -499,7 +499,6 @@ actions_in_raster:
             bne x_3
             jsr SPRITE_LIB.set_frame_to_sprite_2
             jmp reset_sprite_raster_counter_in_current_sprite
-            
 
         x_3:
             cpx #3
@@ -601,34 +600,13 @@ push_regs_to_stack()
     adc #10   // add 10 to point to the center of the sprite player COLS
     sta SPRITE_CENTER_PLAYER_POS_Y
 
-    /* PRINT Y OF PLAYER */
-    /*
-    sta sum_res_0
-    lda #0
-    sta sum_res_1
-    sta sum_res_2
-    sta sum_res_3
-    print_calculation_result(3,15,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
-    */
-    
-
+    /* set center X */
     ldx #0
     lda sprites_coord_table_x,x
     clc 
     adc #12 // add 12 to set the center of sprite player ROWS
     sta SPRITE_CENTER_PLAYER_POS_X
     
-    /* PRINT X OF PLAYER */
-    /*
-    sta sum_res_0
-    lda #0
-    sta sum_res_1
-    sta sum_res_2
-    sta sum_res_3
-    print_calculation_result(4,15,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
-    */
-
-
 
     /* Now is time to set the limit coordinates values load the SPRITE to check 
     the collision, it is saved in variable SPRITE_TO_CHECK */
@@ -734,7 +712,6 @@ push_regs_to_stack()
         beq ignore_reset_animation_index
 
         //------- put the new animation inmediatly !
-        
         // Put speed in dead mode sprite animation
         lda #4
         sta sprites_rasters_limit_table,x
@@ -769,10 +746,12 @@ push_regs_to_stack()
         
         // Put the sprite in normal state
 
+        /* Set sprite to normal animation and retet if from zero. 
+        To achive this, we get the original values of the HI and LO (pointer) 
+        saved into the backup tables.  */
+
         lda #0
         sta sprites_state_table,x
-
-        // Set sprite to normal animation
         lda sprite_animations_list_LO_table_backup,x
         sta sprite_animations_list_LO_table,x
         sta sprite_current_anim_LO_table,x
@@ -781,14 +760,14 @@ push_regs_to_stack()
         sta sprite_animations_list_HI_table,x
         sta sprite_current_anim_HI_table,x
 
-
-        // reset default speed in sprite
+        /* also we must set again the default speed of the animations. Also
+        saved in the backup tables. */
         lda sprites_rasters_limit_table_backup,x
         sta sprites_rasters_limit_table,x
         
-        // set to 0 the values to ignore put again the same animation in 
-        // collision, the otherwise , always start the "dead animation" from 0
-        // in collision condition
+        /* set to 0 the values to ignore put again the same animation in 
+         collision, the otherwise , always start the "dead animation" from 0
+         in collision condition */
         lda #0
         sta sprites_raster_counters_table,x
         lda #0
