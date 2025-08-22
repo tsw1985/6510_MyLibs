@@ -27,6 +27,11 @@ SPRITE_ENEMY_Y_PLUS_OFFSET: .byte 0
 /* INDEX SPRITE   */
 SPRITE_INDEX_COUNTER: .byte 0
 
+
+/* SPRITE INDEX COUNTER IN RASTER INTERRUPT */
+SPRITE_INDEX_COUNTER_RASTER_LOOP: .byte 0
+
+
 /* TEMP VARIABLES for print the enemy Y-X values */
 SPRITE_TEMP_Y: .byte 0
 SPRITE_TEMP_X: .byte 0
@@ -38,12 +43,29 @@ SPRITE_FRAME_POINTER: .byte 0
 macro "sprite_enable_sprite" */
 SPRITE_TO_ENABLE:     .byte 0
 
+
+
+/* IGNORE RESET ANIMATION INDEX TO 0 */
+IGNORE_RESET_ANIMATION_INDEX_TABLE: 
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+
+
+
+
 /* SPRITE_COLOR: Value to set a sprite color */
 SPRITE_COLOR:         .byte 0
 
 /* TODO: move to a table*/ 
 SPRITE_Y_POS:         .byte 0
 SPRITE_X_POS:         .byte 0
+
 
 /* SPRITE_PAD_INDEX: Returned value index in the sprite pad pallete. 
    Used in function: sprite_get_current_index_sprite_pad_value_animation */
@@ -238,6 +260,46 @@ sprites_current_animation_index_position_table:
     .byte 0  // current animation frame index sprite 6
     .byte 0  // current animation frame index sprite 7
     .byte 0  // current animation frame index sprite 8
+
+
+
+/*
+
+    Tables to point to a animation in sprites
+
+*/
+
+sprite_current_anim_LO_table: 
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+
+sprite_current_anim_HI_table: 
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+.byte 0
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* ************************************************** */

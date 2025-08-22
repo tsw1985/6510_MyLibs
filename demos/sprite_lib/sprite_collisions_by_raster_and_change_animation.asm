@@ -108,6 +108,17 @@ sprite_set_frame_to_sprite(0,7)
 /*  RASTER INTERRUPT */
 jsr setupRasterInterrupt
 
+ldx #0
+
+init_all_sprites_animations:
+    lda sprite_animations_list_LO_table,x
+    sta sprite_current_anim_LO_table,x
+    lda sprite_animations_list_HI_table,x
+    sta sprite_current_anim_HI_table,x
+    inx
+    cpx #8
+    bne init_all_sprites_animations
+
 
 /* MAIN LOOP.
 
@@ -123,12 +134,27 @@ simulate_game_loop:
             raster interrupt
 
         */
-        ldx #0 //sprites animation list index
+        
+        
+        /*ldx #0 //sprites animation list index
         lda sprite_animations_list_LO_table,x
         sta ANIMATION_FRAMES_LIST_LO
 
         lda sprite_animations_list_HI_table,x
-        sta ANIMATION_FRAMES_LIST_HI
+        sta ANIMATION_FRAMES_LIST_HI*/
+
+        ldx #0
+
+        lda sprite_animations_list_LO_table,x
+        sta sprite_current_anim_LO_table,x
+
+        lda sprite_animations_list_HI_table,x
+        sta sprite_current_anim_HI_table,x
+
+
+
+
+
         jsr start_read_joystick
 
 
@@ -347,6 +373,7 @@ actions_in_raster:
 
     sprites_loop:
 
+        stx SPRITE_INDEX_COUNTER_RASTER_LOOP
        
         inc sprites_raster_counters_table,x /* Increment the value of the 
                                      iteration counter for the current sprite */
@@ -367,14 +394,23 @@ actions_in_raster:
 
             // Get the LO and HI bytes values of the associated animation list
             // for this current sprite.
-            lda sprite_animations_list_LO_table,x
+
+            /*lda sprite_animations_list_LO_table,x
             sta ANIMATION_FRAMES_LIST_LO
 
             lda sprite_animations_list_HI_table,x
-            sta ANIMATION_FRAMES_LIST_HI
+            sta ANIMATION_FRAMES_LIST_HI*/
+
+            lda sprite_animations_list_LO_table,x
+            sta sprite_current_anim_LO_table,x
+
+            lda sprite_animations_list_HI_table,x
+            sta sprite_current_anim_HI_table,x
 
             // Once we have the address of this list ...
-            lda sprites_current_animation_index_position_table,x    
+            lda sprites_current_animation_index_position_table,x
+
+
 
             // We save the value in the next variable ...
             // (SPRITE_ANIMATION_VALUE_OFFSET)
@@ -672,18 +708,42 @@ push_regs_to_stack()
         sta sprites_state_table,x
 
 
+        
+
+
         // Cambiar a animación de muerto
+
         lda sprite_dead_list_LO_table,x
         sta sprite_animations_list_LO_table,x
-
-        lda sprite_dead_list_HI_table,x
-        sta sprite_animations_list_HI_table,x
         
-        //put the new animation inmediatly !
-        //lda #0
-        //sta sprites_current_animation_index_position_table,x
+        sta sprite_current_anim_LO_table,x 
+        lda sprite_dead_list_HI_table,x
 
 
+        sta sprite_animations_list_HI_table,x
+        sta sprite_current_anim_HI_table,x 
+
+
+
+        lda IGNORE_RESET_ANIMATION_INDEX_TABLE,x
+        cmp #1
+        beq ignore_reset_animation_index
+
+
+        //------- put the new animation inmediatly !
+        lda #0
+        sta sprites_current_animation_index_position_table,x
+        //------- end put the new animation inmediatly !
+
+        
+        lda #1
+        sta IGNORE_RESET_ANIMATION_INDEX_TABLE,x
+
+        ignore_reset_animation_index:
+
+
+        //lda #255
+        //sta SPRITE_ANIMATION_VALUE_OFFSET
         jmp exit_check_collision
 
 
@@ -703,16 +763,23 @@ push_regs_to_stack()
         bne exit_check_collision
         
         // Volver a estado normal
+
         lda #0
         sta sprites_state_table,x
-        
+
         // Restaurar animación normal (LO y HI)
         lda sprite_animations_list_LO_table_backup,x
         sta sprite_animations_list_LO_table,x
-
+        sta sprite_current_anim_LO_table,x
 
         lda sprite_animations_list_HI_table_backup,x
         sta sprite_animations_list_HI_table,x
+        sta sprite_current_anim_HI_table,x
+
+
+        lda #0
+        sta IGNORE_RESET_ANIMATION_INDEX_TABLE,x
+
 
     
     exit_check_collision:

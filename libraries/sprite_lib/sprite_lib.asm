@@ -398,6 +398,8 @@ a List.
             ANIMATION_FRAMES_LIST_HI: Hight byte of this animation list
             SPRITE_ANIMATION_VALUE_OFFSET: Index position in this list
 
+            SPRITE_INDEX_COUNTER_RASTER_LOOP
+
         OUT:
             SPRITE_PAD_INDEX: The value in this list for the given index.
 
@@ -406,11 +408,20 @@ sprite_get_current_index_sprite_pad_value_animation:
 
     push_regs_to_stack()
 
-    lda ANIMATION_FRAMES_LIST_LO
+    /*lda ANIMATION_FRAMES_LIST_LO
     sta ZERO_PAGE_SPRITE_LOW_BYTE
 
     lda ANIMATION_FRAMES_LIST_HI
+    sta ZERO_PAGE_SPRITE_HIGHT_BYTE*/
+
+    ldx SPRITE_INDEX_COUNTER_RASTER_LOOP
+    lda sprite_current_anim_LO_table,x
+    sta ZERO_PAGE_SPRITE_LOW_BYTE
+
+    lda sprite_current_anim_HI_table,x
     sta ZERO_PAGE_SPRITE_HIGHT_BYTE
+
+
 
     ldy SPRITE_ANIMATION_VALUE_OFFSET //This value move to the right X positions
                                       //in the current sprite_animation list.
@@ -427,6 +438,22 @@ sprite_get_current_index_sprite_pad_value_animation:
 
     pull_regs_from_stack()
     rts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     
