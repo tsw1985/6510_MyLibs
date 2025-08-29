@@ -4,8 +4,10 @@
 .label SCREEN_COLOR_RAM        = $d800
 .label MAIN_CODE_ADDRESS       = $0810
 .label MUSIC_ADDRESS		   = $1000
+.label CHARSET_ATTRIB_ADDRESS  = $2400
 .label VARIABLES_ADDRESS       = $2500
 .label SPRITES_ADDRESS		   = $3000  // $2800
+.label CHARSET_ADDRESS		   = $3800
 .label TABLES_ADDRESS		   = $4000
 .label LIBRARIES_ADDRESS	   = $5000
 
@@ -15,10 +17,8 @@
 .label SCREEN_RAM_2				= $0c00
 .label MUSIC_ADDRESS			= $1000
 .label COLOR_RAM_BUFFER			= $2000
-.label CHARSET_ATTRIB_ADDRESS	= $2400
 .label VARIABLES_ADDRESS		= $2500
 
-.label CHARSET_ADDRESS			= $3800
 .label TABLES_ADDRESS			= $4000
 .label LIBRARIES_ADDRESS		= $5000
 .label MAPS_ADDRESS				= $7000

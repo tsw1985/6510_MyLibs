@@ -12,10 +12,10 @@ BasicUpstart2(main)
 .import binary "/music/music.sid"
 */
 
-/*
+
 *=CHARSET_ATTRIB_ADDRESS "Charset Attrib"
 .import binary "/charset/charsetAttrib.bin"
-*/
+
 
 *=VARIABLES_ADDRESS "Variables"
 #import "/includes/variables.asm"
@@ -24,13 +24,13 @@ BasicUpstart2(main)
 *=SPRITES_ADDRESS "Sprites"
 //.import binary "/sprites/sprites.bin"
 //.import binary "/sprites/numbers.bin"
-.import binary "/sprites/numbersv2.bin"
+//.import binary "/sprites/numbersv2.bin"
+.import binary "/sprites/numbers12sprites.bin"
 
 
-/*
 *=CHARSET_ADDRESS "Charset"
 .import binary "/charset/charset.bin"
-*/
+
 
 *=TABLES_ADDRESS "Tables"
 #import "/includes/tables.asm"

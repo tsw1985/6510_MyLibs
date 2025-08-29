@@ -20,8 +20,16 @@
 
  */
 
+lda #%00011110 // Screen RAM: $0400   Charset: $3800
+sta $d018 // Screen memory setup
 
-insert_text(1,1,sprites_colls_demo_str,YELLOW)
+lda #67 // A
+sta SCREEN_CHAR
+locate_text(1,1,YELLOW)
+jsr PRINT_LIB.print_char  // print single char
+
+
+//insert_text(1,1,sprites_colls_demo_str,YELLOW)
 insert_text(3,1,sprites_player_y_str,YELLOW)
 insert_text(4,1,sprites_player_x_str,YELLOW)
 insert_text(6,1,sprites_enemy_y_str,YELLOW)
