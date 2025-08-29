@@ -6,3 +6,4 @@
 #import "/variables/joystick_lib_variables.asm"
 #import "/variables/sprites_lib_variables.asm"
 #import "/variables/concurrence_variables.asm"
+#import "/variables/tiles_lib_variables.asm"
