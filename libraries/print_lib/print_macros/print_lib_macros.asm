@@ -29,11 +29,6 @@
 
 }
 
-
-
-
-
-
 .macro print_input_text(string){
     lda #<string
     sta ZERO_PAGE_PRINT_TEXT_LO

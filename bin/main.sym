@@ -538,8 +538,10 @@
 .label joystick_down_left_str=$2733
 .label ROTATE_INDEX=$2908
 .label Row_HI=$4019
+.label TILE_TEMP_Y=$2a9b
 .label div_res_0=$288a
 .label SCREEN_INPUT_ROW_POS=$290a
+.label TILE_TEMP_X=$2a9a
 .label div_res_1=$288b
 .label SPRITE_ENEMY_X=$29ba
 .label div_res_2=$288c
