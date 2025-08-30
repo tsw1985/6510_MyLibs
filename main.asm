@@ -7,6 +7,11 @@ BasicUpstart2(main)
 *=MAIN_CODE_ADDRESS "Main Code"
 #import "/includes/main_code.asm"
 
+
+*=TILESET_ADDRESS "Tileset"
+.import binary "/tileset/tileset.bin"
+
+
 /*
 *=MUSIC_ADDRESS "Music"
 .import binary "/music/music.sid"
@@ -32,18 +37,21 @@ BasicUpstart2(main)
 .import binary "/charset/charset.bin"
 
 
+
+
 *=TABLES_ADDRESS "Tables"
 #import "/includes/tables.asm"
 
 *=LIBRARIES_ADDRESS "Libraries"
 #import "/includes/libraries.asm"
 
-/*
-*=MAPS_ADDRESS "Maps"
-.import binary "/maps/map2.bin"
-*/
 
-/*
-*=MAPS_COLOR_ADDRESS "Maps Colors"
-.import binary "/maps/map2color.bin"
-*/
+*=MAPS_ADDRESS "Maps"
+//.import binary "/maps/allmaps.bin"
+//.import binary "/maps/singlemap.bin"
+//.import binary "/maps/rooms.bin"
+
+
+
+//*=MAPS_COLOR_ADDRESS "Maps Colors"
+//.import binary "/maps/colormap.bin"

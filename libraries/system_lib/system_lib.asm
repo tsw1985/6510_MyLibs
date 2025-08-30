@@ -12,7 +12,36 @@ SYSTEM:
 
 		lda #%00110110 // Disable BASIC
 		sta $0001 // Processor port
+
+		
+		/* Configure char set */
+		jsr TILES_LIB.init_new_charset
+
+		/* SET DEFAULT COLORS */
+		lda #DEFAULT_SCREEN_BORDER_COLOR
+		sta SCREEN_BORDER_COLOR
+		lda #DEFAULT_SCREEN_BACKGROUND_COLOR
+		sta SCREEN_BACKGROUND_COLOR
+		lda #DEFAULT_SCREEN_EXTRA_COLOR_1
+		sta SCREEN_EXTRA_COLOR_1
+		lda #DEFAULT_SCREEN_EXTRA_COLOR_2
+		sta SCREEN_EXTRA_COLOR_2
+
+
+
         cli // Enable system interrupts
+
+
+
+
+
+
+
+
+
+
+
+
 		pull_regs_from_stack()
 		rts
 

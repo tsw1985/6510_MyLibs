@@ -8,6 +8,14 @@
 .label SCREEN_CONTROL_1        = $d011
 .label SCREEN_CONTROL_2        = $d016
 
+
+// Rooms:
+.label ROOM_WIDTH  = 16 // Tiles
+.label ROOM_HEIGHT = 12 // Tiles
+.label ROOM_SIZE   = ROOM_WIDTH * ROOM_HEIGHT
+
+
+
 //COLORS:
 //=======
 
@@ -27,6 +35,21 @@
 .label LIGHT_BLUE  = $0E
 .label LIGHT_GRAY  = $0F
 .label DARK_GRAY   = $0B
+
+
+.label DEFAULT_SCREEN_BORDER_COLOR = BLACK
+.label DEFAULT_SCREEN_BACKGROUND_COLOR = BLACK
+
+.label DEFAULT_SCREEN_EXTRA_COLOR_1 = LIGHT_BLUE
+.label DEFAULT_SCREEN_EXTRA_COLOR_2 = BROWN
+
+.label SCREEN_EXTRA_COLOR_1 = $d022
+.label SCREEN_EXTRA_COLOR_2 = $d023
+
+
+
+
+
 
 //RASTER IRQ:
 //===========
