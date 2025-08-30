@@ -42,7 +42,6 @@ print_tile:
     //Set row and col to print char
     // SCREEN_ROW_POS ( X position)
     // SCREEN_COL_POS ( Y position)
-    // SCREEN_CHAR ( char to show )
 
     /* PRINT TOP LEFT */
     /* Set col */

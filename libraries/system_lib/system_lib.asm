@@ -16,6 +16,11 @@ SYSTEM:
 		
 		/* Configure char set */
 		jsr TILES_LIB.init_new_charset
+		//lda #%00011110 // Screen RAM: $0400   Charset: $3800
+		//sta SCREEN_MEMORY_SETUP
+
+		lda #%11011000 // Enable screen multicolor
+		sta SCREEN_CONTROL_2
 
 		/* SET DEFAULT COLORS */
 		lda #DEFAULT_SCREEN_BORDER_COLOR

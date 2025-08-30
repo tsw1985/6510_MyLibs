@@ -12,8 +12,8 @@ insert_text(1,1,tileslib_str,YELLOW)
 lda #3
 sta TILE_NUMBER
 
-lda #67
-sta SCREEN_CHAR
+//lda #67
+//sta SCREEN_CHAR
 
 lda #5
 sta TILE_COL
