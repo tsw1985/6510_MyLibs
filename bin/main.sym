@@ -39,7 +39,7 @@
 .label sprites_coord_table_y=$2a13
 .label ROOM_WIDTH=$10
 .label end_mul_string=$2594
-.label wait_key=$846
+.label wait_key=$87c
 .label sprites_player_x_str=$27ce
 .label SPRITE_TO_ENABLE=$29c3
 .label end_keyboard_str=$2632
