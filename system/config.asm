@@ -2,9 +2,9 @@
 
 // ZERO PAGE
 //==========
-/*
+/*******************************************************************************
     !!!!!!!! IMPORTANT !!!! ALWAYS START BY LO BYTE.  !!!!!!!!!!!
- */
+*******************************************************************************/
 
 .label ZERO_PAGE_ADDRESS              = $0020     
 
@@ -19,6 +19,9 @@
 
 .label ZERO_PAGE_SPRITE_LOW_BYTE      = ZERO_PAGE_ADDRESS + 6 // $27
 .label ZERO_PAGE_SPRITE_HIGHT_BYTE    = ZERO_PAGE_ADDRESS + 7 // $26
+
+.label ZERO_PAGE_MAP_LO	          = ZERO_PAGE_ADDRESS + 8 // $28
+.label ZERO_PAGE_MAP_HI	          = ZERO_PAGE_ADDRESS + 9 // $29
 
 
 

@@ -3,18 +3,6 @@
 TILES_LIB:
 {
 
-    init_new_charset:
-    push_regs_to_stack()
-
-        /* Here we are setting the position of Screen ram and where is the
-           charset to use, in the address $3800 */
-        lda #%00011110 // Screen RAM: $0400   Charset: $3800
-        sta $d018 // Screen memory setup
-    pull_regs_from_stack()
-    rts
-
-
-
     /* LOAD TILE:
     
        IN: 
@@ -45,10 +33,10 @@ print_tile:
 
     /* PRINT TOP LEFT */
     /* Set col */
-    lda TILE_COL
+    lda TILE_ROW
     sta SCREEN_ROW_POS
 
-    lda TILE_ROW
+    lda TILE_COL
     sta SCREEN_COL_POS
 
     // Get first char of tile and
@@ -110,6 +98,92 @@ print_tile:
 
 
     pull_regs_from_stack()
+rts
+
+
+/* Load a MAP in screen.
+
+    IN :
+        MAP_NUMBER
+ */
+load_map:
+push_regs_to_stack()
+
+
+/* Access to the MAP. Each Map its a section of 16 tiles width x 12 tiles height
+Each Tile is 4 bytes , so each map is (16x12) x 4 bytes each tile = 192 bytes.
+
+To access to the first byte of each MAP , we have the table "map_table.asm",
+where we get the LOW and HIGHT byte of that memory address using this formula:
+
+    .byte <(MAP_ADDRESS + (MAP_SIZE * ROOM_NUMBER )).
+
+If you see the code , you will see a list from 0 to 63 , because remember, there
+are 64 maps.
+
+
+Finally, if you use the VICE MONITOR and inspect the memory in the MAP_ADDRESS
+you will see a list of bytes. Each byte means the TILE to load. In this case, 
+remember, we are using MAPS of 16x12 tiles = 192 bytes . So you need print in
+screen 192 tiles. Each value here is the TILE to print, it is the index in the
+pallette "Tail Set" in the program CHARPAD
+*/
+
+
+   // The first step we must to do is get the LO and HI byte of start address of
+   // this room.
+   ldx MAP_NUMBER
+    
+   lda Map_LO,x
+   sta ZERO_PAGE_MAP_LO //access to the first LO byte and save it in ZERO_PAGE
+
+   lda Map_HI,x
+   sta ZERO_PAGE_MAP_HI //access to the first HI byte and save it in ZERO_PAGE
+
+   // In this point we have the address saved into the ZERO PAGE:
+   // ( ZERO_PAGE_MAP_LO + ZERO_PAGE_MAP_HI)
+
+
+   //Now we must load each tile. Starting by ROWS and COLS using 2 nested loops.
+   //This is like to use two for loops:
+   // for(int i=0; i<16; i++)
+      // for(int j=0; j<12 ; j++)
+
+      //set ROW and COL to 1 - 1
+
+      lda #1
+      sta TILE_ROW // Row for tile
+      sta TILE_COL // Col for tile  
+
+      ldy #0
+      next_tail:  
+
+        // Access to TAIL VALUE
+        lda (ZERO_PAGE_MAP_LO),y
+        sta TILE_NUMBER  // Number of tile
+        jsr TILES_LIB.print_tile
+
+        iny
+        cpy #192 // ( 16 x 12 = 192 )
+        beq exit_load_map
+
+        inc TILE_COL
+        inc TILE_COL
+        lda TILE_COL
+        cmp #33 //31
+        bne next_tail // si no es igual al final, sigo contando
+
+        //si es el final, pongo col a 1 y bajo 2 row
+
+        lda #1                //if is the COL LIMIT , set to 1 again the col
+        sta TILE_COL
+        inc TILE_ROW
+        inc TILE_ROW
+        jmp next_tail
+        
+    exit_load_map:
+
+pull_regs_from_stack()
 rts
     
 

@@ -53,7 +53,8 @@ init_code:
     //#import "/demos/sprite_lib/sprite_collisions_by_raster_and_change_animation.asm"
 
     /* TILES LIB */
-    #import "/demos/tiles_lib/tiles.asm"
+    //#import "/demos/tiles_lib/tiles.asm"
+    #import "/demos/tiles_lib/tiles_load_map.asm"
 
 
 

@@ -134,14 +134,6 @@ simulate_game_loop:
 
         */
         
-        
-        /*ldx #0 //sprites animation list index
-        lda sprite_animations_list_LO_table,x
-        sta ANIMATION_FRAMES_LIST_LO
-
-        lda sprite_animations_list_HI_table,x
-        sta ANIMATION_FRAMES_LIST_HI*/
-
         ldx #0
 
         lda sprite_animations_list_LO_table,x
@@ -149,10 +141,6 @@ simulate_game_loop:
 
         lda sprite_animations_list_HI_table,x
         sta sprite_current_anim_HI_table,x
-
-
-
-
 
         jsr start_read_joystick
 
@@ -693,7 +681,16 @@ push_regs_to_stack()
            pointers to point to a new animation list. 
            
            The tables "sprite_animations_list_LO_table" basically are a list
-           of animations lists
+           of animations lists.
+
+
+            Here we are setting the ADDRESS LOW AND HIGHT byte of the dead
+            animation to the target sprite ( sprite with collision ).
+
+            Remember, the tables : sprite_animations_list_LO_table and 
+            sprite_animations_list_HI_table , each entry is a SPRITE INDEX,and
+            each sprite index point to a animation.
+
         */
         lda sprite_dead_list_LO_table,x
         sta sprite_animations_list_LO_table,x

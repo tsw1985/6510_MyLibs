@@ -37,8 +37,6 @@ BasicUpstart2(main)
 .import binary "/charset/charset.bin"
 
 
-
-
 *=TABLES_ADDRESS "Tables"
 #import "/includes/tables.asm"
 
@@ -46,10 +44,10 @@ BasicUpstart2(main)
 #import "/includes/libraries.asm"
 
 
-*=MAPS_ADDRESS "Maps"
+*=MAP_ADDRESS "Maps"
 //.import binary "/maps/allmaps.bin"
 //.import binary "/maps/singlemap.bin"
-//.import binary "/maps/rooms.bin"
+.import binary "/maps/rooms.bin"
 
 
 

@@ -10,9 +10,9 @@
 
 
 // Rooms:
-.label ROOM_WIDTH  = 16 // Tiles
-.label ROOM_HEIGHT = 12 // Tiles
-.label ROOM_SIZE   = ROOM_WIDTH * ROOM_HEIGHT
+.label MAP_WIDTH  = 16 // Tiles
+.label MAP_HEIGHT = 12 // Tiles
+.label MAP_SIZE   = MAP_WIDTH * MAP_HEIGHT
 
 
 

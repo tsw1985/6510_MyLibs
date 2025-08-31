@@ -3,27 +3,32 @@
 .label INTERRUPT_RETURN=$ea81
 .label SCREEN_EXTRA_COLOR_2=$d023
 .label JOYSTICK_2_DATA=$29ae
-.label MATH_LIB=$5d3c {
-  .label sum_32=$5e15 {
+.label MATH_LIB=$5d3e {
+  .label sum_32=$5e17 {
   }
-  .label sub_32=$5e45 {
+  .label sub_32=$5e47 {
   }
-  .label division_32=$5d3c {
+  .label division_32=$5d3e {
   }
-  .label loop=$5d41
-  .label do_subtract=$5d67
-  .label end_loop=$5db0 {
+  .label loop=$5d43
+  .label do_subtract=$5d69
+  .label end_loop=$5db2 {
   }
-  .label continue_multiplication_32=$5dbb
-  .label multiplication_32=$5db6 {
-  }
-}
-.label TILES_LIB=$620c {
-  .label print_tile=$621c {
-  }
-  .label init_new_charset=$620c {
+  .label continue_multiplication_32=$5dbd
+  .label multiplication_32=$5db8 {
   }
 }
+.label TILES_LIB=$620e {
+  .label next_tail=$62ac
+  .label exit_load_map=$62d4 {
+  }
+  .label load_map=$6290 {
+  }
+  .label print_tile=$620e {
+  }
+}
+.label Map_HI=$40a4
+.label MAP_ADDRESS=$7000
 .label SCREEN_HEIGHT=$19
 .label buffer_str=$26a9
 .label BLACK=$0
@@ -37,14 +42,14 @@
 .label SPRITE_INDEX_COUNTER_RASTER_LOOP=$29bf
 .label sprites_coord_table_x=$2a1b
 .label sprites_coord_table_y=$2a13
-.label ROOM_WIDTH=$10
+.label MAP_SIZE=$c0
 .label end_mul_string=$2594
-.label wait_key=$87c
+.label wait_key=$81f
 .label sprites_player_x_str=$27ce
 .label SPRITE_TO_ENABLE=$29c3
 .label end_keyboard_str=$2632
 .label IRQ_COUNTER=$29a7
-.label TILESET_ADDRESS=$e00
+.label TILESET_ADDRESS=$2000
 .label LIGHT_GRAY=$f
 .label SCREEN_CHAR=$287b
 .label LIGHT_BLUE=$e
@@ -64,6 +69,7 @@
 .label SPRITE_ENEMY_X_PLUS_OFFSET=$29bb
 .label SPRITE_ENEMY_Y_PLUS_OFFSET=$29bd
 .label joystick_fire_str=$26f0
+.label ZERO_PAGE_MAP_HI=$29
 .label coor_y_str=$2664
 .label JOYSTICK_2_LEFT=$29b2
 .label DEFAULT_SCREEN_BORDER_COLOR=$0
@@ -100,7 +106,7 @@
 .label sum_num2_2=$28a0
 .label sprite_current_anim_LO_table=$2a53
 .label SYSTEM=$5000 {
-  .label restore_system=$5032 {
+  .label restore_system=$5034 {
   }
   .label setup=$5000 {
   }
@@ -108,33 +114,35 @@
 .label end_div_string=$2572
 .label joystick_up_right_str=$270a
 .label LIGHT_GREEN=$d
+.label MAP_ROW=$2a9e
 .label TASK_IRQ_COUNTER=$2a95
 .label SCREEN_BORDER_COLOR=$d020
 .label PRINTING_FLAG=$28b4
 .label joystick_right_str=$275f
+.label MAP_NUMBER=$2a9d
 .label ZERO_PAGE_ROW_HIGHT_BYTE=$21
 .label INPUT_INDEX_COUNTER=$2909
 .label end_div_32_str=$257f
 .label TILE_NUMBER=$2a97
-.label PRINT_LIB=$5044 {
-  .label continue_writing=$506f
-  .label print_move_modules_in_table_to_number_to_print_str=$50df {
+.label PRINT_LIB=$5046 {
+  .label continue_writing=$5071
+  .label print_move_modules_in_table_to_number_to_print_str=$50e1 {
   }
-  .label copy_number=$5150
-  .label clean_location_screen=$5052 {
+  .label copy_number=$5152
+  .label clean_location_screen=$5054 {
   }
-  .label print_char=$50aa {
+  .label print_char=$50ac {
   }
-  .label end_writing=$5080 {
+  .label end_writing=$5082 {
   }
-  .label print_text=$5068 {
+  .label print_text=$506a {
   }
-  .label print_input_text=$5086 {
+  .label print_input_text=$5088 {
   }
-  .label read_tail=$513d
-  .label continue_input_writing=$508d
-  .label loop_digits=$5102
-  .label clean_screen=$5044 {
+  .label read_tail=$513f
+  .label continue_input_writing=$508f
+  .label loop_digits=$5104
+  .label clean_screen=$5046 {
   }
 }
 .label current_char_str=$26c5
@@ -148,7 +156,6 @@
 .label INTERRUPT_CONTROL=$d01a
 .label sprite_animation_9_10=$2a91
 .label SPRITE_ANIMATION_VALUE_OFFSET=$29d8
-.label MAPS_ADDRESS=$7000
 .label move_right_str=$268f
 .label multipli_n1_str=$2617
 .label sub_num2_3=$28ad
@@ -160,11 +167,11 @@
 .label sub_res_2=$28b0
 .label cursor_index_str=$2695
 .label sub_res_3=$28b1
-.label MUSIC_ADDRESS=$1000
 .label sub_res_0=$28ae
 .label SPRITE_FRAME_POINTER=$29c2
 .label sub_res_1=$28af
 .label IGNORE_RESET_ANIMATION_NO_COLLISION_INDEX_TABLE=$29cc
+.label ZERO_PAGE_MAP_LO=$28
 .label mul_res_0=$2896
 .label JOYSTICK_2_UP=$29b0
 .label hello_keyb_str=$2648
@@ -173,7 +180,6 @@
 .label mul_res_3=$2899
 .label coor_x_str=$2667
 .label SPRITE_IN_COLLISION=$29b9
-.label ROOM_SIZE=$c0
 .label BROWN=$9
 .label sprite_animation_2_4=$2a8e
 .label result_str=$25f5
@@ -189,7 +195,6 @@
 .label end_mul_32_str=$25a7
 .label SCREEN_CONTROL_2=$d016
 .label SCREEN_CONTROL_1=$d011
-.label ROOM_HEIGHT=$c
 .label INPUT_CURSOR=$2906
 .label cursor_col_str=$26a0
 .label KEY_PRESSED=$28b2
@@ -225,16 +230,16 @@
 .label sprites_state_table=$2a0b
 .label SCREEN_ROW_POS=$2879
 .label JOYSTICK_POSITIONS=$29b4
-.label JOYSTICK_LIB=$5e81 {
-  .label finish_read_stick=$5ed6 {
+.label JOYSTICK_LIB=$5e83 {
+  .label finish_read_stick=$5ed8 {
   }
-  .label read_joystick=$5e81 {
+  .label read_joystick=$5e83 {
   }
-  .label input_fire_check=$5ec7
-  .label input_down_check=$5eb8
-  .label input_up_check=$5ea9
-  .label input_left_check=$5e8b
-  .label input_right_check=$5e9a
+  .label input_fire_check=$5ec9
+  .label input_down_check=$5eba
+  .label input_up_check=$5eab
+  .label input_left_check=$5e8d
+  .label input_right_check=$5e9c
 }
 .label joystick_down_right_str=$2742
 .label CYAN=$3
@@ -253,9 +258,11 @@
 .label SCREEN_WIDTH=$28
 .label OLD_IRQ_HIGH=$29aa
 .label sprites_raster_counters_table_backup=$2a3b
+.label MAP_WIDTH=$10
 .label ORANGE=$8
 .label SCREEN_INPUT_COLOR=$290e
 .label sprite_animations_list_LO_table_backup=$29eb
+.label MAP_COL=$2a9f
 .label SCREEN_INPUT_COL_POS_CLS=$290d
 .label concurrence_task_1_str=$2820
 .label VARIABLES_ADDRESS=$2500
@@ -267,6 +274,7 @@
 .label SPRITE_HEIGHT=$15
 .label joystick_up_str=$26fd
 .label JOYSTICK_2_FIRE=$29af
+.label TILE_COUNTER=$2a9c
 .label sprites_enemy_y_str=$27dd
 .label TILE_COL=$2a99
 .label SCREEN_INPUT_COL_POS=$290b
@@ -284,101 +292,105 @@
 .label sprite_animation_4_to_1=$2a84
 .label MAIN_CODE_ADDRESS=$810
 .label input_text_str=$26b1
+.label Map_LO=$4064
 .label div_num1_2=$2884
 .label div_num1_3=$2885
+.label MAP_HEIGHT=$c
 .label Row_Color_HI=$404b
 .label TILE_ROW=$2a98
 .label sprite_animations_list_LO_table=$29db
+.label MAP_TEMP_X=$2aa0
+.label MAP_TEMP_Y=$2aa1
 .label div_num1_0=$2882
 .label ZERO_PAGE_ROW_COLOR_HIGHT_BYTE=$25
 .label div_num1_1=$2883
 .label CHARSET_ATTRIB_ADDRESS=$2400
-.label SPRITE_LIB=$5edc {
-  .label sprite_5_decrement_y=$606b {
+.label SPRITE_LIB=$5ede {
+  .label sprite_5_decrement_y=$606d {
   }
-  .label sprite_4_decrement_x=$5f28 {
+  .label sprite_4_decrement_x=$5f2a {
   }
-  .label sprite_5_decrement_x=$5f3b {
+  .label sprite_5_decrement_x=$5f3d {
   }
-  .label sprite_3_decrement_y=$6045 {
+  .label sprite_3_decrement_y=$6047 {
   }
-  .label sprite_7_decrement_y=$6091 {
+  .label sprite_7_decrement_y=$6093 {
   }
-  .label sprite_2_decrement_x=$5f02 {
+  .label sprite_2_decrement_x=$5f04 {
   }
-  .label sprite_3_decrement_x=$5f15 {
+  .label sprite_3_decrement_x=$5f17 {
   }
-  .label sprite_6_decrement_x=$5f4e {
+  .label sprite_6_decrement_x=$5f50 {
   }
-  .label sprite_7_decrement_x=$5f61 {
+  .label sprite_7_decrement_x=$5f63 {
   }
-  .label sprite_2_decrement_y=$6032 {
+  .label sprite_2_decrement_y=$6034 {
   }
-  .label sprite_6_decrement_y=$607e {
+  .label sprite_6_decrement_y=$6080 {
   }
-  .label disable_sprite=$6150 {
+  .label disable_sprite=$6152 {
   }
-  .label set_frame_to_sprite_0=$6164 {
+  .label set_frame_to_sprite_0=$6166 {
   }
-  .label set_frame_to_sprite_1=$6175 {
+  .label set_frame_to_sprite_1=$6177 {
   }
-  .label set_frame_to_sprite_2=$6186 {
+  .label set_frame_to_sprite_2=$6188 {
   }
-  .label sprite_4_decrement_y=$6058 {
+  .label sprite_4_decrement_y=$605a {
   }
-  .label set_frame_to_sprite_3=$6197 {
+  .label set_frame_to_sprite_3=$6199 {
   }
-  .label enable_sprite=$613c {
+  .label enable_sprite=$613e {
   }
-  .label set_frame_to_sprite_4=$61a8 {
+  .label set_frame_to_sprite_4=$61aa {
   }
-  .label set_frame_to_sprite_5=$61b9 {
+  .label set_frame_to_sprite_5=$61bb {
   }
-  .label set_frame_to_sprite_6=$61ca {
+  .label set_frame_to_sprite_6=$61cc {
   }
-  .label set_frame_to_sprite_7=$61db {
+  .label set_frame_to_sprite_7=$61dd {
   }
-  .label sprite_0_increment_x=$5f74 {
+  .label sprite_0_increment_x=$5f76 {
   }
-  .label sprite_0_increment_y=$60a4 {
+  .label sprite_0_increment_y=$60a6 {
   }
-  .label sprite_1_increment_x=$5f87 {
+  .label sprite_1_increment_x=$5f89 {
   }
-  .label sprite_1_increment_y=$60b7 {
+  .label sprite_1_increment_y=$60b9 {
   }
-  .label sprite_2_increment_x=$5f9a {
+  .label sprite_2_increment_x=$5f9c {
   }
-  .label sprite_2_increment_y=$60ca {
+  .label sprite_2_increment_y=$60cc {
   }
-  .label sprite_4_increment_x=$5fc0 {
+  .label sprite_4_increment_x=$5fc2 {
   }
-  .label sprite_3_increment_x=$5fad {
+  .label sprite_3_increment_x=$5faf {
   }
-  .label sprite_5_increment_x=$5fd3 {
+  .label sprite_5_increment_x=$5fd5 {
   }
-  .label sprite_3_increment_y=$60dd {
+  .label sprite_3_increment_y=$60df {
   }
-  .label sprite_5_increment_y=$6103 {
+  .label sprite_5_increment_y=$6105 {
   }
-  .label sprite_get_current_index_sprite_pad_value_animation=$61ec {
+  .label sprite_get_current_index_sprite_pad_value_animation=$61ee {
   }
-  .label sprite_4_increment_y=$60f0 {
+  .label sprite_4_increment_y=$60f2 {
   }
-  .label sprite_1_decrement_y=$601f {
+  .label sprite_1_decrement_y=$6021 {
   }
-  .label sprite_0_decrement_x=$5edc {
+  .label sprite_0_decrement_x=$5ede {
   }
-  .label sprite_1_decrement_x=$5eef {
+  .label sprite_1_decrement_x=$5ef1 {
   }
-  .label sprite_7_increment_x=$5ff9 {
+  .label sprite_7_increment_x=$5ffb {
   }
-  .label sprite_7_increment_y=$6129 {
+  .label sprite_7_increment_y=$612b {
   }
-  .label sprite_6_increment_x=$5fe6 {
+  .label sprite_6_increment_x=$5fe8 {
   }
-  .label sprite_0_decrement_y=$600c {
+  .label sprite_0_decrement_y=$600e {
   }
-  .label sprite_6_increment_y=$6116 {
+  .label sprite_6_increment_y=$6118 {
   }
 }
 .label sprites_player_y_str=$27bf
@@ -399,120 +411,120 @@
 .label cmb_pressed_str=$266a
 .label temp_offset=$2952
 .label TABLE_KEY_ASCII=$28c6
-.label INPUT_LIB=$5173 {
-  .label scan_all_keys=$52f1 {
+.label INPUT_LIB=$5175 {
+  .label scan_all_keys=$52f3 {
   }
-  .label no_key_detected=$531b
-  .label save_key_pressed=$5382 {
+  .label no_key_detected=$531d
+  .label save_key_pressed=$5384 {
   }
-  .label increment_index_cursor_index=$5ade {
+  .label increment_index_cursor_index=$5ae0 {
   }
-  .label input_keyboard=$5173 {
+  .label input_keyboard=$5175 {
   }
-  .label print_cursor_col_pos=$5939 {
+  .label print_cursor_col_pos=$593b {
   }
-  .label clear_pressed=$54b0
-  .label print_cursor=$54da {
+  .label clear_pressed=$54b2
+  .label print_cursor=$54dc {
   }
-  .label reset_key_flags=$5272 {
+  .label reset_key_flags=$5274 {
   }
-  .label print_current_pressed_char=$57fb {
+  .label print_current_pressed_char=$57fd {
   }
-  .label print_keys_pressed=$5a91 {
+  .label print_keys_pressed=$5a93 {
   }
-  .label rotate_right_str_string=$5bde {
+  .label rotate_right_str_string=$5be0 {
   }
-  .label reset_screen_str=$5c13 {
+  .label reset_screen_str=$5c15 {
   }
-  .label init_irq_timer=$5c2a {
+  .label init_irq_timer=$5c2c {
   }
-  .label irq_timer_exit=$5c9c {
+  .label irq_timer_exit=$5c9e {
   }
-  .label calculate_offset_for_ascii_table=$54c0 {
+  .label calculate_offset_for_ascii_table=$54c2 {
   }
-  .label process_key=$5a5d
-  .label outer_loop=$549a
-  .label cursor_on=$5c87
-  .label end_rotate=$5c0d {
+  .label process_key=$5a5f
+  .label outer_loop=$549c
+  .label cursor_on=$5c89
+  .label end_rotate=$5c0f {
   }
-  .label allow_move_to_left=$52a9
-  .label decrement_current_cursor_of_screen=$5abe {
+  .label allow_move_to_left=$52ab
+  .label decrement_current_cursor_of_screen=$5ac0 {
   }
-  .label scan_cols_loop=$530a
-  .label print_debug_params=$5231 {
+  .label scan_cols_loop=$530c
+  .label print_debug_params=$5233 {
   }
-  .label increment_current_cursor_of_screen=$5ace {
+  .label increment_current_cursor_of_screen=$5ad0 {
   }
-  .label check_if_is_enter_key=$536a
-  .label add_scanned_keys_to_screen_str=$5a34 {
+  .label check_if_is_enter_key=$536c
+  .label add_scanned_keys_to_screen_str=$5a36 {
   }
-  .label execute_actions_key=$5282 {
+  .label execute_actions_key=$5284 {
   }
-  .label cursor_to_right=$52b5
-  .label clear_key_pressed_table=$54a9 {
+  .label cursor_to_right=$52b7
+  .label clear_key_pressed_table=$54ab {
   }
-  .label init_scan_keys=$5a4b
-  .label skip_print_string_and_cursor=$51ea
-  .label sleep_key=$5493 {
+  .label init_scan_keys=$5a4d
+  .label skip_print_string_and_cursor=$51ec
+  .label sleep_key=$5495 {
   }
-  .label remove_char_screen_str_by_key=$5bad {
+  .label remove_char_screen_str_by_key=$5baf {
   }
-  .label print_offset_result=$5395 {
+  .label print_offset_result=$5397 {
   }
-  .label cursor_off=$5c93
-  .label print_cursor_index_pos=$583e {
+  .label cursor_off=$5c95
+  .label print_cursor_index_pos=$5840 {
   }
-  .label blink_cursor=$5c61 {
+  .label blink_cursor=$5c63 {
   }
-  .label continue_swap=$5bbe
-  .label finish_reading_keys=$51f3
-  .label move_cursor_to_left_on_string_screen=$5afe {
+  .label continue_swap=$5bc0
+  .label finish_reading_keys=$51f5
+  .label move_cursor_to_left_on_string_screen=$5b00 {
   }
-  .label skip=$5346
-  .label continue_check_pressed_table=$5a4d
-  .label move_cursor_to_right_on_string_screen=$5b3d {
+  .label skip=$5348
+  .label continue_check_pressed_table=$5a4f
+  .label move_cursor_to_right_on_string_screen=$5b3f {
   }
-  .label restore_char_with_current_cursor=$5b7c {
+  .label restore_char_with_current_cursor=$5b7e {
   }
-  .label allow_delete_to_left=$52d3
-  .label continue_rotation=$5bf6
-  .label disable_current_cursor=$5cc7 {
+  .label allow_delete_to_left=$52d5
+  .label continue_rotation=$5bf8
+  .label disable_current_cursor=$5cc9 {
   }
-  .label block_because_is_printing=$5211 {
+  .label block_because_is_printing=$5213 {
   }
-  .label print_x_coord=$550e {
+  .label print_x_coord=$5510 {
   }
-  .label print_cursor_pos=$5700 {
+  .label print_cursor_pos=$5702 {
   }
-  .label continue_reset_screen=$5c1c
-  .label init_reading=$51b0
-  .label not_add_key_to_screen_str=$5a86
-  .label scan_rows_loop=$52f8
-  .label exit_actions=$52eb {
+  .label continue_reset_screen=$5c1e
+  .label init_reading=$51b2
+  .label not_add_key_to_screen_str=$5a88
+  .label scan_rows_loop=$52fa
+  .label exit_actions=$52ed {
   }
-  .label unblock_because_is_not_printing=$5221 {
+  .label unblock_because_is_not_printing=$5223 {
   }
-  .label cursor_to_left=$529f
-  .label print_y_coord=$5607 {
+  .label cursor_to_left=$52a1
+  .label print_y_coord=$5609 {
   }
-  .label enable_current_cursor=$5cf8 {
+  .label enable_current_cursor=$5cfa {
   }
-  .label check_if_is_delete_key=$5358
-  .label detect_specials_keys_and_set_actions_flags=$532b {
+  .label check_if_is_delete_key=$535a
+  .label detect_specials_keys_and_set_actions_flags=$532d {
   }
-  .label destroy_irq_timer=$5ca4 {
+  .label destroy_irq_timer=$5ca6 {
   }
-  .label insert_end_line_in_screen_str=$5d29 {
+  .label insert_end_line_in_screen_str=$5d2b {
   }
-  .label decrement_index_cursor_index=$5aee {
+  .label decrement_index_cursor_index=$5af0 {
   }
-  .label exit_set_flags=$537c {
+  .label exit_set_flags=$537e {
   }
-  .label read_key=$51ab {
+  .label read_key=$51ad {
   }
-  .label delete_key=$52c9
-  .label inner_loop=$549c
-  .label finish_scan=$5a8b {
+  .label delete_key=$52cb
+  .label inner_loop=$549e
+  .label finish_scan=$5a8d {
   }
 }
 .label TEMP_X_REG=$2953
