@@ -400,7 +400,7 @@ This load the map number 3 . The IN param for this funtion is MAP_NUMBER
 
 # SPRITES
 
-DEMO: 
+DEMO: demos/sprite_lib/sprite_collisions_by_raster_and_change_animation.asm
 
 ## Sprite Position Functions
 
