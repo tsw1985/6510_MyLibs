@@ -21,6 +21,7 @@
     jsr PRINT_LIB.print_text
 }
 
+// Print a string in the screen
 .macro insert_text(y,x,string,color){
 
     jsr PRINT_LIB.clean_location_screen

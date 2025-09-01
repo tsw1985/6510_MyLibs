@@ -21,9 +21,15 @@ init_code:
     // loop:
     //  your code here
     // jmp loop
+    
+    
+       but , we are showing the demos for each library
+    
     */
 
-    //but , we are showing the demos for each library
+    /**************************************************************************/
+    /******************************** DEMOS ***********************************/
+    /**************************************************************************/
 
     /*  PRINT LIB DEMOS */
     //#import "/demos/print_lib/print_single_char.asm"
@@ -44,11 +50,9 @@ init_code:
     /* JOYSTICK DEMO */
     //#import "/demos/joystick_lib/joystick_lib.asm"
     
-    /* 8 SPRITES animations with individual speeds */
-    // #import "/demos/sprite_lib/sprite_8_animations.asm"
-
-    /* SPRITES COLLISIONS */
+    /* SPRITES */
     //#import "/demos/sprite_lib/sprite_collisions.asm"
+    //#import "/demos/sprite_lib/sprite_8_animations.asm"
     //#import "/demos/sprite_lib/sprite_collisions_by_raster.asm"
     //#import "/demos/sprite_lib/sprite_collisions_by_raster_and_change_animation.asm"
 
@@ -56,18 +60,22 @@ init_code:
     //#import "/demos/tiles_lib/tiles.asm"
     #import "/demos/tiles_lib/tiles_load_map.asm"
 
-
     // uncommet in develop time
     wait_until_press_any_key()
-    
-    
 
+
+
+    /**************************************************************************/
+    /**************************    END  DEMOS    ******************************/
+    /**************************************************************************/
+    
 
     // NOT REMOVEEE !!!
     //restore setup
     jsr SYSTEM.restore_system
     jsr PRINT_LIB.clean_screen
+
     //rts // exit to basic
 
 
-//jmp init_code   
+//jmp init_code

@@ -195,8 +195,6 @@ jmp simulate_game_loop
 
 
 
-
-
 /* Function to read the joystick port */
 start_read_joystick:
 
@@ -211,39 +209,38 @@ start_read_joystick:
     /* actions in each joystick position */
 
     lda JOYSTICK_POSITIONS
-    and #JOY_GO_LEFT // #%00000100
+    and #JOY_GO_LEFT 
     beq check_joy_right 
     jsr joy_left
 
     check_joy_right:
         lda JOYSTICK_POSITIONS
-        and #JOY_GO_RIGHT //%00001000  
+        and #JOY_GO_RIGHT
         beq check_joy_up
         jsr joy_right
 
     check_joy_up:
         lda JOYSTICK_POSITIONS
-        and #JOY_GO_UP //%00000001
+        and #JOY_GO_UP
         beq check_joy_down
         jsr joy_up
 
     check_joy_down:
         lda JOYSTICK_POSITIONS
-        and #JOY_GO_DOWN //%00000010
+        and #JOY_GO_DOWN
         beq check_joy_fire
         jsr joy_down
 
     check_joy_fire:
         lda JOYSTICK_POSITIONS
-        and #JOY_GO_FIRE //00010000
+        and #JOY_GO_FIRE
         beq end_read_joystick
         jsr joy_fire
 
     end_read_joystick:
 
-    pull_regs_from_stack()
-    rts
-    //jmp start_read_joystick
+pull_regs_from_stack()
+rts
 
 
 /*
