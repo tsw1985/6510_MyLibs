@@ -95,9 +95,7 @@ print_tile:
     sta SCREEN_CHAR_COLOR
     jsr PRINT_LIB.print_char  // BOTTOM RIGHT PRINTED
 
-
-
-    pull_regs_from_stack()
+pull_regs_from_stack()
 rts
 
 
@@ -170,7 +168,7 @@ pallette "Tail Set" in the program CHARPAD
         inc TILE_COL
         inc TILE_COL
         lda TILE_COL
-        cmp #33 //31
+        cmp #33 // Limit visible cols
         bne next_tail // si no es igual al final, sigo contando
 
         //si es el final, pongo col a 1 y bajo 2 row

@@ -50,11 +50,11 @@ init_code:
     /* SPRITES COLLISIONS */
     //#import "/demos/sprite_lib/sprite_collisions.asm"
     //#import "/demos/sprite_lib/sprite_collisions_by_raster.asm"
-    //#import "/demos/sprite_lib/sprite_collisions_by_raster_and_change_animation.asm"
+    #import "/demos/sprite_lib/sprite_collisions_by_raster_and_change_animation.asm"
 
     /* TILES LIB */
     //#import "/demos/tiles_lib/tiles.asm"
-    #import "/demos/tiles_lib/tiles_load_map.asm"
+    //#import "/demos/tiles_lib/tiles_load_map.asm"
 
 
 

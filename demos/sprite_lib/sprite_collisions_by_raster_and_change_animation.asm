@@ -20,12 +20,18 @@
 
  */
 
+
+ /* Load map #1 */
+lda #1
+sta MAP_NUMBER
+jsr TILES_LIB.load_map
+
 insert_text(1,1,sprites_colls_demo_str,YELLOW)
-insert_text(3,1,sprites_player_y_str,YELLOW)
-insert_text(4,1,sprites_player_x_str,YELLOW)
-insert_text(6,1,sprites_enemy_y_str,YELLOW)
-insert_text(7,1,sprites_enemy_x_str,YELLOW)
-insert_text(8,1,sprites_enemy_n_str,YELLOW)
+insert_text(3,33,sprites_player_y_str,YELLOW)
+insert_text(4,33,sprites_player_x_str,YELLOW)
+insert_text(6,33,sprites_enemy_y_str,YELLOW)
+insert_text(7,33,sprites_enemy_x_str,YELLOW)
+insert_text(8,33,sprites_enemy_n_str,YELLOW)
 
 /* Global */
 sprite_set_extra_colors(GRAY,YELLOW)
@@ -43,14 +49,14 @@ sprite_enable_sprite(7)
 
 /* Setup for sprite 1 PLAYER */
 sprite_load_like_multicolor(0)
-sprite_set_position(0,160,125)
+sprite_set_position(0,145,150)
 sprite_set_color(0,YELLOW)
 sprite_set_frame_to_sprite(0,0) // $00c0 ... $00c1 ... $00c2 ...
 /* Setup for sprite 1 */
 
 /* Setup for sprite 2 ENEMY */
 sprite_load_like_multicolor(1)
-sprite_set_position(1,200,195)
+sprite_set_position(1,105,68)
 sprite_set_color(1,PINK)
 sprite_set_frame_to_sprite(0,1)
 /* Setup for sprite 2 */
@@ -58,7 +64,7 @@ sprite_set_frame_to_sprite(0,1)
 
 /* Setup for sprite 3 ENEMY */
 sprite_load_like_multicolor(2)
-sprite_set_position(2,125,145)
+sprite_set_position(2,106,230)
 sprite_set_color(2,RED)
 sprite_set_frame_to_sprite(0,2)
 /* Setup for sprite 3 */
@@ -66,7 +72,7 @@ sprite_set_frame_to_sprite(0,2)
 
 /* Setup for sprite 4 ENEMY */
 sprite_load_like_multicolor(3)
-sprite_set_position(3,120,225)
+sprite_set_position(3,108,154)
 sprite_set_color(3,GREEN)
 sprite_set_frame_to_sprite(0,3)
 /* Setup for sprite 4 */
@@ -74,7 +80,7 @@ sprite_set_frame_to_sprite(0,3)
 
 /* Setup for sprite 5 ENEMY */
 sprite_load_like_multicolor(4)
-sprite_set_position(4,150,62)
+sprite_set_position(4,170,62)
 sprite_set_color(4,ORANGE)
 sprite_set_frame_to_sprite(0,4)
 /* Setup for sprite 5 */
@@ -82,22 +88,22 @@ sprite_set_frame_to_sprite(0,4)
 
 /* Setup for sprite 6 ENEMY */
 sprite_load_like_multicolor(5)
-sprite_set_position(5,215,90)
-sprite_set_color(5,BROWN)
+sprite_set_position(5,200,215)
+sprite_set_color(5,LIGHT_BLUE)
 sprite_set_frame_to_sprite(0,5)
 /* Setup for sprite 6 */
 
 
 /* Setup for sprite 7 ENEMY */
 sprite_load_like_multicolor(6)
-sprite_set_position(6,227,40)
+sprite_set_position(6,165,230)
 sprite_set_color(6,GRAY)
 sprite_set_frame_to_sprite(0,6)
 /* Setup for sprite 7 */
 
 /* Setup for sprite 8 ENEMY */
 sprite_load_like_multicolor(7)
-sprite_set_position(7,170,200)
+sprite_set_position(7,200,120)
 sprite_set_color(7,BLACK)
 sprite_set_frame_to_sprite(0,7)
 /* Setup for sprite 7 */
@@ -156,7 +162,7 @@ simulate_game_loop:
         sta sum_res_1
         sta sum_res_2
         sta sum_res_3
-        print_calculation_result(3,15,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+        print_calculation_result(3,37,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
         
         /*  X */
         lda SPRITE_CENTER_PLAYER_POS_X
@@ -165,7 +171,7 @@ simulate_game_loop:
         sta sum_res_1
         sta sum_res_2
         sta sum_res_3
-        print_calculation_result(4,15,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+        print_calculation_result(4,37,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
 
         /************************************************
@@ -179,7 +185,7 @@ simulate_game_loop:
             sta sum_res_1
             sta sum_res_2
             sta sum_res_3
-            print_calculation_result(6,9,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+            print_calculation_result(6,37,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
 
             lda SPRITE_TEMP_X
@@ -188,7 +194,7 @@ simulate_game_loop:
             sta sum_res_1
             sta sum_res_2
             sta sum_res_3
-            print_calculation_result(7,9,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+            print_calculation_result(7,37,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
 
 
@@ -199,7 +205,7 @@ simulate_game_loop:
         sta sum_res_1
         sta sum_res_2
         sta sum_res_3
-        print_calculation_result(8,14,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+        print_calculation_result(8,37,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
 
 jmp simulate_game_loop
