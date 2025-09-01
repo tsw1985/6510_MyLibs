@@ -183,47 +183,47 @@ sum_1_2 ,sum_1_3 for the first number and sum_2_0 , sum_2_1, sum_2_2 ,sum_2_3.
 The OUT params are the same. You can use them in the function 
 "print_calculation_result"
 
-Example: 65765 + 89927 = 155692
+    Example: 65765 + 89927 = 155692
 
-//load N1
-lda #$0C
-sta sum_num1_0
+    //load N1
+    lda #$0C
+    sta sum_num1_0
 
-lda #$00
-sta sum_num1_1
+    lda #$00
+    sta sum_num1_1
 
-lda #$00
-sta sum_num1_2
+    lda #$00
+    sta sum_num1_2
 
-lda #$00
-sta sum_num1_3
+    lda #$00
+    sta sum_num1_3
 
-//load N2
-lda #$00
-sta sum_num2_0
+    //load N2
+    lda #$00
+    sta sum_num2_0
 
-lda #$00
-sta sum_num2_1
+    lda #$00
+    sta sum_num2_1
 
-lda #$00
-sta sum_num2_2
+    lda #$00
+    sta sum_num2_2
 
-lda #$00
-sta sum_num2_3
+    lda #$00
+    sta sum_num2_3
 
-//set to 0 result
-lda #0
-sta sum_res_0
-sta sum_res_1
-sta sum_res_2
-sta sum_res_3
+    //set to 0 result
+    lda #0
+    sta sum_res_0
+    sta sum_res_1
+    sta sum_res_2
+    sta sum_res_3
 
-//calculate sum
-jsr MATH_LIB.sum_32
-print_calculation_result(19,5,YELLOW,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+    //calculate sum
+    jsr MATH_LIB.sum_32
+    print_calculation_result(19,5,YELLOW,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
 
-DEMO: /demos/math_lib/sum_32_bits.asm
+    DEMO: /demos/math_lib/sum_32_bits.asm
 
 
 ### SUB Function
@@ -237,40 +237,40 @@ The OUT params are the same. You can use them in the function
 "print_calculation_result"
 
 
-// N1
-lda #$47
-sta sub_num1_0
-lda #$5F
-sta sub_num1_1
-lda #$01
-sta sub_num1_2
-lda #$00
-sta sub_num1_3
+    // N1
+    lda #$47
+    sta sub_num1_0
+    lda #$5F
+    sta sub_num1_1
+    lda #$01
+    sta sub_num1_2
+    lda #$00
+    sta sub_num1_3
 
-// N2
-lda #$E5
-sta sub_num2_0
-lda #$00
-sta sub_num2_1
-lda #$01
-sta sub_num2_2
-lda #$00
-sta sub_num2_3
+    // N2
+    lda #$E5
+    sta sub_num2_0
+    lda #$00
+    sta sub_num2_1
+    lda #$01
+    sta sub_num2_2
+    lda #$00
+    sta sub_num2_3
 
-// Result
-lda #0
-sta sub_res_0
-sta sub_res_1
-sta sub_res_2
-sta sub_res_3
+    // Result
+    lda #0
+    sta sub_res_0
+    sta sub_res_1
+    sta sub_res_2
+    sta sub_res_3
 
-// Do the calculation
-jsr MATH_LIB.sub_32
+    // Do the calculation
+    jsr MATH_LIB.sub_32
 
-//Print the result
-print_calculation_result(10,3,YELLOW,sub_res_0,sub_res_1,sub_res_2,sub_res_3)
+    //Print the result
+    print_calculation_result(10,3,YELLOW,sub_res_0,sub_res_1,sub_res_2,sub_res_3)
 
-DEMO: /demos/math_lib/sub_32_bits.asm
+    DEMO: /demos/math_lib/sub_32_bits.asm
 
 
 ### MUL function
@@ -284,94 +284,94 @@ The OUT params are the same. You can use them in the function
 "print_calculation_result"
 
 
-// do the multiplication
-// 9547 x 13 = 122941
+    // do the multiplication
+    // 9547 x 13 = 122941
 
-lda #$f1
-sta mul_num1_0 
-lda #$24
-sta mul_num1_1
-lda #$00
-sta mul_num1_2
-lda #$00
-sta mul_num1_3
+    lda #$f1
+    sta mul_num1_0 
+    lda #$24
+    sta mul_num1_1
+    lda #$00
+    sta mul_num1_2
+    lda #$00
+    sta mul_num1_3
 
-lda #$0D
-sta mul_num2_0
-lda #$00
-sta mul_num2_1
-lda #$00
-sta mul_num2_2
-lda #$00
-sta mul_num2_3
+    lda #$0D
+    sta mul_num2_0
+    lda #$00
+    sta mul_num2_1
+    lda #$00
+    sta mul_num2_2
+    lda #$00
+    sta mul_num2_3
 
-//set to 0 result
-lda #$00
-sta mul_res_0
-sta mul_res_1
-sta mul_res_2
-sta mul_res_3
+    //set to 0 result
+    lda #$00
+    sta mul_res_0
+    sta mul_res_1
+    sta mul_res_2
+    sta mul_res_3
 
-jsr MATH_LIB.multiplication_32    
+    jsr MATH_LIB.multiplication_32    
 
-// Print the result of calculation on screen
-print_calculation_result(17,5,PINK,mul_res_0,
-                                   mul_res_1,
-                                   mul_res_2,
-                                   mul_res_3)
+    // Print the result of calculation on screen
+    print_calculation_result(17,5,PINK,mul_res_0,
+                                    mul_res_1,
+                                    mul_res_2,
+                                    mul_res_3)
 
-DEMO: /demos/math_lib/multiplication_32_bits.asm
+    DEMO: /demos/math_lib/multiplication_32_bits.asm
 
 
 ### DIV function
 
 
 
-This is a function to mul 2 numbers. Each byte of this number must be store in
-each byte , starting from the LOW byte. The IN params are mul_num1_0,mul_num1_1,
-mul_num1_2 , mul_num1_3 for the first mul_num2_0,mul_num2_1,mul_num2_2, 
-mul_num2_3
+    This is a function to mul 2 numbers. Each byte of this number must be store in
+    each byte , starting from the LOW byte. The IN params are mul_num1_0,mul_num1_1,
+    mul_num1_2 , mul_num1_3 for the first mul_num2_0,mul_num2_1,mul_num2_2, 
+    mul_num2_3
 
-The OUT params are the same. You can use them in the function 
-"print_calculation_result"
+    The OUT params are the same. You can use them in the function 
+    "print_calculation_result"
 
-DEMO: /demos/math_lib/division_32_bits.asm
+    DEMO: /demos/math_lib/division_32_bits.asm
 
 
-//Low byte to hight byte
-// 158272 / 81 = 1953
-//N1
-lda #$40
-sta div_num1_0 
-lda #$6A
-sta div_num1_1
-lda #$02
-sta div_num1_2
-lda #$00
-sta div_num1_3
+    //Low byte to hight byte
+    // 158272 / 81 = 1953
+    //N1
+    lda #$40
+    sta div_num1_0 
+    lda #$6A
+    sta div_num1_1
+    lda #$02
+    sta div_num1_2
+    lda #$00
+    sta div_num1_3
 
-//N2
-lda #$51
-sta div_num2_0
-lda #$00
-sta div_num2_1
-lda #$00
-sta div_num2_2
-lda #$00
-sta div_num2_3
+    //N2
+    lda #$51
+    sta div_num2_0
+    lda #$00
+    sta div_num2_1
+    lda #$00
+    sta div_num2_2
+    lda #$00
+    sta div_num2_3
 
-//Set result to 0
-lda #$00
-sta div_res_0
-sta div_res_1
-sta div_res_2
-sta div_res_3
+    //Set result to 0
+    lda #$00
+    sta div_res_0
+    sta div_res_1
+    sta div_res_2
+    sta div_res_3
 
-//calculate division
-jsr MATH_LIB.division_32
+    //calculate division
+    jsr MATH_LIB.division_32
 
-// Print the result of calculation on screen
-print_calculation_result(17,5,PINK,div_res_0,div_res_1,div_res_2,div_res_3)
+    // Print the result of calculation on screen
+    print_calculation_result(17,5,PINK,div_res_0,div_res_1,div_res_2,div_res_3)
 
 
 
@@ -381,11 +381,11 @@ print_calculation_result(17,5,PINK,div_res_0,div_res_1,div_res_2,div_res_3)
 One we have configured our .bin file with the map data , only you need call this
 macro : 
 
-print_map(map_number)
+    print_map(map_number)
 
 Example : 
 
-print_map(3)
+    print_map(3)
 
 This function will render a map in our screen. This is a macro , but , if we
 need change our map programatically:
@@ -400,91 +400,101 @@ This load the map number 3 . The IN param for this funtion is MAP_NUMBER
 
 # SPRITES
 
+DEMO: 
+
 ## Sprite Position Functions
 
 ### Decrement X Position Functions
 These functions decrement the X position for each sprite (0 to 7). Each function decrements both the internal coordinate table and the hardware sprite register.
 
-- sprite_0_decrement_x - Decrements X position for sprite 0
-- sprite_1_decrement_x - Decrements X position for sprite 1
-- sprite_2_decrement_x - Decrements X position for sprite 2
-- sprite_3_decrement_x - Decrements X position for sprite 3
-- sprite_4_decrement_x - Decrements X position for sprite 4
-- sprite_5_decrement_x - Decrements X position for sprite 5
-- sprite_6_decrement_x - Decrements X position for sprite 6
-- sprite_7_decrement_x - Decrements X position for sprite 7
+    - jsr sprite_0_decrement_x - Decrements X position for sprite 0
+    - jsr sprite_1_decrement_x - Decrements X position for sprite 1
+    - jsr sprite_2_decrement_x - Decrements X position for sprite 2
+    - jsr sprite_3_decrement_x - Decrements X position for sprite 3
+    - jsr sprite_4_decrement_x - Decrements X position for sprite 4
+    - jsr sprite_5_decrement_x - Decrements X position for sprite 5
+    - jsr sprite_6_decrement_x - Decrements X position for sprite 6
+    - jsr sprite_7_decrement_x - Decrements X position for sprite 7
 
 ### Increment X Position Functions
 These functions increment the X position for each sprite (0 to 7). Each function increments both the internal coordinate table and the hardware sprite register.
 
-- sprite_0_increment_x - Increments X position for sprite 0
-- sprite_1_increment_x - Increments X position for sprite 1
-- sprite_2_increment_x - Increments X position for sprite 2
-- sprite_3_increment_x - Increments X position for sprite 3
-- sprite_4_increment_x - Increments X position for sprite 4
-- sprite_5_increment_x - Increments X position for sprite 5
-- sprite_6_increment_x - Increments X position for sprite 6
-- sprite_7_increment_x - Increments X position for sprite 7
+    - jsr sprite_0_increment_x - Increments X position for sprite 0
+    - jsr sprite_1_increment_x - Increments X position for sprite 1
+    - jsr sprite_2_increment_x - Increments X position for sprite 2
+    - jsr sprite_3_increment_x - Increments X position for sprite 3
+    - jsr sprite_4_increment_x - Increments X position for sprite 4
+    - jsr sprite_5_increment_x - Increments X position for sprite 5
+    - jsr sprite_6_increment_x - Increments X position for sprite 6
+    - jsr sprite_7_increment_x - Increments X position for sprite 7
 
 ### Decrement Y Position Functions
+
 These functions decrement the Y position for each sprite (0 to 7). Each function decrements both the internal coordinate table and the hardware sprite register.
 
-- sprite_0_decrement_y - Decrements Y position for sprite 0
-- sprite_1_decrement_y - Decrements Y position for sprite 1
-- sprite_2_decrement_y - Decrements Y position for sprite 2
-- sprite_3_decrement_y - Decrements Y position for sprite 3
-- sprite_4_decrement_y - Decrements Y position for sprite 4
-- sprite_5_decrement_y - Decrements Y position for sprite 5
-- sprite_6_decrement_y - Decrements Y position for sprite 6
-- sprite_7_decrement_y - Decrements Y position for sprite 7
+    - jsr sprite_0_decrement_y - Decrements Y position for sprite 0
+    - jsr sprite_1_decrement_y - Decrements Y position for sprite 1
+    - jsr sprite_2_decrement_y - Decrements Y position for sprite 2
+    - jsr sprite_3_decrement_y - Decrements Y position for sprite 3
+    - jsr sprite_4_decrement_y - Decrements Y position for sprite 4
+    - jsr sprite_5_decrement_y - Decrements Y position for sprite 5
+    - jsr sprite_6_decrement_y - Decrements Y position for sprite 6
+    - jsr sprite_7_decrement_y - Decrements Y position for sprite 7
 
 ### Increment Y Position Functions
+
 These functions increment the Y position for each sprite (0 to 7). Each function increments both the internal coordinate table and the hardware sprite register.
 
-- sprite_0_increment_y - Increments Y position for sprite 0
-- sprite_1_increment_y - Increments Y position for sprite 1
-- sprite_2_increment_y - Increments Y position for sprite 2
-- sprite_3_increment_y - Increments Y position for sprite 3
-- sprite_4_increment_y - Increments Y position for sprite 4
-- sprite_5_increment_y - Increments Y position for sprite 5
-- sprite_6_increment_y - Increments Y position for sprite 6
-- sprite_7_increment_y - Increments Y position for sprite 7
+    - jsr sprite_0_increment_y - Increments Y position for sprite 0
+    - jsr sprite_1_increment_y - Increments Y position for sprite 1
+    - jsr sprite_2_increment_y - Increments Y position for sprite 2
+    - jsr sprite_3_increment_y - Increments Y position for sprite 3
+    - jsr sprite_4_increment_y - Increments Y position for sprite 4
+    - jsr sprite_5_increment_y - Increments Y position for sprite 5
+    - jsr sprite_6_increment_y - Increments Y position for sprite 6
+    - jsr sprite_7_increment_y - Increments Y position for sprite 7
 
 ## Sprite Enable/Disable Functions
 
 ### Enable Sprite Function
-enable_sprite
 
-Input: SPRITE_TO_ENABLE in binary format  
-Each bit set to 1 means sprite to enable.
+    Input: SPRITE_TO_ENABLE in binary format  
+    Each bit set to 1 means sprite to enable.
+
+    jsr enable_sprite
+
 
 ### Disable Sprite Function
-disable_sprite
 
-Input: SPRITE_TO_ENABLE in binary format  
-Each bit set to 0 means sprite to disable.
+    Input: SPRITE_TO_ENABLE in binary format  
+    Each bit set to 0 means sprite to disable.
+
+    jsr disable_sprite
+
 
 ## Sprite Frame Functions
 
 ### Set Frame to Sprite Functions
-These functions set a sprite data pointer (where the sprite picture data is located) to a target sprite.
-
 Input: SPRITE_FRAME_POINTER (address where the sprite draw data is located)  
-Each address: $07f8, $07f9, $07fa... this is the pointer (address) to set which image to load for each sprite.
+Each address: $07f8, $07f9, $07fa... this is the pointer (address) to set 
+which image to load for each sprite.
+These functions set a sprite data pointer (where the sprite picture data is 
+located) to a target sprite.
 
-- set_frame_to_sprite_0 - Sets frame for sprite 0
-- set_frame_to_sprite_1 - Sets frame for sprite 1
-- set_frame_to_sprite_2 - Sets frame for sprite 2
-- set_frame_to_sprite_3 - Sets frame for sprite 3
-- set_frame_to_sprite_4 - Sets frame for sprite 4
-- set_frame_to_sprite_5 - Sets frame for sprite 5
-- set_frame_to_sprite_6 - Sets frame for sprite 6
-- set_frame_to_sprite_7 - Sets frame for sprite 7
+
+    - jsr set_frame_to_sprite_0 - Sets frame for sprite 0
+    - jsr set_frame_to_sprite_1 - Sets frame for sprite 1
+    - jsr set_frame_to_sprite_2 - Sets frame for sprite 2
+    - jsr set_frame_to_sprite_3 - Sets frame for sprite 3
+    - jsr set_frame_to_sprite_4 - Sets frame for sprite 4
+    - jsr set_frame_to_sprite_5 - Sets frame for sprite 5
+    - jsr set_frame_to_sprite_6 - Sets frame for sprite 6
+    - jsr set_frame_to_sprite_7 - Sets frame for sprite 7
 
 ## Sprite Animation Functions
 
 ### Get Current Index Sprite Pad Value Animation
-sprite_get_current_index_sprite_pad_value_animation
+
 
 Gets SPRITE_PAD index in a sprite animation. An animation is a list of bytes. Each byte has a value, this value is an INDEX in the spritepad program palette.
 
@@ -492,17 +502,22 @@ For example, we have a list of frames to play the animation. This animation is a
 
 So, with this function we access to this value in this list. Imagine this like a List.
 
-int[] player_jump = new int[3];
-player_jump[0] = 1  // Frame 1 ...
-player_jump[1] = 2  // Frame 2 ...
-player_jump[2] = 3  // Frame 3 ...
-player_jump[3] = 255
+    int[] player_jump = new int[3];
+    player_jump[0] = 1  // Frame 1 ...
+    player_jump[1] = 2  // Frame 2 ...
+    player_jump[2] = 3  // Frame 3 ...
+    player_jump[3] = 255
 
-Input Parameters:
-- ANIMATION_FRAMES_LIST_LO: Low byte of this animation list
-- ANIMATION_FRAMES_LIST_HI: High byte of this animation list
-- SPRITE_ANIMATION_VALUE_OFFSET: Index position in this list
-- SPRITE_INDEX_COUNTER_RASTER_LOOP
+    
+    Input Parameters:
+    - ANIMATION_FRAMES_LIST_LO: Low byte of this animation list
+    - ANIMATION_FRAMES_LIST_HI: High byte of this animation list
+    - SPRITE_ANIMATION_VALUE_OFFSET: Index position in this list
+    - SPRITE_INDEX_COUNTER_RASTER_LOOP
 
-Output:
-- SPRITE_PAD_INDEX: The value in this list for the given index.
+    Output:
+    
+    - SPRITE_PAD_INDEX: The value in this list for the given index.
+    
+    
+    - jsr sprite_get_current_index_sprite_pad_value_animation
