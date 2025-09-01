@@ -522,3 +522,124 @@ So, with this function we access to this value in this list. Imagine this like a
     
     
     - jsr sprite_get_current_index_sprite_pad_value_animation
+
+## Sprite Macros
+
+### Set Sprite Position
+```
+sprite_set_position(sprite_number, col, row)
+```
+Sets the position of a sprite on screen.
+
+**Parameters:**
+- `sprite_number` - Sprite index (0-7)
+- `col` - Column position (Y coordinate)
+- `row` - Row position (X coordinate)
+
+**Example:**
+```
+sprite_set_position(0, 100, 150)  // Set sprite 0 at position X=150, Y=100
+```
+
+### Set Sprite Extra Colors (Multicolor)
+```
+sprite_set_extra_colors(color_one, color_two)
+```
+Sets the global multicolor palette for all sprites.
+
+**Parameters:**
+- `color_one` - First extra color for multicolor sprites
+- `color_two` - Second extra color for multicolor sprites
+
+**Example:**
+```
+sprite_set_extra_colors(RED, BLUE)
+```
+
+### Set Sprite Color
+```
+sprite_set_color(sprite_number, color)
+```
+Sets the individual color for a specific sprite.
+
+**Parameters:**
+- `sprite_number` - Sprite index (0-7)
+- `color` - Color value
+
+**Example:**
+```
+sprite_set_color(0, GREEN)  // Set sprite 0 color to green
+```
+
+### Enable Multicolor Mode
+```
+sprite_load_like_multicolor(sprite_number)
+```
+Enables multicolor mode for a specific sprite.
+
+**Parameters:**
+- `sprite_number` - Sprite index (0-7)
+
+**Example:**
+```
+sprite_load_like_multicolor(0)  // Enable multicolor mode for sprite 0
+```
+
+### Enable Sprite
+```
+sprite_enable_sprite(sprite_number)
+```
+Shows/enables a specific sprite.
+
+**Parameters:**
+- `sprite_number` - Sprite index (0-7)
+
+**Example:**
+```
+sprite_enable_sprite(0)  // Show sprite 0
+```
+
+### Disable Sprite
+```
+sprite_disable_sprite(sprite_number)
+```
+Hides/disables a specific sprite.
+
+**Parameters:**
+- `sprite_number` - Sprite index (0-7)
+
+**Example:**
+```
+sprite_disable_sprite(0)  // Hide sprite 0
+```
+
+### Set Sprite Frame
+```
+sprite_set_frame_to_sprite(frame_index, sprite_number)
+```
+Sets which sprite frame/image to display for a specific sprite.
+
+**Parameters:**
+- `frame_index` - Frame offset to add to base sprite pointer
+- `sprite_number` - Sprite index (0-7)
+
+**Required Variables:**
+- `SPRITE_INDEX_POINTER` - Base address of sprite data
+
+**Example:**
+```
+lda #$20
+sta SPRITE_INDEX_POINTER
+sprite_set_frame_to_sprite(2, 0)  // Set sprite 0 to frame at address $20 + 2
+```
+
+## Hardware Registers Used
+
+### Color Registers
+- `$D025` - Sprite extra color 1 (multicolor)
+- `$D026` - Sprite extra color 2 (multicolor)
+- `$D027-$D02E` - Individual sprite colors (0-7)
+
+### Control Registers
+- `$D01C` - Sprite multicolor mode register
+- `$D015` - Sprite enable register
