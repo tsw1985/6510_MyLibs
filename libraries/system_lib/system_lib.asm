@@ -2,18 +2,19 @@
 
 SYSTEM:
 {
+
 setup:
 
 	//kernel_status
 	push_regs_to_stack()
-	
+
 	sei // Disable system interrupts
 	lda $0001
 	sta system_status // backup of MAPS_ADDRESS $0001
 
 	/* Disable BASIC to use his free space */
 	disable_basic()
-	
+
 	/* Configure char set and Screen RAM: $0400 */
 	enable_custom_charset()
 
@@ -25,9 +26,8 @@ setup:
 
 	cli // Enable system interrupts
 
-
-	pull_regs_from_stack()
-	rts
+pull_regs_from_stack()
+rts
 
 //go back to the status before change
 //the address 0001 . Without this, when

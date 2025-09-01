@@ -1,0 +1,5 @@
+.label JOY_GO_LEFT   = %00000100
+.label JOY_GO_RIGHT  = %00001000  
+.label JOY_GO_UP     = %00000001
+.label JOY_GO_DOWN   = %00000010
+.label JOY_GO_FIRE   = %00010000

@@ -13,3 +13,10 @@
     jsr TILES_LIB.print_tile
 
 }
+
+/* MACRO TO LOAD A MAP IN SCREEN */
+.macro print_map(map_number){
+    lda #map_number
+    sta MAP_NUMBER
+    jsr TILES_LIB.load_map
+}

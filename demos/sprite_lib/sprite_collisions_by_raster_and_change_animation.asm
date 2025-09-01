@@ -20,11 +20,8 @@
 
  */
 
-
- /* Load map #1 */
-lda #1
-sta MAP_NUMBER
-jsr TILES_LIB.load_map
+/* Load map #0 */
+print_map(0)
 
 insert_text(1,1,sprites_colls_demo_str,YELLOW)
 insert_text(3,33,sprites_player_y_str,YELLOW)
@@ -109,20 +106,8 @@ sprite_set_frame_to_sprite(0,7)
 /* Setup for sprite 7 */
 
 
-
 /*  RASTER INTERRUPT */
 jsr setupRasterInterrupt
-
-ldx #0
-
-init_all_sprites_animations:
-    lda sprite_animations_list_LO_table,x
-    sta sprite_current_anim_LO_table,x
-    lda sprite_animations_list_HI_table,x
-    sta sprite_current_anim_HI_table,x
-    inx
-    cpx #8
-    bne init_all_sprites_animations
 
 
 /* MAIN LOOP.
@@ -133,79 +118,77 @@ init_all_sprites_animations:
 simulate_game_loop:
 
         
-        /* INIT SPRITE 0 animations.   
-        
-            This is the sprite_0 - animation 0. This is launched in the 
-            raster interrupt
+    /* INIT SPRITE 0 animations.   
+        This is the sprite_0 - animation 0. This is launched in the 
+        raster interrupt
+    */
+    
+    ldx #0
 
-        */
-        
-        ldx #0
+    lda sprite_animations_list_LO_table,x
+    sta sprite_current_anim_LO_table,x
 
-        lda sprite_animations_list_LO_table,x
-        sta sprite_current_anim_LO_table,x
+    lda sprite_animations_list_HI_table,x
+    sta sprite_current_anim_HI_table,x
 
-        lda sprite_animations_list_HI_table,x
-        sta sprite_current_anim_HI_table,x
-
-        jsr start_read_joystick
+    jsr start_read_joystick
 
 
-        /*****************************
-            PRINT PLAYER COORDS
-        ******************************/
+    /*****************************
+        PRINT PLAYER COORDS
+    ******************************/
 
-        /*   Y   */
-        lda SPRITE_CENTER_PLAYER_POS_Y
+    /*   Y   */
+    lda SPRITE_CENTER_PLAYER_POS_Y
+    sta sum_res_0
+    lda #0
+    sta sum_res_1
+    sta sum_res_2
+    sta sum_res_3
+    print_calculation_result(3,37,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+    
+    /*  X */
+    lda SPRITE_CENTER_PLAYER_POS_X
+    sta sum_res_0
+    lda #0
+    sta sum_res_1
+    sta sum_res_2
+    sta sum_res_3
+    print_calculation_result(4,37,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+
+
+    /************************************************
+        PRINT ENEMY COORDS VALUES IN COLLISION
+    **************************************************/
+
+    print_enemy_values:
+        lda SPRITE_TEMP_Y
         sta sum_res_0
         lda #0
         sta sum_res_1
         sta sum_res_2
         sta sum_res_3
-        print_calculation_result(3,37,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
-        
-        /*  X */
-        lda SPRITE_CENTER_PLAYER_POS_X
+        print_calculation_result(6,37,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+
+
+        lda SPRITE_TEMP_X
         sta sum_res_0
         lda #0
         sta sum_res_1
         sta sum_res_2
         sta sum_res_3
-        print_calculation_result(4,37,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
-
-
-        /************************************************
-            PRINT ENEMY COORDS VALUES IN COLLISION
-        **************************************************/
-
-        print_enemy_values:
-            lda SPRITE_TEMP_Y
-            sta sum_res_0
-            lda #0
-            sta sum_res_1
-            sta sum_res_2
-            sta sum_res_3
-            print_calculation_result(6,37,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
-
-
-            lda SPRITE_TEMP_X
-            sta sum_res_0
-            lda #0
-            sta sum_res_1
-            sta sum_res_2
-            sta sum_res_3
-            print_calculation_result(7,37,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+        print_calculation_result(7,37,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
 
 
-        /* Print with sprite is in collision */
-        lda SPRITE_IN_COLLISION
-        sta sum_res_0
-        lda #0
-        sta sum_res_1
-        sta sum_res_2
-        sta sum_res_3
-        print_calculation_result(8,37,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
+    /* Print with sprite is in collision */
+    lda SPRITE_IN_COLLISION
+    sta sum_res_0
+    lda #0
+    sta sum_res_1
+    sta sum_res_2
+    sta sum_res_3
+    print_calculation_result(8,37,WHITE,sum_res_0,sum_res_1,sum_res_2,sum_res_3)
 
 
 jmp simulate_game_loop
@@ -228,31 +211,31 @@ start_read_joystick:
     /* actions in each joystick position */
 
     lda JOYSTICK_POSITIONS
-    and #%00000100
+    and #JOY_GO_LEFT // #%00000100
     beq check_joy_right 
     jsr joy_left
 
     check_joy_right:
         lda JOYSTICK_POSITIONS
-        and #%00001000  
+        and #JOY_GO_RIGHT //%00001000  
         beq check_joy_up
         jsr joy_right
 
     check_joy_up:
         lda JOYSTICK_POSITIONS
-        and #%00000001
+        and #JOY_GO_UP //%00000001
         beq check_joy_down
         jsr joy_up
 
     check_joy_down:
         lda JOYSTICK_POSITIONS
-        and #%00000010
+        and #JOY_GO_DOWN //%00000010
         beq check_joy_fire
         jsr joy_down
 
     check_joy_fire:
         lda JOYSTICK_POSITIONS
-        and #%00010000
+        and #JOY_GO_FIRE //00010000
         beq end_read_joystick
         jsr joy_fire
 
@@ -286,7 +269,10 @@ joy_right:
 
 joy_fire:
     push_regs_to_stack()
-    insert_text(2,10,joystick_fire_str,WHITE)
+    //insert_text(2,10,joystick_fire_str,WHITE)
+    inc MAP_NUMBER
+    jsr TILES_LIB.load_map
+
     pull_regs_from_stack()
     rts
 

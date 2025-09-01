@@ -54,8 +54,9 @@ print_tile:
     /* PRINT TOP RIGHT */
     lda TILE_TEMP_X
     tax // get again the value of X
-
+    
     inc SCREEN_COL_POS // increment COL ( y ) to right
+
     // Get first char of tile and
     inx // Move to second char of TAIL
     stx TILE_TEMP_X //save again X
@@ -99,16 +100,14 @@ pull_regs_from_stack()
 rts
 
 
-/* Load a MAP in screen.
+/* 
+
+    Load a MAP in screen.
 
     IN :
         MAP_NUMBER
- */
-load_map:
-push_regs_to_stack()
 
-
-/* Access to the MAP. Each Map its a section of 16 tiles width x 12 tiles height
+Access to the MAP. Each Map its a section of 16 tiles width x 12 tiles height
 Each Tile is 4 bytes , so each map is (16x12) x 4 bytes each tile = 192 bytes.
 
 To access to the first byte of each MAP , we have the table "map_table.asm",
@@ -127,6 +126,9 @@ screen 192 tiles. Each value here is the TILE to print, it is the index in the
 pallette "Tail Set" in the program CHARPAD
 */
 
+load_map:
+
+    push_regs_to_stack()
 
    // The first step we must to do is get the LO and HI byte of start address of
    // this room.
@@ -157,21 +159,32 @@ pallette "Tail Set" in the program CHARPAD
       next_tail:  
 
         // Access to TAIL VALUE
-        lda (ZERO_PAGE_MAP_LO),y
-        sta TILE_NUMBER  // Number of tile
+        lda (ZERO_PAGE_MAP_LO),y //In this position + Y offset we are retrieving
+                                 //the tail to print   
+
+        sta TILE_NUMBER  // Set the number of tile to print
         jsr TILES_LIB.print_tile
 
         iny
-        cpy #192 // ( 16 x 12 = 192 )
-        beq exit_load_map
+        cpy #192 // ( 16 x 12 = 192 ) // Check a MAP section, it is 192 bytes
+                                        // of length
 
-        inc TILE_COL
-        inc TILE_COL
-        lda TILE_COL
-        cmp #33 // Limit visible cols
-        bne next_tail // si no es igual al final, sigo contando
+        beq exit_load_map // If we reach 192 bytes, this means we retrieve all
+                          // map data
 
-        //si es el final, pongo col a 1 y bajo 2 row
+        inc TILE_COL  // Increment 2 chars to right
+        inc TILE_COL  // Increment 2 chars to right
+        lda TILE_COL  // Save the value incremented in column
+        cmp #33   // Limit visible cols. The max length to move a sprite to 
+                  // right , is 255, then we have a "free space" on the right
+                  // of screen. We are using this space for data gaming
+
+
+        bne next_tail // if the current col printing is not 33 we keep printing
+
+        // When is the final printable col, we must reset the TILE_COL to 1 
+        // and increments 2 columns. Remember: each tile is 2 chars, so you need
+        // move 2 chars down
 
         lda #1                //if is the COL LIMIT , set to 1 again the col
         sta TILE_COL

@@ -47,9 +47,10 @@ BasicUpstart2(main)
 *=MAP_ADDRESS "Maps"
 //.import binary "/maps/allmaps.bin"
 //.import binary "/maps/singlemap.bin"
-.import binary "/maps/rooms.bin"
-
+//.import binary "/maps/rooms.bin"
+.import binary "/maps/demomap.bin"
 
 
 //*=MAPS_COLOR_ADDRESS "Maps Colors"
 //.import binary "/maps/colormap.bin"
+

@@ -23,3 +23,15 @@
     pla // pull A from Stack
 
 }
+
+/*
+    Wait a key from user
+*/
+.macro wait_until_press_any_key(){
+
+    wait_key:
+    jsr $ffe4
+    cmp #0
+    beq wait_key
+
+}
