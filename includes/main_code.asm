@@ -39,7 +39,7 @@ init_code:
     //#import "/demos/math_lib/division_32_bits.asm"
     //#import "/demos/math_lib/multiplication_32_bits.asm"
     //#import "/demos/math_lib/sum_32_bits.asm"
-    //#import "/demos/math_lib/sub_32_bits.asm"
+    #import "/demos/math_lib/sub_32_bits.asm"
 
     /* Simple concurrence system ( Round Robbin) */
     //#import "/demos/concurrent/concurrent.asm"
@@ -58,7 +58,7 @@ init_code:
 
     /* TILES LIB */
     //#import "/demos/tiles_lib/tiles.asm"
-    #import "/demos/tiles_lib/tiles_load_map.asm"
+    //#import "/demos/tiles_lib/tiles_load_map.asm"
 
     // uncommet in develop time
     wait_until_press_any_key()

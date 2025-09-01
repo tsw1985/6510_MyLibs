@@ -1,4 +1,5 @@
-// 65765 - 89927 = 155692
+//  89927 - 65765 = 24162
+
 // N1
 lda #$47
 sta sub_num1_0
@@ -30,6 +31,6 @@ sta sub_res_3
 jsr MATH_LIB.sub_32
 
 //Print the result
-print_calculation_result(10,3,PINK,sub_res_0,sub_res_1,sub_res_2,sub_res_3)
+print_calculation_result(10,3,YELLOW,sub_res_0,sub_res_1,sub_res_2,sub_res_3)
 insert_text(6,0,sub_result_str,YELLOW)
 

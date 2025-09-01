@@ -11,7 +11,7 @@ Memory Map
 Default-segment:
   $0801-$080c Basic
   $080e-$080d Basic End
-  $0810-$082b Main Code
+  $0810-$093b Main Code
   $2000-$20ff Tileset
   $2400-$24ff Charset Attrib
   $2500-$2a7a Variables

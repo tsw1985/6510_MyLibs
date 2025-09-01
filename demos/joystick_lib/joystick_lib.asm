@@ -2,6 +2,7 @@ start_read_joystick:
 
     /* clean screen */
     jsr PRINT_LIB.clean_screen
+    insert_text(1,1,sprites_colls_demo_str,YELLOW)
 
     /* read joystick positions */
     jsr JOYSTICK_LIB.read_joystick
@@ -14,25 +15,25 @@ start_read_joystick:
 
     check_joy_right:
         lda JOYSTICK_POSITIONS
-        and #%00001000  
+        and #JOY_GO_RIGHT
         beq check_joy_up
         jsr joy_right
 
     check_joy_up:
         lda JOYSTICK_POSITIONS
-        and #%00000001
+        and #JOY_GO_UP
         beq check_joy_down
         jsr joy_up
 
     check_joy_down:
         lda JOYSTICK_POSITIONS
-        and #%00000010
+        and #JOY_GO_DOWN
         beq check_joy_fire
         jsr joy_down
 
     check_joy_fire:
         lda JOYSTICK_POSITIONS
-        and #%00010000
+        and #JOY_GO_FIRE
         beq end_read_joystick
         jsr joy_fire
 
