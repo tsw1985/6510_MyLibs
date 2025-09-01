@@ -377,6 +377,7 @@ The OUT params are the same. You can use them in the function
 
 ## Tiles functions ( load maps in screen )    
 
+DEMO: /demos/tiles_lib/tiles_load_map.asm
 
 One we have configured our .bin file with the map data , only you need call this
 macro : 
