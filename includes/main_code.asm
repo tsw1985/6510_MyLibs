@@ -39,7 +39,7 @@ init_code:
     //#import "/demos/math_lib/division_32_bits.asm"
     //#import "/demos/math_lib/multiplication_32_bits.asm"
     //#import "/demos/math_lib/sum_32_bits.asm"
-    #import "/demos/math_lib/sub_32_bits.asm"
+    //#import "/demos/math_lib/sub_32_bits.asm"
 
     /* Simple concurrence system ( Round Robbin) */
     //#import "/demos/concurrent/concurrent.asm"
@@ -54,7 +54,7 @@ init_code:
     //#import "/demos/sprite_lib/sprite_collisions.asm"
     //#import "/demos/sprite_lib/sprite_8_animations.asm"
     //#import "/demos/sprite_lib/sprite_collisions_by_raster.asm"
-    //#import "/demos/sprite_lib/sprite_collisions_by_raster_and_change_animation.asm"
+    #import "/demos/sprite_lib/sprite_collisions_by_raster_and_change_animation.asm"
 
     /* TILES LIB */
     //#import "/demos/tiles_lib/tiles.asm"
