@@ -396,3 +396,113 @@ need change our map programatically:
 
 
 This load the map number 3 . The IN param for this funtion is MAP_NUMBER    
+
+
+# SPRITES
+
+## Sprite Position Functions
+
+### Decrement X Position Functions
+These functions decrement the X position for each sprite (0 to 7). Each function decrements both the internal coordinate table and the hardware sprite register.
+
+- sprite_0_decrement_x - Decrements X position for sprite 0
+- sprite_1_decrement_x - Decrements X position for sprite 1
+- sprite_2_decrement_x - Decrements X position for sprite 2
+- sprite_3_decrement_x - Decrements X position for sprite 3
+- sprite_4_decrement_x - Decrements X position for sprite 4
+- sprite_5_decrement_x - Decrements X position for sprite 5
+- sprite_6_decrement_x - Decrements X position for sprite 6
+- sprite_7_decrement_x - Decrements X position for sprite 7
+
+### Increment X Position Functions
+These functions increment the X position for each sprite (0 to 7). Each function increments both the internal coordinate table and the hardware sprite register.
+
+- sprite_0_increment_x - Increments X position for sprite 0
+- sprite_1_increment_x - Increments X position for sprite 1
+- sprite_2_increment_x - Increments X position for sprite 2
+- sprite_3_increment_x - Increments X position for sprite 3
+- sprite_4_increment_x - Increments X position for sprite 4
+- sprite_5_increment_x - Increments X position for sprite 5
+- sprite_6_increment_x - Increments X position for sprite 6
+- sprite_7_increment_x - Increments X position for sprite 7
+
+### Decrement Y Position Functions
+These functions decrement the Y position for each sprite (0 to 7). Each function decrements both the internal coordinate table and the hardware sprite register.
+
+- sprite_0_decrement_y - Decrements Y position for sprite 0
+- sprite_1_decrement_y - Decrements Y position for sprite 1
+- sprite_2_decrement_y - Decrements Y position for sprite 2
+- sprite_3_decrement_y - Decrements Y position for sprite 3
+- sprite_4_decrement_y - Decrements Y position for sprite 4
+- sprite_5_decrement_y - Decrements Y position for sprite 5
+- sprite_6_decrement_y - Decrements Y position for sprite 6
+- sprite_7_decrement_y - Decrements Y position for sprite 7
+
+### Increment Y Position Functions
+These functions increment the Y position for each sprite (0 to 7). Each function increments both the internal coordinate table and the hardware sprite register.
+
+- sprite_0_increment_y - Increments Y position for sprite 0
+- sprite_1_increment_y - Increments Y position for sprite 1
+- sprite_2_increment_y - Increments Y position for sprite 2
+- sprite_3_increment_y - Increments Y position for sprite 3
+- sprite_4_increment_y - Increments Y position for sprite 4
+- sprite_5_increment_y - Increments Y position for sprite 5
+- sprite_6_increment_y - Increments Y position for sprite 6
+- sprite_7_increment_y - Increments Y position for sprite 7
+
+## Sprite Enable/Disable Functions
+
+### Enable Sprite Function
+enable_sprite
+
+Input: SPRITE_TO_ENABLE in binary format  
+Each bit set to 1 means sprite to enable.
+
+### Disable Sprite Function
+disable_sprite
+
+Input: SPRITE_TO_ENABLE in binary format  
+Each bit set to 0 means sprite to disable.
+
+## Sprite Frame Functions
+
+### Set Frame to Sprite Functions
+These functions set a sprite data pointer (where the sprite picture data is located) to a target sprite.
+
+Input: SPRITE_FRAME_POINTER (address where the sprite draw data is located)  
+Each address: $07f8, $07f9, $07fa... this is the pointer (address) to set which image to load for each sprite.
+
+- set_frame_to_sprite_0 - Sets frame for sprite 0
+- set_frame_to_sprite_1 - Sets frame for sprite 1
+- set_frame_to_sprite_2 - Sets frame for sprite 2
+- set_frame_to_sprite_3 - Sets frame for sprite 3
+- set_frame_to_sprite_4 - Sets frame for sprite 4
+- set_frame_to_sprite_5 - Sets frame for sprite 5
+- set_frame_to_sprite_6 - Sets frame for sprite 6
+- set_frame_to_sprite_7 - Sets frame for sprite 7
+
+## Sprite Animation Functions
+
+### Get Current Index Sprite Pad Value Animation
+sprite_get_current_index_sprite_pad_value_animation
+
+Gets SPRITE_PAD index in a sprite animation. An animation is a list of bytes. Each byte has a value, this value is an INDEX in the spritepad program palette.
+
+For example, we have a list of frames to play the animation. This animation is a player jump. This sequence are the frames: 0-1-2-3 and the value 255 means "end of animation".
+
+So, with this function we access to this value in this list. Imagine this like a List.
+
+int[] player_jump = new int[3];
+player_jump[0] = 1  // Frame 1 ...
+player_jump[1] = 2  // Frame 2 ...
+player_jump[2] = 3  // Frame 3 ...
+player_jump[3] = 255
+
+Input Parameters:
+- ANIMATION_FRAMES_LIST_LO: Low byte of this animation list
+- ANIMATION_FRAMES_LIST_HI: High byte of this animation list
+- SPRITE_ANIMATION_VALUE_OFFSET: Index position in this list
+- SPRITE_INDEX_COUNTER_RASTER_LOOP
+
+Output:
+- SPRITE_PAD_INDEX: The value in this list for the given index.
