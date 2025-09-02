@@ -379,7 +379,7 @@ The OUT params are the same. You can use them in the function
 
 DEMO: /demos/tiles_lib/tiles_load_map.asm
 
-One we have configured our .bin file with the map data , only you need call this
+Once we had configured our .bin file with the map data , only you need call this
 macro : 
 
     print_map(map_number)
@@ -633,13 +633,3 @@ sta SPRITE_INDEX_POINTER
 sprite_set_frame_to_sprite(2, 0)  // Set sprite 0 to frame at address $20 + 2
 ```
 
-## Hardware Registers Used
-
-### Color Registers
-- `$D025` - Sprite extra color 1 (multicolor)
-- `$D026` - Sprite extra color 2 (multicolor)
-- `$D027-$D02E` - Individual sprite colors (0-7)
-
-### Control Registers
-- `$D01C` - Sprite multicolor mode register
-- `$D015` - Sprite enable register
