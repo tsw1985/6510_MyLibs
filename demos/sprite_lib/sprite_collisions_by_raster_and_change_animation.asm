@@ -20,6 +20,7 @@
 
  */
 
+
 /* Load map #0 */
 print_map(0)
 
@@ -651,6 +652,11 @@ push_regs_to_stack()
         // change color ,save temp values and allow print
         inc $d020 // change border color
 
+        /* Play sound */
+        jsr SOUND_LIB.play_sound
+
+
+
         /* Save positions of enemy Y-X for print them in the main loop */
         lda SPRITE_ENEMY_Y
         sta SPRITE_TEMP_Y
@@ -734,6 +740,7 @@ push_regs_to_stack()
         //lda #LIGHT_BLUE
         //sta $d020
 
+        jsr SOUND_LIB.stop_sound
 
         // Solo restaurar si estaba en colisión
         lda sprites_state_table,x

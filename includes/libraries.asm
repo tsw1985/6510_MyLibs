@@ -8,3 +8,4 @@
 #import "/libraries/joystick_lib/joystick_lib.asm"
 #import "/libraries/sprite_lib/sprite_lib.asm"
 #import "/libraries/tiles_lib/tiles_lib.asm"
+#import "/libraries/sound_lib/sound_lib.asm"
