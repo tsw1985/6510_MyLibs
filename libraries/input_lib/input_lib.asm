@@ -124,7 +124,7 @@ read_key:
     /***********************/
     /* Only for  debugging */
     /***********************/
-    jsr print_debug_params
+    //jsr print_debug_params
   
     
     skip_print_string_and_cursor:

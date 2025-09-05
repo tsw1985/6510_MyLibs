@@ -1,8 +1,23 @@
 /* Load map #0 */
 
-insert_text(1,1,welcome_str,YELLOW)
+insert_text(1,1,welcome_demo_str,YELLOW)     // Msg bienvenida en 1,1
+insert_text(3,1,write_name_str,GREEN)        // Msg pedir nombre en 3,1   
+    
+input_text(3,19,10,YELLOW)                   // Input nombre en 3,19 y 10 length 
+    
+insert_text(5,1,welcome_user_str,WHITE)      // mostramos bienvenida a nombre 
+insert_text(5,6,KEYS_TO_SCREEN_STR,GRAY)     // mostramos texto escrito
+    
+insert_text(7,1,start_game_str,GREEN)        // pulsa una tecla para continuar
+input_text(8,1,1,BLACK)                      // pulsamos 
+    
+enable_custom_charset()                      // actualizo a mi charset
+enable_screen_multicolor()                   // activamos pantalla a multicolor
+    
+jsr PRINT_LIB.clean_screen                   // limpiamos la pantalla
+    
+print_map(0)                                 // cargamos el map 0
 
-print_map(0)
 
 /* Enable sprites */
 sprite_enable_sprite(0)
@@ -11,7 +26,7 @@ sprite_enable_sprite(0)
 sprite_load_like_multicolor(0)
 sprite_set_position(0,100,100)
 sprite_set_color(0,LIGHT_BLUE)
-sprite_set_frame_to_sprite(1,0) 
+sprite_set_frame_to_sprite(0,0) 
 /* Setup for sprite 0 */
 
 

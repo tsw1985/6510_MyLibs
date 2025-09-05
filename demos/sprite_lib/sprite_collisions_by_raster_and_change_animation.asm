@@ -102,7 +102,7 @@ sprite_set_frame_to_sprite(0,6)
 /* Setup for sprite 8 ENEMY */
 sprite_load_like_multicolor(7)
 sprite_set_position(7,200,120)
-sprite_set_color(7,BLACK)
+sprite_set_color(7,ORANGE)
 sprite_set_frame_to_sprite(0,7)
 /* Setup for sprite 7 */
 
@@ -266,12 +266,8 @@ joy_right:
     rts
 
 joy_fire:
-    push_regs_to_stack()
-    //insert_text(2,10,joystick_fire_str,WHITE)
-    inc MAP_NUMBER
-    jsr TILES_LIB.load_map
-
-    pull_regs_from_stack()
+    //inc MAP_NUMBER
+    //jsr TILES_LIB.load_map
     rts
 
 sleep_sprite:

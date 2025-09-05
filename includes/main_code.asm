@@ -54,7 +54,7 @@ init_code:
     //#import "/demos/sprite_lib/sprite_collisions.asm"
     //#import "/demos/sprite_lib/sprite_8_animations.asm"
     //#import "/demos/sprite_lib/sprite_collisions_by_raster.asm"
-    // #import "/demos/sprite_lib/sprite_collisions_by_raster_and_change_animation.asm"
+    //#import "/demos/sprite_lib/sprite_collisions_by_raster_and_change_animation.asm"
 
     /* TILES LIB */
     //#import "/demos/tiles_lib/tiles.asm"
@@ -62,14 +62,10 @@ init_code:
 
 
     // DEMO CGR final:
-    #import "/demos/sprite_lib/demo_crg.asm"
+    //#import "/demos/sprite_lib/sprite_collisions_by_raster_and_change_animation.asm"
+    #import "/demos/sprite_lib/demo_cgr.asm"
 
-
-
-
-
-
-
+    // END DEMO CGR final:
 
     // uncommet in develop time
     wait_until_press_any_key()
