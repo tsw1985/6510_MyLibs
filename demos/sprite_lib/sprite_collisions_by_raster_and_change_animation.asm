@@ -22,7 +22,7 @@
 
 
 /* Load map #0 */
-print_map(0)
+//print_map(0)
 
 insert_text(1,1,sprites_colls_demo_str,YELLOW)
 insert_text(3,33,sprites_player_y_str,YELLOW)
