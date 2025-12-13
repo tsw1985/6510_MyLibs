@@ -272,4 +272,69 @@ print_move_modules_in_table_to_number_to_print_str:
 
     rts
 
+
+
+/* Get char from memory video 
+
+    IN : SCREEN_ROW_POS ( X position)
+         SCREEN_COL_POS ( Y position)
+
+    OUT: CURRENT_CHAR_IN_SCREEN
+
+*/
+get_char_value_from_video_memory:
+push_regs_to_stack()
+
+    /* Set char in row - col */
+    ldx SCREEN_ROW_POS
+    lda Row_LO,x                 // example: $5020 => $20
+    sta ZERO_PAGE_ROW_LOW_BYTE   // save $20
+    lda Row_HI,x                 // example: $5020 => $50
+    sta ZERO_PAGE_ROW_HIGHT_BYTE // save $50
+
+
+    ldy SCREEN_COL_POS             // col = 15 
+    lda (ZERO_PAGE_ROW_LOW_BYTE),y // $2005  ($0520) , 15(f) = $052F .
+    sta CURRENT_CHAR_IN_SCREEN
+                                    
+
+
+pull_regs_from_stack()
+rts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }    
