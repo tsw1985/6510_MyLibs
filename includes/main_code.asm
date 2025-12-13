@@ -45,7 +45,7 @@ init_code:
     //#import "/demos/concurrent/concurrent.asm"
 
     /* KEYBOARD DEMOS */
-    #import "/demos/input_lib/input_lib.asm"
+    //#import "/demos/input_lib/input_lib.asm"
 
     /* JOYSTICK DEMO */
     //#import "/demos/joystick_lib/joystick_lib.asm"
@@ -54,7 +54,7 @@ init_code:
     //#import "/demos/sprite_lib/sprite_collisions.asm"
     //#import "/demos/sprite_lib/sprite_8_animations.asm"
     //#import "/demos/sprite_lib/sprite_collisions_by_raster.asm"
-     #import "/demos/sprite_lib/sprite_collisions_by_raster_and_change_animation.asm"
+    #import "/demos/sprite_lib/sprite_collisions_by_raster_and_change_animation.asm"
 
     /* TILES LIB */
     //#import "/demos/tiles_lib/tiles.asm"
@@ -63,12 +63,6 @@ init_code:
 
     // DEMO CGR final:
     //#import "/demos/sprite_lib/demo_crg.asm"
-
-
-
-
-
-
 
 
     // uncommet in develop time

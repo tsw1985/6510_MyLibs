@@ -16,13 +16,13 @@ setup:
 	disable_basic()
 
 	/* Configure char set and Screen RAM: $0400 */
-	//enable_custom_charset()
+	enable_custom_charset()
 
 	/* Enable Screen like multicolor */
-	//enable_screen_multicolor()
+	enable_screen_multicolor()
 
 	/* SET DEFAULT COLORS */
-	//set_default_screen_colors()
+	set_default_screen_colors()
 
 	cli // Enable system interrupts
 
